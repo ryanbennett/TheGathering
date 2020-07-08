@@ -69,5 +69,30 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteerevent);
         }
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VolunteerEvent VolunteerEvent = service.GetEventById((int)id);
+            if (VolunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+            return View(VolunteerEvent);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,StaringShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEvent VolunteerEvent)
+        {
+            if (ModelState.IsValid)
+            {
+                service.SaveEdits(VolunteerEvent);
+                return RedirectToAction("Index");
+            }
+            return View(VolunteerEvent);
+        }
     }
 }

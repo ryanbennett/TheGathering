@@ -18,22 +18,22 @@ namespace TheGathering.Web.Services
         {
             return repository.GetAllEvents();
         }
-        public void CreateEvent(VolunteerEvent Event)
-        {
-            repository.CreateEvent(Event);
-        }
         public VolunteerEvent GetEventById(int id)
         {
             return repository.GetEventById(id);
         }
-        public void AddEvent(VolunteerEvent toAdd)
-        {
-            repository.AddEvent(toAdd);
-        }
 
+        public void SaveEdits(VolunteerEvent Event)
+        {
+            repository.SaveEdits(Event);
+        }
         public void DeleteEvent(VolunteerEvent Event)
         {
             repository.DeleteEvent(Event);
+        }
+        public void AddEvent(VolunteerEvent toAdd)
+        {
+            repository.AddEvent(toAdd);
         }
     }
 }

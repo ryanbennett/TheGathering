@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TheGathering.Web.Models;
@@ -18,12 +19,6 @@ namespace TheGathering.Web.Repositories
         {
             return dbContext.VolunteerEvents.ToList();
         }
-
-        public void CreateEvent(VolunteerEvent Event)
-        {
-            dbContext.VolunteerEvents.Add(Event);
-            dbContext.SaveChanges();
-        }
         public void DeleteEvent(VolunteerEvent Event)
         {
             dbContext.VolunteerEvents.Remove(Event);
@@ -33,7 +28,12 @@ namespace TheGathering.Web.Repositories
         public VolunteerEvent GetEventById(int id)
         {
             return dbContext.VolunteerEvents.Find(id);
+        }
 
+        public void SaveEdits(VolunteerEvent toSave)
+        {
+            dbContext.Entry(toSave).State = EntityState.Modified;
+            dbContext.SaveChanges();
         }
         public void AddEvent(VolunteerEvent toAdd)
         {

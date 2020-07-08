@@ -274,6 +274,7 @@
     <Content Include="Views\VolunteerEvent\Index.cshtml" />
     <Content Include="Views\VolunteerEvent\Delete.cshtml" />
     <Content Include="Views\VolunteerEvent\Details.cshtml" />
+    <Content Include="Views\VolunteerEvent\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
