@@ -13,7 +13,7 @@ namespace TheGathering.Web.Controllers
         // GET: VolunteerEvent
         public ActionResult Index()
         {
-            return View(service.GetAllBarrels());
+            return View(service.GetAllEvents());
         }
         public ActionResult Create()
         {

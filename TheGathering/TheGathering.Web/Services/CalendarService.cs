@@ -14,6 +14,10 @@ namespace TheGathering.Web.Services
         {
             repository = new CalendarRepository();
         }
+        public List<VolunteerEvent> GetAllEvents()
+        {
+            return repository.GetAllEvents();
+        }
         public void CreateEvent(VolunteerEvent Event)
         {
             repository.CreateEvent(Event);

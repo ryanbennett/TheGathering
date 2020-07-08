@@ -13,6 +13,12 @@ namespace TheGathering.Web.Repositories
         {
             dbContext = new ApplicationDbContext();
         }
+
+        public List<VolunteerEvent> GetAllEvents()
+        {
+            return dbContext.VolunteerEvents.ToList();
+        }
+
         public void CreateEvent(VolunteerEvent Event)
         {
             dbContext.VolunteerEvents.Add(Event);
