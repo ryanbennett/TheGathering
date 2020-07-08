@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
+
 namespace TheGathering.Web.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -20,6 +21,7 @@ namespace TheGathering.Web.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<VolunteerEvent> VolunteerEvents { get; set; }
         public DbSet<MealSite> MealSites { get; set; }
 
         public ApplicationDbContext()
