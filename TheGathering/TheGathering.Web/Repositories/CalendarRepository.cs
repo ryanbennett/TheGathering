@@ -24,5 +24,10 @@ namespace TheGathering.Web.Repositories
             dbContext.VolunteerEvents.Add(Event);
             dbContext.SaveChanges();
         }
+        public VolunteerEvent GetEventById(int id)
+        {
+            return dbContext.VolunteerEvents.Find(id);
+
+        }
     }
 }

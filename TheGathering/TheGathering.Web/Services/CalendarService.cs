@@ -22,5 +22,9 @@ namespace TheGathering.Web.Services
         {
             repository.CreateEvent(Event);
         }
+        public VolunteerEvent GetEventById(int id)
+        {
+            return repository.GetEventById(id);
+        }
     }
 }

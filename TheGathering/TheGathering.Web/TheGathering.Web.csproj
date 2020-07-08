@@ -272,6 +272,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\VolunteerEvent\Create.cshtml" />
     <Content Include="Views\VolunteerEvent\Index.cshtml" />
+    <Content Include="Views\VolunteerEvent\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
