@@ -33,5 +33,8 @@ namespace TheGathering.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Volunteer> Volunteers { get; set; }
+
     }
 }
