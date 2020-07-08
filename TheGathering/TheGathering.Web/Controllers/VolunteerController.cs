@@ -14,7 +14,14 @@ namespace TheGathering.Web.Controllers
         VolunteerService _service = new VolunteerService();
         public ActionResult Index()
         {
-            return View();
+            var model = _service.GetAllVolunteers();
+
+            if (model == null)
+            {
+                model = new List<Volunteer>();
+            }
+
+            return View(model);
         }
         public ActionResult Create()
         {
@@ -34,16 +41,5 @@ namespace TheGathering.Web.Controllers
             
         }
 
-        public ActionResult List()
-        {
-            var model = _service.GetAllVolunteers();
-
-            if (model == null)
-            {
-                model = new List<Volunteer>();
-            }
-
-            return View(model);
-        }
     }
 }
