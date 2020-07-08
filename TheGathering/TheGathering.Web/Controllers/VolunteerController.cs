@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
@@ -31,7 +32,38 @@ namespace TheGathering.Web.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-            
+
+        }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Volunteer volunteer = _service.GetById(id);
+            if (volunteer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(volunteer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Volunteer volunteer)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.Edit(volunteer);
+                return RedirectToAction("Index");
+            }
+            return View(volunteer);
         }
     }
 }

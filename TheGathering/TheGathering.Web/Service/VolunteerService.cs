@@ -14,5 +14,9 @@ namespace TheGathering.Web.Service
         {
             _repository.Create(volunteer);
         }
+        public void Edit(Volunteer volunteer)
+        {
+            _repository.Edit(volunteer);
+        }
     }
 }
