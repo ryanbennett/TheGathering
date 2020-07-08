@@ -200,6 +200,10 @@
     <Compile Include="Migrations\202007081840343_MealSites.Designer.cs">
       <DependentUpon>202007081840343_MealSites.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007081858283_volunteeremptymigration.cs" />
+    <Compile Include="Migrations\202007081858283_volunteeremptymigration.Designer.cs">
+      <DependentUpon>202007081858283_volunteeremptymigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -341,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007081840343_MealSites.resx">
       <DependentUpon>202007081840343_MealSites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007081858283_volunteeremptymigration.resx">
+      <DependentUpon>202007081858283_volunteeremptymigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
