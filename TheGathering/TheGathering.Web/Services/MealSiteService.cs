@@ -31,6 +31,11 @@ namespace TheGathering.Web.Services
             mealSiteRepository.DeleteMealSite(mealSite);
         }
 
+        public void DeleteMealSite(int mealSiteID)
+        {
+            mealSiteRepository.DeleteMealSite(GetMealSiteById(mealSiteID));
+        }
+
         public MealSite GetMealSiteById(int id)
         {
             return mealSiteRepository.GetMealSiteById(id);

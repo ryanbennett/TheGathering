@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
 
@@ -16,13 +17,27 @@ namespace TheGathering.Web.Controllers
         // GET: MealSite
         public ActionResult Index()
         {
-            return View();
+            return View(mealSiteService.GetAllMealSites());
         }
 
         //These need to updated, these are placeholders
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View();
+            return View(mealSiteService.GetMealSiteById(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include =
+            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
+            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+        {
+            if (ModelState.IsValid)
+            {
+                mealSiteService.UpdateMealSite(mealSite);
+                return RedirectToAction("Index");
+            }
+            return View(mealSite);
         }
 
         public ActionResult Create()
@@ -32,7 +47,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = 
+        public ActionResult Create([Bind(Include =
             ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
             "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
         {
@@ -45,9 +60,28 @@ namespace TheGathering.Web.Controllers
             return View(mealSite);
         }
 
-        public ActionResult Delete()
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var mealSite = mealSiteService.GetMealSiteById((int)id);
+
+            if (mealSite == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(mealSite);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            mealSiteService.DeleteMealSite(id);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details(int? id)
