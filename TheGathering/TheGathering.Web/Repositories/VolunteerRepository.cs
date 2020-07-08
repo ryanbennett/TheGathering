@@ -15,6 +15,12 @@ namespace TheGathering.Web.Repositories
             _context.SaveChanges();
         }
 
+        public Volunteer GetById(int id)
+        {
+            var result = _context.Volunteers.SingleOrDefault(volunteer => volunteer.Id == id);
+            return result;
+        }
+
         public List<Volunteer> GetAllVolunteers()
         {
             return _context.Volunteers.ToList();

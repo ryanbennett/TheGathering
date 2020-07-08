@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Mapping;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using TheGathering.Web.Models;
 using TheGathering.Web.Repositories;
 
@@ -13,6 +15,11 @@ namespace TheGathering.Web.Service
         public void Create(Volunteer volunteer)
         {
             _repository.Create(volunteer);
+        }
+        public Volunteer GetById(int id)
+        {
+
+            return _repository.GetById(id);
         }
 
         public List<Volunteer> GetAllVolunteers()

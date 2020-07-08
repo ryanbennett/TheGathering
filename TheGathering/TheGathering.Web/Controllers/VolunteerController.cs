@@ -39,8 +39,14 @@ namespace TheGathering.Web.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-            
+
         }
+
+        public ActionResult Details(int id)
+        {
+            return View(_service.GetById(id));
+        }
+
         
         public ActionResult Delete(int? id)
         {
@@ -64,4 +70,5 @@ namespace TheGathering.Web.Controllers
         }
 
     }
+
 }
