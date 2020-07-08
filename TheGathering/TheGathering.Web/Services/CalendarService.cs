@@ -26,5 +26,9 @@ namespace TheGathering.Web.Services
         {
             return repository.GetEventById(id);
         }
+        public void AddEvent(VolunteerEvent toAdd)
+        {
+            repository.AddEvent(toAdd);
+        }
     }
 }

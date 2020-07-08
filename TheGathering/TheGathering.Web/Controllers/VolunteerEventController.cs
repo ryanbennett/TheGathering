@@ -22,6 +22,19 @@ namespace TheGathering.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(VolunteerEvent volunteerevent)
+        {
+            if (ModelState.IsValid)
+            {
+                service.AddEvent(volunteerevent);
+                return RedirectToAction("Index");
+            }
+
+            return View(volunteerevent);
+        }
         public ActionResult Details(int? id)
         {
             if (id == null)
