@@ -1,0 +1,61 @@
+﻿@model TheGathering.Web.Models.VolunteerEvent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4 class="minorHeading"> ID = @Html.DisplayFor(model => model.Id)</h4>
+
+    <hr />
+    <div class="generalTextBlack">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.StartingShiftTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartingShiftTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndingShiftTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndingShiftTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OpenSlots)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OpenSlots)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+
+        </dl>
+        </div>
+    </div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

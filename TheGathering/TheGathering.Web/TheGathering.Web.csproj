@@ -171,6 +171,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
+    <Compile Include="Controllers\VolunteerEventController.cs" />
+    <Compile Include="Controllers\MealSiteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,15 +184,38 @@
     <Compile Include="Migrations\202007071946377_volunteers.Designer.cs">
       <DependentUpon>202007071946377_volunteers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007071952338_VolunteerEvent.cs" />
+    <Compile Include="Migrations\202007071952338_VolunteerEvent.Designer.cs">
+      <DependentUpon>202007071952338_VolunteerEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007081437023_VolunteerEvent1.cs" />
+    <Compile Include="Migrations\202007081437023_VolunteerEvent1.Designer.cs">
+      <DependentUpon>202007081437023_VolunteerEvent1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007072002344_MealSite.cs" />
+    <Compile Include="Migrations\202007072002344_MealSite.Designer.cs">
+      <DependentUpon>202007072002344_MealSite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007081840343_MealSites.cs" />
+    <Compile Include="Migrations\202007081840343_MealSites.Designer.cs">
+      <DependentUpon>202007081840343_MealSites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Volunteer.cs" />
+    <Compile Include="Models\VolunteerEvent.cs" />
+    <Compile Include="Models\MealSite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\VolunteerRepository.cs" />
     <Compile Include="Service\VolunteerService.cs" />
+    <Compile Include="Repositories\CalendarRepository.cs" />
+    <Compile Include="Services\CalendarService.cs" />
+    <Compile Include="Repositories\MealSiteRepository.cs" />
+    <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -271,6 +296,16 @@
     <Content Include="Views\Volunteer\Index.cshtml" />
     <Content Include="Views\Volunteer\Delete.cshtml" />
     <Content Include="Views\Volunteer\Edit.cshtml" />
+    <Content Include="Views\VolunteerEvent\Create.cshtml" />
+    <Content Include="Views\VolunteerEvent\Index.cshtml" />
+    <Content Include="Views\VolunteerEvent\Delete.cshtml" />
+    <Content Include="Views\VolunteerEvent\Details.cshtml" />
+    <Content Include="Views\VolunteerEvent\Edit.cshtml" />
+    <Content Include="Views\MealSite\Create.cshtml" />
+    <Content Include="Views\MealSite\Details.cshtml" />
+    <Content Include="Views\MealSite\Edit.cshtml" />
+    <Content Include="Views\MealSite\Index.cshtml" />
+    <Content Include="Views\MealSite\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -294,6 +329,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007071946377_volunteers.resx">
       <DependentUpon>202007071946377_volunteers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007071952338_VolunteerEvent.resx">
+      <DependentUpon>202007071952338_VolunteerEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007081437023_VolunteerEvent1.resx">
+      <DependentUpon>202007081437023_VolunteerEvent1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007072002344_MealSite.resx">
+      <DependentUpon>202007072002344_MealSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007081840343_MealSites.resx">
+      <DependentUpon>202007081840343_MealSites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
