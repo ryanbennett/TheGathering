@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
@@ -49,9 +50,18 @@ namespace TheGathering.Web.Controllers
             return View();
         }
 
-        public ActionResult Details()
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MealSite mealSite = mealSiteService.GetMealSiteById((int)id);
+            if (mealSite == null)
+            {
+                return HttpNotFound();
+            }
+            return View(mealSite);
         }
     }
 }
