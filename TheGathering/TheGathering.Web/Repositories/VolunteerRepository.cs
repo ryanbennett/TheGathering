@@ -22,5 +22,16 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public Volunteer GetVolunteerById(int id)
+        {
+            return _context.Volunteers.Find(id);
+        }
+
+        public void DeleteVolunteer(Volunteer volunteer)
+        {
+            _context.Volunteers.Remove(volunteer);
+            _context.SaveChanges();
+        }
     }
 }

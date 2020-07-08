@@ -65,5 +65,26 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteer);
         }
+        
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            if (volunteer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(volunteer);
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            _service.DeleteVolunteer(volunteer);
+            return RedirectToAction("Index");
+        }
     }
 }
