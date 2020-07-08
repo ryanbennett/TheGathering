@@ -5,8 +5,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
-using TheGathering.Web.Services;
 using TheGathering.Web.Models;
+using TheGathering.Web.Services;
 
 namespace TheGathering.Web.Controllers
 {
@@ -21,6 +21,27 @@ namespace TheGathering.Web.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VolunteerEvent toBeDeleted = service.GetEventbyID((int)id);
+            if (toBeDeleted == null)
+            {
+                return HttpNotFound();
+            }
+            return View(toBeDeleted);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            VolunteerEvent toBeDeleted = service.GetEventbyID(id);
+            service.DeleteEvent(toBeDeleted);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
