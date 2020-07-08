@@ -80,12 +80,20 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(VolunteerEvent);
+            var viewModel = new VolunteerEventViewModel();
+            viewModel.Id = VolunteerEvent.Id;
+            viewModel.StartingShiftTime = VolunteerEvent.StartingShiftTime.ToString("yyyy-MM-ddThh:mm");
+            viewModel.EndingShiftTime = VolunteerEvent.EndingShiftTime.ToString("yyyy-MM-ddThh:mm");
+            viewModel.OpenSlots = VolunteerEvent.OpenSlots;
+            viewModel.Location = VolunteerEvent.Location;
+            viewModel.Description = VolunteerEvent.Description;
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StaringShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEvent VolunteerEvent)
+        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEvent VolunteerEvent)
         {
             if (ModelState.IsValid)
             {

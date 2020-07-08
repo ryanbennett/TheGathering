@@ -195,6 +195,7 @@
     <Compile Include="Repositories\CalendarRepository.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
