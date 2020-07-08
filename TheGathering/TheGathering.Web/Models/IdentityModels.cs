@@ -22,6 +22,8 @@ namespace TheGathering.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<VolunteerEvent> VolunteerEvents { get; set; }
+        public DbSet<MealSite> MealSites { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
