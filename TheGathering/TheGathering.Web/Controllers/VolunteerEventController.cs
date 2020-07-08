@@ -28,7 +28,7 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VolunteerEvent toBeDeleted = service.GetEventbyID((int)id);
+            VolunteerEvent toBeDeleted = service.GetEventById((int)id);
             if (toBeDeleted == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            VolunteerEvent toBeDeleted = service.GetEventbyID(id);
+            VolunteerEvent toBeDeleted = service.GetEventById(id);
             service.DeleteEvent(toBeDeleted);
             return RedirectToAction("Index");
         }

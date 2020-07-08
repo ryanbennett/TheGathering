@@ -30,9 +30,10 @@ namespace TheGathering.Web.Services
         {
             repository.AddEvent(toAdd);
         }
-        }
-            repository.DeleteEvent(Event);
-        {
+
         public void DeleteEvent(VolunteerEvent Event)
+        {
+            repository.DeleteEvent(Event);
+        }
     }
 }
