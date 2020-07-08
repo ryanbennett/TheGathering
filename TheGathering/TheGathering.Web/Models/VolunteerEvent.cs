@@ -9,7 +9,7 @@ namespace TheGathering.Web.Models
     {
         public int Id { get; set; }
         public DateTime StartingShiftTime { get; set; }
-        public TimeSpan ShiftSpan { get; set; }
+        public DateTime EndingShiftTime { get; set; }
         public int OpenSlots { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
