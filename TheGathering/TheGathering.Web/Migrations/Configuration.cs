@@ -9,7 +9,7 @@ namespace TheGathering.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(TheGathering.Web.Models.ApplicationDbContext context)
