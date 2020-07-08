@@ -46,7 +46,7 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Volunteer volunteer = _service.GetById(id);
+            Volunteer volunteer = _service.GetVolunteerById((int)id);
             if (volunteer == null)
             {
                 return HttpNotFound();
