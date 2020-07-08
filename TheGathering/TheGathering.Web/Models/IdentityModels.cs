@@ -30,6 +30,7 @@ namespace TheGathering.Web.Models
             return new ApplicationDbContext();
         }
 
-        DbSet<Volunteer> Volunteers { get; set; }
+        public DbSet<Volunteer> Volunteers { get; set; }
+
     }
 }
