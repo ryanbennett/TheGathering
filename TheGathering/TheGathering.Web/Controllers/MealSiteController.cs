@@ -16,7 +16,7 @@ namespace TheGathering.Web.Controllers
         // GET: MealSite
         public ActionResult Index()
         {
-            return View();
+            return View(mealSiteService.GetAllMealSites());
         }
 
         //These need to updated, these are placeholders
@@ -59,9 +59,28 @@ namespace TheGathering.Web.Controllers
             return View(mealSite);
         }
 
-        public ActionResult Delete()
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var mealSite = mealSiteService.GetMealSiteById((int)id);
+
+            if (mealSite == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(mealSite);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            mealSiteService.DeleteMealSite(id);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details()
