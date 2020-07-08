@@ -14,5 +14,16 @@ namespace TheGathering.Web.Repositories
             var newVolunteer = _context.Volunteers.Add(volunteer);
             _context.SaveChanges();
         }
+
+        public Volunteer GetVolunteerById(int id)
+        {
+            return _context.Volunteers.Find(id);
+        }
+
+        public void DeleteVolunteer(Volunteer volunteer)
+        {
+            _context.Volunteers.Remove(volunteer);
+            _context.SaveChanges();
+        }
     }
 }

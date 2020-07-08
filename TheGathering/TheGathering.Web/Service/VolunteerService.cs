@@ -14,5 +14,15 @@ namespace TheGathering.Web.Service
         {
             _repository.Create(volunteer);
         }
+
+        public Volunteer GetVolunteerById(int id)
+        {
+            return _repository.GetVolunteerById(id);
+        }
+
+        public void DeleteVolunteer(Volunteer volunteer)
+        {
+            _repository.DeleteVolunteer(volunteer);
+        }
     }
 }
