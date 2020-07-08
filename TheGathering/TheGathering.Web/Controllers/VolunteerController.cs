@@ -15,7 +15,14 @@ namespace TheGathering.Web.Controllers
         VolunteerService _service = new VolunteerService();
         public ActionResult Index()
         {
-            return View();
+            var model = _service.GetAllVolunteers();
+
+            if (model == null)
+            {
+                model = new List<Volunteer>();
+            }
+
+            return View(model);
         }
         public ActionResult Create()
         {
@@ -65,6 +72,12 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteer);
         }
+
+        public ActionResult Details(int id)
+        {
+            return View(_service.GetById(id));
+        }
+
         
         public ActionResult Delete(int? id)
         {
@@ -86,5 +99,7 @@ namespace TheGathering.Web.Controllers
             _service.DeleteVolunteer(volunteer);
             return RedirectToAction("Index");
         }
+
     }
+
 }
