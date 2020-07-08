@@ -12,7 +12,7 @@ namespace TheGathering.Web.Models
         [Display(Name = "Starting Shift Time")]
         public DateTime StartingShiftTime { get; set; }
 
-        [Display(Name = "Starting Shift Time")]
+        [Display(Name = "Ending Shift Time")]
         public DateTime EndingShiftTime { get; set; }
         [Display(Name = "Open Slots")]
         public int OpenSlots { get; set; }
