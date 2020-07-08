@@ -14,5 +14,10 @@ namespace TheGathering.Web.Service
         {
             _repository.Create(volunteer);
         }
+
+        public List<Volunteer> GetAllVolunteers()
+        {
+            return _repository.GetAllVolunteers();
+        }
     }
 }

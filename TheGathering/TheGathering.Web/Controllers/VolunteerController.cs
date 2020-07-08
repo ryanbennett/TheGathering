@@ -33,5 +33,17 @@ namespace TheGathering.Web.Controllers
             return View();
             
         }
+
+        public ActionResult List()
+        {
+            var model = _service.GetAllVolunteers();
+
+            if (model == null)
+            {
+                model = new List<Volunteer>();
+            }
+
+            return View(model);
+        }
     }
 }
