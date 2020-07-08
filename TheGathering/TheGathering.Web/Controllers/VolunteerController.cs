@@ -42,11 +42,7 @@ namespace TheGathering.Web.Controllers
 
         }
 
-        public ActionResult Edit()
-        {
-            return View();
-        }
-
+       
         public ActionResult Edit(int? id)
         {
             if (id == null)
