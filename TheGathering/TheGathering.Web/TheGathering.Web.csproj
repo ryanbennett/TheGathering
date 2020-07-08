@@ -251,6 +251,7 @@
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Google Maps\GMaps.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
