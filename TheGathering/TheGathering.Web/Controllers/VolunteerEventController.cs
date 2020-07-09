@@ -110,7 +110,6 @@ namespace TheGathering.Web.Controllers
 
         public JsonResult GetEvents()
         {
-
             var events = service.GetAllEvents();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

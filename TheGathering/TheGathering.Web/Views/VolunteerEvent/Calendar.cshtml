@@ -36,10 +36,12 @@
                 success: function (data) {
                     $.each(data, function (i, v) {
                         events.push({
-                            title: v.Subject,
+                            id: v.Id,
+                            start: moment(v.StartingShiftTime),
+                            end: moment(v.EndingShiftTime),
                             description: v.Description,
-                            start: moment(v.Start),
-                            end: v.End != null ? moment(v.End) : null,
+                            location: v.Location,
+                            openslots: v.OpenSlots,
                             color: v.ThemeColor,
                             allDay: v.IsFullDay
                         });
@@ -67,13 +69,15 @@
                     eventColor: '#378006',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
-                        $('#myModal #eventTitle').text(calEvent.title);
+                        $('#myModal #eventTitle').text("Volunteer Event "+calEvent.id);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>Start: </b>' + calEvent.start.format("DD-MMM-YYYY hh:mm a")));
                         if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                            $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("DD-MMM-YYYY hh:mm a")));
                         }
-                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
+                        $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
+                        $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
