@@ -20,6 +20,11 @@ namespace TheGathering.Web.Controllers
             return View(mealSiteService.GetAllMealSites());
         }
 
+        public ActionResult MultiMapTest()
+        {
+            return View();
+        }
+
         //These need to updated, these are placeholders
         public ActionResult Edit(int id)
         {
