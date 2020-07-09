@@ -112,7 +112,6 @@ fieldset[disabled] .btn-default.active {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   background-repeat: repeat-x;
-  border-color: #245580;
 }
 .btn-primary:hover,
 .btn-primary:focus {
@@ -186,7 +185,7 @@ fieldset[disabled] .btn-success.active {
   background-color: #419641;
   background-image: none;
 }
-.btn-info {
+.btn-secondary {
   background-image: -webkit-linear-gradient(top, #5bc0de 0%, #2aabd2 100%);
   background-image: -o-linear-gradient(top, #5bc0de 0%, #2aabd2 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#5bc0de), to(#2aabd2));
