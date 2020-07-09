@@ -52,6 +52,7 @@ textarea {
 
     .navbar-collapse.collapse {
         display: none !important;
+        
     }
 
     .navbar-nav {
@@ -71,4 +72,6 @@ textarea {
     .collapse.in {
         display: block !important;
     }
+    
 }
+
