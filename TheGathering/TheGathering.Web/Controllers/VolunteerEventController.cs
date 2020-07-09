@@ -102,5 +102,17 @@ namespace TheGathering.Web.Controllers
             }
             return View(VolunteerEvent);
         }
+
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
+        public JsonResult GetEvents()
+        {
+
+            var events = service.GetAllEvents();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }
