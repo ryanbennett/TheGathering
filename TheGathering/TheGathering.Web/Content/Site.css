@@ -152,7 +152,6 @@ textarea {
     text-transform: uppercase;
 }
 
-<<<<<<< Updated upstream
 .btn-primary{
 background-color:#434345;
 padding: 10px;
@@ -222,11 +221,6 @@ padding: 10px;
     
 }
 
-=======
-.body-back-color {
-    /*style guide gold */
-    /*background-color: #B89252;*/
-
 .navigation {
     font-family: Arial;
     font-size: 11px;
@@ -291,13 +285,13 @@ padding: 10px;
         border-bottom: 2px solid #B0D0B9;
     }
 
+.body-back-color {
+    /*style guide gold */
+    /*background-color: #B89252;*/
     /*original yellow*/
     background-color: #FAF6EB;
-
     /*accent purple*/
     /*background-color: #750049;*/
-
     /*accent green*/
     /*background-color: #B0D0B9;*/
 }
->>>>>>> Stashed changes
