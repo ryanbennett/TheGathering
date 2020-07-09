@@ -24,6 +24,133 @@ textarea {
     max-width: 280px;
 }
 
+.dates {
+    font-family: Baskerville;
+    color: #B9B0A5;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.baskervilleMediumItalics {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.baskervilleMediumSemiBold {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.baskervilleLargeNormal {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: xx-large;
+    font-weight: 400;
+}
+
+.baskervilleLargeSemiBold {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+.leftNavBar {
+    font-family: Sofia Pro, sans-serif;
+    color: #B9B0A5;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.leftNavBar :hover {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: medium;
+    font-weight: 400;
+}
+.Navbar {
+    font-family: Sofia Pro, sans-serif;
+    color: #B0D0B9;
+    font-size: medium;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.MajorHeadingSemiBold {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: xx-large;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.MinorHeadingSemiBold {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: x-large;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.MajorHeadingNormal {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: xx-large;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.MinorHeadingNormal {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: x-large;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.BodyTextMediumNormal {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 400;
+}
+
+.Links {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.MainButtons {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.SecondaryButtons {
+    font-family: Baskerville;
+    color: #B0D0B9;
+    font-size: medium;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.FooterText {
+    font-family: Sofia Pro, sans-sarif;
+    color: #434345;
+    font-size: medium;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
 .btn-primary{
 background-color:#434345;
 padding: 10px;
