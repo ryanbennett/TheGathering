@@ -6,9 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
 <body>
+
+    <!--
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -29,6 +32,85 @@
             </div>
         </div>
     </div>
+
+    -->
+
+    <div class="navbar navbar-default">
+
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#"><img src="put logo here"></a>
+
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+
+        </div>
+
+        <div class="collapse navbar-collapse navbar-responsive-collapse" float: right;>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">About Us<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Mission Statement</a></li>
+                        <li><a href="#">FAQS</a></li>
+                        <li><a href="#">Community Partners</a></li>
+                        <li><a href="#">Donors</a></li>
+                        <li><a href="#">Board / Staff</a></li>
+                        <li><a href="#">Financial Information</a></li>
+                        <li><a href="#">Hunger Education Sources</a></li>
+                        <li><a href="#">Press Room</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">What We Do<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Community Meal Program</a></li>
+                        <li><a href="#">Other Food Support</a></li>
+                        <li><a href="#">More Than Food</a></li>
+                        <li><a href="#">Fresh Produce Preservation Project</a></li>
+                        <li><a href="#">Speakers Bureau</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Ways To Help<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Donate Money</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Host A Fundraiser</a></li>
+                        <li><a href="#">In-Kind Donations</a></li>
+                        <li><a href="#">Great Examples Of Giving</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Blog</a>
+                </li>
+                <li>
+                    <a href="#">Emergency Response COVID-19</a>
+                </li>
+                <li>
+                    <a href="#">Events</a>
+                </li>
+                <li>
+                    <a href="#">Newsletter</a>
+                </li>
+                <li>
+                    <a href="https://google.com" class="btn btn-primary">Go to Google</a>
+                </li>
+            </ul>
+            
+
+        </div>
+
+    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
