@@ -222,6 +222,10 @@
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-TheGathering.Web-20200701094015.mdf" />
+    <Content Include="App_Data\aspnet-TheGathering.Web-20200701094015_log.ldf">
+      <DependentUpon>aspnet-TheGathering.Web-20200701094015.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -312,9 +316,7 @@
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
