@@ -7,8 +7,34 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 </head>
 <body>
+    <div class="container">
+        <div class="col-sm-offset-1">
+            <div class="dates">
+                <p>A QUICK BROWN FOX JUMPED OVER THE LAZY DOG</p>
+            </div>
+            <div class="bodyTextItalics">
+                <p>A QUICK BROWN FOX JUMPED OVER THE LAZY DOG</p>
+            </div>
+            <div class="bodyTextSemiBold">
+                <p>A QUICK BROWN FOX JUMPED OVER THE LAZY DOG</p>
+            </div>
+            <div class="bodyTextLarge">
+                <p>A QUICK BROWN FOX JUMPED OVER THE LAZY DOG</p>
+            </div>
+            <div class="bodyTextLargeSemiBold">
+                <p>A QUICK BROWN FOX JUMPED OVER THE LAZY DOG</p>
+            </div>
+            <div class="leftNavBar">
+                <p>A QUICK BROWN FOX JUMPED OVER THE LAZY DOG</p>
+            </div>
+        </div>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -25,7 +51,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+
             </div>
         </div>
     </div>
