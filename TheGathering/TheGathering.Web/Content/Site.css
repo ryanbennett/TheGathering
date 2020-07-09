@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -21,4 +22,22 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.btn-primary{
+background-color:#434345;
+padding: 10px;
+
+}
+    .btn-primary:hover {
+        background-color: #434345; 
+        opacity:0.9;
+    }
+.btn-secondary {
+    background-color: #B0D0B9;
+    padding: 10px;
+    border-radius: 20px;
+}
+.btn-secondary:hover{
+    opacity:0.9;
 }
