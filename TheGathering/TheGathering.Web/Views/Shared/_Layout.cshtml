@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,8 +8,63 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="~/Content/NavigationBar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 </head>
 <body>
+    
+    <div class="container-fluid">
+        <div class="background">
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="~/Content/The_Gathering_F2_Full_Color_White.png" width="150px" height="90px" />
+                </div>
+                <div class="col-sm-1">
+                    <div class="navigation">
+                        <p align="center">HOME</p>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="navigation">
+                        <p align="center">ABOUT US</p>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="navigation">
+                        <p align="center">WHAT WE DO</p>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="navigation">
+                        <p align="center">BLOG</p>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="navigation">
+                        <p align="center">EMERGENCY RESPONSE COVID-19</p>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="navigation">
+                        <p align="center">EVENTS</p>
+                    </div>
+                </div>
+                <div class="col-sm-1" align="center">
+                    <div class="navigationdonate">
+
+                        <p align="center">DONATE</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
