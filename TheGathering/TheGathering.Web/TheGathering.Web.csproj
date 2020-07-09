@@ -315,6 +315,7 @@
     <Content Include="Views\MealSite\Edit.cshtml" />
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
+    <Content Include="Views\Volunteer\Test.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
