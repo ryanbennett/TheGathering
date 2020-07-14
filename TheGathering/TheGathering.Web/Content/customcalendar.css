@@ -1,0 +1,21 @@
+﻿body {
+    background-color: #B0D0B9;
+    color: #434345;
+    font-family: 'Baskerville Old Face';
+}
+
+.fc button {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    /* dimensions */
+    margin: 0;
+    height: 2.1em;
+    padding: 0 .6em;
+    /* text & cursor */
+    font-size: 1em;
+    /* normalize */
+    white-space: nowrap;
+    cursor: pointer;
+    color: #B89252;
+}
