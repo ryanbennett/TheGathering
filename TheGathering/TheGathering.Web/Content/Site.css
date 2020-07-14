@@ -48,7 +48,6 @@ textarea {
     font-weight: 600;
     line-height: 1.6;
 }
-
 .baskervilleLargeNormal {
     font-family: Baskerville;
     color: #434345;
@@ -302,4 +301,8 @@ padding: 10px;
     /*background-color: #750049;*/
     /*accent green*/
     /*background-color: #B0D0B9;*/
+}
+.footerbackground{
+    background-color:darkgray;
+    opacity:0.8;
 }
