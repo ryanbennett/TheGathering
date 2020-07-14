@@ -2,16 +2,17 @@
  *      Variables
  */
 var locationAddresses = [];
+var locationIds = [];
 var locations = [];
 var map;
 var totalAvg = 0;
 var longAvg = 0;
 var latAvg = 0;
+var currentPin = -1;
 
 class Location {
     async init(address) {
         var locData = await getLocationData(address);
-        console.log(address);
         this.address = address;
         this.longitude = locData.point.coordinates[0];
         this.latitude = locData.point.coordinates[1];
@@ -67,17 +68,27 @@ async function getMatrix(zip) {
     var orgin = new Location();
     await orgin.init(zip);
 
+    // Place Pin on Zip
+    if (currentPin != -1)
+        map.entities.removeAt(currentPin);
+    var pin = new Microsoft.Maps.Pushpin(orgin.locObj, {
+        color: "red",
+        title: zip
+    });
+    map.entities.push(pin);
+    currentPin = map.entities.getLength() - 1;
+
     // Convert Locations to URL String
-    var orginString = orgin.latitude + "," + orgin.longitude;
+    var orginString = orgin.longitude + "," + orgin.latitude;
     var locationsString = "";
     locations.forEach((location, index) => {
-        locationsString += location.latitude + "," + location.longitude;
+        locationsString += location.longitude + "," + location.latitude;
         if (index != locations.length - 1)
             locationsString += ";";
     });
 
     // Load JSON from URL
-    var json = await getJsonFromURL("https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb&travelMode=driving&origins=" + orginStr + "&destinations=" + destStr);
+    var json = await getJsonFromURL("https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb&travelMode=driving&origins=" + orginString + "&destinations=" + locationsString);
     return json.resourceSets[0].resources[0].results;
 }
 
@@ -100,12 +111,15 @@ async function sortMatrix() {
     for (var o = 0; o < matrix.length && o < 5; o++) {
         var locationMatrix = matrix[o];
         var locationObj = locations[locationMatrix.destinationIndex];
+        var locationId = locationIds[locationMatrix.destinationIndex];
 
         // HTML Manipulations
-        var listHTML = document.createElement("li");
+        var listHTML = document.createElement("button");
+        listHTML.type = "button";
+        listHTML.setAttribute("onclick", "zoomToPoint(" + locations[locationMatrix.destinationIndex].longitude + "," + locations[locationMatrix.destinationIndex].latitude + ");");
         listHTML.className = "list-group-item";
         // City (Heading)
-        var title = document.createElement("h4");
+        var titleHTML = document.createElement("h4");
         titleHTML.className = "list-group-item-heading";
         titleHTML.innerText = locationObj.city;
         // Address
@@ -116,10 +130,16 @@ async function sortMatrix() {
         var distHTML = document.createElement("p");
         distHTML.className = "list-group-item-text";
         distHTML.innerText = (Math.round(locationMatrix.travelDistance * 10) / 10) + " miles away";
+        // Details
+        var detailsHTML = document.createElement("a");
+        detailsHTML.className = "list-group-item-text";
+        detailsHTML.innerText = "Details";
+        detailsHTML.href = "/MealSite/Details?id=" + locationId;
         // Apply
         listHTML.appendChild(titleHTML);
         listHTML.appendChild(addressHTML);
         listHTML.appendChild(distHTML);
+        listHTML.appendChild(detailsHTML);
         locationReturn.appendChild(listHTML);
 
         // Add Numbers to Pushpins
