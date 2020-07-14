@@ -1,65 +1,64 @@
 ﻿@model TheGathering.Web.Models.MealSite
-    
+
 @{
     ViewBag.Title = "Create";
 }
 
-<script src="~/Scripts/Google Maps/GMaps.js"></script>
 
 <h2>Create</h2>
 
+<script type="text/javascript" src="~/Scripts/Google Maps/BMaps.js"></script>
+
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
+
 
 <div class="form-horizontal">
     <h4>Container</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div id="locationField" class="form-group">
+    <div class="form-group">
         <span class="control-label col-md-2"><b>Address Input</b></span>
-        <div class="col-md-10">
-            <input id="autocomplete"
-                   placeholder="Enter your address"
-                   onFocus="geolocate()"
-                   type="text"
-                   class="form-control" />
+        <div class="col-md-10" id="searchBoxContainer">
+            <input id="searchBox" class="form-control">
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", @id = "street_number", @disabled = "true" } })
+            @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", @id = "addressLineTbx" } })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control", @id = "route", @disabled = "true" } })
+            @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control", } })
+            @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "locality", @disabled = "true" } })
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "cityTbx" } })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @id = "administrative_area_level_1", @disabled = "true" } })
+            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @id = "stateTbx" } })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @id = "postal_code", @disabled = "true" } })
+            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @id = "postalCodeTbx" } })
         </div>
     </div>
 
@@ -133,7 +132,6 @@
         </div>
     </div>
 </div>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=initAutosuggest&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
 }
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbeMxxYDhvqX7R8DM0X3Ar9XFZENT5C6E&libraries=places&callback=initAutocomplete"
-        async defer></script>

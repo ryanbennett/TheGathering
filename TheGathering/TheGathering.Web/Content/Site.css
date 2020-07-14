@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#myMap {
+    position: relative;
+    width: 600px;
+    height: 400px;
+}
+#zipReturn {
+    margin-top: 20px;
+}
