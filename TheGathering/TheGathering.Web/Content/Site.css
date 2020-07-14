@@ -29,6 +29,7 @@ textarea {
     color: #B9B0A5;
     font-size: medium;
     font-weight: 400;
+    line-height: 1.6;
 }
 
 .baskervilleMediumItalics {
@@ -37,6 +38,7 @@ textarea {
     font-size: medium;
     font-weight: 400;
     font-style: italic;
+    line-height: 1.6;
 }
 
 .baskervilleMediumSemiBold {
@@ -44,6 +46,7 @@ textarea {
     color: #434345;
     font-size: medium;
     font-weight: 600;
+    line-height: 1.6;
 }
 
 .baskervilleLargeNormal {
@@ -93,7 +96,7 @@ textarea {
 .MinorHeadingSemiBold {
     font-family: Sofia Pro, sans-serif;
     color: #434345;
-    font-size: x-large;
+    font-size: large;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -109,7 +112,7 @@ textarea {
 .MinorHeadingNormal {
     font-family: Sofia Pro, sans-serif;
     color: #434345;
-    font-size: x-large;
+    font-size: large;
     font-weight: 400;
     text-transform: uppercase;
 }
@@ -119,6 +122,7 @@ textarea {
     color: #434345;
     font-size: medium;
     font-weight: 400;
+    line-height: 1.6;
 }
 
 .Links {
@@ -143,6 +147,9 @@ textarea {
     font-weight: 600;
     text-transform: uppercase;
 }
+.CenterText{
+    text-align:center;
+}
 
 .FooterText {
     font-family: Sofia Pro, sans-sarif;
@@ -150,6 +157,7 @@ textarea {
     font-size: medium;
     font-weight: 400;
     text-transform: uppercase;
+    line-height: 1.6;
 }
 
 .btn-primary{
