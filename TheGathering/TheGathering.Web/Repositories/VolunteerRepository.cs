@@ -44,5 +44,7 @@ namespace TheGathering.Web.Repositories
             _context.Volunteers.Remove(volunteer);
             _context.SaveChanges();
         }
+
+
     }
 }

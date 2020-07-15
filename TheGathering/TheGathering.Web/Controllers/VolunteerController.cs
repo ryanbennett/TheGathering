@@ -74,7 +74,13 @@ namespace TheGathering.Web.Controllers
             return View(_service.GetById(id));
         }
 
-        
+        public ActionResult SignUpEvent(int id)
+        {
+            VolunteerEvent thisEvent 
+            return View(_service.GetById(id));
+        }
+
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
