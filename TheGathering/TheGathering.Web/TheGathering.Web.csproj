@@ -218,13 +218,14 @@
     <Compile Include="Models\VolunteerVolunteerEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\VolunteerRepository.cs" />
-    <Compile Include="Service\VolunteerService.cs" />
+    <Compile Include="Services\VolunteerService.cs" />
     <Compile Include="Repositories\CalendarRepository.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -422,6 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Service\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

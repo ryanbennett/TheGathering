@@ -5,7 +5,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
-using TheGathering.Web.Service;
+using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
@@ -13,6 +14,7 @@ namespace TheGathering.Web.Controllers
     {
         // GET: Volunteer
         VolunteerService _service = new VolunteerService();
+        CalendarService _eventService = new CalendarService();
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteers();
@@ -74,10 +76,12 @@ namespace TheGathering.Web.Controllers
             return View(_service.GetById(id));
         }
 
-        public ActionResult SignUpEvent(int id)
+        public ActionResult SignUpEvent(int eventId)
         {
-            VolunteerEvent thisEvent 
-            return View(_service.GetById(id));
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = new Volunteer();
+            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            return View(model);
         }
 
 

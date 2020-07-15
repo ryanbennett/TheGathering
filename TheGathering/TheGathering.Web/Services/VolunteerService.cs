@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using TheGathering.Web.Models;
 using TheGathering.Web.Repositories;
 
-namespace TheGathering.Web.Service
+namespace TheGathering.Web.Services
 {
     public class VolunteerService
     {
