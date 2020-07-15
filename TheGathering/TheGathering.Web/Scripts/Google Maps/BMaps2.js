@@ -11,13 +11,19 @@ var latAvg = 0;
 var currentPin = -1;
 
 class Location {
-    async init(address) {
+    async init(address, id) {
         var locData = await getLocationData(address);
-        this.address = address;
-        this.longitude = locData.point.coordinates[0];
-        this.latitude = locData.point.coordinates[1];
+
+        if (locData == undefined)
+            return 1;
+
+        this.address = locData.address.addressLine;
+        this.longitude = locData.point.coordinates[1];
+        this.latitude = locData.point.coordinates[0];
         this.city = locData.address.locality;
-        this.locObj = new Microsoft.Maps.Location(this.longitude, this.latitude);
+        this.databaseId = id;
+        this.locObj = new Microsoft.Maps.Location(this.latitude, this.longitude);
+        return 0;
     }
 }
 
@@ -38,13 +44,13 @@ function init() {
         // Convert to Location Object
         locations.push(new Location());
         var location = locations[index];
-        await location.init(address);
+        await location.init(address, locationIds[index]);
 
         // Find Center Location
         longAvg = ((longAvg * totalAvg) + location.longitude) / (totalAvg + 1);
         latAvg = ((latAvg * totalAvg) + location.latitude) / (totalAvg + 1);
         totalAvg++;
-        var centerPoint = new Microsoft.Maps.Location(longAvg, latAvg);
+        var centerPoint = new Microsoft.Maps.Location(latAvg, longAvg);
 
         // Set Center Location
         map.setView({
@@ -53,7 +59,8 @@ function init() {
 
         // Initialize Pushpin
         var pin = new Microsoft.Maps.Pushpin(location.locObj, {
-            title: location.address
+            title: location.address,
+            color: "rgba(69,53,40,.8)"
         });
         map.entities.push(pin);
     });
@@ -66,7 +73,11 @@ function init() {
 async function getMatrix(zip) {
     // Convert Zip to Location Object
     var orgin = new Location();
-    await orgin.init(zip);
+    var statusCode = await orgin.init(zip);
+
+    if (statusCode != 0) {
+        return null;
+    }
 
     // Place Pin on Zip
     if (currentPin != -1)
@@ -79,10 +90,10 @@ async function getMatrix(zip) {
     currentPin = map.entities.getLength() - 1;
 
     // Convert Locations to URL String
-    var orginString = orgin.longitude + "," + orgin.latitude;
+    var orginString = orgin.latitude + "," + orgin.longitude;
     var locationsString = "";
     locations.forEach((location, index) => {
-        locationsString += location.longitude + "," + location.latitude;
+        locationsString += location.latitude + "," + location.longitude;
         if (index != locations.length - 1)
             locationsString += ";";
     });
@@ -94,10 +105,24 @@ async function getMatrix(zip) {
 
 async function sortMatrix() {
     // Grab Parameters
-    var inputZip = document.getElementById("zip").value;
     var locationReturn = document.getElementById("zipReturn");
-    locationReturn.innerHTML = "Searching...";
+    var inputZip = document.getElementById("zip").value;
+
+    // Check if Zip is Existant
+    if (inputZip == "") {
+        locationReturn.innerHTML = "<center>Invalid Location</center>";
+        return;
+    }
+
+    // Grab Parameters
+    locationReturn.innerHTML = "<center>Searching...</center>";
     var matrix = await getMatrix(inputZip);
+
+    // Check in Location is Valid
+    if (matrix == null) {
+        locationReturn.innerHTML = "<center>Invalid Location</center>";
+        return;
+    }
 
     // Sort Matrix by Distance
     matrix.sort(function (a, b) {
@@ -108,15 +133,15 @@ async function sortMatrix() {
 
     // Return Matrix Values
     locationReturn.innerHTML = "";
+    clearPushpinNumbers();
     for (var o = 0; o < matrix.length && o < 5; o++) {
         var locationMatrix = matrix[o];
         var locationObj = locations[locationMatrix.destinationIndex];
-        var locationId = locationIds[locationMatrix.destinationIndex];
 
         // HTML Manipulations
         var listHTML = document.createElement("button");
         listHTML.type = "button";
-        listHTML.setAttribute("onclick", "zoomToPoint(" + locations[locationMatrix.destinationIndex].longitude + "," + locations[locationMatrix.destinationIndex].latitude + ");");
+        listHTML.setAttribute("onclick", "zoomToPoint(" + locations[locationMatrix.destinationIndex].latitude + "," + locations[locationMatrix.destinationIndex].longitude + ");");
         listHTML.className = "list-group-item";
         // City (Heading)
         var titleHTML = document.createElement("h4");
@@ -127,14 +152,17 @@ async function sortMatrix() {
         addressHTML.className = "list-group-item-text";
         addressHTML.innerText = locationObj.address;
         // Distance
+        var distanceText = (Math.round(locationMatrix.travelDistance * 10) / 10) + " miles away";
+        if (locationMatrix.travelDistance < 0)
+            distanceText = "Cannot calculate distance";
         var distHTML = document.createElement("p");
         distHTML.className = "list-group-item-text";
-        distHTML.innerText = (Math.round(locationMatrix.travelDistance * 10) / 10) + " miles away";
+        distHTML.innerText = distanceText;
         // Details
         var detailsHTML = document.createElement("a");
         detailsHTML.className = "list-group-item-text";
         detailsHTML.innerText = "Details";
-        detailsHTML.href = "/MealSite/Details?id=" + locationId;
+        detailsHTML.href = "/MealSite/Details?id=" + locationObj.databaseId;
         // Apply
         listHTML.appendChild(titleHTML);
         listHTML.appendChild(addressHTML);
@@ -153,7 +181,7 @@ async function sortMatrix() {
 
         // Zoom in on Closest Location
         if (o == 0) {
-            zoomToPoint(locations[locationMatrix.destinationIndex].longitude, locations[locationMatrix.destinationIndex].latitude);
+            zoomToPoint(locations[locationMatrix.destinationIndex].latitude, locations[locationMatrix.destinationIndex].longitude);
         }
     }
 }
@@ -197,9 +225,17 @@ async function getLocationData(location) {
     return json.resourceSets[0].resources[0];
 }
 
-function zoomToPoint(longitude, latitude) {
+function zoomToPoint(latitude, longitude) {
     map.setView({
-        center: new Microsoft.Maps.Location(longitude, latitude),
+        center: new Microsoft.Maps.Location(latitude, longitude),
         zoom: 12
     });
+}
+
+function clearPushpinNumbers() {
+    for (var i = 0; i < map.entities.getLength(); i++) {
+        map.entities.get(i).setOptions({
+            text: ""
+        });
+    }
 }

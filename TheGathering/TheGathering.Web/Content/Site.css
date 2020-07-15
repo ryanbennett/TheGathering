@@ -1,6 +1,13 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #faf6eb;
+    color: rgba(69,53,40,.8);
+    font-family: Baskerville;
+}
+
+td {
+    vertical-align: middle !important;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -23,11 +30,30 @@ textarea {
     max-width: 280px;
 }
 
+h2 {
+    font-family: Sofia Pro Semi Bold;
+}
+
+h4 {
+    font-family: Sofia Pro Semi Bold;
+}
+
 #myMap {
     position: relative;
-    width: 600px;
-    height: 400px;
+    width: 100%;
+    height: 600px;
 }
 #zipReturn {
     margin-top: 20px;
+}
+#logo {
+    height: 3.5cm;
+}
+
+.placeholderLocation {
+    height:103.2px;
+}
+
+.navbar {
+    background-color: #434345;
 }

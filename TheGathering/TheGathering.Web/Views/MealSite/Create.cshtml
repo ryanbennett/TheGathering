@@ -7,7 +7,7 @@
 
 <h2>Create</h2>
 
-<script type="text/javascript" src="~/Scripts/Google Maps/BMaps.js"></script>
+<script type="text/javascript" src="~/Scripts/Google Maps/BMaps2.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -15,7 +15,7 @@
 
 
 <div class="form-horizontal">
-    <h4>Container</h4>
+    <h4>Meal Site Location</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -125,7 +125,6 @@
             @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />

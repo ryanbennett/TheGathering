@@ -11,38 +11,18 @@
 {
 @Html.AntiForgeryToken()
 
-<script type='text/javascript'>
-        function GetMap() {
-            Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', {
-                callback: function () {
-                    var manager = new Microsoft.Maps.AutosuggestManager({
-                        placeSuggestions: false
-                    });
-                    manager.attachAutosuggest('#searchBox', '#searchBoxContainer', selectedSuggestion);
-                },
-                errorCallback: function (msg) {
-                    alert(msg);
-                },
-                credentials: 'Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb'
-            });
-        }
+<script type="text/javascript" src="~/Scripts/Google Maps/BMaps2.js"></script>
 
-        function selectedSuggestion(result) {
-            document.getElementById('addressLineTbx').value = result.address.addressLine || '';
-            document.getElementById('cityTbx').value = result.address.locality || '';
-            document.getElementById('stateTbx').value = result.address.adminDistrict || '';
-            document.getElementById('postalCodeTbx').value = result.address.postalCode || '';
-        }
-</script>
+
 <div class="form-horizontal">
-    <h4>Container</h4>
+    <h4>Meal Site Location</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
         <span class="control-label col-md-2"><b>Address Input</b></span>
         <div class="col-md-10" id="searchBoxContainer">
-            <input id="searchBox">
+            <input id="searchBox" class="form-control">
         </div>
     </div>
 
@@ -147,10 +127,15 @@
     </div>
 
     <div class="form-group">
+        <div class="col-md-10">Upload a Picture of the Meal Site</div>
+        <input type="file" class="form-control-file" />
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Submit" class="btn btn-default" />
         </div>
     </div>
 </div>
-<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=initAutosuggest' async defer></script>
 }
