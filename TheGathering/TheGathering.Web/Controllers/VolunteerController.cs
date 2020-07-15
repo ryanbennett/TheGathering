@@ -106,15 +106,10 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetVolunteerEventsById(int id)
+        public ActionResult GetVolunteerEventsById(List<int> id)
         {
-            List<VolunteerVolunteerEvent> volunteerVolunteerEvents = _service.GetVolunteerEventsById(id);
-            List<VolunteerEvent> volunteersEvents = new List<VolunteerEvent>();
-            foreach (VolunteerVolunteerEvent volunteerEvent in volunteerVolunteerEvents)
-            {
-                volunteersEvents.Add(_eventService.GetEventById(volunteerEvent.VolunteerEventId));
-            }
-            return View(volunteersEvents);
+            List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(id);
+            return View(volunteerEvents);
         }
 
     }
