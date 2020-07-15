@@ -18,5 +18,6 @@ namespace TheGathering.Web.Models
         public int OpenSlots { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
+        public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
     }
 }

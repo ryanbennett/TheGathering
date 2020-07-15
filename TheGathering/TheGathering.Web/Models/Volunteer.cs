@@ -15,5 +15,6 @@ namespace TheGathering.Web.Models
         public String PhoneNumber { get; set; }
         public Boolean InterestInLeadership { get; set; }
         public Boolean SignUpForNewsLetter { get; set; }
+        public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
     }
 }
