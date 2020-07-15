@@ -226,6 +226,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -420,6 +421,7 @@
     <Content Include="Views\MealSite\Delete.cshtml" />
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
     <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
+    <Content Include="Views\Volunteer\UserEventsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

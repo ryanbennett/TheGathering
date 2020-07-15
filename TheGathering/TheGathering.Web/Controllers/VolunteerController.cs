@@ -51,7 +51,7 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            Volunteer volunteer = _service.GetById((int)id);
             if (volunteer == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            Volunteer volunteer = _service.GetById((int)id);
             if (volunteer == null)
             {
                 return HttpNotFound();
@@ -101,9 +101,20 @@ namespace TheGathering.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            Volunteer volunteer = _service.GetById((int)id);
             _service.DeleteVolunteer(volunteer);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetVolunteerEventsById(int id)
+        {
+            List<VolunteerVolunteerEvent> volunteerVolunteerEvents = _service.GetVolunteerEventsById(id);
+            List<VolunteerEvent> volunteersEvents = new List<VolunteerEvent>();
+            foreach (VolunteerVolunteerEvent volunteerEvent in volunteerVolunteerEvents)
+            {
+                volunteersEvents.Add(_eventService.GetEventById(volunteerEvent.VolunteerEventId));
+            }
+            return View(volunteersEvents);
         }
 
     }

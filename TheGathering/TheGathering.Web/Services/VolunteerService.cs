@@ -27,9 +27,9 @@ namespace TheGathering.Web.Services
             return _repository.GetAllVolunteers();
         }
 
-        public Volunteer GetVolunteerById(int id)
+        public List<VolunteerVolunteerEvent> GetVolunteerEventsById(int id)
         {
-            return _repository.GetVolunteerById(id);
+            return _repository.GetVolunteerEventsById(id);
         }
 
         public void DeleteVolunteer(Volunteer volunteer)
