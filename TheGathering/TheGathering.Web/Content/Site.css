@@ -29,6 +29,7 @@ textarea {
     color: #B9B0A5;
     font-size: medium;
     font-weight: 400;
+    line-height: 1.6;
 }
 
 .baskervilleMediumItalics {
@@ -37,6 +38,7 @@ textarea {
     font-size: medium;
     font-weight: 400;
     font-style: italic;
+    line-height: 1.6;
 }
 
 .baskervilleMediumSemiBold {
@@ -44,8 +46,8 @@ textarea {
     color: #434345;
     font-size: medium;
     font-weight: 600;
+    line-height: 1.6;
 }
-
 .baskervilleLargeNormal {
     font-family: Baskerville;
     color: #434345;
@@ -93,7 +95,7 @@ textarea {
 .MinorHeadingSemiBold {
     font-family: Sofia Pro, sans-serif;
     color: #434345;
-    font-size: x-large;
+    font-size: large;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -109,7 +111,7 @@ textarea {
 .MinorHeadingNormal {
     font-family: Sofia Pro, sans-serif;
     color: #434345;
-    font-size: x-large;
+    font-size: large;
     font-weight: 400;
     text-transform: uppercase;
 }
@@ -119,6 +121,7 @@ textarea {
     color: #434345;
     font-size: medium;
     font-weight: 400;
+    line-height: 1.6;
 }
 
 .Links {
@@ -130,7 +133,7 @@ textarea {
 
 .MainButtons {
     font-family: Baskerville;
-    color: #434345;
+    color: white;
     font-size: medium;
     font-weight: 600;
     text-transform: uppercase;
@@ -143,13 +146,17 @@ textarea {
     font-weight: 600;
     text-transform: uppercase;
 }
+.CenterText{
+    text-align:center;
+}
 
 .FooterText {
     font-family: Sofia Pro, sans-sarif;
     color: #434345;
-    font-size: medium;
+    font-size: small;
     font-weight: 400;
     text-transform: uppercase;
+    line-height: 1.6;
 }
 
 .btn-primary{
@@ -440,3 +447,40 @@ hr {
         background-color: #B0D0B9;
         color: black;
     }
+
+.body-back-color {
+    /*style guide gold */
+    /*background-color: #B89252;*/
+    /*original yellow*/
+    background-color: #FAF6EB;
+    /*accent purple*/
+    /*background-color: #750049;*/
+    /*accent green*/
+    /*background-color: #B0D0B9;*/
+}
+.footerbackground {
+   background-color:darkgray;
+
+}
+.button {
+    background-color: #434345;
+    padding: 10px;
+    border:hidden;
+}
+.button:hover{
+    opacity:0.9;
+}
+.button-green {
+    background-color: #B0D0B9;
+    padding: 10px;
+    border-radius: 20px;
+}
+.button-green:hover{
+    opacity:0.9;
+}
+#footerlink {
+    color: #434345;
+}
+#footerlink:hover{
+    text-decoration:none;
+}
