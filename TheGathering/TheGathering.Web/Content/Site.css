@@ -133,7 +133,7 @@ textarea {
 
 .MainButtons {
     font-family: Baskerville;
-    color: #434345;
+    color: white;
     font-size: medium;
     font-weight: 600;
     text-transform: uppercase;
@@ -153,7 +153,7 @@ textarea {
 .FooterText {
     font-family: Sofia Pro, sans-sarif;
     color: #434345;
-    font-size: medium;
+    font-size: small;
     font-weight: 400;
     text-transform: uppercase;
     line-height: 1.6;
@@ -302,7 +302,29 @@ padding: 10px;
     /*accent green*/
     /*background-color: #B0D0B9;*/
 }
-.footerbackground{
-    background-color:darkgray;
-    opacity:0.8;
+.footerbackground {
+   background-color:darkgray;
+
+}
+.button {
+    background-color: #434345;
+    padding: 10px;
+    border:hidden;
+}
+.button:hover{
+    opacity:0.9;
+}
+.button-green {
+    background-color: #B0D0B9;
+    padding: 10px;
+    border-radius: 20px;
+}
+.button-green:hover{
+    opacity:0.9;
+}
+#footerlink {
+    color: #434345;
+}
+#footerlink:hover{
+    text-decoration:none;
 }
