@@ -154,6 +154,12 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(AccountRegistrationViewModel model)
         {
+            var age = DateTime.Now.Subtract(model.Birthday);
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+                
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
