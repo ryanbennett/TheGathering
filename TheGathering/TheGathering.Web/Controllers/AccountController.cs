@@ -201,6 +201,62 @@ namespace TheGathering.Web.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult AdminRegister()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AdminResgister(AccountRegistrationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var VolunteerService = new VolunteerService();
+
+                    Volunteer volunteer = new Volunteer();
+                    volunteer.FirstName = model.FirstName;
+                    volunteer.LastName = model.LastName;
+                    volunteer.Birthday = model.Birthday;
+                    volunteer.PhoneNumber = model.PhoneNumber;
+                    volunteer.InterestInLeadership = model.InterestInLeadership;
+                    volunteer.SignUpForNewsLetter = model.SignUpForNewsLetter;
+                    volunteer.ApplicationUserId = user.Id;
+                    volunteer.Email = model.Email;
+
+                    VolunteerService.Create(volunteer);
+
+                    /*User fills in register page
+                     * Create a volunteer, Fill in volunteer fields, and add to database via running create method (or similar ie email filled in) from Volunteer
+                     * User and Volunteer are tied using id (String)
+                     * Volunteer also holds the id of ApplicationUser 
+                     * Save changes to database
+                     * Get volunteer by email/id
+                     * 
+                     */
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+            //UserManager.findById();
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
