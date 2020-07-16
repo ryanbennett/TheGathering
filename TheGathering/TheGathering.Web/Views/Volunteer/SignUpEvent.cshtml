@@ -36,7 +36,7 @@
         Are you sure you would like to sign up for this volunteer event?
     </p>
     <p>
-        @Html.ActionLink("Yes", "UserEventsList", new { id = Model.Volunteer.Id })
+        @Html.ActionLink("Yes", "EventRegistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id })
     </p>
     <p>
         @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)

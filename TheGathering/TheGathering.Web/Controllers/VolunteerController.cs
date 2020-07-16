@@ -79,7 +79,8 @@ namespace TheGathering.Web.Controllers
         public ActionResult SignUpEvent(int eventId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = new Volunteer();
+            model.Volunteer = _service.GetById(1);
+            //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
             return View(model);
         }
@@ -106,12 +107,22 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetVolunteerEventsById(List<int> id)
+        public ActionResult GetEventsByIds(List<int> eventId)
         {
-            List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(id);
+            List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
         }
 
+        public ActionResult UserEventsList(int volunteerId)
+        {
+            return View(_eventService.GetEventsByIds(_service.GetVolunteerEventsById(volunteerId)));
+        }
+
+        public ActionResult EventRegistered(int volunteerId, int eventId)
+        {
+            _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
+            return View();
+        }
     }
 
 }

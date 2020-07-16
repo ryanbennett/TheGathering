@@ -29,9 +29,9 @@ namespace TheGathering.Web.Repositories
         {
             return dbContext.VolunteerEvents.Find(id);
         }
-        public List<VolunteerEvent> GetEventsByIds(List<int> id)
+        public List<VolunteerEvent> GetEventsByIds(List<int> eventId)
         {
-            return dbContext.VolunteerEvents.Where(ve => id.Contains(ve.Id)).ToList();
+            return dbContext.VolunteerEvents.Where(ve => eventId.Contains(ve.Id)).ToList();
         }
         public void SaveEdits(VolunteerEvent toSave)
         {

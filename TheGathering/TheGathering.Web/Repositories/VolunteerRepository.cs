@@ -45,6 +45,11 @@ namespace TheGathering.Web.Repositories
             _context.SaveChanges();
         }
 
-
+        public void AddVolunteerVolunteerEvent(Volunteer volunteer, VolunteerVolunteerEvent vve)
+        {
+            volunteer.VolunteerVolunteerEvents.Add(vve);
+            _context.Entry(volunteer).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
     }
 }

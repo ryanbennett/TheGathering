@@ -422,6 +422,7 @@
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
     <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
     <Content Include="Views\Volunteer\UserEventsList.cshtml" />
+    <Content Include="Views\Volunteer\EventRegistered.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

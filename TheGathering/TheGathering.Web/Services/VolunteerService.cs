@@ -27,9 +27,14 @@ namespace TheGathering.Web.Services
             return _repository.GetAllVolunteers();
         }
 
-        public List<VolunteerVolunteerEvent> GetVolunteerEventsById(int id)
+        public List<int> GetVolunteerEventsById(int volunteerId)
         {
-            return _repository.GetVolunteerEventsById(id);
+            List<int> volunteerEventIds = new List<int>();
+            foreach (VolunteerVolunteerEvent vve in _repository.GetVolunteerEventsById(volunteerId))
+            {
+                volunteerEventIds.Add(vve.VolunteerEventId);
+            }
+            return volunteerEventIds;
         }
 
         public void DeleteVolunteer(Volunteer volunteer)
@@ -39,6 +44,18 @@ namespace TheGathering.Web.Services
         public void Edit(Volunteer volunteer)
         {
             _repository.Edit(volunteer);
+        }
+
+        public void AddVolunteerVolunteerEvent(int volunteerId, int eventId)
+        {
+            VolunteerVolunteerEvent vve = new VolunteerVolunteerEvent();
+            //vve.Id = 0;
+            //TODO: Changes vve.Id value
+            vve.VolunteerId = volunteerId;
+            vve.VolunteerEventId = eventId;
+            vve.Confirmed = false;
+            Volunteer volunteer = _repository.GetById(volunteerId);
+            _repository.AddVolunteerVolunteerEvent(volunteer, vve);
         }
     }
 }
