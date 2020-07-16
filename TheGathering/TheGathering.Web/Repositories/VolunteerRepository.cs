@@ -43,7 +43,8 @@ namespace TheGathering.Web.Repositories
 
         public List<VolunteerVolunteerEvent> GetVolunteerEventsById(int volunteerId)
         {
-            return _context.Volunteers.Find(volunteerId).VolunteerVolunteerEvents.ToList();
+            var volunteer = _context.Volunteers.Include(v=>v.VolunteerVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
+            return volunteer.VolunteerVolunteerEvents.ToList();
         }
 
         public void DeleteVolunteer(Volunteer volunteer)

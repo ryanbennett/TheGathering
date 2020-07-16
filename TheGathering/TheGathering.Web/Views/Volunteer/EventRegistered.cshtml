@@ -1,7 +1,25 @@
-﻿
+﻿@model TheGathering.Web.Models.Volunteer
 @{
     ViewBag.Title = "EventRegistered";
 }
 
 <h2>EventRegistered</h2>
+
+<div>
+    <p>
+        Thank you for registering for this event!
+    </p>
+    <p> 
+        @Html.ActionLink("Back to Event List", "Index", "VolunteerEvent", null, null) 
+    </p>
+    <p>
+        @Html.ActionLink("To Calendar", "Calendar", "VolunteerEvent", null, null)
+    </p>
+    <p> 
+        @Html.ActionLink("See Your Events", "UserEventsList", new { volunteerId = 4 }, null) 
+    </p>
+   
+
+</div>
+
 
