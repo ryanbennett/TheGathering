@@ -13,6 +13,8 @@ namespace TheGathering.Web.Controllers
     public class VolunteerEventController : Controller
     {
         private CalendarService service = new CalendarService();
+        private MealSiteService mealSiteService = new MealSiteService();
+
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -20,7 +22,9 @@ namespace TheGathering.Web.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            VolunteerEvent model = new VolunteerEvent();
+            model.AllLocations = AllLocations();
+            return View(model);
         }
         public ActionResult Delete(int? id)
         {
@@ -112,6 +116,21 @@ namespace TheGathering.Web.Controllers
         {
             var events = service.GetAllEvents();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public List<SelectListItem> AllLocations()
+        {
+            List<MealSite> AllLocations = mealSiteService.GetAllMealSites();
+            List<SelectListItem> Locations = new List<SelectListItem>();
+
+            foreach (MealSite mealSite in AllLocations)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = mealSite.AddressLine1;
+                item.Value = mealSite.Id.ToString();
+                Locations.Add(item);
+            }
+            return Locations;
         }
     }
 }

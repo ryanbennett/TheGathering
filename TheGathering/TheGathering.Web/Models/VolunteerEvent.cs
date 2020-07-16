@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
+
 namespace TheGathering.Web.Models
 {
     public class VolunteerEvent
@@ -16,7 +18,11 @@ namespace TheGathering.Web.Models
         public DateTime EndingShiftTime { get; set; }
         [Display(Name = "Open Slots")]
         public int OpenSlots { get; set; }
-        public string Location { get; set; }
+        public MealSite Location { get; set; }
+       
+        [NotMapped]
+        public List<SelectListItem> AllLocations { get; set; }
+
         public string Description { get; set; }
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
     }

@@ -21,5 +21,6 @@ namespace TheGathering.Web.Models
         public int MinimumGuestsServed { get; set; }
         public int StartTime { get; set; }
         public int EndTime { get; set; }
+        public List<VolunteerEvent> VolunteerEventAtMealSite { get; set; }
     }
 }
