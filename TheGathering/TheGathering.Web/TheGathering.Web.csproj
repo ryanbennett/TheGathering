@@ -315,6 +315,7 @@
     <Content Include="Views\MealSite\Edit.cshtml" />
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
+    <Content Include="Views\Account\AdminRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
