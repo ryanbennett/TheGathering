@@ -7,12 +7,14 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.MealSite;
 
 namespace TheGathering.Web.Controllers
 {
     public class MealSiteController : Controller
     {
         private MealSiteService mealSiteService = new MealSiteService();
+        private CalendarService volunteerEventService = new CalendarService();
 
         // GET: MealSite
         public ActionResult Index()
@@ -100,7 +102,11 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(mealSite);
+            MealSiteViewModel mealSiteViewModel = new MealSiteViewModel(mealSite, volunteerEventService);
+
+            
+
+            return View(mealSiteViewModel);
         }
     }
 }

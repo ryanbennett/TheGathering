@@ -46,5 +46,18 @@ namespace TheGathering.Web.Services
         {
             mealSiteRepository.UpdateMealSite(mealSite);
         }
+
+        public void AddVolunteerEvent(int volunteerEventId, int mealSiteId)
+        {
+            MealSite mealSite = mealSiteRepository.GetMealSiteById(mealSiteId);
+            mealSite.VolunteerEventIdsAtMealSite.Add(volunteerEventId);
+            mealSiteRepository.UpdateMealSite(mealSite);
+        }
+        public void DeleteVolunteerEvent(int volunteerEventId, int mealSiteId) {
+            MealSite mealSite = mealSiteRepository.GetMealSiteById(mealSiteId);
+            mealSite.VolunteerEventIdsAtMealSite.Remove(volunteerEventId);
+            mealSiteRepository.UpdateMealSite(mealSite);
+        }
+
     }
 }

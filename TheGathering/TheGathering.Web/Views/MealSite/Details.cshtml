@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.Models.MealSite
+﻿@model TheGathering.Web.ViewModels.MealSite.MealSiteViewModel
 @{
 	ViewBag.Title = "Details";
 }
@@ -6,8 +6,8 @@
 <script type="text/javascript" src="~/Scripts/Google Maps/BMaps2.js"></script>
 
 <h2>Details</h2>
-<di class="row">
-    <di class="col-sm-6">
+<div class="row">
+    <div class="col-sm-6">
         <div class="panel panel-default">
             <table class="table">
                 <tr>
@@ -116,7 +116,7 @@
                 </tr>
             </table>
         </div>
-    </di>
+    </div>
     <div class="col-sm-6">
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
         
@@ -129,4 +129,28 @@
         </script>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>
-</di>
+</div>
+<div class="row">
+    <h1>
+        Events at this Location
+    </h1>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<table class="table">
+                <tr>
+                    <th>
+                        Description
+                    </th>
+                </tr>
+				@foreach (var item in Model.VolunteerEventsAtMealSite)
+                {
+                    <tr>
+                        <td>@(item.Description)</td>
+                    </tr>
+                }
+			</table>
+        </div>
+	</div>
+</div>

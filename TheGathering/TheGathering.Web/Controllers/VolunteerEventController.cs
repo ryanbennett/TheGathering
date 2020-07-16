@@ -58,6 +58,7 @@ namespace TheGathering.Web.Controllers
         {
             VolunteerEvent toBeDeleted = service.GetEventById(id);
             service.DeleteEvent(toBeDeleted);
+            mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.LocationId);
             return RedirectToAction("Index");
         }
 
@@ -68,6 +69,7 @@ namespace TheGathering.Web.Controllers
             if (ModelState.IsValid)
             {
                 service.AddEvent(volunteerevent);
+                mealSiteService.AddVolunteerEvent(volunteerevent.Id, volunteerevent.LocationId);
                 return RedirectToAction("Index");
             }
 
@@ -108,7 +110,11 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                VolunteerEvent oldEvent = service.GetEventById(VolunteerEvent.Id);
+                mealSiteService.DeleteVolunteerEvent(oldEvent.Id, oldEvent.LocationId);
                 service.SaveEdits(VolunteerEvent);
+                mealSiteService.AddVolunteerEvent(VolunteerEvent.Id, VolunteerEvent.LocationId);
+
                 return RedirectToAction("Index");
             }
             return View(VolunteerEvent);

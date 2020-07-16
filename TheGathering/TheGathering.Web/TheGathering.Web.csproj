@@ -220,6 +220,10 @@
     <Compile Include="Migrations\202007161630045_TryingtheIntx2.Designer.cs">
       <DependentUpon>202007161630045_TryingtheIntx2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007161921107_VolunteerEventAtMealSites.cs" />
+    <Compile Include="Migrations\202007161921107_VolunteerEventAtMealSites.Designer.cs">
+      <DependentUpon>202007161921107_VolunteerEventAtMealSites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -236,6 +240,7 @@
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -484,6 +489,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007161630045_TryingtheIntx2.resx">
       <DependentUpon>202007161630045_TryingtheIntx2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007161921107_VolunteerEventAtMealSites.resx">
+      <DependentUpon>202007161921107_VolunteerEventAtMealSites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
