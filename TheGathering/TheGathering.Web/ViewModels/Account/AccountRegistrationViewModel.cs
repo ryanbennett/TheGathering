@@ -13,6 +13,7 @@ namespace TheGathering.Web.ViewModels.Account
         [Required] //This makes the FirstName field required
         public String FirstName { get; set; }
         public String LastName { get; set; }
+        
         public DateTime Birthday { get; set; }
         public String PhoneNumber { get; set; }
         public bool InterestInLeadership { get; set; }
