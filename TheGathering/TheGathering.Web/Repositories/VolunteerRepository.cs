@@ -12,7 +12,8 @@ namespace TheGathering.Web.Repositories
         ApplicationDbContext _context = new ApplicationDbContext();
         public void Create(Volunteer volunteer)
         {
-            var newVolunteer = _context.Volunteers.Add(volunteer);
+            //volunteer.VolunteerVolunteerEvents = new List<VolunteerVolunteerEvent>();
+            _context.Volunteers.Add(volunteer);
             _context.SaveChanges();
         }
 
@@ -26,6 +27,12 @@ namespace TheGathering.Web.Repositories
         public Volunteer GetById(int id)
         {
             var result = _context.Volunteers.SingleOrDefault(volunteer => volunteer.Id == id);
+            return result;
+        }
+
+        public Volunteer GetVolunteerById(int id)
+        {
+            Volunteer result = _context.Volunteers.Find(id);
             return result;
         }
 
@@ -47,6 +54,8 @@ namespace TheGathering.Web.Repositories
 
         public void AddVolunteerVolunteerEvent(Volunteer volunteer, VolunteerVolunteerEvent vve)
         {
+            if(volunteer.VolunteerVolunteerEvents == null)
+                volunteer.VolunteerVolunteerEvents = new List<VolunteerVolunteerEvent>();
             volunteer.VolunteerVolunteerEvents.Add(vve);
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();

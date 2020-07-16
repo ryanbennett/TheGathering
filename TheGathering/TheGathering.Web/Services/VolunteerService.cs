@@ -49,12 +49,12 @@ namespace TheGathering.Web.Services
         public void AddVolunteerVolunteerEvent(int volunteerId, int eventId)
         {
             VolunteerVolunteerEvent vve = new VolunteerVolunteerEvent();
-            //vve.Id = 0;
+            //vve.Id = 1;
             //TODO: Changes vve.Id value
             vve.VolunteerId = volunteerId;
             vve.VolunteerEventId = eventId;
             vve.Confirmed = false;
-            Volunteer volunteer = _repository.GetById(volunteerId);
+            Volunteer volunteer = _repository.GetVolunteerById(volunteerId);
             _repository.AddVolunteerVolunteerEvent(volunteer, vve);
         }
     }
