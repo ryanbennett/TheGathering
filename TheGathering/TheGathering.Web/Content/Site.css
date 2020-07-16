@@ -1,4 +1,10 @@
-﻿body {
+﻿/* Sofia Pro Semi Bold */
+@font-face {
+    font-family: Sofia Pro SemiBold;
+    src: url('Fonts/Sofia Pro SemiBold.ttf');
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #faf6eb;
@@ -30,14 +36,16 @@ textarea {
     max-width: 280px;
 }
 
-h2 {
-    font-family: Sofia Pro Semi Bold;
+/* Apply Font to Headers */
+h1,
+h2,
+h3,
+h4,
+th {
+    font-family: Sofia Pro SemiBold;
 }
 
-h4 {
-    font-family: Sofia Pro Semi Bold;
-}
-
+/* Bing Maps */
 #myMap {
     position: relative;
     width: 100%;
@@ -46,14 +54,39 @@ h4 {
 #zipReturn {
     margin-top: 20px;
 }
-#logo {
-    height: 3.5cm;
-}
 
-.placeholderLocation {
-    height:103.2px;
-}
-
+/* TEMP Navbar */
 .navbar {
     background-color: #434345;
+}
+
+/* Gold Buttons */
+.btn-gold {
+    background-color: #B89252 !important;
+    border-color: #b58e4a !important;
+    color: #ffffff !important;
+}
+
+    .btn-gold:hover {
+        background-color: #91713b !important;
+        border-color: #886a37 !important;
+        color: #f2f2f2 !important;
+    }
+
+/* Grey Buttons */
+.btn-grey {
+    background-color: #434345 !important;
+    border-color: #3f3f40 !important;
+    color: #ffffff !important;
+}
+
+    .btn-grey:hover {
+        background-color: #58585a !important;
+        border-color: #4c4c4d !important;
+        color: #ffffff !important;
+    }
+
+/* Margin Around Buttons */
+.btn-margin {
+    margin:10px;
 }

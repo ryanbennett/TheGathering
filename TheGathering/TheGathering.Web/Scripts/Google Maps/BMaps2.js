@@ -60,7 +60,7 @@ function init() {
         // Initialize Pushpin
         var pin = new Microsoft.Maps.Pushpin(location.locObj, {
             title: location.address,
-            color: "rgba(69,53,40,.8)"
+            color: "#434345"
         });
         map.entities.push(pin);
     });
