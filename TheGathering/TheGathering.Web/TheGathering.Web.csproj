@@ -219,6 +219,7 @@
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

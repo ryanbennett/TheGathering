@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TheGathering.Web.Models;
+using TheGathering.Web.Service;
+using TheGathering.Web.ViewModels.Account;
 
 namespace TheGathering.Web.Controllers
 {
@@ -147,7 +149,7 @@ namespace TheGathering.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(AccountRegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -155,6 +157,15 @@ namespace TheGathering.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var VolunteerService = new VolunteerService();
+                    /*User fills in register page
+                     * Create a volunteer, Fill in volunteer fields, and add to database via running create method (or similar ie email filled in) from Volunteer
+                     * User and Volunteer are tied using id (String)
+                     * Volunteer also holds the id of ApplicationUser 
+                     * Save changes to database
+                     * Get volunteer by email/id
+                     * 
+                     */
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -167,6 +178,7 @@ namespace TheGathering.Web.Controllers
                 }
                 AddErrors(result);
             }
+            //UserManager.findById();
 
             // If we got this far, something failed, redisplay form
             return View(model);
