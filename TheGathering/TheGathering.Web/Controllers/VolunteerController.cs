@@ -82,7 +82,21 @@ namespace TheGathering.Web.Controllers
             model.Volunteer = _service.GetById(4);
             //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
+            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(4);
+            var events = _eventService.GetEventsByIds(volunteerEventIds);
+            foreach(int id in volunteerEventIds)
+            {
+                if(id == eventId)
+                {
+                    return RedirectToAction("EventAlreadyRegistered");
+                }
+            }
             return View(model);
+        }
+        
+        public ActionResult EventAlreadyRegistered()
+        {
+            return View();
         }
 
 
@@ -115,8 +129,9 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult UserEventsList(int volunteerId)
         {
-           var volunteerEvents = _service.GetVolunteerEventsById(volunteerId);
+           var volunteerEvents = _service.GetVolunteerEventIdsByVolunteerId(volunteerId);
            var events = _eventService.GetEventsByIds(volunteerEvents);
+           
            UserEventsListViewModel viewModel = new UserEventsListViewModel();
            viewModel.VolunteerEvents = events;
            return View(viewModel);

@@ -423,6 +423,7 @@
     <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
     <Content Include="Views\Volunteer\UserEventsList.cshtml" />
     <Content Include="Views\Volunteer\EventRegistered.cshtml" />
+    <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

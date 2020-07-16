@@ -27,10 +27,10 @@ namespace TheGathering.Web.Services
             return _repository.GetAllVolunteers();
         }
 
-        public List<int> GetVolunteerEventsById(int volunteerId)
+        public List<int> GetVolunteerEventIdsByVolunteerId(int volunteerId)
         {
             List<int> volunteerEventIds = new List<int>();
-            foreach (VolunteerVolunteerEvent vve in _repository.GetVolunteerEventsById(volunteerId))
+            foreach (VolunteerVolunteerEvent vve in _repository.GetVolunteerEventIdsByVolunteerId(volunteerId))
             {
                 volunteerEventIds.Add(vve.VolunteerEventId);
             }
