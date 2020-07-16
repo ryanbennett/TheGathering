@@ -79,6 +79,7 @@
                         $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
                         $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
+                        $description.append($('<p/>').html('<a href="/VolunteerEvent/Details/'+calEvent.id+'">Sign up for Event</a>'));
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
