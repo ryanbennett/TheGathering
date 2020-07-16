@@ -158,6 +158,19 @@ namespace TheGathering.Web.Controllers
                 if (result.Succeeded)
                 {
                     var VolunteerService = new VolunteerService();
+
+                    Volunteer volunteer = new Volunteer();
+                    volunteer.FirstName = model.FirstName;
+                    volunteer.LastName = model.LastName;
+                    volunteer.Birthday = model.Birthday;
+                    volunteer.PhoneNumber = model.PhoneNumber;
+                    volunteer.InterestInLeadership = model.InterestInLeadership;
+                    volunteer.SignUpForNewsLetter = model.SignUpForNewsLetter;
+                    volunteer.ApplicationUserId = user.Id;
+                    volunteer.Email = model.Email;
+
+                    VolunteerService.Create(volunteer);
+
                     /*User fills in register page
                      * Create a volunteer, Fill in volunteer fields, and add to database via running create method (or similar ie email filled in) from Volunteer
                      * User and Volunteer are tied using id (String)
