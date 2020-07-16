@@ -1,0 +1,68 @@
+﻿@model TheGathering.Web.Models.MealSite
+@{
+    ViewBag.Title = "MultiMapTest";
+}
+
+<h2>MultiMapTest</h2>
+
+<script src="https://maps.google.com/maps/api/js?sensor=false"
+        type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h4>Map Test</h4>
+    <hr />
+
+    <div id="locationField" class="form-group">
+        <span class="control-label col-md-2"><b>Address Input</b></span>
+        <div class="col-md-10">
+            <input id="autocomplete"
+                   placeholder="Enter your address"
+                   onFocus="geolocate()"
+                   type="text"
+                   class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", @id = "street_number", @disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control", @id = "route", @disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "locality", @disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @id = "administrative_area_level_1", @disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @id = "postal_code", @disabled = "true" } })
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbeMxxYDhvqX7R8DM0X3Ar9XFZENT5C6E&libraries=place"
+            async defer></script>
+
+    <div id="map" style="width: 500px; height: 400px;"></div>
+    <script src="~/Scripts/Google Maps/MultiMap.js"></script>
+}

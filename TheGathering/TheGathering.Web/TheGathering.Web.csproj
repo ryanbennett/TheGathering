@@ -243,6 +243,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Logo\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\customcalendar.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
@@ -254,6 +255,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Fonts\Sofia Pro SemiBold.ttf" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - Web Deploy.pubxml" />
@@ -273,6 +275,7 @@
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Google Maps\BMaps2.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\gcal.js" />
@@ -429,6 +432,7 @@
     <Content Include="Views\MealSite\Edit.cshtml" />
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
+    <Content Include="Views\MealSite\MultiMapTest.cshtml" />
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
