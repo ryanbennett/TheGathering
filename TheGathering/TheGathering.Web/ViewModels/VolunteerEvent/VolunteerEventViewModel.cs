@@ -17,7 +17,7 @@ namespace TheGathering.Web.Models
         public string EndingShiftTime { get; set; }
         [Display(Name = "Open Slots")]
         public int OpenSlots { get; set; }
-        public MealSite Location { get; set; }
+        public int Location { get; set; }
 
         public List<SelectListItem> AllLocations { get; set; }
         public string Description { get; set; }

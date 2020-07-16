@@ -18,11 +18,14 @@ namespace TheGathering.Web.Models
         public DateTime EndingShiftTime { get; set; }
         [Display(Name = "Open Slots")]
         public int OpenSlots { get; set; }
-        public MealSite Location { get; set; }
-       
+        public int LocationId { get; set; }
+        
         [NotMapped]
         public List<SelectListItem> AllLocations { get; set; }
 
+        [NotMapped]
+        public MealSite Location { get; set; }
+        
         public string Description { get; set; }
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
     }

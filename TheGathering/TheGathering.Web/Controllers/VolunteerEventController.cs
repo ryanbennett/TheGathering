@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,7 +18,20 @@ namespace TheGathering.Web.Controllers
         // GET: VolunteerEvent
         public ActionResult Index()
         {
-            return View(service.GetAllEvents());
+            List<VolunteerEvent> events = service.GetAllEvents();
+
+            foreach (VolunteerEvent e in events)
+            {
+                e.Location = mealSiteService.GetMealSiteById(e.LocationId);
+                
+                if (e.Location == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"No location found for ID: {e.LocationId}");
+                    e.Location = new MealSite();
+                }
+            }
+
+            return View(events);
         }
         public ActionResult Create()
         {
@@ -71,6 +84,7 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
+            volunteerevent.Location = mealSiteService.GetMealSiteById(volunteerevent.LocationId);
             return View(volunteerevent);
         }
         public ActionResult Edit(int? id)
@@ -79,20 +93,13 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VolunteerEvent VolunteerEvent = service.GetEventById((int)id);
-            if (VolunteerEvent == null)
+            VolunteerEvent volunteerEvent = service.GetEventById((int)id);
+            if (volunteerEvent == null)
             {
                 return HttpNotFound();
             }
-            var viewModel = new VolunteerEventViewModel();
-            viewModel.Id = VolunteerEvent.Id;
-            viewModel.StartingShiftTime = VolunteerEvent.StartingShiftTime.ToString("yyyy-MM-ddThh:mm");
-            viewModel.EndingShiftTime = VolunteerEvent.EndingShiftTime.ToString("yyyy-MM-ddThh:mm");
-            viewModel.OpenSlots = VolunteerEvent.OpenSlots;
-            viewModel.Location = VolunteerEvent.Location;
-            viewModel.Description = VolunteerEvent.Description;
-
-            return View(viewModel);
+            volunteerEvent.AllLocations = AllLocations();
+            return View(volunteerEvent);
         }
 
         [HttpPost]
@@ -117,6 +124,7 @@ namespace TheGathering.Web.Controllers
             var events = service.GetAllEvents();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
 
         public List<SelectListItem> AllLocations()
         {

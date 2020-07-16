@@ -29,7 +29,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (TheGathering.Web.Models.VolunteerEvent item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.StartingShiftTime)
@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.OpenSlots)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Location)
+            @(item.Location.AddressLine1 + ", " + item.Location.City + ", " + item.Location.State)
         </td>
 
         <td>
