@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
@@ -208,6 +209,10 @@
     <Compile Include="Migrations\202007151442197_VolunteerVolunteerEvent.Designer.cs">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007161442154_volunteerAppIdAddition.cs" />
+    <Compile Include="Migrations\202007161442154_volunteerAppIdAddition.Designer.cs">
+      <DependentUpon>202007161442154_volunteerAppIdAddition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -224,6 +229,7 @@
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
@@ -424,10 +430,12 @@
     <Content Include="Views\Volunteer\UserEventsList.cshtml" />
     <Content Include="Views\Volunteer\EventRegistered.cshtml" />
     <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
+    <Content Include="Views\Account\AdminRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Service\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -466,6 +474,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007151442197_VolunteerVolunteerEvent.resx">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007161442154_volunteerAppIdAddition.resx">
+      <DependentUpon>202007161442154_volunteerAppIdAddition.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

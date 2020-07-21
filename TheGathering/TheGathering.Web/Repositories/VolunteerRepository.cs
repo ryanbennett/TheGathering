@@ -29,6 +29,11 @@ namespace TheGathering.Web.Repositories
             var result = _context.Volunteers.SingleOrDefault(volunteer => volunteer.Id == id);
             return result;
         }
+        public Volunteer GetByApplicationUserId(String applicationUserId)
+        {
+            var result = _context.Volunteers.SingleOrDefault(volunteer => volunteer.ApplicationUserId == applicationUserId);
+            return result;
+        }
 
         public Volunteer GetVolunteerById(int id)
         {

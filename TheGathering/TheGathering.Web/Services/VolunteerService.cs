@@ -41,6 +41,12 @@ namespace TheGathering.Web.Services
         {
             _repository.DeleteVolunteer(volunteer);
         }
+
+        public Volunteer GetByApplicationUserId(string userId)
+        {
+            return _repository.GetByApplicationUserId(userId);
+        }
+
         public void Edit(Volunteer volunteer)
         {
             _repository.Edit(volunteer);
