@@ -161,11 +161,11 @@ namespace TheGathering.Web.Controllers
             DateTime local = model.Birthday.ToUniversalTime();
             DateTime server = DateTime.Now.ToUniversalTime();
             var age = server.Subtract(local);
-            if (model.Birthday.Year < 1900)
+            if (local.Year < 1900)
             {
                 ModelState.AddModelError("Birthday", "Birthday date is out of range");
             }
-            if (model.Birthday >= DateTime.Now)
+            if (local >= server)
             {
                 ModelState.AddModelError("Birthday", "Birthday date does not exist");
             }
