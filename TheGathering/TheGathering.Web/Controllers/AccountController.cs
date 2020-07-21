@@ -157,7 +157,10 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(AccountRegistrationViewModel model)
         {
-            var age = DateTime.Now.Subtract(model.Birthday);
+            
+            DateTime local = model.Birthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
             if (model.Birthday.Year < 1900)
             {
                 ModelState.AddModelError("Birthday", "Birthday date is out of range");
