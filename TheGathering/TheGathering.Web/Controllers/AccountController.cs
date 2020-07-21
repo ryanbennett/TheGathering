@@ -155,6 +155,14 @@ namespace TheGathering.Web.Controllers
         public async Task<ActionResult> Register(AccountRegistrationViewModel model)
         {
             var age = DateTime.Now.Subtract(model.Birthday);
+            if (model.Birthday.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (model.Birthday >= DateTime.Now)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
             if (age.TotalDays / 365 < 18)
             {
                 ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
