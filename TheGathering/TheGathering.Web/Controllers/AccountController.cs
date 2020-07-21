@@ -176,6 +176,10 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("LastName", "Last name cannot contain numbers");
             }
+            if (model.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
