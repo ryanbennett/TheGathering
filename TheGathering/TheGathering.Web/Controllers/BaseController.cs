@@ -41,16 +41,18 @@ namespace TheGathering.Web.Controllers
             return volunteer1;
         }
 
-
-        public async Task Email() //pass in email, subject, text
+        public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text
         {
+            //subject is subject of email
+            //PlainTextContent is non-html text of email
+            //HtmlContent is a stylized version of plainTextContent
             var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("21ahmeda@elmbrookstudents.org", "The Gathering");
-            var subject = "The Gathering Email Confirmation";
-            var to = new EmailAddress("thomrya22@outlook.com", "Ryan");
-            var plainTextContent = "You have registered with The Gathering!";
-            var htmlContent = "<strong>You have registered with The Gathering!</strong>";
+            var subject = Subject;
+            var to = new EmailAddress(email, firstName);
+            var plainTextContent = PlainTextContent;
+            var htmlContent = HtmlContent;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }

@@ -324,7 +324,6 @@
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
-    <Content Include="Views\Account\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

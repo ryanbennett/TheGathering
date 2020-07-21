@@ -203,6 +203,14 @@ namespace TheGathering.Web.Controllers
 
                     VolunteerService.Create(volunteer);
 
+                    String subject = "The Gathering Registration Confirmation";
+                    String plainText= "Hello "+model.FirstName+", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon.";
+                    String htmlText = "<strong>Hello "+model.FirstName+",</strong></br> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon.";
+
+                    await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
+
                     /*User fills in register page
                      * Create a volunteer, Fill in volunteer fields, and add to database via running create method (or similar ie email filled in) from Volunteer
                      * User and Volunteer are tied using id (String)
@@ -287,11 +295,6 @@ namespace TheGathering.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Test()
-        {
-            Email();
-            return View();
-        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
