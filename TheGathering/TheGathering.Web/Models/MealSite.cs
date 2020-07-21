@@ -19,8 +19,8 @@ namespace TheGathering.Web.Models
         public string DaysServed { get; set; }
         public int MaximumGuestsServed { get; set; }
         public int MinimumGuestsServed { get; set; }
-        public int StartTime { get; set; }
-        public int EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public List<VolunteerEvent> VolunteerEvents { get; set; }
     }
 }

@@ -41,8 +41,14 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                mealSiteService.UpdateMealSite(mealSite);
-                return RedirectToAction("Index");
+                if (mealSite.StartTime.CompareTo(mealSite.EndTime) == -1 && mealSite.MinimumGuestsServed < mealSite.MaximumGuestsServed)
+                {
+                    mealSiteService.UpdateMealSite(mealSite);
+                    return RedirectToAction("Index");
+                }
+
+                //TODO: add error notification to inform the user of bad input
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             return View(mealSite);
         }
@@ -60,8 +66,14 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                mealSiteService.AddMealSite(mealSite);
-                return RedirectToAction("Index");
+                if (mealSite.StartTime.CompareTo(mealSite.EndTime) == -1 && mealSite.MinimumGuestsServed < mealSite.MaximumGuestsServed)
+                {
+                    mealSiteService.AddMealSite(mealSite);
+                    return RedirectToAction("Index");
+                }
+
+                //TODO: add error notification to inform the user of bad input
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             return View(mealSite);
@@ -98,12 +110,16 @@ namespace TheGathering.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             MealSite mealSite = mealSiteService.GetMealSiteById((int)id);
+
             if (mealSite == null)
             {
                 return HttpNotFound();
             }
-            MealSiteViewModel mealSiteViewModel = new MealSiteViewModel(mealSite);
-            mealSiteViewModel.VolunteerEvents = mealSite.VolunteerEvents;
+
+            MealSiteViewModel mealSiteViewModel = new MealSiteViewModel(mealSite)
+            {
+                VolunteerEvents = mealSite.VolunteerEvents
+            };
 
             return View(mealSiteViewModel);
         }

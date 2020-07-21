@@ -21,8 +21,8 @@ namespace TheGathering.Web.ViewModels.MealSite
         public string DaysServed { get; set; }
         public int MaximumGuestsServed { get; set; }
         public int MinimumGuestsServed { get; set; }
-        public int StartTime { get; set; }
-        public int EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public List<VolunteerEvent> VolunteerEvents { get; set; }
 
         public MealSiteViewModel(TheGathering.Web.Models.MealSite mealSite)
@@ -30,7 +30,7 @@ namespace TheGathering.Web.ViewModels.MealSite
             // Transfer Variables
             Id = mealSite.Id;
             AddressLine1 = mealSite.AddressLine1;
-            AddressLine1 = mealSite.AddressLine2;
+            AddressLine2 = mealSite.AddressLine2;
             City = mealSite.City;
             Zipcode = mealSite.Zipcode;
             State = mealSite.State;
