@@ -168,6 +168,14 @@ namespace TheGathering.Web.Controllers
                 ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
                 
             }
+            if (model.FirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (model.LastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
