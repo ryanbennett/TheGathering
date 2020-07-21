@@ -57,9 +57,21 @@
         <div class="col-sm-1 @*MinorHeadingRed*@"><h2>*</h2></div>
     </div>
     <div class="row">
+        <a>The Password Must Include:</a>
+    </div>
+    <div class="row">
+        <a>     A Capitol Letter</a>
+    </div>
+    <div class="row">
+        <a>     A Number</a>
+    </div>
+    <div class="row">
+        <a>     A Special Character</a>
+    </div>
+    <br />
+    <div class="row">
         <div class=col-sm-5>
             <div class="form-group">
-
                 <div class="col-md-9">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                     @*<div class="BodyTextMediumNormal">*@<p>Volunteer Password</p>@*</div>*@
@@ -117,7 +129,7 @@
         <div class="col-md-10">
             <div class="checkbox">
                 @Html.EditorFor(model => model.SignUpForNewsLetter)
-                @Html.ValidationMessageFor(model => model.SignUpForNewsLetter, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.SignUpForNewsLetter, "The password must include: a capitol letter, a number, and a special character", new { @class = "text-danger" })
             </div>
         </div>
     </div>
