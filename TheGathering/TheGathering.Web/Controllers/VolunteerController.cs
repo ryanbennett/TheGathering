@@ -10,7 +10,7 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    public class VolunteerController : Controller
+    public class VolunteerController : BaseController
     {
         // GET: Volunteer
         VolunteerService _service = new VolunteerService();
@@ -82,7 +82,7 @@ namespace TheGathering.Web.Controllers
             model.Volunteer = _service.GetByApplicationUserId(userId);
             //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
-            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(4);
+            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
             var events = _eventService.GetEventsByIds(volunteerEventIds);
             foreach(int id in volunteerEventIds)
             {
@@ -127,9 +127,10 @@ namespace TheGathering.Web.Controllers
             return View(volunteerEvents);
         }
 
-        public ActionResult UserEventsList(int volunteerId)
+        public ActionResult UserEventsList()
         {
-           var volunteerEvents = _service.GetVolunteerEventIdsByVolunteerId(volunteerId);
+           var volunteer = GetCurrentVolunteer();
+           var volunteerEvents = _service.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
            var events = _eventService.GetEventsByIds(volunteerEvents);
            
            UserEventsListViewModel viewModel = new UserEventsListViewModel();
