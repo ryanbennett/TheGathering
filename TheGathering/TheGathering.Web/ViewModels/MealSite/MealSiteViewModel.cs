@@ -26,7 +26,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public List<int> VolunteerEventIdsAtMealSite { get; set; }
         public List<VolunteerEvent> VolunteerEventsAtMealSite { get; set; }
 
-        public MealSiteViewModel(TheGathering.Web.Models.MealSite mealSite, CalendarService service)
+        public MealSiteViewModel(TheGathering.Web.Models.MealSite mealSite)
         {
             // Transfer Variables
             Id = mealSite.Id;
@@ -43,22 +43,6 @@ namespace TheGathering.Web.ViewModels.MealSite
             MinimumGuestsServed = mealSite.MinimumGuestsServed;
             StartTime = mealSite.StartTime;
             EndTime = mealSite.EndTime;
-
-            // Converts Volunteer Event Ids to Volunteer Events
-            foreach (int eventId in mealSite.VolunteerEventIdsAtMealSite)
-            {
-                VolunteerEvent volunteerEvent = service.GetEventById(eventId);
-
-                if (volunteerEvent == null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"No event found for ID: {eventId}");
-                }
-                else
-                {
-                    this.VolunteerEventsAtMealSite.Add(volunteerEvent);
-                }
-            }
-
         }
     }
 }

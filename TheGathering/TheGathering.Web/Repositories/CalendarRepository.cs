@@ -40,5 +40,21 @@ namespace TheGathering.Web.Repositories
             dbContext.VolunteerEvents.Add(toAdd);
             dbContext.SaveChanges();
         }
+
+        public List<VolunteerEvent> GetListEventsById(List<int> eventIds)
+        {
+            List<VolunteerEvent> events = new List<VolunteerEvent>();
+
+            foreach (int item in eventIds)
+            {
+                VolunteerEvent ev = dbContext.VolunteerEvents.Find(item);
+                if (ev != null)
+                {
+                        events.Add(ev);
+                }
+            }
+
+            return events;
+        }
     }
 }
