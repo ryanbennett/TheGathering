@@ -141,12 +141,20 @@
 			<table class="table">
                 <tr>
                     <th>
+                        Start Time
+                    </th>
+                    <th>
+                        End Time
+                    </th>
+                    <th>
                         Description
                     </th>
                 </tr>
 				@foreach (var item in Model.VolunteerEvents)
                 {
                     <tr>
+                        <td>@(item.StartingShiftTime)</td>
+                        <td>@(item.EndingShiftTime)</td>
                         <td>@(item.Description)</td>
                     </tr>
                 }
