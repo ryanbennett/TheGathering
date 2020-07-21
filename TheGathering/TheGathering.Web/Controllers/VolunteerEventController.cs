@@ -7,10 +7,11 @@ using System.Web.Mvc;
 using System.Data;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    public class VolunteerEventController : Controller
+    public class VolunteerEventController : BaseController
     {
         private CalendarService service = new CalendarService();
         private VolunteerService volunteerService = new VolunteerService();
@@ -67,8 +68,12 @@ namespace TheGathering.Web.Controllers
             if (volunteerevent == null)
             {
                 return HttpNotFound();
-
-            return View(volunteerevent);
+            }
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
+            Volunteer volunteer = GetCurrentVolunteer();
+            signUpEventViewModel.Volunteer = volunteer;
+            signUpEventViewModel.VolunteerEvent = volunteerevent;
+            return View(signUpEventViewModel);
         }
         public ActionResult Edit(int? id)
         {
