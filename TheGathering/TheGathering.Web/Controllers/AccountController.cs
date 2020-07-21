@@ -196,7 +196,7 @@ namespace TheGathering.Web.Controllers
                     volunteer.LastName = model.LastName;
                     volunteer.Birthday = model.Birthday;
                     volunteer.PhoneNumber = model.PhoneNumber;
-                    volunteer.InterestInLeadership = model.InterestInLeadership;
+                    volunteer.InterestInLeadership = false;
                     volunteer.SignUpForNewsLetter = model.SignUpForNewsLetter;
                     volunteer.ApplicationUserId = user.Id;
                     volunteer.Email = model.Email;
