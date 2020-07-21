@@ -172,7 +172,6 @@ namespace TheGathering.Web.Controllers
             if (age.TotalDays / 365 < 18)
             {
                 ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
-                
             }
             if (model.FirstName.Any(char.IsDigit) == true)
             {
@@ -199,7 +198,7 @@ namespace TheGathering.Web.Controllers
                     volunteer.LastName = model.LastName;
                     volunteer.Birthday = model.Birthday;
                     volunteer.PhoneNumber = model.PhoneNumber;
-                    volunteer.InterestInLeadership = model.InterestInLeadership;
+                    volunteer.InterestInLeadership = false;
                     volunteer.SignUpForNewsLetter = model.SignUpForNewsLetter;
                     volunteer.ApplicationUserId = user.Id;
                     volunteer.Email = model.Email;
