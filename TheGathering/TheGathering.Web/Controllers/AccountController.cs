@@ -18,7 +18,7 @@ using TheGathering.Web.ViewModels.Account;
 namespace TheGathering.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -265,6 +265,12 @@ namespace TheGathering.Web.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult Test()
+        {
+            Email();
+            return View();
         }
         //
         // GET: /Account/ConfirmEmail
