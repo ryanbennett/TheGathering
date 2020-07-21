@@ -13,6 +13,7 @@ namespace TheGathering.Web.Controllers
     public class VolunteerEventController : Controller
     {
         private CalendarService service = new CalendarService();
+        private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -66,7 +67,7 @@ namespace TheGathering.Web.Controllers
             if (volunteerevent == null)
             {
                 return HttpNotFound();
-            }
+
             return View(volunteerevent);
         }
         public ActionResult Edit(int? id)

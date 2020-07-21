@@ -76,10 +76,10 @@ namespace TheGathering.Web.Controllers
             return View(_service.GetById(id));
         }
 
-        public ActionResult SignUpEvent(int eventId)
+        public ActionResult SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = _service.GetById(4);
+            model.Volunteer = _service.GetByApplicationUserId(userId);
             //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(4);

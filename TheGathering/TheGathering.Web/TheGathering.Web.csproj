@@ -209,9 +209,9 @@
     <Compile Include="Migrations\202007151442197_VolunteerVolunteerEvent.Designer.cs">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007161442154_volunteerAppIdAddition.cs" />
-    <Compile Include="Migrations\202007161442154_volunteerAppIdAddition.Designer.cs">
-      <DependentUpon>202007161442154_volunteerAppIdAddition.cs</DependentUpon>
+    <Compile Include="Migrations\202007211532222_VolunteerAppId.cs" />
+    <Compile Include="Migrations\202007211532222_VolunteerAppId.Designer.cs">
+      <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -475,8 +475,8 @@
     <EmbeddedResource Include="Migrations\202007151442197_VolunteerVolunteerEvent.resx">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007161442154_volunteerAppIdAddition.resx">
-      <DependentUpon>202007161442154_volunteerAppIdAddition.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007211532222_VolunteerAppId.resx">
+      <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
