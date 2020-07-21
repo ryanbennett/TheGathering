@@ -103,7 +103,7 @@ namespace TheGathering.Web.Controllers
                 return HttpNotFound();
             }
             MealSiteViewModel mealSiteViewModel = new MealSiteViewModel(mealSite);
-            mealSiteViewModel.VolunteerEventsAtMealSite = volunteerEventService.GetEventsById(mealSiteViewModel.VolunteerEventIdsAtMealSite);
+            mealSiteViewModel.VolunteerEvents = mealSite.VolunteerEvents;
 
             return View(mealSiteViewModel);
         }

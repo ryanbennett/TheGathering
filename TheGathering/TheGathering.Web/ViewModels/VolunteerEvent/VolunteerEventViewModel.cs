@@ -11,15 +11,33 @@ namespace TheGathering.Web.Models
     {
         public int Id { get; set; }
         [Display(Name = "Starting Shift Time")]
-        public string StartingShiftTime { get; set; }
+        public DateTime StartingShiftTime { get; set; }
 
         [Display(Name = "Ending Shift Time")]
-        public string EndingShiftTime { get; set; }
+        public DateTime EndingShiftTime { get; set; }
         [Display(Name = "Open Slots")]
         public int OpenSlots { get; set; }
-        public int Location { get; set; }
 
-        public List<SelectListItem> AllLocations { get; set; }
+        public List<SelectListItem> DropDownItems { get; set; }
+        public int MealSiteId { get; set; }
+
+        public MealSite MealSite { get; set; }
+
         public string Description { get; set; }
+        public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
+
+        public VolunteerEventViewModel() { }
+
+        public VolunteerEventViewModel(VolunteerEvent volunteerEvent)
+        {
+            Id = volunteerEvent.Id;
+            StartingShiftTime = volunteerEvent.StartingShiftTime;
+            EndingShiftTime = volunteerEvent.EndingShiftTime;
+            OpenSlots = volunteerEvent.OpenSlots;
+            MealSite = volunteerEvent.MealSite;
+            MealSiteId = volunteerEvent.MealSite_Id;
+            Description = volunteerEvent.Description;
+            VolunteerVolunteerEvents = volunteerEvent.VolunteerVolunteerEvents;
+        }
     }
 }

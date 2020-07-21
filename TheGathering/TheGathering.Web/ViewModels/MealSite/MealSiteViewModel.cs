@@ -23,8 +23,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public int MinimumGuestsServed { get; set; }
         public int StartTime { get; set; }
         public int EndTime { get; set; }
-        public List<int> VolunteerEventIdsAtMealSite { get; set; }
-        public List<VolunteerEvent> VolunteerEventsAtMealSite { get; set; }
+        public List<VolunteerEvent> VolunteerEvents { get; set; }
 
         public MealSiteViewModel(TheGathering.Web.Models.MealSite mealSite)
         {
@@ -43,6 +42,7 @@ namespace TheGathering.Web.ViewModels.MealSite
             MinimumGuestsServed = mealSite.MinimumGuestsServed;
             StartTime = mealSite.StartTime;
             EndTime = mealSite.EndTime;
+            VolunteerEvents = mealSite.VolunteerEvents;
         }
     }
 }

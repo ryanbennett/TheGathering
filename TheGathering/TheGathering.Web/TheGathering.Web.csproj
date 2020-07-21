@@ -208,21 +208,17 @@
     <Compile Include="Migrations\202007151442197_VolunteerVolunteerEvent.Designer.cs">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007151501423_EventMealSiteLinking.cs" />
-    <Compile Include="Migrations\202007151501423_EventMealSiteLinking.Designer.cs">
-      <DependentUpon>202007151501423_EventMealSiteLinking.cs</DependentUpon>
+    <Compile Include="Migrations\202007211513545_VolunteerEventMealSite.cs" />
+    <Compile Include="Migrations\202007211513545_VolunteerEventMealSite.Designer.cs">
+      <DependentUpon>202007211513545_VolunteerEventMealSite.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007161606093_TryingtheInt.cs" />
-    <Compile Include="Migrations\202007161606093_TryingtheInt.Designer.cs">
-      <DependentUpon>202007161606093_TryingtheInt.cs</DependentUpon>
+    <Compile Include="Migrations\202007211555351_VolunteerLinkChange.cs" />
+    <Compile Include="Migrations\202007211555351_VolunteerLinkChange.Designer.cs">
+      <DependentUpon>202007211555351_VolunteerLinkChange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007161630045_TryingtheIntx2.cs" />
-    <Compile Include="Migrations\202007161630045_TryingtheIntx2.Designer.cs">
-      <DependentUpon>202007161630045_TryingtheIntx2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007161921107_VolunteerEventAtMealSites.cs" />
-    <Compile Include="Migrations\202007161921107_VolunteerEventAtMealSites.Designer.cs">
-      <DependentUpon>202007161921107_VolunteerEventAtMealSites.cs</DependentUpon>
+    <Compile Include="Migrations\202007211854006_VolunteerIdLink.cs" />
+    <Compile Include="Migrations\202007211854006_VolunteerIdLink.Designer.cs">
+      <DependentUpon>202007211854006_VolunteerIdLink.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -483,17 +479,14 @@
     <EmbeddedResource Include="Migrations\202007151442197_VolunteerVolunteerEvent.resx">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007151501423_EventMealSiteLinking.resx">
-      <DependentUpon>202007151501423_EventMealSiteLinking.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007211513545_VolunteerEventMealSite.resx">
+      <DependentUpon>202007211513545_VolunteerEventMealSite.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007161606093_TryingtheInt.resx">
-      <DependentUpon>202007161606093_TryingtheInt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007211555351_VolunteerLinkChange.resx">
+      <DependentUpon>202007211555351_VolunteerLinkChange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007161630045_TryingtheIntx2.resx">
-      <DependentUpon>202007161630045_TryingtheIntx2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007161921107_VolunteerEventAtMealSites.resx">
-      <DependentUpon>202007161921107_VolunteerEventAtMealSites.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007211854006_VolunteerIdLink.resx">
+      <DependentUpon>202007211854006_VolunteerIdLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

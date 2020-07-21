@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.OpenSlots)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.MealSite)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.OpenSlots)
         </td>
         <td>
-            @(item.Location.AddressLine1 + ", " + item.Location.City + ", " + item.Location.State)
+            @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
         </td>
 
         <td>

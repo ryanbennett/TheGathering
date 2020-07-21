@@ -20,23 +20,12 @@ namespace TheGathering.Web.Controllers
         {
             List<VolunteerEvent> events = service.GetAllEvents();
 
-            foreach (VolunteerEvent e in events)
-            {
-                e.Location = mealSiteService.GetMealSiteById(e.LocationId);
-                
-                if (e.Location == null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"No location found for ID: {e.LocationId}");
-                    e.Location = new MealSite();
-                }
-            }
-
             return View(events);
         }
         public ActionResult Create()
         {
-            VolunteerEvent model = new VolunteerEvent();
-            model.AllLocations = AllLocations();
+            VolunteerEventViewModel model = new VolunteerEventViewModel();
+            model.DropDownItems = AllLocations();
             return View(model);
         }
         public ActionResult Delete(int? id)
@@ -50,6 +39,9 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            toBeDeleted.MealSite = mealSiteService.GetMealSiteById(toBeDeleted.MealSite_Id);
+
             return View(toBeDeleted);
         }
         [HttpPost, ActionName("Delete")]
@@ -58,22 +50,25 @@ namespace TheGathering.Web.Controllers
         {
             VolunteerEvent toBeDeleted = service.GetEventById(id);
             service.DeleteEvent(toBeDeleted);
-            mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.LocationId);
+            //mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.MealSite.Id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(VolunteerEvent volunteerevent)
+        public ActionResult Create(VolunteerEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                service.AddEvent(volunteerevent);
-                mealSiteService.AddVolunteerEvent(volunteerevent.Id, volunteerevent.LocationId);
+                VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                volunteerEvent.MealSite_Id = viewModel.MealSiteId;
+
+                service.AddEvent(volunteerEvent);
+                //mealSiteService.AddVolunteerEvent(volunteerEvent.Id, volunteerEvent.MealSite.Id);
                 return RedirectToAction("Index");
             }
 
-            return View(volunteerevent);
+            return View(viewModel);
         }
         public ActionResult Details(int? id)
         {
@@ -81,13 +76,16 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VolunteerEvent volunteerevent = service.GetEventById((int)id);
-            if (volunteerevent == null)
+            VolunteerEvent volunteerEvent = service.GetEventById((int)id);
+
+            if (volunteerEvent == null)
             {
                 return HttpNotFound();
             }
-            volunteerevent.Location = mealSiteService.GetMealSiteById(volunteerevent.LocationId);
-            return View(volunteerevent);
+
+            volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
+
+            return View(volunteerEvent);
         }
         public ActionResult Edit(int? id)
         {
@@ -96,28 +94,34 @@ namespace TheGathering.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             VolunteerEvent volunteerEvent = service.GetEventById((int)id);
+
             if (volunteerEvent == null)
             {
                 return HttpNotFound();
             }
-            volunteerEvent.AllLocations = AllLocations();
-            return View(volunteerEvent);
+
+            VolunteerEventViewModel viewModel = new VolunteerEventViewModel(volunteerEvent)
+            {
+                DropDownItems = AllLocations(),
+                MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id)
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEvent VolunteerEvent)
+        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                VolunteerEvent oldEvent = service.GetEventById(VolunteerEvent.Id);
-                mealSiteService.DeleteVolunteerEvent(oldEvent.Id, oldEvent.LocationId);
-                service.SaveEdits(VolunteerEvent);
-                mealSiteService.AddVolunteerEvent(VolunteerEvent.Id, VolunteerEvent.LocationId);
+                VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                service.SaveEdits(volunteerEvent);
+                //mealSiteService.AddVolunteerEvent(volunteerEvent.Id, volunteerEvent.MealSite.Id);
 
                 return RedirectToAction("Index");
             }
-            return View(VolunteerEvent);
+            return View(viewModel);
         }
 
         public ActionResult Calendar()
@@ -139,9 +143,12 @@ namespace TheGathering.Web.Controllers
 
             foreach (MealSite mealSite in AllLocations)
             {
-                SelectListItem item = new SelectListItem();
-                item.Text = mealSite.AddressLine1;
-                item.Value = mealSite.Id.ToString();
+                SelectListItem item = new SelectListItem
+                {
+                    Text = mealSite.AddressLine1,
+                    Value = mealSite.Id.ToString()
+                };
+
                 Locations.Add(item);
             }
             return Locations;

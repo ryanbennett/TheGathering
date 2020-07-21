@@ -7,13 +7,13 @@ namespace TheGathering.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class TryingtheIntx2 : IMigrationMetadata
+    public sealed partial class VolunteerEventMealSite : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TryingtheIntx2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(VolunteerEventMealSite));
         
         string IMigrationMetadata.Id
         {
-            get { return "202007161630045_TryingtheIntx2"; }
+            get { return "202007211513545_VolunteerEventMealSite"; }
         }
         
         string IMigrationMetadata.Source

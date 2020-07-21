@@ -35,10 +35,5 @@ namespace TheGathering.Web.Services
         {
             repository.AddEvent(toAdd);
         }
-
-        public List<VolunteerEvent> GetEventsById(List<int> eventIds)
-        {
-            return repository.GetListEventsById(eventIds);
-        }
     }
 }

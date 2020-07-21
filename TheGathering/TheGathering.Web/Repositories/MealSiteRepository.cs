@@ -35,7 +35,9 @@ namespace TheGathering.Web.Repositories
 
         public MealSite GetMealSiteById(int id)
         {
-            return dbContext.MealSites.Find(id);
+            MealSite mealSite = dbContext.MealSites.Include(m => m.VolunteerEvents).SingleOrDefault(m => m.Id == id);
+
+            return mealSite;
         }
 
         public void UpdateMealSite(MealSite mealSite)

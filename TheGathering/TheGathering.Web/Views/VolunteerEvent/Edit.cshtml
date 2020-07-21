@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.Models.VolunteerEvent
+﻿@model TheGathering.Web.Models.VolunteerEventViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -41,10 +41,10 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.LocationId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MealSite, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.LocationId, Model.AllLocations, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.MealSiteId, Model.DropDownItems, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MealSiteId, "", new { @class = "text-danger" })
         </div>
     </div>
 
