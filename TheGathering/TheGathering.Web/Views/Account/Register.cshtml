@@ -13,7 +13,7 @@
     <hr />
 
     <div class="row">
-        <div class="col-sm-1 @*MinorHeadingNormal*@" ><h2>Name</h2></div>
+        <div class="col-sm-1 @*MinorHeadingNormal*@"><h2>Name</h2></div>
     </div>
     <div class="row">
         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -49,13 +49,26 @@
 
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @*<div class="BodyTextMediumNormal">*@<p>_________@@____.com</p>@*</div>*@
+            @*<div class="BodyTextMediumNormal">*@<p>_________@@____.___</p>@*</div>*@
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-2 @*MinorHeadingNormal*@"><h2>Password</h2></div>
     </div>
+    <div class="row">
+        <a>The Password Must Include:</a>
+    </div>
+    <div class="row">
+        <a>     A Capitol Letter</a>
+    </div>
+    <div class="row">
+        <a>     A Number</a>
+    </div>
+    <div class="row">
+        <a>     A Special Character</a>
+    </div>
+    <br />
     <div class="row">
         <div class=col-sm-5>
             <div class="form-group">
@@ -94,7 +107,7 @@
         </div>
     </div>
     <div class="row">
-    <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Phone Number</h2></div>
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Phone Number</h2></div>
     </div>
     <div class="row">
         <div class=col-sm-5>
@@ -113,14 +126,14 @@
 
 
     @*<div class="form-group">
-        <div class="col-md-2 @*MinorHeadingNormal">Interest In leadership</div>
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.InterestInLeadership)
-                @Html.ValidationMessageFor(model => model.InterestInLeadership, "", new { @class = "text-danger" })
+            <div class="col-md-2 @*MinorHeadingNormal">Interest In leadership</div>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.InterestInLeadership)
+                    @Html.ValidationMessageFor(model => model.InterestInLeadership, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
     <div class="form-group">
         <div class="col-md-2 @*MinorHeadingNormal*@">Would you like to recieve The Gathering Newsletter?</div>
