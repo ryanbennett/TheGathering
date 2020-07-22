@@ -42,11 +42,11 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include=(MealSite.IncludeBind))] MealSiteViewModel mealSite)
+        public ActionResult Edit([Bind(Include=MealSite.IncludeBind)] MealSiteViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.StartTime.CompareTo(viewModel.EndTime) < 0 && viewModel.MinimumGuestsServed < viewModel.MaximumGuestsServed)
+                if (viewModel.ValidateAllData())
                 {
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.UpdateMealSite(mealSite);
@@ -67,11 +67,11 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = (MealSite.IncludeBind))] MealSiteViewModel mealSite)
+        public ActionResult Create([Bind(Include = (MealSite.IncludeBind))] MealSiteViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.StartTime.CompareTo(viewModel.EndTime) < 0 && viewModel.MinimumGuestsServed < viewModel.MaximumGuestsServed)
+                if (viewModel.ValidateAllData())
                 {
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.AddMealSite(mealSite);

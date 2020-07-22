@@ -7,14 +7,11 @@
 <script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
 <script type="text/javascript" src="~/Scripts/Meal Display/MealDisplay.js"></script>
 
-<h2>Create</h2>
-<script type="text/javascript" src="~/Scripts/Google Maps/BMaps2.js"></script>
-
 @if (Model != null && !string.IsNullOrEmpty(Model.Error))
 {
-    <p style="color:red">
+    <div class="alert alert-danger" role="alert">
         Error: @(Model.Error)
-    </p>
+    </div>
 }
 
 @using (Html.BeginForm())

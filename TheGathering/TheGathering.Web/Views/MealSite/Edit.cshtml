@@ -9,9 +9,9 @@
 
 @if (Model != null && !string.IsNullOrEmpty(Model.Error))
 {
-    <p style="color:red">
+    <div class="alert alert-danger" role="alert">
         Error: @(Model.Error)
-    </p>
+    </div>
 }
 
 @using (Html.BeginForm())

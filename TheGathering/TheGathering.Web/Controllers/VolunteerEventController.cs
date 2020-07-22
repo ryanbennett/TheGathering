@@ -99,12 +99,8 @@ namespace TheGathering.Web.Controllers
             SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
             Volunteer volunteer = GetCurrentVolunteer();
             signUpEventViewModel.Volunteer = volunteer;
-            signUpEventViewModel.VolunteerEvent = volunteerevent;
+            signUpEventViewModel.VolunteerEvent = volunteerEvent;
             return View(signUpEventViewModel);
-
-            volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
-
-            return View(volunteerEvent);
         }
 
         public ActionResult Edit(int? id)
