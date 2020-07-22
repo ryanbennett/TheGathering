@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TheGathering.Web.Models
 {
     public class VolunteerEventViewModel
@@ -25,6 +26,11 @@ namespace TheGathering.Web.Models
 
         public string Description { get; set; }
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
+
+        /// <summary>
+        /// This will be empty if there is no error, allows us to create an error for validating input information
+        /// </summary>
+        public string Error { get; set; }
 
         public VolunteerEventViewModel() { }
 

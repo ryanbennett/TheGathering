@@ -25,6 +25,13 @@ namespace TheGathering.Web.ViewModels.MealSite
         public DateTime EndTime { get; set; }
         public List<VolunteerEvent> VolunteerEvents { get; set; }
 
+        /// <summary>
+        /// This will be empty if there is no error, allows us to create an error for validating input information
+        /// </summary>
+        public string Error { get; set; }
+
+        public MealSiteViewModel() { }
+
         public MealSiteViewModel(TheGathering.Web.Models.MealSite mealSite)
         {
             // Transfer Variables

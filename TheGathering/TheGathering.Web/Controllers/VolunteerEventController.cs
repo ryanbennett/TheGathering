@@ -15,6 +15,8 @@ namespace TheGathering.Web.Controllers
         private CalendarService service = new CalendarService();
         private MealSiteService mealSiteService = new MealSiteService();
 
+        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
+
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -22,12 +24,14 @@ namespace TheGathering.Web.Controllers
 
             return View(events);
         }
+
         public ActionResult Create()
         {
             VolunteerEventViewModel model = new VolunteerEventViewModel();
             model.DropDownItems = AllLocations();
             return View(model);
         }
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace TheGathering.Web.Controllers
 
             return View(toBeDeleted);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -60,16 +65,23 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
-                volunteerEvent.MealSite_Id = viewModel.MealSiteId;
+                if (viewModel.StartingShiftTime.CompareTo(viewModel.EndingShiftTime) < 0)
+                {
+                    VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                    volunteerEvent.MealSite_Id = viewModel.MealSiteId;
+                    service.AddEvent(volunteerEvent);
 
-                service.AddEvent(volunteerEvent);
-                //mealSiteService.AddVolunteerEvent(volunteerEvent.Id, volunteerEvent.MealSite.Id);
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.DropDownItems = AllLocations();
+                return View(viewModel);
             }
 
             return View(viewModel);
         }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -87,6 +99,7 @@ namespace TheGathering.Web.Controllers
 
             return View(volunteerEvent);
         }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -115,11 +128,17 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
-                service.SaveEdits(volunteerEvent);
-                //mealSiteService.AddVolunteerEvent(volunteerEvent.Id, volunteerEvent.MealSite.Id);
+                if (viewModel.StartingShiftTime.CompareTo(viewModel.EndingShiftTime) < 0)
+                {
+                    VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                    service.SaveEdits(volunteerEvent);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.DropDownItems = AllLocations();
+                return View(viewModel);
             }
             return View(viewModel);
         }

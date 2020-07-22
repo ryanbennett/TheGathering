@@ -6,13 +6,19 @@
 
 <h2>Create</h2>
 
+@if (Model != null && !string.IsNullOrEmpty(Model.Error))
+{
+    <p style="color:red">
+        Error: @(Model.Error)
+    </p>
+}
 
 @using (Html.BeginForm())
 {
 @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>VolunteerEvent</h4>
+    <h4>Volunteer Event</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -42,8 +48,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.MealSite, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.MealSite_Id, Model.DropDownItems, new { @class = "form-control" } )
-            @Html.ValidationMessageFor(model => model.MealSite_Id, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.MealSiteId, Model.DropDownItems, new { @class = "form-control" } )
+            @Html.ValidationMessageFor(model => model.MealSiteId, "", new { @class = "text-danger" })
         </div>
     </div>
     

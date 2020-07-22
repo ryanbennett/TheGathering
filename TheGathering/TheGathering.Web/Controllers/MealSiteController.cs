@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,6 +17,8 @@ namespace TheGathering.Web.Controllers
         private MealSiteService mealSiteService = new MealSiteService();
         private CalendarService volunteerEventService = new CalendarService();
 
+        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
+
         // GET: MealSite
         public ActionResult Index()
         {
@@ -30,27 +33,29 @@ namespace TheGathering.Web.Controllers
         //These need to updated, these are placeholders
         public ActionResult Edit(int id)
         {
-            return View(mealSiteService.GetMealSiteById(id));
+            return View(new MealSiteViewModel(mealSiteService.GetMealSiteById(id)));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include =
             ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSiteViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                if (mealSite.StartTime.CompareTo(mealSite.EndTime) == -1 && mealSite.MinimumGuestsServed < mealSite.MaximumGuestsServed)
+                if (viewModel.StartTime.CompareTo(viewModel.EndTime) < 0 && viewModel.MinimumGuestsServed < viewModel.MaximumGuestsServed)
                 {
+                    MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.UpdateMealSite(mealSite);
                     return RedirectToAction("Index");
                 }
 
-                //TODO: add error notification to inform the user of bad input
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                return View(viewModel);
             }
-            return View(mealSite);
+
+            return View(viewModel);
         }
 
         public ActionResult Create()
@@ -62,21 +67,22 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include =
             ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSiteViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                if (mealSite.StartTime.CompareTo(mealSite.EndTime) == -1 && mealSite.MinimumGuestsServed < mealSite.MaximumGuestsServed)
+                if (viewModel.StartTime.CompareTo(viewModel.EndTime) < 0 && viewModel.MinimumGuestsServed < viewModel.MaximumGuestsServed)
                 {
+                    MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.AddMealSite(mealSite);
                     return RedirectToAction("Index");
                 }
 
-                //TODO: add error notification to inform the user of bad input
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                return View(viewModel);
             }
 
-            return View(mealSite);
+            return View(viewModel);
         }
 
         public ActionResult Delete(int? id)
