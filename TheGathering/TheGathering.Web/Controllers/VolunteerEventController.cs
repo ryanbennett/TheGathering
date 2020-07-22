@@ -111,7 +111,7 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult Calendar()
         {
-            return View();
+            return View(service.GetAllEvents());
         }
 
         public JsonResult GetEvents()
