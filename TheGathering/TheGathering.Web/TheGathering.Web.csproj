@@ -192,9 +192,9 @@
     <Compile Include="Migrations\202007221709296_models-v1.Designer.cs">
       <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007221533309_VolunteerGroupLeader.cs" />
-    <Compile Include="Migrations\202007221533309_VolunteerGroupLeader.Designer.cs">
-      <DependentUpon>202007221533309_VolunteerGroupLeader.cs</DependentUpon>
+    <Compile Include="Migrations\202007221745115_VolunteerGroups.cs" />
+    <Compile Include="Migrations\202007221745115_VolunteerGroups.Designer.cs">
+      <DependentUpon>202007221745115_VolunteerGroups.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -453,8 +453,8 @@
     <EmbeddedResource Include="Migrations\202007221709296_models-v1.resx">
       <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007221533309_VolunteerGroupLeader.resx">
-      <DependentUpon>202007221533309_VolunteerGroupLeader.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007221745115_VolunteerGroups.resx">
+      <DependentUpon>202007221745115_VolunteerGroups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
