@@ -46,9 +46,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SendGrid, Version=9.18.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.18.0\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="StarkbankEcdsa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\starkbank-ecdsa.1.2.0\lib\net452\StarkbankEcdsa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -168,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
@@ -232,6 +240,10 @@
     <Compile Include="Migrations\202007220328580_SeperateMeals2.Designer.cs">
       <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007211532222_VolunteerAppId.cs" />
+    <Compile Include="Migrations\202007211532222_VolunteerAppId.Designer.cs">
+      <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -242,14 +254,17 @@
     <Compile Include="Models\VolunteerVolunteerEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\VolunteerRepository.cs" />
-    <Compile Include="Service\VolunteerService.cs" />
+    <Compile Include="Services\VolunteerService.cs" />
     <Compile Include="Repositories\CalendarRepository.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
+    <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\appdb.mdf" />
@@ -453,8 +468,18 @@
     <Content Include="Views\MealSite\Delete.cshtml" />
     <Content Include="Views\MealSite\MultiMapTest.cshtml" />
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
+    <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
+    <Content Include="Views\Volunteer\UserEventsList.cshtml" />
+    <Content Include="Views\Volunteer\EventRegistered.cshtml" />
+    <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
+    <Content Include="Views\Account\AdminRegister.cshtml" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Service\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -510,6 +535,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007220328580_SeperateMeals2.resx">
       <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211532222_VolunteerAppId.resx">
+      <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

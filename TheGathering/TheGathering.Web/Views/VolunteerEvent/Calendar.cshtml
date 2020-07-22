@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<TheGathering.Web.Models.VolunteerEvent>
+@{
     ViewBag.Title = "Calendar";
 }
 
@@ -70,7 +71,7 @@
                     eventColor: '#750049',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
-                        $('#myModal #eventTitle').text("Volunteer Event "+calEvent.id);
+                        $('#myModal #eventTitle').text("Volunteer Event " + calEvent.id);
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>Start: </b>' + calEvent.start.format("DD-MMM-YYYY hh:mm a")));
                         if (calEvent.end != null) {
@@ -79,6 +80,7 @@
                         $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
                         $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
+                        $description.append($('<p/>').html('<a href="/VolunteerEvent/Details/' + calEvent.id + '">Sign up for Event</a>'));
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
@@ -87,4 +89,53 @@
             }
         })
     </script>
+
 }
+<br />
+<h3>All Volunteer Events</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingShiftTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndingShiftTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpenSlots)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingShiftTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingShiftTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenSlots)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                <!--TODO CHANGE TO SIGN UP, details too redundant-->
+            </td>
+        </tr>
+    }
+
+</table>

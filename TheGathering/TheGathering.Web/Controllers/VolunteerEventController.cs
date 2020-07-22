@@ -7,16 +7,18 @@ using System.Web.Mvc;
 using System.Data;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    public class VolunteerEventController : Controller
+    public class VolunteerEventController : BaseController
     {
         private CalendarService service = new CalendarService();
         private MealSiteService mealSiteService = new MealSiteService();
 
         public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
 
+        private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -94,6 +96,11 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
+            Volunteer volunteer = GetCurrentVolunteer();
+            signUpEventViewModel.Volunteer = volunteer;
+            signUpEventViewModel.VolunteerEvent = volunteerevent;
+            return View(signUpEventViewModel);
 
             volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
 
@@ -145,7 +152,7 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult Calendar()
         {
-            return View();
+            return View(service.GetAllEvents());
         }
 
         public JsonResult GetEvents()
