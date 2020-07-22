@@ -277,13 +277,13 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("LastName", "Last name cannot contain numbers");
             }
-            if (model.LeaderEmail.Contains('.') == false)
+            if (model.Email.Contains('.') == false)
             {
                 ModelState.AddModelError("Email", "Email must contain a period");
             }
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.LeaderEmail, Email = model.LeaderEmail };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -296,7 +296,8 @@ namespace TheGathering.Web.Controllers
                     volunteerLeader.LeaderPhoneNumber = model.LeaderPhoneNumber;
                     volunteerLeader.SignUpForNewsLetter = model.SignUpForNewsLetter;
                     volunteerLeader.ApplicationUserId = user.Id;
-                    volunteerLeader.LeaderEmail = model.LeaderEmail;
+                    volunteerLeader.LeaderEmail = model.Email;
+                    volunteerLeader.GroupName = model.GroupName;
                     volunteerLeader.TotalGroupMembers = model.TotalGroupMembers;
 
                     VolunteerGroupService.CreateLeader(volunteerLeader);
@@ -307,7 +308,7 @@ namespace TheGathering.Web.Controllers
                     String htmlText = "<strong>Hello " + model.LeaderFirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
                         "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
 
-                    await ConfirmationEmail(model.LeaderFirstName, model.LeaderEmail, subject, plainText, htmlText);
+                    await ConfirmationEmail(model.LeaderFirstName, model.Email, subject, plainText, htmlText);
 
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

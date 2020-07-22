@@ -14,7 +14,7 @@ namespace TheGathering.Web.ViewModels.Account
         [Required]
         public string LeaderLastName { get; set; }
         [Required]
-        public string LeaderEmail { get; set; }
+        public string Email { get; set; }
         public DateTime LeaderBirthday { get; set; }
         public string GroupName { get; set; }
         public string LeaderPhoneNumber { get; set; }
