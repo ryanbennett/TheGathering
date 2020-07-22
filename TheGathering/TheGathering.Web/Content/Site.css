@@ -47,36 +47,6 @@ textarea {
     line-height: 1.6;
 }
 
-.baskervilleMediumItalics {
-    font-family: Baskerville;
-    color: #434345;
-    font-size: medium;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.6;
-}
-
-.baskervilleMediumSemiBold {
-    font-family: Baskerville;
-    color: #434345;
-    font-size: medium;
-    font-weight: 600;
-    line-height: 1.6;
-}
-.baskervilleLargeNormal {
-    font-family: Baskerville;
-    color: #434345;
-    font-size: xx-large;
-    font-weight: 400;
-}
-
-.baskervilleLargeSemiBold {
-    font-family: Baskerville;
-    color: #434345;
-    font-size: xx-large;
-    font-weight: 600;
-}
-
 .leftNavBar {
     font-family: Sofia Pro, sans-serif;
     color: #B9B0A5;
@@ -99,12 +69,11 @@ textarea {
     text-transform: uppercase;
 }
 
-.MajorHeadingSemiBold {
+h1 {
     font-family: Sofia Pro, sans-serif;
     color: #434345;
     font-size: xx-large;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 400;
 }
 
 .MinorHeadingSemiBold {
@@ -112,14 +81,6 @@ textarea {
     color: #434345;
     font-size: large;
     font-weight: 600;
-    text-transform: uppercase;
-}
-
-.MajorHeadingNormal {
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: xx-large;
-    font-weight: 400;
     text-transform: uppercase;
 }
 
@@ -131,12 +92,11 @@ textarea {
     text-transform: uppercase;
 }
 
-.BodyTextMediumNormal {
+p{
     font-family: Baskerville;
     color: #434345;
     font-size: medium;
     font-weight: 400;
-    line-height: 1.6;
 }
 
 .Links {
@@ -163,6 +123,9 @@ textarea {
 }
 .CenterText{
     text-align:center;
+}
+.semibold{
+    font-weight:600;
 }
 
 .FooterText {
@@ -479,13 +442,6 @@ hr {
 }
 
 /* Apply Font to Headers */
-h1,
-h2,
-h3,
-h4,
-th {
-    font-family: Sofia Pro SemiBold;
-}
 
 /* Bing Maps */
 #myMap {
