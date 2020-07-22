@@ -9,10 +9,12 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-}*/
-    background-color: #faf6eb;
-    color: rgba(69,53,40,.8);
-    font-family: Baskerville;
+}
+
+*/
+background-color: #faf6eb;
+color: rgba(69,53,40,.8);
+font-family: Baskerville;
 }
 
 td {
@@ -63,6 +65,7 @@ textarea {
     font-weight: 600;
     line-height: 1.6;
 }
+
 .baskervilleLargeNormal {
     font-family: Baskerville;
     color: #434345;
@@ -84,12 +87,12 @@ textarea {
     font-weight: 400;
 }
 
-.leftNavBar :hover {
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: medium;
-    font-weight: 400;
-}
+    .leftNavBar :hover {
+        font-family: Sofia Pro, sans-serif;
+        color: #434345;
+        font-size: medium;
+        font-weight: 400;
+    }
 
 .Navbar {
     font-family: Sofia Pro, sans-serif;
@@ -131,6 +134,14 @@ textarea {
     text-transform: uppercase;
 }
 
+h3 {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: large;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
 .BodyTextMediumNormal {
     font-family: Baskerville;
     color: #434345;
@@ -161,8 +172,9 @@ textarea {
     font-weight: 600;
     text-transform: uppercase;
 }
-.CenterText{
-    text-align:center;
+
+.CenterText {
+    text-align: center;
 }
 
 .FooterText {
@@ -174,14 +186,14 @@ textarea {
     line-height: 1.6;
 }
 
-.btn-primary{
-background-color:#434345;
-padding: 10px;
-
+.btn-primary {
+    background-color: #434345;
+    padding: 10px;
 }
+
     .btn-primary:hover {
-        background-color: #434345; 
-        opacity:0.9;
+        background-color: #434345;
+        opacity: 0.9;
     }
 
 
@@ -291,7 +303,7 @@ hr {
 
 /* experimental */
 
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
@@ -309,17 +321,20 @@ hr {
     font-size: 11px;
     font-weight: 400;
 }
-.logo {
 
+.logo {
 }
+
 .nav-links {
     display: flex;
     justify-content: space-around;
     width: 70%;
 }
-.nav-links li{
-    list-style: none;
-}
+
+    .nav-links li {
+        list-style: none;
+    }
+
     .nav-links a {
         color: #B0D0B9;
         text-decoration: none;
@@ -330,31 +345,37 @@ hr {
         cursor: pointer;
         transition: all 0.2s ease;
     }
+
     .nav-links li a:hover {
         color: white;
         text-decoration: none;
         cursor: pointer;
     }
+
 .burger {
-        display: none;
-        cursor: pointer;
+    display: none;
+    cursor: pointer;
 }
-.burger div {
-    width: 25px;
-    height: 3px;
-    background-color: #B0D0B9;
-    margin: 5px;
-    transition: all 0.3s ease;
-}
+
+    .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: #B0D0B9;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
 @media screen and (max-width: 1200px) {
     .nav-links {
         width: 100%;
     }
 }
-@media screen and (max-width: 900px){
-    body{
+
+@media screen and (max-width: 900px) {
+    body {
         overflow-x: hidden;
     }
+
     .nav-links {
         position: fixed;
         z-index: 1;
@@ -370,15 +391,16 @@ hr {
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
     }
-    .nav-links li {
-        opacity: 0;
-    }
-    .burger{
+
+        .nav-links li {
+            opacity: 0;
+        }
+
+    .burger {
         display: block;
     }
-    
-
 }
+
 .nav-active {
     transform: translateX(0%);
 }
@@ -386,12 +408,13 @@ hr {
 
 
 
-@keyframes navLinkFade{
-    from{
+@keyframes navLinkFade {
+    from {
         opacity: 0;
         transform: translateX(50px);
     }
-    to{
+
+    to {
         opacity: 1;
         transform: translateX(0px);
     }
@@ -400,12 +423,15 @@ hr {
 .toggle .line1 {
     transform: rotate(-45deg) translate(-5px,6px);
 }
+
 .toggle .line2 {
     opacity: 0;
 }
+
 .toggle .line3 {
     transform: rotate(45deg) translate(-5px,-6px);
 }
+
 .sub-menu-1 {
     display: none;
 }
@@ -413,7 +439,7 @@ hr {
 /*SubMenu 1*/
 .nav-links li:hover .sub-menu-1 {
     position: absolute;
-    z-index:1;
+    z-index: 1;
     background: #434345;
     display: block;
     align-items: center;
@@ -421,27 +447,31 @@ hr {
     height: auto;
     margin-left: -20px;
 }
-.nav-links li:hover .sub-menu-1 ul {
-    margin: 10px;
-    color: #B0D0B9;
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-weight: 400;
-    font-size: 11px;
-    font-family: Arial;
-}
-.nav-links li:hover .sub-menu-1 ul li{
-    width: 150px;
-    padding: 10px;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
+
+    .nav-links li:hover .sub-menu-1 ul {
+        margin: 10px;
+        color: #B0D0B9;
+        text-decoration: none;
+        letter-spacing: 2px;
+        font-weight: 400;
+        font-size: 11px;
+        font-family: Arial;
+    }
+
+        .nav-links li:hover .sub-menu-1 ul li {
+            width: 150px;
+            padding: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
 .nav-links li .sub-menu-1 a:hover {
     color: white;
     text-decoration: none;
     cursor: pointer;
 }
+
 .donate {
     padding: 9px 25px;
     background-color: #434345;
@@ -451,6 +481,7 @@ hr {
     cursor: pointer;
     transition: all 0.2s ease 0s;
 }
+
     .donate:hover {
         background-color: #B0D0B9;
         color: black;
@@ -466,26 +497,20 @@ hr {
     /*accent green*/
     /*background-color: #B0D0B9;*/
 }
-.footerbackground {
-   background-color:darkgray;
 
+.footerbackground {
+    background-color: darkgray;
 }
 
 #footerlink {
     color: #434345;
 }
-#footerlink:hover{
-    text-decoration:none;
-}
 
-/* Apply Font to Headers */
-h1,
-h2,
-h3,
-h4,
-th {
-    font-family: Sofia Pro SemiBold;
-}
+    #footerlink:hover {
+        text-decoration: none;
+    }
+
+
 
 /* Bing Maps */
 #myMap {
@@ -493,6 +518,7 @@ th {
     width: 100%;
     height: 600px;
 }
+
 #zipReturn {
     margin-top: 20px;
 }
@@ -530,5 +556,5 @@ th {
 
 /* Margin Around Buttons */
 .btn-margin {
-    margin:10px;
+    margin: 10px;
 }
