@@ -30,15 +30,14 @@ namespace TheGathering.Web.Controllers
         }
         public ApplicationUser GetCurrentUser()
         {
-            var VolunteerService = new VolunteerService();
-            var user1 = UserManager.FindById(User.Identity.GetUserId());
-            return user1;
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return user;
         }
         public Volunteer GetCurrentVolunteer()
         {
-            var VolunteerService = new VolunteerService();
-            var volunteer1 = VolunteerService.GetByApplicationUserId(User.Identity.GetUserId());
-            return volunteer1;
+            var volunteerService = new VolunteerService();
+            var volunteer = volunteerService.GetByApplicationUserId(User.Identity.GetUserId());
+            return volunteer;
         }
 
         public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text

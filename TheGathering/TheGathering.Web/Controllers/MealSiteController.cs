@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,12 +8,16 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.MealSite;
 
 namespace TheGathering.Web.Controllers
 {
     public class MealSiteController : Controller
     {
         private MealSiteService mealSiteService = new MealSiteService();
+        private CalendarService volunteerEventService = new CalendarService();
+
+        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
 
         // GET: MealSite
         public ActionResult Index()
@@ -21,23 +26,38 @@ namespace TheGathering.Web.Controllers
         }
 
         //These need to updated, these are placeholders
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View(mealSiteService.GetMealSiteById(id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            MealSite MealSite = mealSiteService.GetMealSiteById((int)id);
+            if (MealSite == null)
+            {
+                return HttpNotFound();
+            }
+            return View(new MealSiteViewModel(MealSite));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include =
-            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+        public ActionResult Edit([Bind(Include=MealSite.IncludeBind)] MealSiteViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                mealSiteService.UpdateMealSite(mealSite);
-                return RedirectToAction("Index");
+                if (viewModel.ValidateAllData())
+                {
+                    MealSite mealSite = new MealSite(viewModel);
+                    mealSiteService.UpdateMealSite(mealSite);
+                    return RedirectToAction("Index");
+                }
+
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                return View(viewModel);
             }
-            return View(mealSite);
+
+            return View(viewModel);
         }
 
         public ActionResult Create()
@@ -47,17 +67,22 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include =
-            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+        public ActionResult Create([Bind(Include = (MealSite.IncludeBind))] MealSiteViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                mealSiteService.AddMealSite(mealSite);
-                return RedirectToAction("Index");
+                if (viewModel.ValidateAllData())
+                {
+                    MealSite mealSite = new MealSite(viewModel);
+                    mealSiteService.AddMealSite(mealSite);
+                    return RedirectToAction("Index");
+                }
+
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                return View(viewModel);
             }
 
-            return View(mealSite);
+            return View(viewModel);
         }
 
         public ActionResult Delete(int? id)
@@ -66,14 +91,14 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            var mealSite = mealSiteService.GetMealSiteById((int)id);
+            var MealSite = mealSiteService.GetMealSiteById((int)id);
 
-            if (mealSite == null)
+            if (MealSite == null)
             {
                 return HttpNotFound();
             }
 
-            return View(mealSite);
+            return View(MealSite);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -91,11 +116,18 @@ namespace TheGathering.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             MealSite mealSite = mealSiteService.GetMealSiteById((int)id);
+
             if (mealSite == null)
             {
                 return HttpNotFound();
             }
-            return View(mealSite);
+
+            MealSiteViewModel mealSiteViewModel = new MealSiteViewModel(mealSite)
+            {
+                VolunteerEvents = mealSite.VolunteerEvents
+            };
+
+            return View(mealSiteViewModel);
         }
     }
 }

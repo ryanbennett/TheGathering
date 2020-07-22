@@ -17,7 +17,7 @@ namespace TheGathering.Web.Repositories
 
         public List<VolunteerEvent> GetAllEvents()
         {
-            return dbContext.VolunteerEvents.ToList();
+            return dbContext.VolunteerEvents.Include(ve => ve.MealSite).ToList();
         }
         public void DeleteEvent(VolunteerEvent Event)
         {
@@ -35,7 +35,13 @@ namespace TheGathering.Web.Repositories
         }
         public void SaveEdits(VolunteerEvent toSave)
         {
-            dbContext.Entry(toSave).State = EntityState.Modified;
+            var ve = dbContext.VolunteerEvents.Find(toSave.Id);
+            ve.StartingShiftTime = toSave.StartingShiftTime;
+            ve.EndingShiftTime = toSave.EndingShiftTime;
+            ve.OpenSlots = toSave.OpenSlots;
+            ve.MealSite_Id = toSave.Id;
+            ve.Description = toSave.Description;
+            ve.VolunteerVolunteerEvents = toSave.VolunteerVolunteerEvents;
             dbContext.SaveChanges();
         }
         public void AddEvent(VolunteerEvent toAdd)

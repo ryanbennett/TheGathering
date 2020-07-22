@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,16 +14,26 @@ namespace TheGathering.Web.Controllers
     public class VolunteerEventController : BaseController
     {
         private CalendarService service = new CalendarService();
+        private MealSiteService mealSiteService = new MealSiteService();
+
+        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
+
         private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
         public ActionResult Index()
         {
-            return View(service.GetAllEvents());
+            List<VolunteerEvent> events = service.GetAllEvents();
+
+            return View(events);
         }
+
         public ActionResult Create()
         {
-            return View();
+            VolunteerEventViewModel model = new VolunteerEventViewModel();
+            model.DropDownItems = AllLocations();
+            return View(model);
         }
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -35,78 +45,105 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            toBeDeleted.MealSite = mealSiteService.GetMealSiteById(toBeDeleted.MealSite_Id);
+
             return View(toBeDeleted);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             VolunteerEvent toBeDeleted = service.GetEventById(id);
             service.DeleteEvent(toBeDeleted);
+            //mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.MealSite.Id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(VolunteerEvent volunteerevent)
+        public ActionResult Create(VolunteerEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                service.AddEvent(volunteerevent);
-                return RedirectToAction("Index");
+                if (viewModel.StartingShiftTime.CompareTo(viewModel.EndingShiftTime) < 0)
+                {
+                    VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                    volunteerEvent.MealSite_Id = viewModel.MealSiteId;
+                    service.AddEvent(volunteerEvent);
+
+                    return RedirectToAction("Index");
+                }
+
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.DropDownItems = AllLocations();
+                return View(viewModel);
             }
 
-            return View(volunteerevent);
+            return View(viewModel);
         }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VolunteerEvent volunteerevent = service.GetEventById((int)id);
-            if (volunteerevent == null)
+            VolunteerEvent volunteerEvent = service.GetEventById((int)id);
+
+            if (volunteerEvent == null)
             {
                 return HttpNotFound();
             }
             SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
             Volunteer volunteer = GetCurrentVolunteer();
             signUpEventViewModel.Volunteer = volunteer;
-            signUpEventViewModel.VolunteerEvent = volunteerevent;
+            signUpEventViewModel.VolunteerEvent = volunteerEvent;
             return View(signUpEventViewModel);
         }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VolunteerEvent VolunteerEvent = service.GetEventById((int)id);
-            if (VolunteerEvent == null)
+            VolunteerEvent volunteerEvent = service.GetEventById((int)id);
+
+            if (volunteerEvent == null)
             {
                 return HttpNotFound();
             }
-            var viewModel = new VolunteerEventViewModel();
-            viewModel.Id = VolunteerEvent.Id;
-            viewModel.StartingShiftTime = VolunteerEvent.StartingShiftTime.ToString("yyyy-MM-ddThh:mm");
-            viewModel.EndingShiftTime = VolunteerEvent.EndingShiftTime.ToString("yyyy-MM-ddThh:mm");
-            viewModel.OpenSlots = VolunteerEvent.OpenSlots;
-            viewModel.Location = VolunteerEvent.Location;
-            viewModel.Description = VolunteerEvent.Description;
+
+            VolunteerEventViewModel viewModel = new VolunteerEventViewModel(volunteerEvent)
+            {
+                DropDownItems = AllLocations(),
+                MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id)
+            };
 
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEvent VolunteerEvent)
+        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                service.SaveEdits(VolunteerEvent);
-                return RedirectToAction("Index");
+                if (viewModel.StartingShiftTime.CompareTo(viewModel.EndingShiftTime) < 0)
+                {
+                    VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                    service.SaveEdits(volunteerEvent);
+
+                    return RedirectToAction("Index");
+                }
+
+                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.DropDownItems = AllLocations();
+                return View(viewModel);
             }
-            return View(VolunteerEvent);
+            return View(viewModel);
         }
 
         public ActionResult Calendar()
@@ -118,6 +155,25 @@ namespace TheGathering.Web.Controllers
         {
             var events = service.GetAllEvents();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
+        public List<SelectListItem> AllLocations()
+        {
+            List<MealSite> AllLocations = mealSiteService.GetAllMealSites();
+            List<SelectListItem> Locations = new List<SelectListItem>();
+
+            foreach (MealSite mealSite in AllLocations)
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Text = mealSite.AddressLine1,
+                    Value = mealSite.Id.ToString()
+                };
+
+                Locations.Add(item);
+            }
+            return Locations;
         }
     }
 }

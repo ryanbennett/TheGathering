@@ -10,10 +10,12 @@ namespace TheGathering.Web.Services
     public class MealSiteService
     {
         private MealSiteRepository mealSiteRepository;
+        private CalendarRepository volunteerEventRepository;
 
         public MealSiteService()
         {
             mealSiteRepository = new MealSiteRepository();
+            volunteerEventRepository = new CalendarRepository();
         }
 
         public List<MealSite> GetAllMealSites()
@@ -41,9 +43,28 @@ namespace TheGathering.Web.Services
             return mealSiteRepository.GetMealSiteById(id);
         }
 
+      
         public void UpdateMealSite(MealSite mealSite)
         {
             mealSiteRepository.UpdateMealSite(mealSite);
         }
+
+        public void AddVolunteerEvent(int volunteerEventId, int mealSiteId)
+        {
+            MealSite mealSite = mealSiteRepository.GetMealSiteById(mealSiteId);
+            VolunteerEvent volunteerEvent = volunteerEventRepository.GetEventById(volunteerEventId);
+
+            mealSite.VolunteerEvents.Add(volunteerEvent);
+            mealSiteRepository.UpdateMealSite(mealSite);
+        }
+
+        public void DeleteVolunteerEvent(int volunteerEventId, int mealSiteId) 
+        {
+            MealSite mealSite = mealSiteRepository.GetMealSiteById(mealSiteId);
+            VolunteerEvent volunteerEvent = volunteerEventRepository.GetEventById(volunteerEventId);
+            mealSite.VolunteerEvents.Remove(volunteerEvent);
+            mealSiteRepository.UpdateMealSite(mealSite);
+        }
+
     }
 }
