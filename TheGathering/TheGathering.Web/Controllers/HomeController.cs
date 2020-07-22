@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
-using TheGathering.Web.Service;
+using TheGathering.Web.Services;
 
 namespace TheGathering.Web.Controllers
 {

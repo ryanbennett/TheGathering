@@ -5,14 +5,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
-using TheGathering.Web.Service;
+using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    public class VolunteerController : Controller
+    public class VolunteerController : BaseController
     {
         // GET: Volunteer
         VolunteerService _service = new VolunteerService();
+        CalendarService _eventService = new CalendarService();
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteers();
@@ -74,7 +76,30 @@ namespace TheGathering.Web.Controllers
             return View(_service.GetById(id));
         }
 
+        public ActionResult SignUpEvent(int eventId, string userId)
+        {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = _service.GetByApplicationUserId(userId);
+            //TODO: change Volunteer get
+            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
+            var events = _eventService.GetEventsByIds(volunteerEventIds);
+            foreach(int id in volunteerEventIds)
+            {
+                if(id == eventId)
+                {
+                    return RedirectToAction("EventAlreadyRegistered");
+                }
+            }
+            return View(model);
+        }
         
+        public ActionResult EventAlreadyRegistered()
+        {
+            return View();
+        }
+
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -96,6 +121,28 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetEventsByIds(List<int> eventId)
+        {
+            List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
+            return View(volunteerEvents);
+        }
+
+        public ActionResult UserEventsList()
+        {
+           var volunteer = GetCurrentVolunteer();
+           var volunteerEvents = _service.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
+           var events = _eventService.GetEventsByIds(volunteerEvents);
+           
+           UserEventsListViewModel viewModel = new UserEventsListViewModel();
+           viewModel.VolunteerEvents = events;
+           return View(viewModel);
+        }
+
+        public ActionResult EventRegistered(int volunteerId, int eventId)
+        {
+            _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
+            return View();
+        }
     }
 
 }

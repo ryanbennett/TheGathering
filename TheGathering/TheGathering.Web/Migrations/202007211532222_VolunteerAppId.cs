@@ -3,7 +3,7 @@ namespace TheGathering.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class volunteerAppIdAddition : DbMigration
+    public partial class VolunteerAppId : DbMigration
     {
         public override void Up()
         {

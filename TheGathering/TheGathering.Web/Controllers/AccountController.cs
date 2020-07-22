@@ -12,7 +12,7 @@ using Microsoft.Owin.Security;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using TheGathering.Web.Models;
-using TheGathering.Web.Service;
+using TheGathering.Web.Services;
 using TheGathering.Web.ViewModels.Account;
 
 namespace TheGathering.Web.Controllers

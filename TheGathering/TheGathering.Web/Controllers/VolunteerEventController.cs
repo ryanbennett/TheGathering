@@ -7,12 +7,14 @@ using System.Web.Mvc;
 using System.Data;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    public class VolunteerEventController : Controller
+    public class VolunteerEventController : BaseController
     {
         private CalendarService service = new CalendarService();
+        private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -67,7 +69,11 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(volunteerevent);
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
+            Volunteer volunteer = GetCurrentVolunteer();
+            signUpEventViewModel.Volunteer = volunteer;
+            signUpEventViewModel.VolunteerEvent = volunteerevent;
+            return View(signUpEventViewModel);
         }
         public ActionResult Edit(int? id)
         {
@@ -101,6 +107,17 @@ namespace TheGathering.Web.Controllers
                 return RedirectToAction("Index");
             }
             return View(VolunteerEvent);
+        }
+
+        public ActionResult Calendar()
+        {
+            return View(service.GetAllEvents());
+        }
+
+        public JsonResult GetEvents()
+        {
+            var events = service.GetAllEvents();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }
