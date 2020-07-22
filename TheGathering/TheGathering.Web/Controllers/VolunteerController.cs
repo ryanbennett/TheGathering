@@ -49,7 +49,7 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            Volunteer volunteer = _service.GetById((int)id);
             if (volunteer == null)
             {
                 return HttpNotFound();
@@ -81,7 +81,7 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            Volunteer volunteer = _service.GetById((int)id);
             if (volunteer == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace TheGathering.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            Volunteer volunteer = _service.GetVolunteerById((int)id);
+            Volunteer volunteer = _service.GetById((int)id);
             _service.DeleteVolunteer(volunteer);
             return RedirectToAction("Index");
         }

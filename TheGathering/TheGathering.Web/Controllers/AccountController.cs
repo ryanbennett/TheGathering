@@ -4,16 +4,21 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using TheGathering.Web.Models;
+using TheGathering.Web.Service;
+using TheGathering.Web.ViewModels.Account;
 
 namespace TheGathering.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -76,6 +81,9 @@ namespace TheGathering.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -147,7 +155,94 @@ namespace TheGathering.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(AccountRegistrationViewModel model)
+        {
+            
+            DateTime local = model.Birthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (model.FirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (model.LastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (model.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var VolunteerService = new VolunteerService();
+
+                    Volunteer volunteer = new Volunteer();
+                    volunteer.FirstName = model.FirstName;
+                    volunteer.LastName = model.LastName;
+                    volunteer.Birthday = model.Birthday;
+                    volunteer.PhoneNumber = model.PhoneNumber;
+                    volunteer.InterestInLeadership = false;
+                    volunteer.SignUpForNewsLetter = model.SignUpForNewsLetter;
+                    volunteer.ApplicationUserId = user.Id;
+                    volunteer.Email = model.Email;
+
+                    VolunteerService.Create(volunteer);
+
+                    String subject = "The Gathering Registration Confirmation";
+                    String plainText= "Hello "+model.FirstName+", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon.";
+                    String htmlText = "<strong>Hello "+model.FirstName+",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+
+                    await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
+
+                    
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult AdminRegister()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AdminResgister(AccountRegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -155,8 +250,23 @@ namespace TheGathering.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var VolunteerService = new VolunteerService();
+
+                    Volunteer volunteer = new Volunteer();
+                    volunteer.FirstName = model.FirstName;
+                    volunteer.LastName = model.LastName;
+                    volunteer.Birthday = model.Birthday;
+                    volunteer.PhoneNumber = model.PhoneNumber;
+                    volunteer.InterestInLeadership = model.InterestInLeadership;
+                    volunteer.SignUpForNewsLetter = model.SignUpForNewsLetter;
+                    volunteer.ApplicationUserId = user.Id;
+                    volunteer.Email = model.Email;
+
+                    VolunteerService.Create(volunteer);
+
                     
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
