@@ -168,14 +168,6 @@ padding: 10px;
         background-color: #434345; 
         opacity:0.9;
     }
-.btn-secondary {
-    background-color: #B0D0B9;
-    padding: 10px;
-    border-radius: 20px;
-}
-.btn-secondary:hover{
-    opacity:0.9;
-}
 
 
 
@@ -463,22 +455,7 @@ hr {
    background-color:darkgray;
 
 }
-.button {
-    background-color: #434345;
-    padding: 10px;
-    border:hidden;
-}
-.button:hover{
-    opacity:0.9;
-}
-.button-green {
-    background-color: #B0D0B9;
-    padding: 10px;
-    border-radius: 20px;
-}
-.button-green:hover{
-    opacity:0.9;
-}
+
 #footerlink {
     color: #434345;
 }
