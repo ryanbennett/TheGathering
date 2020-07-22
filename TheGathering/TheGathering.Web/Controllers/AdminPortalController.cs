@@ -13,6 +13,7 @@ namespace TheGathering.Web.Controllers
     {
         private VolunteerService volunteerService = new VolunteerService();
         private MealSiteService mealService = new MealSiteService();
+        private CalendarService calendarService = new CalendarService();
 
         // GET: AdminPortal
         public ActionResult Index()
@@ -42,6 +43,11 @@ namespace TheGathering.Web.Controllers
                 return HttpNotFound();
             }
             return View(mealSite);
+        }
+
+        public ActionResult ManageCalender()
+        {
+            return View(calendarService.GetAllEvents());
         }
     }
 }
