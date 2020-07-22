@@ -20,11 +20,6 @@ namespace TheGathering.Web.Controllers
             return View(mealSiteService.GetAllMealSites());
         }
 
-        public ActionResult MultiMapTest()
-        {
-            return View();
-        }
-
         //These need to updated, these are placeholders
         public ActionResult Edit(int id)
         {
@@ -33,9 +28,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include =
-            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+        public ActionResult Edit([Bind(Include=(MealSite.IncludeBind))] MealSite mealSite)
         {
             if (ModelState.IsValid)
             {
@@ -52,9 +45,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include =
-            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSite mealSite)
+        public ActionResult Create([Bind(Include = (MealSite.IncludeBind))] MealSite mealSite)
         {
             if (ModelState.IsValid)
             {

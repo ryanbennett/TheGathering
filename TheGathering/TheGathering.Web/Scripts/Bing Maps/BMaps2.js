@@ -1,8 +1,13 @@
 ﻿/*
  *      Variables
  */
-var locationAddresses = [];
-var locationIds = [];
+const API_KEY = 'Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb';
+const GATHERING_PIN_COLOR = "#434345";
+const NON_GATHERING_PIN_COLOR = "#7e7e81";
+const LOCATOR_PIN_COLOR = "red";
+const DEFAULT_ZOOM = 10;
+const POINT_ZOOM = 12;
+
 var locations = [];
 var map;
 var totalAvg = 0;
@@ -10,19 +15,17 @@ var longAvg = 0;
 var latAvg = 0;
 var currentPin = -1;
 
+// Location Class
 class Location {
-    async init(address, id) {
-        var locData = await getLocationData(address);
-
-        if (locData == undefined)
-            return 1;
-
-        this.address = locData.address.addressLine;
-        this.longitude = locData.point.coordinates[1];
-        this.latitude = locData.point.coordinates[0];
-        this.city = locData.address.locality;
+    constructor(address, id, lat, lon, name, isGathering) {
+        this.address = address;
+        this.longitude = lon;
+        this.latitude = lat;
         this.databaseId = id;
-        this.locObj = new Microsoft.Maps.Location(this.latitude, this.longitude);
+        this.name = name;
+        this.isGathering = isGathering;
+        if (typeof Microsoft !== 'undefined')
+            this.locObj = new Microsoft.Maps.Location(this.latitude, this.longitude);
         return 0;
     }
 }
@@ -33,18 +36,16 @@ class Location {
 function init() {
     // Initialize Map
     map = new Microsoft.Maps.Map('#myMap', {
-        credentials: 'Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb',
+        credentials: API_KEY,
         center: new Microsoft.Maps.Location(51.50632, -0.12714),
         mapTypeId: Microsoft.Maps.MapTypeId.road,
-        zoom: 10
+        zoom: DEFAULT_ZOOM
     });
 
     // Initialize Points
-    locationAddresses.forEach(async function(address, index){
-        // Convert to Location Object
-        locations.push(new Location());
-        var location = locations[index];
-        await location.init(address, locationIds[index]);
+    locations.forEach(function(location, index){
+        // Set Objects
+        location.locObj = new Microsoft.Maps.Location(location.latitude, location.longitude);
 
         // Find Center Location
         longAvg = ((longAvg * totalAvg) + location.longitude) / (totalAvg + 1);
@@ -58,10 +59,19 @@ function init() {
         });
 
         // Initialize Pushpin
-        var pin = new Microsoft.Maps.Pushpin(location.locObj, {
-            title: location.address,
-            color: "#434345"
-        });
+        var pin;
+        if (location.isGathering) {
+            pin = new Microsoft.Maps.Pushpin(location.locObj, {
+                title: location.address,
+                color: GATHERING_PIN_COLOR
+            });
+        }
+        else {
+            pin = new Microsoft.Maps.Pushpin(location.locObj, {
+                title: location.address,
+                color: NON_GATHERING_PIN_COLOR
+            });
+        }
         map.entities.push(pin);
     });
 }
@@ -72,18 +82,14 @@ function init() {
 
 async function getMatrix(zip) {
     // Convert Zip to Location Object
-    var orgin = new Location();
-    var statusCode = await orgin.init(zip);
-
-    if (statusCode != 0) {
-        return null;
-    }
+    var locData = await getLocationData(zip);
+    var orgin = new Location(zip, 0, locData.point.coordinates[0], locData.point.coordinates[1]);
 
     // Place Pin on Zip
     if (currentPin != -1)
         map.entities.removeAt(currentPin);
     var pin = new Microsoft.Maps.Pushpin(orgin.locObj, {
-        color: "red",
+        color: LOCATOR_PIN_COLOR,
         title: zip
     });
     map.entities.push(pin);
@@ -99,7 +105,7 @@ async function getMatrix(zip) {
     });
 
     // Load JSON from URL
-    var json = await getJsonFromURL("https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb&travelMode=driving&origins=" + orginString + "&destinations=" + locationsString);
+    var json = await getJsonFromURL("https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=" + API_KEY + "&travelMode=driving&origins=" + orginString + "&destinations=" + locationsString);
     return json.resourceSets[0].resources[0].results;
 }
 
@@ -140,35 +146,42 @@ async function sortMatrix() {
 
         // HTML Manipulations
         var listHTML = document.createElement("button");
-        listHTML.type = "button";
-        listHTML.setAttribute("onclick", "zoomToPoint(" + locations[locationMatrix.destinationIndex].latitude + "," + locations[locationMatrix.destinationIndex].longitude + ");");
-        listHTML.className = "list-group-item";
-        // City (Heading)
+            listHTML.type = "button";
+            listHTML.setAttribute("onclick", "zoomToPoint(" + locations[locationMatrix.destinationIndex].latitude + "," + locations[locationMatrix.destinationIndex].longitude + ");");
+            listHTML.className = "list-group-item";
+        // Name
         var titleHTML = document.createElement("h4");
-        titleHTML.className = "list-group-item-heading";
-        titleHTML.innerText = locationObj.city;
+            titleHTML.className = "list-group-item-heading";
+            titleHTML.innerText = locationObj.name;
         // Address
         var addressHTML = document.createElement("p");
-        addressHTML.className = "list-group-item-text";
-        addressHTML.innerText = locationObj.address;
+            addressHTML.className = "list-group-item-text";
+            addressHTML.innerText = locationObj.address;
         // Distance
         var distanceText = (Math.round(locationMatrix.travelDistance * 10) / 10) + " miles away";
-        if (locationMatrix.travelDistance < 0)
-            distanceText = "Cannot calculate distance";
+            if (locationMatrix.travelDistance < 0)
+                distanceText = "Cannot calculate distance";
         var distHTML = document.createElement("p");
-        distHTML.className = "list-group-item-text";
-        distHTML.innerText = distanceText;
+            distHTML.className = "list-group-item-text";
+            distHTML.innerText = distanceText;
+        // Not Part of The Gathering
+        var notGathering = document.createElement("p");
+        if (!locationObj.isGathering) {
+            notGathering.className = "list-group-item-text";
+            notGathering.innerText = "(Not Part of The Gathering)"
+        }
         // Details
         var detailsHTML = document.createElement("a");
-        detailsHTML.className = "list-group-item-text";
-        detailsHTML.innerText = "Details";
-        detailsHTML.href = "/MealSite/Details?id=" + locationObj.databaseId;
+            detailsHTML.className = "list-group-item-text";
+            detailsHTML.innerText = "Details";
+            detailsHTML.href = "/MealSite/Details?id=" + locationObj.databaseId;
         // Apply
-        listHTML.appendChild(titleHTML);
-        listHTML.appendChild(addressHTML);
-        listHTML.appendChild(distHTML);
-        listHTML.appendChild(detailsHTML);
-        locationReturn.appendChild(listHTML);
+            listHTML.appendChild(titleHTML);
+            listHTML.appendChild(addressHTML);
+            listHTML.appendChild(distHTML);
+            listHTML.appendChild(notGathering);
+            listHTML.appendChild(detailsHTML);
+            locationReturn.appendChild(listHTML);
 
         // Add Numbers to Pushpins
         for (var i = 0; i < map.entities.getLength(); i++) {
@@ -187,6 +200,21 @@ async function sortMatrix() {
 }
 
 /*
+ *      Update Longitude and Latitude Hiddens
+ */
+async function updateLonLat()
+{
+    var address = document.getElementById("addressLineTbx").value + ", " + document.getElementById("cityTbx").value;
+
+    var locData = await getLocationData(address);
+
+    var latitude = document.getElementById("lat");
+    var longitude = document.getElementById("lon");
+    latitude.value = locData.point.coordinates[0];
+    longitude.value = locData.point.coordinates[1];
+}
+
+/*
  *      Autocomplete
  */
 function initAutosuggest() {
@@ -200,7 +228,7 @@ function initAutosuggest() {
         errorCallback: function (msg) {
             alert(msg);
         },
-        credentials: 'Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb'
+        credentials: API_KEY
     });
 }
 
@@ -209,6 +237,8 @@ function selectedSuggestion(result) {
     document.getElementById('cityTbx').value = result.address.locality || '';
     document.getElementById('stateTbx').value = result.address.adminDistrict || '';
     document.getElementById('postalCodeTbx').value = result.address.postalCode || '';
+
+    updateLonLat();
 }
 
 /*
@@ -221,14 +251,14 @@ async function getJsonFromURL(url) {
 }
 
 async function getLocationData(location) {
-    const json = await getJsonFromURL('https://dev.virtualearth.net/REST/v1/Locations?key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb&q=' + location);
+    const json = await getJsonFromURL('https://dev.virtualearth.net/REST/v1/Locations?key=' + API_KEY + '&q=' + location);
     return json.resourceSets[0].resources[0];
 }
 
 function zoomToPoint(latitude, longitude) {
     map.setView({
         center: new Microsoft.Maps.Location(latitude, longitude),
-        zoom: 12
+        zoom: POINT_ZOOM
     });
 }
 
