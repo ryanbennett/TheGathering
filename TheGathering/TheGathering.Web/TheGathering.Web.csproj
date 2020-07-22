@@ -188,61 +188,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007071946377_volunteers.cs" />
-    <Compile Include="Migrations\202007071946377_volunteers.Designer.cs">
-      <DependentUpon>202007071946377_volunteers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007071952338_VolunteerEvent.cs" />
-    <Compile Include="Migrations\202007071952338_VolunteerEvent.Designer.cs">
-      <DependentUpon>202007071952338_VolunteerEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007081437023_VolunteerEvent1.cs" />
-    <Compile Include="Migrations\202007081437023_VolunteerEvent1.Designer.cs">
-      <DependentUpon>202007081437023_VolunteerEvent1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007072002344_MealSite.cs" />
-    <Compile Include="Migrations\202007072002344_MealSite.Designer.cs">
-      <DependentUpon>202007072002344_MealSite.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007081840343_MealSites.cs" />
-    <Compile Include="Migrations\202007081840343_MealSites.Designer.cs">
-      <DependentUpon>202007081840343_MealSites.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007081858283_volunteeremptymigration.cs" />
-    <Compile Include="Migrations\202007081858283_volunteeremptymigration.Designer.cs">
-      <DependentUpon>202007081858283_volunteeremptymigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007151442197_VolunteerVolunteerEvent.cs" />
-    <Compile Include="Migrations\202007151442197_VolunteerVolunteerEvent.Designer.cs">
-      <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007211513545_VolunteerEventMealSite.cs" />
-    <Compile Include="Migrations\202007211513545_VolunteerEventMealSite.Designer.cs">
-      <DependentUpon>202007211513545_VolunteerEventMealSite.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007211555351_VolunteerLinkChange.cs" />
-    <Compile Include="Migrations\202007211555351_VolunteerLinkChange.Designer.cs">
-      <DependentUpon>202007211555351_VolunteerLinkChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007211854006_VolunteerIdLink.cs" />
-    <Compile Include="Migrations\202007211854006_VolunteerIdLink.Designer.cs">
-      <DependentUpon>202007211854006_VolunteerIdLink.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007211939228_MealSiteStartEndDateTime.cs" />
-    <Compile Include="Migrations\202007211939228_MealSiteStartEndDateTime.Designer.cs">
-      <DependentUpon>202007211939228_MealSiteStartEndDateTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007211856383_SeperateMeals.cs" />
-    <Compile Include="Migrations\202007211856383_SeperateMeals.Designer.cs">
-      <DependentUpon>202007211856383_SeperateMeals.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007220328580_SeperateMeals2.cs" />
-    <Compile Include="Migrations\202007220328580_SeperateMeals2.Designer.cs">
-      <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007211532222_VolunteerAppId.cs" />
-    <Compile Include="Migrations\202007211532222_VolunteerAppId.Designer.cs">
-      <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
+    <Compile Include="Migrations\202007221709296_models-v1.cs" />
+    <Compile Include="Migrations\202007221709296_models-v1.Designer.cs">
+      <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -265,12 +213,14 @@
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
+    <Compile Include="ViewModels\Volunteer\SignUpEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Icons\Fork_Knife.png" />
     <Content Include="Content\Logo\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\customcalendar.css" />
     <Content Include="Content\fullcalendar.css" />
@@ -473,7 +423,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Service\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -492,47 +441,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007071946377_volunteers.resx">
-      <DependentUpon>202007071946377_volunteers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007071952338_VolunteerEvent.resx">
-      <DependentUpon>202007071952338_VolunteerEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007081437023_VolunteerEvent1.resx">
-      <DependentUpon>202007081437023_VolunteerEvent1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007072002344_MealSite.resx">
-      <DependentUpon>202007072002344_MealSite.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007081840343_MealSites.resx">
-      <DependentUpon>202007081840343_MealSites.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007081858283_volunteeremptymigration.resx">
-      <DependentUpon>202007081858283_volunteeremptymigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007151442197_VolunteerVolunteerEvent.resx">
-      <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007211513545_VolunteerEventMealSite.resx">
-      <DependentUpon>202007211513545_VolunteerEventMealSite.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007211555351_VolunteerLinkChange.resx">
-      <DependentUpon>202007211555351_VolunteerLinkChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007211854006_VolunteerIdLink.resx">
-      <DependentUpon>202007211854006_VolunteerIdLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007211939228_MealSiteStartEndDateTime.resx">
-      <DependentUpon>202007211939228_MealSiteStartEndDateTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007211856383_SeperateMeals.resx">
-      <DependentUpon>202007211856383_SeperateMeals.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007220328580_SeperateMeals2.resx">
-      <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007211532222_VolunteerAppId.resx">
-      <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007221709296_models-v1.resx">
+      <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
