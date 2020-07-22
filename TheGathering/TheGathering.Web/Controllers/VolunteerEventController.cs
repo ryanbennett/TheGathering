@@ -96,6 +96,7 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
+            volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
             SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
             Volunteer volunteer = GetCurrentVolunteer();
             signUpEventViewModel.Volunteer = volunteer;
@@ -154,6 +155,12 @@ namespace TheGathering.Web.Controllers
         public JsonResult GetEvents()
         {
             var events = service.GetAllEvents();
+
+            foreach (var item in events)
+            {
+                item.MealSite.VolunteerEvents = null;
+            }
+
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 

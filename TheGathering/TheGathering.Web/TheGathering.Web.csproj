@@ -197,6 +197,10 @@
     <Compile Include="Migrations\202007221745115_VolunteerGroups.Designer.cs">
       <DependentUpon>202007221745115_VolunteerGroups.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.cs" />
+    <Compile Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.Designer.cs">
+      <DependentUpon>202007221929268_VolunteerGroupVolunteerEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -205,6 +209,7 @@
     <Compile Include="Models\VolunteerEvent.cs" />
     <Compile Include="Models\MealSite.cs" />
     <Compile Include="Models\VolunteerGroupLeader.cs" />
+    <Compile Include="Models\VolunteerGroupVolunteerEvent.cs" />
     <Compile Include="Models\VolunteerVolunteerEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\VolunteerGroupRepository.cs" />
@@ -460,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007221745115_VolunteerGroups.resx">
       <DependentUpon>202007221745115_VolunteerGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.resx">
+      <DependentUpon>202007221929268_VolunteerGroupVolunteerEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
