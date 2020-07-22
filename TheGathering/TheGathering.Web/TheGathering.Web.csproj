@@ -181,6 +181,7 @@
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Controllers\VolunteerEventController.cs" />
     <Compile Include="Controllers\MealSiteController.cs" />
+    <Compile Include="Controllers\VolunteerGroupController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -428,6 +429,10 @@
     <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
     <Content Include="Views\Account\GroupRegister.cshtml" />
+    <Content Include="Views\VolunteerGroup\Index.cshtml" />
+    <Content Include="Views\VolunteerGroup\Edit.cshtml" />
+    <Content Include="Views\VolunteerGroup\Details.cshtml" />
+    <Content Include="Views\VolunteerGroup\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

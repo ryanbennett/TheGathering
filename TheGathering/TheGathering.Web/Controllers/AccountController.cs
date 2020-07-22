@@ -56,6 +56,7 @@ namespace TheGathering.Web.Controllers
                 _userManager = value;
             }
         }
+        
 
         //
         // GET: /Account/Login

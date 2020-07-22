@@ -20,7 +20,14 @@ namespace TheGathering.Web.Services
 
             return _repository.GetLeaderById(id);
         }
-
+        public void DeleteLeader(VolunteerGroupLeader volunteergroupleader)
+        {
+            _repository.DeleteLeader(volunteergroupleader);
+        }
+        public List<VolunteerGroupLeader> GetAllVolunteerGroups()
+        {
+            return _repository.GetAllVolunteerGroups();
+        }
 
         public VolunteerGroupLeader GetLeaderByApplicationUserId(string userId)
         {

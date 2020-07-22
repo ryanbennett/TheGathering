@@ -24,11 +24,19 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteergroupleader).State = EntityState.Modified;
             _context.SaveChanges();
         }
-
+        public List<VolunteerGroupLeader> GetAllVolunteerGroups()
+        {
+            return _context.VolunteerGroupLeaders.ToList();
+        }
         public VolunteerGroupLeader GetLeaderById(int id)
         {
             var result = _context.VolunteerGroupLeaders.SingleOrDefault(volunteergroupleader => volunteergroupleader.Id == id);
             return result;
+        }
+        public void DeleteLeader(VolunteerGroupLeader volunteergroupleader)
+        {
+            _context.VolunteerGroupLeaders.Remove(volunteergroupleader);
+            _context.SaveChanges();
         }
         public VolunteerGroupLeader GetLeaderByApplicationUserId(String applicationUserId)
         {
