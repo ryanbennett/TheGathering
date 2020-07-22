@@ -25,22 +25,24 @@ namespace TheGathering.Web.Controllers
             return View(mealSiteService.GetAllMealSites());
         }
 
-        public ActionResult MultiMapTest()
-        {
-            return View();
-        }
-
         //These need to updated, these are placeholders
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View(new MealSiteViewModel(mealSiteService.GetMealSiteById(id)));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            MealSite MealSite = mealSiteService.GetMealSiteById((int)id);
+            if (MealSite == null)
+            {
+                return HttpNotFound();
+            }
+            return View(new MealSiteViewModel(MealSite));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include =
-            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSiteViewModel viewModel)
+        public ActionResult Edit([Bind(Include=(MealSite.IncludeBind))] MealSiteViewModel mealSite)
         {
             if (ModelState.IsValid)
             {
@@ -65,9 +67,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include =
-            ("Id, AddressLine1, AddressLine2, City, State, Zipcode, CrossStreet1, " +
-            "CrossStreet2, MealServed, DaysServed, MaximumGuestsServed, MinimumGuestsServed, StartTime, EndTime"))] MealSiteViewModel viewModel)
+        public ActionResult Create([Bind(Include = (MealSite.IncludeBind))] MealSiteViewModel mealSite)
         {
             if (ModelState.IsValid)
             {
@@ -91,14 +91,14 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            var mealSite = mealSiteService.GetMealSiteById((int)id);
+            var MealSite = mealSiteService.GetMealSiteById((int)id);
 
-            if (mealSite == null)
+            if (MealSite == null)
             {
                 return HttpNotFound();
             }
 
-            return View(mealSite);
+            return View(MealSite);
         }
 
         [HttpPost, ActionName("Delete")]

@@ -224,6 +224,14 @@
     <Compile Include="Migrations\202007211939228_MealSiteStartEndDateTime.Designer.cs">
       <DependentUpon>202007211939228_MealSiteStartEndDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007211856383_SeperateMeals.cs" />
+    <Compile Include="Migrations\202007211856383_SeperateMeals.Designer.cs">
+      <DependentUpon>202007211856383_SeperateMeals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007220328580_SeperateMeals2.cs" />
+    <Compile Include="Migrations\202007220328580_SeperateMeals2.Designer.cs">
+      <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -289,6 +297,7 @@
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\gcal.js" />
     <Content Include="Scripts\gcal.min.js" />
+    <Content Include="Scripts\Bing Maps\BMaps2.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -387,6 +396,7 @@
     <Content Include="Scripts\locale\vi.js" />
     <Content Include="Scripts\locale\zh-cn.js" />
     <Content Include="Scripts\locale\zh-tw.js" />
+    <Content Include="Scripts\Meal Display\MealDisplay.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -494,6 +504,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007211939228_MealSiteStartEndDateTime.resx">
       <DependentUpon>202007211939228_MealSiteStartEndDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211856383_SeperateMeals.resx">
+      <DependentUpon>202007211856383_SeperateMeals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007220328580_SeperateMeals2.resx">
+      <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

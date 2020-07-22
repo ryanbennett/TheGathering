@@ -3,162 +3,262 @@
 	ViewBag.Title = "Details";
 }
 
-<script type="text/javascript" src="~/Scripts/Google Maps/BMaps2.js"></script>
+<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
 
-<h2>Details</h2>
+<h1>@Model.Name</h1>
 <div class="row">
     <div class="col-sm-6">
-        <div class="panel panel-default">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AddressLine1)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.AddressLine1)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AddressLine2)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.AddressLine2)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.City)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.City)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.State)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.State)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Zipcode)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Zipcode)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CrossStreet1)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.CrossStreet1)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CrossStreet2)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.CrossStreet2)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MealServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MealServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DaysServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.DaysServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MaximumGuestsServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MaximumGuestsServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MinimumGuestsServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MinimumGuestsServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StartTime)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.StartTime)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EndTime)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.EndTime)
-                    </td>
-                </tr>
-            </table>
-        </div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="panel panel-default col-sm-12">
+					<table class="table">
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Name)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.Name)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.AddressLine1)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.AddressLine1)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.City)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.City)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.State)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.State)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Zipcode)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.Zipcode)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.CrossStreet1)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.CrossStreet1)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.CrossStreet2)
+							</th>
+							<td>
+								@Html.DisplayFor(model => model.CrossStreet2)
+							</td>
+						</tr>
+						<tr>
+							<th>
+								Part of The Gathering
+							</th>
+							<td>
+								@if (Model.IsTheGatheringSite)
+								{
+									<span>Yes</span>
+								}
+								else
+								{
+									<span>No</span>
+								}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<h2>Meals Served</h2>
+			</div>
+			@if (Model.Breakfast_Used)
+			{
+				<div class="row">
+					<h3>
+						Breakfast
+					</h3>
+					<div class="panel panel-default col-sm-12">
+						<table class="table">
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Breakfast_DaysServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Breakfast_DaysServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Breakfast_MaximumGuestsServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Breakfast_MaximumGuestsServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Breakfast_MinimumGuestsServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Breakfast_MinimumGuestsServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Breakfast_StartTime)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Breakfast_StartTime)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Breakfast_EndTime)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Breakfast_EndTime)
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			}
+
+			@if (Model.Lunch_Used)
+			{
+				<div class="row">
+					<h3>
+						Lunch
+					</h3>
+					<div class="panel panel-default col-sm-12">
+						<table class="table">
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Lunch_DaysServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Lunch_DaysServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Lunch_MaximumGuestsServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Lunch_MaximumGuestsServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Lunch_MinimumGuestsServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Lunch_MinimumGuestsServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Lunch_StartTime)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Lunch_StartTime)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Lunch_EndTime)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Lunch_EndTime)
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			}
+			@if (Model.Dinner_Used)
+			{
+				<div class="row">
+					<h3>
+						Dinner
+					</h3>
+					<div class="panel panel-default col-sm-12">
+						<table class="table">
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Dinner_DaysServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Dinner_DaysServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Dinner_MaximumGuestsServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Dinner_MaximumGuestsServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Dinner_MinimumGuestsServed)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Dinner_MinimumGuestsServed)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Dinner_StartTime)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Dinner_StartTime)
+								</td>
+							</tr>
+							<tr>
+								<th>
+									@Html.DisplayNameFor(model => model.Dinner_EndTime)
+								</th>
+								<td>
+									@Html.DisplayFor(model => model.Dinner_EndTime)
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			}
+		</div>
     </div>
     <div class="col-sm-6">
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
         
-        <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1)+@(Model.AddressLine2),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
+        <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
         <a class="btn btn-grey" href="/MealSite/">Back Home</a>
 
 
-        <script>
-            locationAddresses = ['@(Model.AddressLine1+Model.AddressLine2)'];
-        </script>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>
 </div>
-<div class="row">
-    <h1>
-        Events at this Location
-    </h1>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<table class="table">
-                <tr>
-                    <th>
-                        Start Time
-                    </th>
-                    <th>
-                        End Time
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                </tr>
-				@foreach (var item in Model.VolunteerEvents)
-                {
-                    <tr>
-                        <td>@(item.StartingShiftTime)</td>
-                        <td>@(item.EndingShiftTime)</td>
-                        <td>@(item.Description)</td>
-                    </tr>
-                }
-			</table>
-        </div>
-	</div>
-</div>
+
+<script>
+	locations.push(new Location("@Model.AddressLine1, @Model.City", @Model.Id, @Model.Latitude, @Model.Longitude, "@Model.Name", @Model.IsTheGatheringSite.ToString().ToLower()));
+</script>
