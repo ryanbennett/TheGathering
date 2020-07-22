@@ -1,45 +1,75 @@
 ﻿@model IEnumerable<TheGathering.Web.Models.MealSite>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AddressLine1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MealServed)
-        </th>
-        <th></th>
-    </tr>
+<h1>Meal Site Locator</h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-inline">
+				<div class="form-group">
+					<input type="text" placeholder="Enter City or ZIP" id="zip" class="form-control" />
+				</div>
+				<button type="button" onclick="sortMatrix()" class="btn btn-grey">Search</button>
+			</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressLine1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MealServed)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+			<ul id="zipReturn" class="list-group">
+			</ul>
+		</div>
+		<div class="col-sm-8">
+			<div id="myMap"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>All Locations</h1>
+			<div class="panel panel-default">
+				<table class="table table-center">
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Address
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.City)
+						</th>
+						<th></th>
+					</tr>
 
-</table>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.AddressLine1)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.City)
+							</td>
+							<td>
+								<a class="btn btn-grey" href="/MealSite/Details?id=@(item.Id)">Details</a>
+							</td>
+						</tr>
+					}
+
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	@foreach (var item in Model)
+	{
+		@Html.Raw("locations.push(new Location('" + item.AddressLine1 + ", " + item.City + "', "+ item.Id +"," + item.Latitude + "," + item.Longitude + ",'" + item.Name + "'," + item.IsTheGatheringSite.ToString().ToLower() + "));")
+	}
+</script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>

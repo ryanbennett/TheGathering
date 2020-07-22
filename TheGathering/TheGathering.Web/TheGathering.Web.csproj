@@ -216,6 +216,30 @@
     <Compile Include="Migrations\202007151442197_VolunteerVolunteerEvent.Designer.cs">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007211513545_VolunteerEventMealSite.cs" />
+    <Compile Include="Migrations\202007211513545_VolunteerEventMealSite.Designer.cs">
+      <DependentUpon>202007211513545_VolunteerEventMealSite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007211555351_VolunteerLinkChange.cs" />
+    <Compile Include="Migrations\202007211555351_VolunteerLinkChange.Designer.cs">
+      <DependentUpon>202007211555351_VolunteerLinkChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007211854006_VolunteerIdLink.cs" />
+    <Compile Include="Migrations\202007211854006_VolunteerIdLink.Designer.cs">
+      <DependentUpon>202007211854006_VolunteerIdLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007211939228_MealSiteStartEndDateTime.cs" />
+    <Compile Include="Migrations\202007211939228_MealSiteStartEndDateTime.Designer.cs">
+      <DependentUpon>202007211939228_MealSiteStartEndDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007211856383_SeperateMeals.cs" />
+    <Compile Include="Migrations\202007211856383_SeperateMeals.Designer.cs">
+      <DependentUpon>202007211856383_SeperateMeals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007220328580_SeperateMeals2.cs" />
+    <Compile Include="Migrations\202007220328580_SeperateMeals2.Designer.cs">
+      <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202007211532222_VolunteerAppId.cs" />
     <Compile Include="Migrations\202007211532222_VolunteerAppId.Designer.cs">
       <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
@@ -236,6 +260,7 @@
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
@@ -246,6 +271,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Logo\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\customcalendar.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
@@ -257,6 +283,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Fonts\Sofia Pro SemiBold.ttf" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - Web Deploy.pubxml" />
@@ -276,10 +303,12 @@
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Google Maps\BMaps2.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\gcal.js" />
     <Content Include="Scripts\gcal.min.js" />
+    <Content Include="Scripts\Bing Maps\BMaps2.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -378,6 +407,7 @@
     <Content Include="Scripts\locale\vi.js" />
     <Content Include="Scripts\locale\zh-cn.js" />
     <Content Include="Scripts\locale\zh-tw.js" />
+    <Content Include="Scripts\Meal Display\MealDisplay.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -432,6 +462,7 @@
     <Content Include="Views\MealSite\Edit.cshtml" />
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
+    <Content Include="Views\MealSite\MultiMapTest.cshtml" />
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
     <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
     <Content Include="Views\Volunteer\UserEventsList.cshtml" />
@@ -481,6 +512,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007151442197_VolunteerVolunteerEvent.resx">
       <DependentUpon>202007151442197_VolunteerVolunteerEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211513545_VolunteerEventMealSite.resx">
+      <DependentUpon>202007211513545_VolunteerEventMealSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211555351_VolunteerLinkChange.resx">
+      <DependentUpon>202007211555351_VolunteerLinkChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211854006_VolunteerIdLink.resx">
+      <DependentUpon>202007211854006_VolunteerIdLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211939228_MealSiteStartEndDateTime.resx">
+      <DependentUpon>202007211939228_MealSiteStartEndDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007211856383_SeperateMeals.resx">
+      <DependentUpon>202007211856383_SeperateMeals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007220328580_SeperateMeals2.resx">
+      <DependentUpon>202007220328580_SeperateMeals2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007211532222_VolunteerAppId.resx">
       <DependentUpon>202007211532222_VolunteerAppId.cs</DependentUpon>
