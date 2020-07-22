@@ -234,7 +234,9 @@
     <Compile Include="Models\VolunteerGroupLeader.cs" />
     <Compile Include="Models\VolunteerVolunteerEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\VolunteerGroupRepository.cs" />
     <Compile Include="Repositories\VolunteerRepository.cs" />
+    <Compile Include="Services\VolunteerGroupService.cs" />
     <Compile Include="Services\VolunteerService.cs" />
     <Compile Include="Repositories\CalendarRepository.cs" />
     <Compile Include="Services\CalendarService.cs" />
@@ -242,6 +244,7 @@
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
@@ -443,6 +446,7 @@
     <Content Include="Views\Volunteer\EventRegistered.cshtml" />
     <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
+    <Content Include="Views\Account\GroupRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
