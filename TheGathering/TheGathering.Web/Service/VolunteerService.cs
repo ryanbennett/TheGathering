@@ -22,14 +22,15 @@ namespace TheGathering.Web.Service
             return _repository.GetById(id);
         }
 
+        public Volunteer GetByApplicationUserId(String applicationUserId)
+        {
+
+            return _repository.GetByApplicationUserId(applicationUserId);
+        }
+
         public List<Volunteer> GetAllVolunteers()
         {
             return _repository.GetAllVolunteers();
-        }
-
-        public Volunteer GetVolunteerById(int id)
-        {
-            return _repository.GetVolunteerById(id);
         }
 
         public void DeleteVolunteer(Volunteer volunteer)

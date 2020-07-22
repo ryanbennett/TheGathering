@@ -22,6 +22,10 @@ namespace TheGathering.Web.Services
         {
             return repository.GetEventById(id);
         }
+        public List<VolunteerEvent> GetEventsByIds(List<int> id)
+        {
+            return repository.GetEventsByIds(id);
+        }
 
         public void SaveEdits(VolunteerEvent Event)
         {
