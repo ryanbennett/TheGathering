@@ -39,6 +39,12 @@ namespace TheGathering.Web.Controllers
             var volunteer = volunteerService.GetByApplicationUserId(User.Identity.GetUserId());
             return volunteer;
         }
+        public VolunteerGroupLeader GetCurrentVolunteerGroup()
+        {
+            var volunteerGroupService = new VolunteerGroupService();
+            var volunteerGroup = volunteerGroupService.GetLeaderByApplicationUserId(User.Identity.GetUserId());
+            return volunteerGroup;
+        }
 
         public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text
         {
