@@ -55,5 +55,11 @@ namespace TheGathering.Web.Controllers
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }
+
+        public void PopulateDynamicValues()
+        {
+            ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+        }
+
     }
 }
