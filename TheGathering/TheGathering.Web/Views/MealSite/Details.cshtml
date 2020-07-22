@@ -261,5 +261,5 @@
 </div>
 
 <script>
-	locations.push(new Location("@Model.AddressLine1, @Model.City", @Model.Id, @Model.Latitude, @Model.Longitude));
+	locations.push(new Location("@Model.AddressLine1, @Model.City", @Model.Id, @Model.Latitude, @Model.Longitude, "@Model.Name", @Model.IsTheGatheringSite.ToString().ToLower()));
 </script>

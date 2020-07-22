@@ -2,8 +2,8 @@
  *      Variables
  */
 const API_KEY = 'Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb';
-const GATHERING_PIN_COLOR = "#434345";
-const NON_GATHERING_PIN_COLOR = "#7e7e81";
+const GATHERING_PIN_URL = "/Content/Logo/The_Gathering_Icon.png";
+const NON_GATHERING_PIN_URL = "/Content/Icons/Fork_Knife.png";
 const LOCATOR_PIN_COLOR = "red";
 const DEFAULT_ZOOM = 10;
 const POINT_ZOOM = 12;
@@ -63,13 +63,13 @@ function init() {
         if (location.isGathering) {
             pin = new Microsoft.Maps.Pushpin(location.locObj, {
                 title: location.address,
-                color: GATHERING_PIN_COLOR
+                icon: GATHERING_PIN_URL
             });
         }
         else {
             pin = new Microsoft.Maps.Pushpin(location.locObj, {
                 title: location.address,
-                color: NON_GATHERING_PIN_COLOR
+                icon: NON_GATHERING_PIN_URL
             });
         }
         map.entities.push(pin);
