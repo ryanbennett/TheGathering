@@ -21,9 +21,18 @@ namespace TheGathering.Web.Controllers
         }
 
         //These need to updated, these are placeholders
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View(mealSiteService.GetMealSiteById(id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            MealSite MealSite = mealSiteService.GetMealSiteById((int)id);
+            if (MealSite == null)
+            {
+                return HttpNotFound();
+            }
+            return View(MealSite);
         }
 
         [HttpPost]
@@ -62,14 +71,14 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            var mealSite = mealSiteService.GetMealSiteById((int)id);
+            var MealSite = mealSiteService.GetMealSiteById((int)id);
 
-            if (mealSite == null)
+            if (MealSite == null)
             {
                 return HttpNotFound();
             }
 
-            return View(mealSite);
+            return View(MealSite);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -86,12 +95,12 @@ namespace TheGathering.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MealSite mealSite = mealSiteService.GetMealSiteById((int)id);
-            if (mealSite == null)
+            MealSite MealSite = mealSiteService.GetMealSiteById((int)id);
+            if (MealSite == null)
             {
                 return HttpNotFound();
             }
-            return View(mealSite);
+            return View(MealSite);
         }
     }
 }
