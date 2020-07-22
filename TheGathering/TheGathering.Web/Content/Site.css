@@ -174,14 +174,16 @@ textarea {
     line-height: 1.6;
 }
 
-.btn-primary{
-background-color:#434345;
-padding: 10px;
-
+.btn-primary {
+    background-color: #434345;
+    padding: 10px;
+    border-color: #434345;
+    border-width: thin;
+    border-style:none;
 }
     .btn-primary:hover {
-        background-color: #434345; 
-        opacity:0.9;
+        background-color: #434345 ; 
+        opacity:0.9 ;
     }
 
 
@@ -466,9 +468,11 @@ hr {
     /*accent green*/
     /*background-color: #B0D0B9;*/
 }
-.footerbackground {
-   background-color:darkgray;
+.theFooter {
 
+   padding: 64px 32px;
+   margin-right:154.5px;
+   margin-left: 154.5px;
 }
 
 #footerlink {
