@@ -70,28 +70,17 @@ textarea {
     font-weight: 600;
     text-transform: uppercase;
 }
-
+li {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 400;
+}
 h1 {
     font-family: Sofia Pro, sans-serif;
     color: #434345;
     font-size: xx-large;
     font-weight: 400;
-}
-
-.MinorHeadingSemiBold {
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: large;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.MinorHeadingNormal {
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: large;
-    font-weight: 400;
-    text-transform: uppercase;
 }
 
 h3 {
@@ -140,7 +129,7 @@ p{
 }
 
 .FooterText {
-    font-family: Sofia Pro, sans-sarif;
+    font-family: Sofia Pro, sans-serif;
     color: #434345;
     font-size: small;
     font-weight: 400;
@@ -149,11 +138,12 @@ p{
 }
 
 .btn-primary {
+    font-family: Sofia Pro, sans-serif;
     background-color: #434345;
     padding: 10px;
     border-color: #434345;
     border-width: thin;
-    border-style:none;
+    border-style: none;
 }
 
     .btn-primary:hover {
