@@ -166,7 +166,7 @@ namespace TheGathering.Web.ViewModels.MealSite
                 return true;
             }
 
-            if (Breakfast_StartTime == null || Breakfast_EndTime == null) { return false; }
+            if (Breakfast_StartTime == null && Breakfast_EndTime == null) { return true; }
 
             DateTime start = (DateTime)Breakfast_StartTime;
             DateTime end = (DateTime)Breakfast_EndTime;
@@ -241,7 +241,7 @@ namespace TheGathering.Web.ViewModels.MealSite
                 Dinner_MinimumGuestsServed = null;
                 return true;
             }
-            if (Dinner_StartTime == null && Dinner_EndTime == null) { return false; }
+            if (Dinner_StartTime == null && Dinner_EndTime == null) { return true; }
 
             DateTime start = (DateTime)Dinner_StartTime;
             DateTime end = (DateTime)Dinner_EndTime;

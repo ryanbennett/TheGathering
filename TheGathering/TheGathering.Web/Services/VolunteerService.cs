@@ -12,6 +12,8 @@ namespace TheGathering.Web.Services
     public class VolunteerService
     {
         VolunteerRepository _repository = new VolunteerRepository();
+        CalendarRepository calendarRepo = new CalendarRepository();
+
         public void Create(Volunteer volunteer)
         {
             _repository.Create(volunteer);
@@ -30,7 +32,19 @@ namespace TheGathering.Web.Services
         public List<int> GetVolunteerEventIdsByVolunteerId(int volunteerId)
         {
             List<int> volunteerEventIds = new List<int>();
-            foreach (VolunteerVolunteerEvent vve in _repository.GetVolunteerEventIdsByVolunteerId(volunteerId))
+            List<VolunteerVolunteerEvent> volunteerVolunteerEvents = _repository.GetVolunteerEventIdsByVolunteerId(volunteerId);
+            foreach (VolunteerVolunteerEvent vve in volunteerVolunteerEvents)
+            {
+                volunteerEventIds.Add(vve.VolunteerEventId);
+            }
+            return volunteerEventIds;
+        }
+
+        public List<int> GetCancelledVolunteerEventIdsByVolunteerId(int volunteerId)
+        {
+            List<int> volunteerEventIds = new List<int>();
+            List<VolunteerVolunteerEvent> volunteerVolunteerEvents = _repository.GetCancelledVolunteerEventIdsByVolunteerId(volunteerId);
+            foreach (VolunteerVolunteerEvent vve in volunteerVolunteerEvents)
             {
                 volunteerEventIds.Add(vve.VolunteerEventId);
             }
@@ -64,9 +78,15 @@ namespace TheGathering.Web.Services
             _repository.AddVolunteerVolunteerEvent(volunteer, vve);
         }
 
+<<<<<<< Updated upstream
         public List<Volunteer> GetVolunteersById(List<int> Ids)
         {
             return _repository.GetVolunteersById(Ids);
+=======
+        public void RemoveVolunteerVolunteerEvent(int volunteerId, int eventId)
+        {
+            _repository.RemoveVolunteerVolunteerEvent(volunteerId, eventId);
+>>>>>>> Stashed changes
         }
     }
 }

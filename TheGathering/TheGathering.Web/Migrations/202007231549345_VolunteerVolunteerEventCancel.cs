@@ -1,0 +1,18 @@
+namespace TheGathering.Web.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class VolunteerVolunteerEventCancel : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.VolunteerVolunteerEvents", "IsCanceled", c => c.Boolean(nullable: false));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.VolunteerVolunteerEvents", "IsCanceled");
+        }
+    }
+}

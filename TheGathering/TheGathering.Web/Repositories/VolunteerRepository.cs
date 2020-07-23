@@ -49,7 +49,13 @@ namespace TheGathering.Web.Repositories
         public List<VolunteerVolunteerEvent> GetVolunteerEventIdsByVolunteerId(int volunteerId)
         {
             var volunteer = _context.Volunteers.Include(v=>v.VolunteerVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
-            return volunteer.VolunteerVolunteerEvents.ToList();
+            return volunteer.VolunteerVolunteerEvents.Where(vve => !vve.IsCanceled).ToList();
+        }
+
+        public List<VolunteerVolunteerEvent> GetCancelledVolunteerEventIdsByVolunteerId(int volunteerId)
+        {
+            var volunteer = _context.Volunteers.Include(v => v.VolunteerVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
+            return volunteer.VolunteerVolunteerEvents.Where(vve => vve.IsCanceled).ToList();
         }
 
         public void DeleteVolunteer(Volunteer volunteer)
@@ -66,10 +72,21 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();
         }
+<<<<<<< Updated upstream
         public List<Volunteer> GetVolunteersById(List<int> Ids)
         {
             return _context.Volunteers.Where(vol => Ids.Contains(vol.Id)).ToList();
                 
+=======
+
+        public void RemoveVolunteerVolunteerEvent(int volunteerId, int eventId)
+        {
+            Volunteer volunteer = _context.Volunteers.Include(v => v.VolunteerVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
+            VolunteerVolunteerEvent toDelete = volunteer.VolunteerVolunteerEvents.Find(vve => vve.VolunteerEventId == eventId);
+            toDelete.IsCanceled = true; // Fixes issue with Cacading Deletes (Do not delete VolunteerVolunteerEvents)
+            _context.Entry(volunteer).State = EntityState.Modified;
+            _context.SaveChanges();
+>>>>>>> Stashed changes
         }
     }
 }
