@@ -14,7 +14,7 @@
             if (link.style.animation) {
                 link.style.animation = ``;
             } else {
-                link.style.animation = `navLinkFade 0s ease forwards`;
+                link.style.animation = `navLinkFade 0.2s ease forwards ${index / 5 + 0.5}s`;
             }
 
         });
@@ -22,19 +22,5 @@
         burger.classList.toggle('toggle');
     });
 }  
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
-
-for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var dropdownContent = this.nextElementSibling;
-        if (dropdownContent.style.display === "block") {
-            dropdownContent.style.display = "none";
-        } else {
-            dropdownContent.style.display = "block";
-        }
-    });
-}
 
 navSlide();
