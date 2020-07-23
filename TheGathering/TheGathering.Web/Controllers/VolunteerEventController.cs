@@ -184,5 +184,32 @@ namespace TheGathering.Web.Controllers
             }
             return Locations;
         }
+
+        //I tried to use itextSharp for file storage
+        /*
+             var doc = new iTextSharp.text.Document();
+    var reader = new PdfReader(renderedBytes);
+    using (FileStream fs = new FileStream(Server.MapPath("~/Receipt" +
+         Convert.ToString(Session["CurrentUserName"]) + ".pdf"), FileMode.Create))
+    {
+        PdfStamper stamper = new PdfStamper(reader, fs);
+        string Printer = "Xerox Phaser 3635MFP PCL6";
+        // This is the script for automatically printing the pdf in acrobat viewer
+        stamper.JavaScript = "var pp = getPrintParams();pp.interactive =pp.constants.interactionLevel.automatic; pp.printerName = " +
+                       Printer + ";print(pp);\r";
+        stamper.Close();
+    }
+    reader.Close();
+    FileStream fss = new FileStream(Server.MapPath("~/Receipt.pdf"), FileMode.Open);
+    byte[] bytes = new byte[fss.Length];
+    fss.Read(bytes, 0, Convert.ToInt32(fss.Length));
+    fss.Close();
+    System.IO.File.Delete(Server.MapPath("~/Receipt.pdf"));
+
+    //Here we returns the file result for view(PDF)
+    ModelState.Clear();
+    Session.Clear(); //Clears the session variable for reuse 
+    return File(bytes, "application/pdf");
+        */
     }
 }
