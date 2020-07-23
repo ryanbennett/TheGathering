@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.MealSite;
 using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
@@ -65,7 +66,8 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(mealSite);
+            MealSiteViewModel viewModel = new MealSiteViewModel(mealSite);
+            return View(viewModel);
         }
 
         public ActionResult CreateVolunteer()
