@@ -245,5 +245,37 @@ namespace TheGathering.Web.Controllers
         {
             return View(calendarService.GetAllEvents());
         }
+
+        public ActionResult SignUpEvent(int eventId, string userId)
+        {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = volunteerService.GetByApplicationUserId(userId);
+            //TODO: change Volunteer get
+            model.VolunteerEvent = calendarService.GetEventById(eventId);
+            var volunteerEventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
+            var events = calendarService.GetEventsByIds(volunteerEventIds);
+            foreach (int id in volunteerEventIds)
+            {
+                if (id == eventId)
+                {
+                    return RedirectToAction("EventAlreadyRegistered");
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult CancelSignUpEvent(int eventId, string userId)
+        {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = volunteerService.GetByApplicationUserId(userId);
+            //TODO: change Volunteer get
+            model.VolunteerEvent = calendarService.GetEventById(eventId);
+            var volunteerEventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
+            if (!volunteerEventIds.Contains(eventId))
+            {
+                return RedirectToAction("EventNotRegistered");
+            }
+            return View(model);
+        }
     }
 }
