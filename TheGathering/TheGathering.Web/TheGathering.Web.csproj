@@ -428,6 +428,7 @@
     <Content Include="Views\AdminPortal\CreateVolunteer.cshtml" />
     <Content Include="Views\AdminPortal\EditVolunteer.cshtml" />
     <Content Include="Views\AdminPortal\DeleteVolunteer.cshtml" />
+    <Content Include="Views\AdminPortal\ManageCalender.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
