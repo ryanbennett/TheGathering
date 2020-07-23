@@ -63,5 +63,10 @@ namespace TheGathering.Web.Services
             Volunteer volunteer = _repository.GetVolunteerById(volunteerId);
             _repository.AddVolunteerVolunteerEvent(volunteer, vve);
         }
+
+        public List<Volunteer> GetVolunteersById(List<int> Ids)
+        {
+            return _repository.GetVolunteersById(Ids);
+        }
     }
 }

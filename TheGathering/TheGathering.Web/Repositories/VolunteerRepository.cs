@@ -66,5 +66,10 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();
         }
+        public List<Volunteer> GetVolunteersById(List<int> Ids)
+        {
+            return _context.Volunteers.Where(vol => Ids.Contains(vol.Id)).ToList();
+                
+        }
     }
 }

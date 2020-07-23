@@ -7,7 +7,7 @@
 <h2>Manage Users</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateVolunteer")
 </p>
 <table class="table">
     <tr>
@@ -72,9 +72,9 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "EditVolunteer", new { id = item.Id })
+                @Html.ActionLink("Details", "DetailsVolunteer", new { id = item.Id })
+                @Html.ActionLink("Delete", "DeleteVolunteer", new { id = item.Id })
             </td>
         </tr>
     }

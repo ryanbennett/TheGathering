@@ -27,7 +27,7 @@ namespace TheGathering.Web.Repositories
         
         public VolunteerEvent GetEventById(int id)
         {
-            return dbContext.VolunteerEvents.Find(id);
+            return dbContext.VolunteerEvents.Include(ve => ve.VolunteerVolunteerEvents).SingleOrDefault(ve => ve.Id == id);
         }
         public List<VolunteerEvent> GetEventsByIds(List<int> eventId)
         {
