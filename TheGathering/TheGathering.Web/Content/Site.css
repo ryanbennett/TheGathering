@@ -15,6 +15,7 @@ body {
 background-color: #faf6eb;
 color: rgba(69,53,40,.8);
 font-family: Baskerville;
+
 }
 
 td {
@@ -256,19 +257,18 @@ hr {
     border-width: 1px;
 }
 
-/* experimental */
+/* NAVIGATION BAR */
 
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
-
 .navigation {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
     min-height: 8vh;
     background-color: #434345;
@@ -276,21 +276,20 @@ hr {
     font-size: 11px;
     font-weight: 400;
 }
-
 .logo {
+    cursor: pointer;
+    margin-right: auto;
+    padding: 0px 20px;
 }
-
 .nav-links {
-    display: flex;
-    justify-content: space-around;
-    width: 70%;
+    list-style: none;
 }
 
-    .nav-links li {
-        list-style: none;
-    }
-
-    .nav-links a {
+.nav-links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+    .nav-links li a {
         color: #B0D0B9;
         text-decoration: none;
         letter-spacing: 2px;
@@ -300,18 +299,19 @@ hr {
         cursor: pointer;
         transition: all 0.2s ease;
     }
-
+    .nav-links li a .name{
+        color: white;
+    }
     .nav-links li a:hover {
         color: white;
         text-decoration: none;
         cursor: pointer;
     }
-
+/* Burger Icon */
 .burger {
     display: none;
     cursor: pointer;
 }
-
     .burger div {
         width: 25px;
         height: 3px;
@@ -319,25 +319,24 @@ hr {
         margin: 5px;
         transition: all 0.3s ease;
     }
-
+/* Medium Screen Navigation */
 @media screen and (max-width: 1200px) {
     .nav-links {
         width: 100%;
     }
 }
-
+/* Small Screen Navigation */
 @media screen and (max-width: 900px) {
     body {
         overflow-x: hidden;
     }
-
     .nav-links {
-        position: fixed;
+        position: absolute;
         z-index: 1;
         overflow-x: hidden;
         right: 0px;
-        height: 450px;
-        top: 8vh;
+        height: auto;
+        top: 130px;
         background-color: #434345;
         display: flex;
         flex-direction: column;
@@ -346,23 +345,19 @@ hr {
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
     }
-
-        .nav-links li {
-            opacity: 0;
-        }
-
+    .nav-links li {
+        opacity: 0;
+        padding: 20px 0px;
+    }
     .burger {
         display: block;
+        padding: 0px 20px;
     }
 }
-
 .nav-active {
     transform: translateX(0%);
 }
-
-
-
-
+/* Link Opacity Animation */
 @keyframes navLinkFade {
     from {
         opacity: 0;
@@ -374,7 +369,7 @@ hr {
         transform: translateX(0px);
     }
 }
-
+/* Burger Icon Animation */
 .toggle .line1 {
     transform: rotate(-45deg) translate(-5px,6px);
 }
@@ -390,43 +385,7 @@ hr {
 .sub-menu-1 {
     display: none;
 }
-
-/*SubMenu 1*/
-.nav-links li:hover .sub-menu-1 {
-    position: absolute;
-    z-index: 1;
-    background: #434345;
-    display: block;
-    align-items: center;
-    width: 12%;
-    height: auto;
-    margin-left: -20px;
-}
-
-    .nav-links li:hover .sub-menu-1 ul {
-        margin: 10px;
-        color: #B0D0B9;
-        text-decoration: none;
-        letter-spacing: 2px;
-        font-weight: 400;
-        font-size: 11px;
-        font-family: Arial;
-    }
-
-        .nav-links li:hover .sub-menu-1 ul li {
-            width: 150px;
-            padding: 10px;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-.nav-links li .sub-menu-1 a:hover {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-}
-
+/* Donate Button */
 .donate {
     padding: 9px 25px;
     background-color: #434345;
@@ -436,11 +395,10 @@ hr {
     cursor: pointer;
     transition: all 0.2s ease 0s;
 }
-
-    .donate:hover {
-        background-color: #B0D0B9;
-        color: black;
-    }
+.donate:hover {
+    background-color: #B0D0B9;
+    color: black;
+}
 
 .body-back-color {
     /*style guide gold */
