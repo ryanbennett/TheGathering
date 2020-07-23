@@ -97,8 +97,8 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-
-            return View(MealSite);
+            MealSiteViewModel viewModel = new MealSiteViewModel(MealSite);
+            return View();
         }
 
         [HttpPost, ActionName("Delete")]

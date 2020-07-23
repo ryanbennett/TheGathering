@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Breakfast_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public bool[] Breakfast_DaysServed { get; set; } = new bool[7];
+        public List<bool> Breakfast_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Breakfast_MaximumGuestsServed { get; set; }
@@ -56,7 +57,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Lunch_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public bool[] Lunch_DaysServed { get; set; } = new bool[7];
+        public List<bool> Lunch_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Lunch_MaximumGuestsServed { get; set; }
@@ -74,7 +75,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Dinner_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public bool[] Dinner_DaysServed { get; set; } = new bool[7];
+        public List<bool> Dinner_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Dinner_MaximumGuestsServed { get; set; }
@@ -95,7 +96,12 @@ namespace TheGathering.Web.ViewModels.MealSite
         /// </summary>
         public string Error { get; set; }
 
-        public MealSiteViewModel() { }
+        public MealSiteViewModel()
+        {
+            Breakfast_DaysServed = new List<bool>();
+            Lunch_DaysServed = new List<bool>();
+            Dinner_DaysServed = new List<bool>();
+        }
 
         public MealSiteViewModel(Models.MealSite mealSite)
         {
@@ -113,21 +119,21 @@ namespace TheGathering.Web.ViewModels.MealSite
             IsTheGatheringSite = mealSite.IsTheGatheringSite;
 
             Breakfast_Used = mealSite.Breakfast_Used;
-            Breakfast_DaysServed = mealSite.Breakfast_DaysServed;
+            Breakfast_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Breakfast_DaysServed);
             Breakfast_MaximumGuestsServed = mealSite.Breakfast_MaximumGuestsServed;
             Breakfast_MinimumGuestsServed = mealSite.Breakfast_MinimumGuestsServed;
             Breakfast_StartTime = mealSite.Breakfast_StartTime;
             Breakfast_EndTime = mealSite.Breakfast_EndTime;
 
             Lunch_Used = mealSite.Lunch_Used;
-            Lunch_DaysServed = mealSite.Lunch_DaysServed;
+            Lunch_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Lunch_DaysServed);
             Lunch_MaximumGuestsServed = mealSite.Lunch_MaximumGuestsServed;
             Lunch_MinimumGuestsServed = mealSite.Lunch_MinimumGuestsServed;
             Lunch_StartTime = mealSite.Lunch_StartTime;
             Lunch_EndTime = mealSite.Lunch_EndTime;
 
             Dinner_Used = mealSite.Dinner_Used;
-            Dinner_DaysServed = mealSite.Dinner_DaysServed;
+            Dinner_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Dinner_DaysServed);
             Dinner_MaximumGuestsServed = mealSite.Dinner_MaximumGuestsServed;
             Dinner_MinimumGuestsServed = mealSite.Dinner_MinimumGuestsServed;
             Dinner_StartTime = mealSite.Dinner_StartTime;

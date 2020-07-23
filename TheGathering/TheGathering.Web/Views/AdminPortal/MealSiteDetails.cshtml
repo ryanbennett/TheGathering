@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.Models.MealSite
+﻿@model TheGathering.Web.ViewModels.MealSite.MealSiteViewModel
 @{
     ViewBag.Title = "MealSiteDetails";
 }
@@ -99,11 +99,38 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Breakfast_DaysServed)
+                                    @Html.LabelFor(model => model.Breakfast_DaysServed, htmlAttributes: new { @class = "control-label" })
                                 </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Breakfast_DaysServed)
-                                </td>
+                                <th>
+                                    @if (Model.Breakfast_DaysServed[0])
+                                    {
+                                        <label>Sunday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[1])
+                                    {
+                                        <label>Monday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[2])
+                                    {
+                                        <label>Tuesday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[3])
+                                    {
+                                        <label>Wednesday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[4])
+                                    {
+                                        <label>Thursday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[5])
+                                    {
+                                        <label>Friday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[6])
+                                    {
+                                        <label>Saturday</label>
+                                    }
+                                </th>
                             </tr>
                             <tr>
                                 <th>
@@ -152,11 +179,38 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Lunch_DaysServed)
+                                    @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
                                 </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Lunch_DaysServed)
-                                </td>
+                                <th>
+                                    @if (Model.Lunch_DaysServed[0])
+                                    {
+                                        <label>Sunday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[1])
+                                    {
+                                        <label>Monday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[2])
+                                    {
+                                        <label>Tuesday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[3])
+                                    {
+                                        <label>Wednesday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[4])
+                                    {
+                                        <label>Thursday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[5])
+                                    {
+                                        <label>Friday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[6])
+                                    {
+                                        <label>Saturday</label>
+                                    }
+                                </th>
                             </tr>
                             <tr>
                                 <th>
@@ -204,11 +258,38 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Dinner_DaysServed)
+                                    @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
                                 </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Dinner_DaysServed)
-                                </td>
+                                <th>
+                                    @if (Model.Dinner_DaysServed[0])
+                                    {
+                                        <label>Sunday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[1])
+                                    {
+                                        <label>Monday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[2])
+                                    {
+                                        <label>Tuesday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[3])
+                                    {
+                                        <label>Wednesday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[4])
+                                    {
+                                        <label>Thursday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[5])
+                                    {
+                                        <label>Friday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[6])
+                                    {
+                                        <label>Saturday</label>
+                                    }
+                                </th>
                             </tr>
                             <tr>
                                 <th>
