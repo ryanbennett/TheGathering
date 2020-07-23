@@ -93,8 +93,8 @@ td {
     font-family: Sofia Pro, sans-serif;
     color: white;
     font-size: medium;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 400;
+    /*text-transform: uppercase;*/
     background-color: #434345;
     padding: 10px;
     border-color: #434345;
