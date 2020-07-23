@@ -78,15 +78,14 @@ namespace TheGathering.Web.Services
             _repository.AddVolunteerVolunteerEvent(volunteer, vve);
         }
 
-<<<<<<< Updated upstream
         public List<Volunteer> GetVolunteersById(List<int> Ids)
         {
             return _repository.GetVolunteersById(Ids);
-=======
+        }
+
         public void RemoveVolunteerVolunteerEvent(int volunteerId, int eventId)
         {
             _repository.RemoveVolunteerVolunteerEvent(volunteerId, eventId);
->>>>>>> Stashed changes
         }
     }
 }

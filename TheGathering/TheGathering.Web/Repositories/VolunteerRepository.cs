@@ -72,12 +72,12 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();
         }
-<<<<<<< Updated upstream
+
         public List<Volunteer> GetVolunteersById(List<int> Ids)
         {
             return _context.Volunteers.Where(vol => Ids.Contains(vol.Id)).ToList();
-                
-=======
+
+        }
 
         public void RemoveVolunteerVolunteerEvent(int volunteerId, int eventId)
         {
@@ -86,7 +86,6 @@ namespace TheGathering.Web.Repositories
             toDelete.IsCanceled = true; // Fixes issue with Cacading Deletes (Do not delete VolunteerVolunteerEvents)
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();
->>>>>>> Stashed changes
         }
     }
 }
