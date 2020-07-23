@@ -197,9 +197,9 @@
     <Compile Include="Migrations\202007231737246_DaysOfTheWeek.Designer.cs">
       <DependentUpon>202007231737246_DaysOfTheWeek.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007231549345_VolunteerVolunteerEventCancel.cs" />
-    <Compile Include="Migrations\202007231549345_VolunteerVolunteerEventCancel.Designer.cs">
-      <DependentUpon>202007231549345_VolunteerVolunteerEventCancel.cs</DependentUpon>
+    <Compile Include="Migrations\202007231755527_VolunteerVolunteerEventCancel.cs" />
+    <Compile Include="Migrations\202007231755527_VolunteerVolunteerEventCancel.Designer.cs">
+      <DependentUpon>202007231755527_VolunteerVolunteerEventCancel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -471,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007231737246_DaysOfTheWeek.resx">
       <DependentUpon>202007231737246_DaysOfTheWeek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007231755527_VolunteerVolunteerEventCancel.resx">
+      <DependentUpon>202007231755527_VolunteerVolunteerEventCancel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

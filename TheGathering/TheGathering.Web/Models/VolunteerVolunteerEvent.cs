@@ -13,11 +13,11 @@ namespace TheGathering.Web.Models
         public int VolunteerId { get; set; }
         public int VolunteerEventId { get; set; }
         public bool Confirmed { get; set; }
-        public bool IsCanceled { get; set; }
+        public bool IsItCanceled { get; set; }
 
         public VolunteerVolunteerEvent()
         {
-            IsCanceled = false;
+            IsItCanceled = false;
         }
     }
 }

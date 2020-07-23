@@ -13,7 +13,7 @@ namespace TheGathering.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202007231549345_VolunteerVolunteerEventCancel"; }
+            get { return "202007231755527_VolunteerVolunteerEventCancel"; }
         }
         
         string IMigrationMetadata.Source

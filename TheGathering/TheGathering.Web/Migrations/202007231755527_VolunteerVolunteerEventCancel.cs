@@ -7,12 +7,12 @@ namespace TheGathering.Web.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.VolunteerVolunteerEvents", "IsCanceled", c => c.Boolean(nullable: false));
+            AddColumn("dbo.VolunteerVolunteerEvents", "IsItCanceled", c => c.Boolean(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.VolunteerVolunteerEvents", "IsCanceled");
+            DropColumn("dbo.VolunteerVolunteerEvents", "IsItCanceled");
         }
     }
 }
