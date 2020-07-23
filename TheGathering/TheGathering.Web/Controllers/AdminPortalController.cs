@@ -47,7 +47,7 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult ViewVolunteers(int eventID)
         {
-            var evt = service.GetEventById(eventID);
+            var evt = calendarService.GetEventById(eventID);
                 var volunteerEventViewModel = new VolunteerEventViewModel(evt);
                 List<int> IdList = evt.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
             volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
