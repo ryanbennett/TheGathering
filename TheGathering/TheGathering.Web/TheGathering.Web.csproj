@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\Volunteer\SignUpEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angela.jpg" />
     <Content Include="Content\black f.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
