@@ -8,6 +8,8 @@ namespace TheGathering.Web.ViewModels.VolunteerGroup
 {
     public class SignUpGroupViewModel
     {
+        public int VolunteerGroupLeaderID { get; set; }
+        public int VolunteerEventID { get; set; }
         public VolunteerGroupLeader VolunteerGroupLeader { get; set; }
         public VolunteerEvent VolunteerEvent { get; set; }
 

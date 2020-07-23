@@ -16,7 +16,6 @@ namespace TheGathering.Web.Controllers
         
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
-        SignUpGroupViewModel model = new SignUpGroupViewModel();
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteerGroups();
@@ -31,44 +30,33 @@ namespace TheGathering.Web.Controllers
      
         public ActionResult SignUpGroupEvent(int volunteerId, int eventId)
         {
-            model.VolunteerGroupLeader = _service.GetLeaderById(volunteerId);
-            model.VolunteerEvent = _eventService.GetEventById((int)eventId);
-            _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId);
+            SignUpGroupViewModel model = new SignUpGroupViewModel();
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerGroupId(volunteerId);
-            //TO DO: Change Hardcoding (model.VolunteerGroupLeader.Id)
-            var events = _eventService.GetEventsByIds(volunteerEventIds);
-
-            foreach(int id in volunteerEventIds)
-            {
-                if (id == eventId)
-                {
-                    return RedirectToAction("EventAlreadyRegistered");
-                }
-            }
-            /*
             bool alreadyRegistered = volunteerEventIds.Any(id => id == eventId);
             if (alreadyRegistered)
             {
                 return RedirectToAction("EventAlreadyRegistered");
             }
-            */
+            model.VolunteerGroupLeader = _service.GetLeaderById(volunteerId);
+            model.VolunteerEvent = _eventService.GetEventById((int)eventId);
+            model.VolunteerGroupLeaderID = model.VolunteerGroupLeader.Id;
+            model.VolunteerEventID = model.VolunteerEvent.Id;
+            //TO DO: Change Hardcoding (model.VolunteerGroupLeader.Id)
+            var events = _eventService.GetEventsByIds(volunteerEventIds);
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult SignUpGroupEvent(SignUpGroupViewModel signUpGroupViewModel)
+        {
+            int numVolunteers = signUpGroupViewModel.VolunteerSlots;
+            int eventId = signUpGroupViewModel.VolunteerEventID;
+            int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
+            _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
+            return RedirectToAction("Index");
         }
         public ActionResult EventAlreadyRegistered()
         {
             return View();
-        }
-        public ActionResult SignUpGroupNumber()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult SignUpGroupNumber(int volunteerslots)
-        {
-            model.VolunteerSlots = volunteerslots;
-           
-
-            return View(model);
         }
         public ActionResult Create()
         {

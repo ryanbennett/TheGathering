@@ -47,14 +47,16 @@ namespace TheGathering.Web.Services
             }
             return volunteerEventIds;
         }
-        public void AddVolunteerGroupVolunteerEvent(int volunteerGroupId, int eventId)
+        public void AddVolunteerGroupVolunteerEvent(int volunteerGroupId, int eventId, int numVolunteers)
         {
+            
             VolunteerGroupVolunteerEvent vgve = new VolunteerGroupVolunteerEvent();
             //vve.Id = 1;
             //TODO: Changes vve.Id value
             vgve.VolunteerGroupId = volunteerGroupId;
             vgve.VolunteerEventId = eventId;
             vgve.Confirmed = false;
+            vgve.NumberOfGroupMembersSignedUp = numVolunteers;
             VolunteerGroupLeader volunteergroupleader = _repository.GetLeaderById(volunteerGroupId);
             _repository.AddVolunteerGroupVolunteerEvent(volunteergroupleader, vgve);
         }
