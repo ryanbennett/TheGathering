@@ -49,6 +49,7 @@ h3 {
 }
 label.elfont {
     font-size: x-large;
+    font-weight: normal;
 }
 hr {
     display: block;
