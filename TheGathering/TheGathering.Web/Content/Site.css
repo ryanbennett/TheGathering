@@ -296,12 +296,6 @@ td {
         margin: 5px;
         transition: all 0.3s ease;
     }
-/* Medium Screen Navigation */
-@media screen and (max-width: 1200px) {
-    .nav-links {
-        width: 100%;
-    }
-}
 /* Small Screen Navigation */
 @media screen and (max-width: 900px) {
     body {
