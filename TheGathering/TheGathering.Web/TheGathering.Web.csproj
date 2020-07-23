@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.Designer.cs">
       <DependentUpon>202007221929268_VolunteerGroupVolunteerEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007231423218_VolunteerSlots.cs" />
+    <Compile Include="Migrations\202007231423218_VolunteerSlots.Designer.cs">
+      <DependentUpon>202007231423218_VolunteerSlots.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -440,6 +444,8 @@
     <Content Include="Views\VolunteerGroup\Details.cshtml" />
     <Content Include="Views\VolunteerGroup\Delete.cshtml" />
     <Content Include="Views\VolunteerGroup\SignUpGroupEvent.cshtml" />
+    <Content Include="Views\VolunteerGroup\SignUpGroupNumber.cshtml" />
+    <Content Include="Views\VolunteerEvent\GroupDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -470,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.resx">
       <DependentUpon>202007221929268_VolunteerGroupVolunteerEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007231423218_VolunteerSlots.resx">
+      <DependentUpon>202007231423218_VolunteerSlots.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.Models.VolunteerGroupVolunteerEvent
+﻿@model TheGathering.Web.ViewModels.VolunteerGroup.SignUpGroupViewModel
 
 @{
     ViewBag.Title = "SignUpGroupEvent";
@@ -6,3 +6,41 @@
 
 <h2>SignUpGroupEvent</h2>
 
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+    </dd>
+</dl>
+
+<p>
+    Are you sure you would like to sign up for this volunteer event?
+</p>
+<p>
+    @Html.ActionLink("Yes", "SignUpGroupNumber", "VolunteerGroup", new { volunteerslots = 12 }, null)
+</p>
+<!-- volunteerId = Model.VolunteerGroupLeader.Id, eventId = Model.VolunteerEvent.Id -->
+<p>
+    @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)
+</p>

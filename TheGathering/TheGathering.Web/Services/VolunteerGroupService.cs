@@ -38,6 +38,26 @@ namespace TheGathering.Web.Services
         {
             _repository.EditLeader(volunteergroupleader);
         }
+        public List<int> GetVolunteerEventIdsByVolunteerGroupId(int volunteerId)
+        {
+            List<int> volunteerEventIds = new List<int>();
+            foreach (VolunteerGroupVolunteerEvent vve in _repository.GetVolunteerEventIdsByVolunteerGroupId(volunteerId))
+            {
+                volunteerEventIds.Add(vve.VolunteerEventId);
+            }
+            return volunteerEventIds;
+        }
+        public void AddVolunteerGroupVolunteerEvent(int volunteerGroupId, int eventId)
+        {
+            VolunteerGroupVolunteerEvent vgve = new VolunteerGroupVolunteerEvent();
+            //vve.Id = 1;
+            //TODO: Changes vve.Id value
+            vgve.VolunteerGroupId = volunteerGroupId;
+            vgve.VolunteerEventId = eventId;
+            vgve.Confirmed = false;
+            VolunteerGroupLeader volunteergroupleader = _repository.GetLeaderById(volunteerGroupId);
+            _repository.AddVolunteerGroupVolunteerEvent(volunteergroupleader, vgve);
+        }
 
     }
 }

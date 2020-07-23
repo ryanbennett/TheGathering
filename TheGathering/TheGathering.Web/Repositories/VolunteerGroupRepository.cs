@@ -16,8 +16,11 @@ namespace TheGathering.Web.Repositories
             _context.VolunteerGroupLeaders.Add(volunteergroupleader);
             _context.SaveChanges();
         }
-
-
+        public List<VolunteerGroupVolunteerEvent> GetVolunteerEventIdsByVolunteerGroupId(int volunteerId)
+        {
+            var volunteer = _context.VolunteerGroupLeaders.Include(v => v.VolunteerGroupVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
+            return volunteer.VolunteerGroupVolunteerEvents.ToList();
+        }
 
         public void EditLeader(VolunteerGroupLeader volunteergroupleader)
         {
@@ -42,6 +45,14 @@ namespace TheGathering.Web.Repositories
         {
             var result = _context.VolunteerGroupLeaders.SingleOrDefault(volunteergroupleader => volunteergroupleader.ApplicationUserId == applicationUserId);
             return result;
+        }
+        public void AddVolunteerGroupVolunteerEvent(VolunteerGroupLeader volunteergroupleader, VolunteerGroupVolunteerEvent vgve)
+        {
+            if (volunteergroupleader.VolunteerGroupVolunteerEvents == null)
+                volunteergroupleader.VolunteerGroupVolunteerEvents = new List<VolunteerGroupVolunteerEvent>();
+            volunteergroupleader.VolunteerGroupVolunteerEvents.Add(vgve);
+            _context.Entry(volunteergroupleader).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

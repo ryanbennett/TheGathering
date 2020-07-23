@@ -10,6 +10,7 @@ namespace TheGathering.Web.Models
         public int Id { get; set; }
         public int VolunteerGroupId { get; set; }
         public int VolunteerEventId { get; set; }
+        public int NumberOfGroupMembersSignedUp { get; set; }
         public Boolean Confirmed { get; set; }
     }
 }

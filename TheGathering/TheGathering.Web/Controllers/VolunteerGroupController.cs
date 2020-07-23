@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels.VolunteerGroup;
 
 namespace TheGathering.Web.Controllers
 {
@@ -15,6 +16,7 @@ namespace TheGathering.Web.Controllers
         
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
+        SignUpGroupViewModel model = new SignUpGroupViewModel();
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteerGroups();
@@ -24,6 +26,29 @@ namespace TheGathering.Web.Controllers
                 model = new List<VolunteerGroupLeader>();
             }
 
+            return View(model);
+        }
+        public ActionResult SignUpGroupEvent(string volunteerId = "1", int eventId = 1)
+        {
+            
+            model.VolunteerGroupLeader = _service.GetLeaderByApplicationUserId(volunteerId);
+            model.VolunteerEvent = _eventService.GetEventById((int)eventId);
+            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerGroupId(1);
+            //TO DO: Change Hardcoding (model.VolunteerGroupLeader.Id)
+            var events = _eventService.GetEventsByIds(volunteerEventIds);
+            foreach (int id in volunteerEventIds)
+            {
+                if (id == eventId)
+                {
+                    return RedirectToAction("EventAlreadyRegistered");
+                }
+            }
+            return View(model);
+
+        }
+        public ActionResult SignUpGroupNumber(int volunteerslots)
+        {
+            model.VolunteerSlots = volunteerslots;
             return View(model);
         }
         public ActionResult Create()
