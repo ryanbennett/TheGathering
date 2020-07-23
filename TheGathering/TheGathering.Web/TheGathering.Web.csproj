@@ -446,6 +446,7 @@
     <Content Include="Views\VolunteerGroup\SignUpGroupEvent.cshtml" />
     <Content Include="Views\VolunteerGroup\SignUpGroupNumber.cshtml" />
     <Content Include="Views\VolunteerEvent\GroupDetails.cshtml" />
+    <Content Include="Views\VolunteerGroup\EventAlreadyRegistered.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -58,6 +58,7 @@ namespace TheGathering.Web.Services
             VolunteerGroupLeader volunteergroupleader = _repository.GetLeaderById(volunteerGroupId);
             _repository.AddVolunteerGroupVolunteerEvent(volunteergroupleader, vgve);
         }
+       
 
     }
 }

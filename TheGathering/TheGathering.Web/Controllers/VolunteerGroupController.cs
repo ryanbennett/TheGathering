@@ -10,7 +10,7 @@ using TheGathering.Web.ViewModels.VolunteerGroup;
 
 namespace TheGathering.Web.Controllers
 {
-    public class VolunteerGroupController : Controller
+    public class VolunteerGroupController : BaseController
     {
         // GET: VolunteerGroup
         
@@ -28,27 +28,46 @@ namespace TheGathering.Web.Controllers
 
             return View(model);
         }
-        public ActionResult SignUpGroupEvent(string volunteerId = "1", int eventId = 1)
+     
+        public ActionResult SignUpGroupEvent(int volunteerId, int eventId)
         {
-            
-            model.VolunteerGroupLeader = _service.GetLeaderByApplicationUserId(volunteerId);
+            model.VolunteerGroupLeader = _service.GetLeaderById(volunteerId);
             model.VolunteerEvent = _eventService.GetEventById((int)eventId);
-            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerGroupId(1);
+            _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId);
+            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerGroupId(volunteerId);
             //TO DO: Change Hardcoding (model.VolunteerGroupLeader.Id)
             var events = _eventService.GetEventsByIds(volunteerEventIds);
-            foreach (int id in volunteerEventIds)
+
+            foreach(int id in volunteerEventIds)
             {
                 if (id == eventId)
                 {
                     return RedirectToAction("EventAlreadyRegistered");
                 }
             }
+            /*
+            bool alreadyRegistered = volunteerEventIds.Any(id => id == eventId);
+            if (alreadyRegistered)
+            {
+                return RedirectToAction("EventAlreadyRegistered");
+            }
+            */
             return View(model);
-
         }
+        public ActionResult EventAlreadyRegistered()
+        {
+            return View();
+        }
+        public ActionResult SignUpGroupNumber()
+        {
+            return View();
+        }
+        [HttpPost]
         public ActionResult SignUpGroupNumber(int volunteerslots)
         {
             model.VolunteerSlots = volunteerslots;
+           
+
             return View(model);
         }
         public ActionResult Create()
