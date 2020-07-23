@@ -50,7 +50,7 @@ namespace TheGathering.Web.Controllers
                 {
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.UpdateMealSite(mealSite);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -75,7 +75,7 @@ namespace TheGathering.Web.Controllers
                 {
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.AddMealSite(mealSite);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -106,7 +106,7 @@ namespace TheGathering.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             mealSiteService.DeleteMealSite(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("MealSites", "AdminPortal", null);
         }
 
         public ActionResult Details(int? id)

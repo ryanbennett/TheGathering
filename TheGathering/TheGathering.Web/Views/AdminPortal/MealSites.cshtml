@@ -3,20 +3,25 @@
 @{
     ViewBag.Title = "MealSites";
 }
-
+<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
 <div class="container-fluid">
-    <h2>Manage Meal Sites</h2>
-
-    <p>
-        @Html.ActionLink("New Meal Site", "Create", "MealSite", null, new { @class = "btn btn-default" })
-        @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
-    </p>
-
     <div class="row">
         <div class="col-sm-12">
+            <h1>Manage Meal Sites</h1>
+            <p>
+                <a class="btn btn-grey" href="/MealSite/Create">New Meal Site</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>All Locations</h1>
             <div class="panel panel-default">
                 <table class="table table-center">
                     <tr>
+                        <th>
+                            Name
+                        </th>
                         <th>
                             Address
                         </th>
@@ -30,6 +35,9 @@
                     {
                         <tr>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.AddressLine1)
                             </td>
 
@@ -38,9 +46,13 @@
                             </td>
 
                             <td>
-                                @Html.ActionLink("Edit", "Edit", "MealSite", new { id = item.Id }, null) |
-                                @Html.ActionLink("Details", "MealSiteDetails", new { id = item.Id }, null) |
-                                @Html.ActionLink("Delete", "Delete", "MealSite", new { id = item.Id }, null)
+                                <a class="btn btn-grey" href="/MealSite/Edit?id=@(item.Id)">Edit</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-grey" href="/MealSite/Delete?id=@(item.Id)">Delete</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-grey" href="MealSiteDetails?id=@(item.Id)">Details</a>
                             </td>
                         </tr>
                     }
@@ -49,11 +61,16 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="myMap"></div>
+        </div>
+    </div>
 </div>
-
 <script>
 	@foreach (var item in Model)
 	{
-		@Html.Raw("locationAddresses.push('" + item.AddressLine1 + ", " + item.City + ", " + item.State + "');locationIds.push(" + item.Id + ");")
+		@Html.Raw("locations.push(new Location('" + item.AddressLine1 + ", " + item.City + "', "+ item.Id +"," + item.Latitude + "," + item.Longitude + ",'" + item.Name + "'," + item.IsTheGatheringSite.ToString().ToLower() + "));")
 	}
 </script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>

@@ -37,7 +37,7 @@ namespace TheGathering.Web.Models
         public bool Breakfast_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Breakfast_DaysServed { get; set; }
+        public bool[] Breakfast_DaysServed { get; set; } = new bool[7];
 
         [Display(Name = "Maximum Guests Served")]
         public int? Breakfast_MaximumGuestsServed { get; set; }
@@ -55,7 +55,7 @@ namespace TheGathering.Web.Models
         public bool Lunch_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Lunch_DaysServed { get; set; }
+        public bool[] Lunch_DaysServed { get; set; } = new bool[7];
 
         [Display(Name = "Maximum Guests Served")]
         public int? Lunch_MaximumGuestsServed { get; set; }
@@ -73,7 +73,7 @@ namespace TheGathering.Web.Models
         public bool Dinner_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Dinner_DaysServed { get; set; }
+        public bool[] Dinner_DaysServed { get; set; } = new bool[7];
 
         [Display(Name = "Maximum Guests Served")]
         public int? Dinner_MaximumGuestsServed { get; set; }
@@ -99,6 +99,7 @@ namespace TheGathering.Web.Models
         {
             // Transfer Variables
             Id = model.Id;
+            Name = model.Name;
             AddressLine1 = model.AddressLine1;
             City = model.City;
             Zipcode = model.Zipcode;

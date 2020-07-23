@@ -38,7 +38,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Breakfast_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Breakfast_DaysServed { get; set; }
+        public bool[] Breakfast_DaysServed { get; set; } = new bool[7];
 
         [Display(Name = "Maximum Guests Served")]
         public int? Breakfast_MaximumGuestsServed { get; set; }
@@ -56,7 +56,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Lunch_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Lunch_DaysServed { get; set; }
+        public bool[] Lunch_DaysServed { get; set; } = new bool[7];
 
         [Display(Name = "Maximum Guests Served")]
         public int? Lunch_MaximumGuestsServed { get; set; }
@@ -74,7 +74,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Dinner_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Dinner_DaysServed { get; set; }
+        public bool[] Dinner_DaysServed { get; set; } = new bool[7];
 
         [Display(Name = "Maximum Guests Served")]
         public int? Dinner_MaximumGuestsServed { get; set; }
@@ -101,6 +101,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         {
             // Transfer Variables
             Id = mealSite.Id;
+            Name = mealSite.Name;
             AddressLine1 = mealSite.AddressLine1;
             City = mealSite.City;
             Zipcode = mealSite.Zipcode;
@@ -170,7 +171,7 @@ namespace TheGathering.Web.ViewModels.MealSite
             DateTime start = (DateTime)Breakfast_StartTime;
             DateTime end = (DateTime)Breakfast_EndTime;
 
-            if (start.CompareTo(end) < 0)
+            if (start.CompareTo(end) >= 0)
             {
                 return false;
             }
@@ -206,14 +207,14 @@ namespace TheGathering.Web.ViewModels.MealSite
             if (Lunch_StartTime == null && Lunch_EndTime == null) { return true; }
 
             DateTime start = (DateTime)Lunch_StartTime;
-            DateTime end = (DateTime)Lunch_StartTime;
+            DateTime end = (DateTime)Lunch_EndTime;
 
-            if (start.CompareTo(end) < 0)
+            if (start.CompareTo(end) >= 0)
             {
                 return false;
             }
 
-            else if (Lunch_MinimumGuestsServed < Breakfast_MaximumGuestsServed)
+            else if (Lunch_MinimumGuestsServed < Lunch_MaximumGuestsServed)
             {
                 return true;
             }
@@ -245,7 +246,7 @@ namespace TheGathering.Web.ViewModels.MealSite
             DateTime start = (DateTime)Dinner_StartTime;
             DateTime end = (DateTime)Dinner_EndTime;
 
-            if (start.CompareTo(end) < 0)
+            if (start.CompareTo(end) >= 0)
             {
                 return false;
             }
