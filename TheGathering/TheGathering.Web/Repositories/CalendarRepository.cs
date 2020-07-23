@@ -27,11 +27,7 @@ namespace TheGathering.Web.Repositories
         
         public VolunteerEvent GetEventById(int id)
         {
-<<<<<<< Updated upstream
-            return dbContext.VolunteerEvents.Include(ve => ve.VolunteerVolunteerEvents).SingleOrDefault(ve => ve.Id == id);
-=======
-            return dbContext.VolunteerEvents.Include(ve => ve.MealSite).FirstOrDefault(e => e.Id == id);
->>>>>>> Stashed changes
+            return dbContext.VolunteerEvents.Include(ve => ve.VolunteerVolunteerEvents).Include(ve => ve.MealSite).FirstOrDefault(e => e.Id == id);
         }
         public List<VolunteerEvent> GetEventsByIds(List<int> eventId)
         {
