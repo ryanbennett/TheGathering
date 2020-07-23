@@ -129,10 +129,10 @@ p{
 }
 
 .FooterText {
-    font-family: Sofia Pro, sans-serif;
+    font-family: Sofia Pro, sans-serif !important;
     color: #434345;
     font-size: small;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: uppercase;
     line-height: 1.6;
 }
