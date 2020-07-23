@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace TheGathering.Web.Models
         public bool Breakfast_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public bool[] Breakfast_DaysServed { get; set; } = new bool[7];
+        public string Breakfast_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Breakfast_MaximumGuestsServed { get; set; }
@@ -55,7 +56,7 @@ namespace TheGathering.Web.Models
         public bool Lunch_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public bool[] Lunch_DaysServed { get; set; } = new bool[7];
+        public string Lunch_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Lunch_MaximumGuestsServed { get; set; }
@@ -73,7 +74,7 @@ namespace TheGathering.Web.Models
         public bool Dinner_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public bool[] Dinner_DaysServed { get; set; } = new bool[7];
+        public string Dinner_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Dinner_MaximumGuestsServed { get; set; }
@@ -95,6 +96,7 @@ namespace TheGathering.Web.Models
                                         + "Lunch_Used, Lunch_DaysServed, Lunch_MaximumGuestsServed, Lunch_MinimumGuestsServed, Lunch_StartTime, Lunch_EndTime, "
                                         + "Dinner_Used, Dinner_DaysServed, Dinner_MaximumGuestsServed, Dinner_MinimumGuestsServed, Dinner_StartTime, Dinner_EndTime";
         public MealSite() { }
+
         public MealSite(MealSiteViewModel model)
         {
             // Transfer Variables
@@ -111,21 +113,21 @@ namespace TheGathering.Web.Models
             IsTheGatheringSite = model.IsTheGatheringSite;
 
             Breakfast_Used = model.Breakfast_Used;
-            Breakfast_DaysServed = model.Breakfast_DaysServed;
+            Breakfast_DaysServed = JsonConvert.SerializeObject(model.Breakfast_DaysServed);
             Breakfast_MaximumGuestsServed = model.Breakfast_MaximumGuestsServed;
             Breakfast_MinimumGuestsServed = model.Breakfast_MinimumGuestsServed;
             Breakfast_StartTime = model.Breakfast_StartTime;
             Breakfast_EndTime = model.Breakfast_EndTime;
 
             Lunch_Used = model.Lunch_Used;
-            Lunch_DaysServed = model.Lunch_DaysServed;
+            Lunch_DaysServed = JsonConvert.SerializeObject(model.Lunch_DaysServed);
             Lunch_MaximumGuestsServed = model.Lunch_MaximumGuestsServed;
             Lunch_MinimumGuestsServed = model.Lunch_MinimumGuestsServed;
             Lunch_StartTime = model.Lunch_StartTime;
             Lunch_EndTime = model.Lunch_EndTime;
 
             Dinner_Used = model.Dinner_Used;
-            Dinner_DaysServed = model.Dinner_DaysServed;
+            Dinner_DaysServed = JsonConvert.SerializeObject(model.Dinner_DaysServed);
             Dinner_MaximumGuestsServed = model.Dinner_MaximumGuestsServed;
             Dinner_MinimumGuestsServed = model.Dinner_MinimumGuestsServed;
             Dinner_StartTime = model.Dinner_StartTime;

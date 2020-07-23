@@ -189,17 +189,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007221709296_models-v1.cs" />
-    <Compile Include="Migrations\202007221709296_models-v1.Designer.cs">
-      <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007231737246_DaysOfTheWeek.cs" />
-    <Compile Include="Migrations\202007231737246_DaysOfTheWeek.Designer.cs">
-      <DependentUpon>202007231737246_DaysOfTheWeek.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007231755527_VolunteerVolunteerEventCancel.cs" />
-    <Compile Include="Migrations\202007231755527_VolunteerVolunteerEventCancel.Designer.cs">
-      <DependentUpon>202007231755527_VolunteerVolunteerEventCancel.cs</DependentUpon>
+    <Compile Include="Migrations\202007231840395_NewMigration.cs" />
+    <Compile Include="Migrations\202007231840395_NewMigration.Designer.cs">
+      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -466,14 +458,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007221709296_models-v1.resx">
-      <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231737246_DaysOfTheWeek.resx">
-      <DependentUpon>202007231737246_DaysOfTheWeek.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231755527_VolunteerVolunteerEventCancel.resx">
-      <DependentUpon>202007231755527_VolunteerVolunteerEventCancel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007231840395_NewMigration.resx">
+      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
