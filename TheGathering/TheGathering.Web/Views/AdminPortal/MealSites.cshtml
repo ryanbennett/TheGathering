@@ -8,7 +8,8 @@
     <h2>Manage Meal Sites</h2>
 
     <p>
-        @Html.ActionLink("New Meal Site", "Create", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("New Meal Site", "Create", "MealSite", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
     </p>
 
     <div class="row">
@@ -22,9 +23,6 @@
                         <th>
                             @Html.DisplayNameFor(model => model.City)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MealServed)
-                        </th>
                         <th></th>
                     </tr>
 
@@ -34,15 +32,16 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.AddressLine1)
                             </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.City)
                             </td>
+
                             <td>
-                                @Html.DisplayFor(modelItem => item.MealServed)
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "MealSite", new { id = item.Id }) |
-                                @Html.ActionLink("Details", "MealSiteDetails", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "Delete", "MealSite", new { id = item.Id })
+                                @Html.ActionLink("Edit", "Edit", "MealSite", new { id = item.Id }, null) |
+                                @Html.ActionLink("Details", "MealSiteDetails", new { id = item.Id }, null) |
+                                @Html.ActionLink("Delete", "Delete", "MealSite", new { id = item.Id }, null)
+                            </td>
                         </tr>
                     }
 
@@ -55,6 +54,6 @@
 <script>
 	@foreach (var item in Model)
 	{
-		@Html.Raw("locationAddresses.push('" + item.AddressLine1 + item.AddressLine2 + ", " + item.City + ", " + item.State + "');locationIds.push(" + item.Id + ");")
+		@Html.Raw("locationAddresses.push('" + item.AddressLine1 + ", " + item.City + ", " + item.State + "');locationIds.push(" + item.Id + ");")
 	}
 </script>

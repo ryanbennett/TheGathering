@@ -7,7 +7,8 @@
 <h2>Manage Users</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateVolunteer")
+    @Html.ActionLink("Create New", "VolunteerCreate", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -72,9 +73,9 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "EditVolunteer", new { id = item.Id })
-                @Html.ActionLink("Details", "DetailsVolunteer", new { id = item.Id })
-                @Html.ActionLink("Delete", "DeleteVolunteer", new { id = item.Id })
+                @Html.ActionLink("Edit", "VolunteerEdit", new { id = item.Id })
+                @Html.ActionLink("Details", "VolunteerDetails", new { id = item.Id })
+                @Html.ActionLink("Delete", "VolunteerDelete", new { id = item.Id })
             </td>
         </tr>
     }

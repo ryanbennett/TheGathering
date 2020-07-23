@@ -10,7 +10,7 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    public class AdminPortalController : Controller
+    public class AdminPortalController : BaseController
     {
         private VolunteerService volunteerService = new VolunteerService();
         private MealSiteService mealService = new MealSiteService();
@@ -24,11 +24,19 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult Users()
         {
-            return View();
+            var volunteers = volunteerService.GetAllVolunteers();
+
+            if (volunteers == null)
+            {
+                volunteers = new List<Volunteer>();
+            }
+
+            return View(volunteers);
         }
 
         public ActionResult MealSites()
         {
+
             return View(mealService.GetAllMealSites());
         }
 
@@ -126,6 +134,114 @@ namespace TheGathering.Web.Controllers
         }
 
         public ActionResult ManageCalender()
+        {
+            return View(calendarService.GetAllEvents());
+        }
+
+        public ActionResult EventDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel
+            {
+                Volunteer = GetCurrentVolunteer(),
+                VolunteerEvent = volunteerEvent
+            };
+
+            return View(signUpEventViewModel);
+        }
+
+        public ActionResult VolunteerCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VolunteerCreate(Volunteer volunteer)
+        {
+            if (ModelState.IsValid)
+            {
+                volunteerService.Create(volunteer);
+                return RedirectToAction("Users");
+            }
+
+            return View();
+        }
+
+
+        public ActionResult VolunteerEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Volunteer volunteer = volunteerService.GetById((int)id);
+
+            if (volunteer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(volunteer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VolunteerEdit(Volunteer volunteer)
+        {
+            if (ModelState.IsValid)
+            {
+                volunteerService.Edit(volunteer);
+                return RedirectToAction("Users");
+            }
+            return View(volunteer);
+        }
+
+        public ActionResult VolunteerDetails(int id)
+        {
+            return View(volunteerService.GetById(id));
+        }
+
+        public ActionResult VolunteerDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Volunteer volunteer = volunteerService.GetById((int)id);
+
+            if (volunteer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(volunteer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VolunteerDelete(int id)
+        {
+            Volunteer volunteer = volunteerService.GetById((int)id);
+            volunteerService.DeleteVolunteer(volunteer);
+            return RedirectToAction("Users");
+        }
+
+        public ActionResult ManageEvents()
         {
             return View(calendarService.GetAllEvents());
         }

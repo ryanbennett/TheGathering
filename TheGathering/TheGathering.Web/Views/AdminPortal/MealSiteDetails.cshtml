@@ -20,14 +20,6 @@
                 </tr>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.AddressLine2)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.AddressLine2)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
                         @Html.DisplayNameFor(model => model.City)
                     </th>
                     <td>
@@ -66,66 +58,18 @@
                         @Html.DisplayFor(model => model.CrossStreet2)
                     </td>
                 </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MealServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MealServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DaysServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.DaysServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MaximumGuestsServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MaximumGuestsServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MinimumGuestsServed)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MinimumGuestsServed)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StartTime)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.StartTime)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EndTime)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.EndTime)
-                    </td>
-                </tr>
             </table>
         </div>
     </di>
     <div class="col-sm-6">
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
         
-        <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1)+@(Model.AddressLine2),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
+        <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
         <a class="btn btn-grey" href="/AdminPortal/">Back To Admin Portal</a>
 
 
         <script>
-            locationAddresses = ['@(Model.AddressLine1+Model.AddressLine2)'];
+            locationAddresses = ['@(Model.AddressLine1)'];
         </script>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>

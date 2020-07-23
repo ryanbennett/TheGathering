@@ -5,6 +5,11 @@
 
 <h2>Manage Calender</h2>
 
+<p>
+    @Html.ActionLink("Manage Events", "ManageEvents", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
+</p>
+
 <div id="calender"></div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -133,8 +138,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = item.Id }, null)
-                <!--TODO Change to admin specific details-->>
+                @Html.ActionLink("Details", "EventDetails", new { id = item.Id }, null)
             </td>
         </tr>
     }
