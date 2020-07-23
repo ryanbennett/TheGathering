@@ -5,15 +5,9 @@
 }
 
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-6">
 		<h2>My Events</h2>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		<p>
-			@Html.ActionLink("Calendar", "Calendar", "VolunteerEvent")
-		</p>
+			
 	</div>
 </div>
 <div class="row">
@@ -57,7 +51,7 @@
 						@Html.DisplayFor(modelItem => item.Description)
 					</td>
 					<td>
-						@Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = item.Id }, null)
+						@Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = item.Id }, new { @class = "btn btn-primary" })
 					</td>
 				</tr>
 			}
@@ -117,5 +111,10 @@
 			}
 
 		</table>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		@Html.ActionLink("Calendar", "Calendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
 	</div>
 </div>
