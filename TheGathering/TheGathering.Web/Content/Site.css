@@ -1,7 +1,6 @@
 ﻿.background {
     background-color: #434345;
 }
-
 .body-back-color {
     background-color: #FAF6EB;
 }
@@ -23,6 +22,10 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 /*what does this do*/
 @font-face {
@@ -84,10 +87,6 @@ li {
     font-weight: 600;
 }
 
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
 
 td {
     vertical-align: middle !important;
@@ -111,7 +110,7 @@ td {
         opacity: 0.9;
     }
 
-.donate {
+.donateButton {
     padding: 9px 25px;
     background-color: #434345;
     border: 2px solid;
@@ -121,7 +120,7 @@ td {
     transition: all 0.2s ease 0s;
 }
 
-    .donate:hover {
+    .donateButton:hover {
         background-color: #B0D0B9;
         color: black;
     }
@@ -146,35 +145,6 @@ td {
 }
 /*disscus with the other team and put it with the others*/
 /* Gold Buttons - maps */
-.btn-gold {
-    background-color: #B89252 !important;
-    border-color: #b58e4a !important;
-    color: #ffffff !important;
-}
-
-    .btn-gold:hover {
-        background-color: #91713b !important;
-        border-color: #886a37 !important;
-        color: #f2f2f2 !important;
-    }
-
-/* Grey Buttons - maps */
-.btn-grey {
-    background-color: #434345 !important;
-    border-color: #3f3f40 !important;
-    color: #ffffff !important;
-}
-
-    .btn-grey:hover {
-        background-color: #58585a !important;
-        border-color: #4c4c4d !important;
-        color: #ffffff !important;
-    }
-
-/* Margin Around Buttons - maps */
-.btn-margin {
-    margin: 10px;
-}
 
 
 /*
@@ -445,6 +415,36 @@ td {
 #zipReturn {
     margin-top: 20px;
 }
+.btn-gold {
+    background-color: #B89252 !important;
+    border-color: #b58e4a !important;
+    color: #ffffff !important;
+}
+
+    .btn-gold:hover {
+        background-color: #91713b !important;
+        border-color: #886a37 !important;
+        color: #f2f2f2 !important;
+    }
+
+/* Grey Buttons - maps */
+.btn-grey {
+    background-color: #434345 !important;
+    border-color: #3f3f40 !important;
+    color: #ffffff !important;
+}
+
+    .btn-grey:hover {
+        background-color: #58585a !important;
+        border-color: #4c4c4d !important;
+        color: #ffffff !important;
+    }
+
+/* Margin Around Buttons - maps */
+.btn-margin {
+    margin: 10px;
+}
+
 /* TEMP Navbar */
 .navbar {
     background-color: #434345;
