@@ -3,20 +3,21 @@
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+
     {
         @Html.AntiForgeryToken()
-        <li>
-            Hello @ViewBag.UserFriendlyName!
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        String message = "Hello " + @ViewBag.UserFriendlyName + "!";
 
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li>
+            @Html.ActionLink(message, "Manage", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </li>
     }
 }
 else
 {
 
-    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
     <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
 
 }

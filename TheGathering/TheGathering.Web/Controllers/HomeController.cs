@@ -13,7 +13,6 @@ namespace TheGathering.Web.Controllers
         
         public ActionResult Index()
         {
-            PopulateDynamicValues();
             return View();
         }
 

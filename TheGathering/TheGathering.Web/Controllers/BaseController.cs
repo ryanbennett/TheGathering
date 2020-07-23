@@ -56,9 +56,13 @@ namespace TheGathering.Web.Controllers
             var response = await client.SendEmailAsync(msg);
         }
 
-        public void PopulateDynamicValues()
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+            }
+            base.OnActionExecuting(filterContext);
         }
 
     }
