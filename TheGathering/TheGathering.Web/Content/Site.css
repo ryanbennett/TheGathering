@@ -23,10 +23,6 @@ select,
 textarea {
     max-width: 280px;
 }
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
 /*what does this do*/
 @font-face {
     font-family: Sofia Pro SemiBold;
@@ -317,7 +313,7 @@ td {
         overflow-x: hidden;
         right: 0px;
         height: auto;
-        top: 130px;
+        top: 80px;
         background-color: #434345;
         display: flex;
         flex-direction: column;
