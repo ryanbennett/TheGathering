@@ -48,7 +48,22 @@ h3 {
     font-weight: 400;
 }
 label.elfont {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
     font-size: x-large;
+    font-weight: normal;
+}
+
+label.h3font {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: large;
+}
+
+label.pfont {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
 }
 hr {
     display: block;
