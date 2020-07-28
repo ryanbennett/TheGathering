@@ -52,7 +52,7 @@ namespace TheGathering.Web.Controllers
             int eventId = signUpGroupViewModel.VolunteerEventID;
             int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
             _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
-            return RedirectToAction("Index");
+            return RedirectToAction("GroupEventsList");
         }
         public ActionResult EventAlreadyRegistered()
         {
