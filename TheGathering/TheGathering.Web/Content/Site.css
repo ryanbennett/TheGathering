@@ -88,37 +88,14 @@ a {
     font-size: medium;
     font-weight: 400;
 }
-.actionlink {
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: xx-large;
-    font-weight: 400;
-}
-createNew {
 
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: xx-large;
-    font-weight: 400;
-}
 li {
     font-family: Baskerville;
     color: #434345;
     font-size: medium;
     font-weight: 400;
 }
-th {
-    font-family: Sofia Pro, sans-serif;
-    color: #434345;
-    font-size: large;
-    font-weight: 400;
-}
-td {
-    font-family: Baskerville;
-    color: #434345;
-    font-size: medium;
-    font-weight: 400;
-}
+
 .centerText {
     text-align: center;
 }
