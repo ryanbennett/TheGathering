@@ -42,6 +42,11 @@ namespace TheGathering.Web.Controllers
             return View(mealService.GetAllMealSites());
         }
 
+        public ActionResult ManageCalender()
+        {
+            return View(calendarService.GetAllEvents());
+        }
+
         public Volunteer GetVolunteerById(int id)
         {
             return volunteerService.GetById(id);
