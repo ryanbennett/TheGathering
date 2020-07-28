@@ -57,7 +57,11 @@
 </div>
     
 <div>
-    @Html.ActionLink("Event's Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default" })
+    @if (Model.Volunteer != null)
+    {
+        @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
+    }
+    <button onclick="window.print()" class="btn btn-info">Print this page</button>
     @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default" })
 </div>
