@@ -3,62 +3,54 @@
 @{
     ViewBag.Title = "Delete";
 }
-    <div class="col-sm-8">
-        <h1>Delete</h1>
+<div class="col-sm-8">
+    <h1>Delete</h1>
 
-        <h3>Are you sure you want to delete this?</h3>
+    <h3>Are you sure you want to delete this?</h3>
+    <hr />
+    <h3>First Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.FirstName)
+    </p>
+
+    <h3>Last Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.LastName)
+    </p>
+
+    <h3>Birthday</h3>
+    <p>
+        @Html.DisplayFor(model => model.Birthday)
+    </p>
+
+    <h3>Email</h3>
+    <p>
+        @Html.DisplayFor(model => model.Email)
+    </p>
+
+    <h3>Phone Number</h3>
+    <p>
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </p>
+
+    <h3>Interest in Leadership</h3>
+    <p>
+        @Html.DisplayFor(model => model.InterestInLeadership)
+    </p>
+
+    <h3>Sign up for Newsletter</h3>
+    <p>
+        @Html.DisplayFor(model => model.SignUpForNewsLetter)
+    </p>
 
 
-        <div style="padding-bottom:10px">
-            <h3>First Name</h3>
-            <p>
-                @Html.DisplayFor(model => model.FirstName)
-            </p>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
-        <div style="padding-bottom:10px">
-            <h3>Last Name</h3>
-            <p>
-                @Html.DisplayFor(model => model.LastName)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Birthday</h3>
-            <p>
-                @Html.DisplayFor(model => model.Birthday)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Email</h3>
-            <p>
-                @Html.DisplayFor(model => model.Email)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Phone Number</h3>
-            <p>
-                @Html.DisplayFor(model => model.PhoneNumber)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Interest in Leadership</h3>
-            <p>
-                @Html.DisplayFor(model => model.InterestInLeadership)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Sign up for Newsletter</h3>
-            <p>
-                @Html.DisplayFor(model => model.SignUpForNewsLetter)
-            </p>
-        </div>
-
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => model.Id)
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-primary" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
-    </div>
+    }
+</div>

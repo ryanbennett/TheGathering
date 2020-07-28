@@ -148,6 +148,10 @@ td {
         color: black;
     }
 
+.footer-top-margin{
+    margin-top: 20px;
+}
+
 .footerText {
     font-family: Sofia Pro, sans-serif !important;
     color: #434345;

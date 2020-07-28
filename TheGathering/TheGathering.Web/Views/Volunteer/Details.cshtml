@@ -4,58 +4,51 @@
     ViewBag.Title = "Details";
 }
 
-    <div class="col-sm-8">
-        <h1>Details</h1>
+<div class="col-sm-8">
+    <h1>Details</h1>
 
-        <hr />
-        <div style="padding-bottom:10px">
-            <h3>First Name</h3>
-            <p>
-                @Html.DisplayFor(model => model.FirstName)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Last Name</h3>
-            <p>
-                @Html.DisplayFor(model => model.LastName)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Birthday</h3>
-            <p>
-                @Html.DisplayFor(model => model.Birthday)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Email</h3>
-            <p>
-                @Html.DisplayFor(model => model.Email)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Phone Number</h3>
-            <p>
-                @Html.DisplayFor(model => model.PhoneNumber)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Interest in Leadership</h3>
-            <p>
-                @Html.DisplayFor(model => model.InterestInLeadership)
-            </p>
-        </div>
-        <div style="padding-bottom:10px">
-            <h3>Sign up for Newsletter</h3>
-            <p>
-                @Html.DisplayFor(model => model.SignUpForNewsLetter)
-            </p>
-        </div>
-        
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    </div>
+    <hr />
+
+    <h3>First Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.FirstName)
+    </p>
+
+    <h3>Last Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.LastName)
+    </p>
+
+    <h3>Birthday</h3>
+    <p>
+        @Html.DisplayFor(model => model.Birthday)
+    </p>
+
+    <h3>Email</h3>
+    <p>
+        @Html.DisplayFor(model => model.Email)
+    </p>
+
+    <h3>Phone Number</h3>
+    <p>
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </p>
+
+    <h3>Interest in Leadership</h3>
+    <p>
+        @Html.DisplayFor(model => model.InterestInLeadership)
+    </p>
+
+    <h3>Sign up for Newsletter</h3>
+    <p>
+        @Html.DisplayFor(model => model.SignUpForNewsLetter)
+    </p>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
 
 
 
