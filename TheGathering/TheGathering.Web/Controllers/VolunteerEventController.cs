@@ -16,7 +16,7 @@ namespace TheGathering.Web.Controllers
         private CalendarService service = new CalendarService();
         private MealSiteService mealSiteService = new MealSiteService();
 
-        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
+        public const string INVALID_CALENDER_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
