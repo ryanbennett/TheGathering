@@ -42,7 +42,7 @@ namespace TheGathering.Web.Controllers
             return View(mealService.GetAllMealSites());
         }
 
-        public ActionResult ManageCalender()
+        public ActionResult ManageCalendar()
         {
             return View(calendarService.GetAllEvents());
         }

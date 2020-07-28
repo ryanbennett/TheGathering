@@ -432,7 +432,7 @@
     <Content Include="Views\AdminPortal\MealSites.cshtml" />
     <Content Include="Views\AdminPortal\MealSiteDetails.cshtml" />
     <Content Include="Views\AdminPortal\ViewVolunteers.cshtml" />
-    <Content Include="Views\AdminPortal\ManageCalender.cshtml" />
+    <Content Include="Views\AdminPortal\ManageCalendar.cshtml" />
     <Content Include="Views\AdminPortal\EventDetails.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerDetails.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerDelete.cshtml" />
