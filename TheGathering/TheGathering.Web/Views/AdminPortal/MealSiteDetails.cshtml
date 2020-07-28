@@ -54,22 +54,6 @@
                         </tr>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.CrossStreet1)
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.CrossStreet1)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CrossStreet2)
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.CrossStreet2)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
                                 Part of The Gathering
                             </th>
                             <td>
@@ -153,7 +137,7 @@
                                     @Html.DisplayNameFor(model => model.Breakfast_StartTime)
                                 </th>
                                 <td>
-                                    @Html.DisplayFor(model => model.Breakfast_StartTime)
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Breakfast_StartTime)
                                 </td>
                             </tr>
                             <tr>
@@ -161,7 +145,7 @@
                                     @Html.DisplayNameFor(model => model.Breakfast_EndTime)
                                 </th>
                                 <td>
-                                    @Html.DisplayFor(model => model.Breakfast_EndTime)
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Breakfast_EndTime)
                                 </td>
                             </tr>
                         </table>
@@ -233,7 +217,7 @@
                                     @Html.DisplayNameFor(model => model.Lunch_StartTime)
                                 </th>
                                 <td>
-                                    @Html.DisplayFor(model => model.Lunch_StartTime)
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_StartTime)
                                 </td>
                             </tr>
                             <tr>
@@ -241,7 +225,7 @@
                                     @Html.DisplayNameFor(model => model.Lunch_EndTime)
                                 </th>
                                 <td>
-                                    @Html.DisplayFor(model => model.Lunch_EndTime)
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
                                 </td>
                             </tr>
                         </table>
@@ -312,7 +296,7 @@
                                     @Html.DisplayNameFor(model => model.Dinner_StartTime)
                                 </th>
                                 <td>
-                                    @Html.DisplayFor(model => model.Dinner_StartTime)
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_StartTime)
                                 </td>
                             </tr>
                             <tr>
@@ -320,7 +304,7 @@
                                     @Html.DisplayNameFor(model => model.Dinner_EndTime)
                                 </th>
                                 <td>
-                                    @Html.DisplayFor(model => model.Dinner_EndTime)
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_StartTime)
                                 </td>
                             </tr>
                         </table>

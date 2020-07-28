@@ -193,6 +193,10 @@
     <Compile Include="Migrations\202007231840395_NewMigration.Designer.cs">
       <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007281714276_UpdatedTime.cs" />
+    <Compile Include="Migrations\202007281714276_UpdatedTime.Designer.cs">
+      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -361,6 +365,7 @@
     <Content Include="Scripts\locale\zh-cn.js" />
     <Content Include="Scripts\locale\zh-tw.js" />
     <Content Include="Scripts\Meal Display\MealDisplay.js" />
+    <Content Include="Scripts\Meal Display\StartAndEndTime.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -463,6 +468,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007231840395_NewMigration.resx">
       <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007281714276_UpdatedTime.resx">
+      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
