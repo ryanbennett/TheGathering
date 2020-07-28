@@ -5,30 +5,31 @@
 }
 
 
-            <p class="MainButtons">
-                @Html.ActionLink("Create New", "Create")
-            </p>
+
+    <form action="Create" style="margin-top:20px; margin-bottom:20px;">
+        <input type="submit" value="Create New" class="btn-primary" />
+    </form>
             <table class="table">
                 <tr>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         First Name
                     </th>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         Last Name
                     </th>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         D.O.B.
                     </th>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         Email
                     </th>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         Phone Number
                     </th>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         Leadership Interest
                     </th>
-                    <th class="MinorHeadingSemiBold">
+                    <th>
                         News Letter
                     </th>
                     <th></th>
@@ -37,28 +38,28 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="BodyTextMediumNormal">
+                        <td>
                             @Html.DisplayFor(modelItem => item.FirstName)
                         </td>
-                        <td class="BodyTextMediumNormal">
+                        <td>
                             @Html.DisplayFor(modelItem => item.LastName)
                         </td>
-                        <td class="BodyTextMediumNormal">
-                            @Html.DisplayFor(modelItem => item.Birthday)
+                        <td>
+                            @item.Birthday.ToShortDateString()
                         </td>
-                        <td class="BodyTextMediumNormal">
+                        <td>
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
-                        <td class="BodyTextMediumNormal">
+                        <td>
                             @Html.DisplayFor(modelItem => item.PhoneNumber)
                         </td>
-                        <td class="BodyTextMediumNormal">
+                        <td>
                             @Html.DisplayFor(modelItem => item.InterestInLeadership)
                         </td>
-                        <td class="BodyTextMediumNormal">
+                        <td>
                             @Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
                         </td>
-                        <td class="SecondaryButtons">
+                        <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
