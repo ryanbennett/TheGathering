@@ -36,6 +36,11 @@
     </dl>
     @Html.HiddenFor(model => model.VolunteerGroupLeaderID)
     @Html.HiddenFor(model => model.VolunteerEventID)
+    
+    <p>
+        Your Group:
+        @Html.DisplayFor(model => model.VolunteerGroupLeader.GroupName)
+    </p>
     <p>
         How many people would you like to sign up for this volunteer event?
     </p>
