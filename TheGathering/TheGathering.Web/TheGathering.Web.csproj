@@ -437,6 +437,9 @@
     <Content Include="Views\AdminPortal\VolunteerSignUpEvent.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerEventRegistered.cshtml" />
     <Content Include="Views\AdminPortal\AddVolunteers.cshtml" />
+    <Content Include="Views\VolunteerEvent\PrintView.cshtml" />
+    <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
+    <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
