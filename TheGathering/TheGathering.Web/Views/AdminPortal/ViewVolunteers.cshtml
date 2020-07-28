@@ -44,7 +44,6 @@
     </tr>
 
     @foreach (var item in Model.SignedUpVolunteers)
-
     {
         <tr>
             <th>
@@ -77,7 +76,7 @@
 
             <th>
                 @Html.ActionLink("Details", "VolunteerDetails", new { id = item.Id }, null)
-                @Html.ActionLink("Delete", "", new { id = item.Id })
+                @Html.ActionLink("Delete", "RemoveVolunteerFromEvent", new { eventID = Model.Id, volunteerID = item.Id })
             </th>
         </tr>
 

@@ -56,7 +56,7 @@ namespace TheGathering.Web.Controllers
         {
             var evt = calendarService.GetEventById(eventID);
             var volunteerEventViewModel = new VolunteerEventViewModel(evt);
-            List<int> IdList = evt.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
+            List<int> IdList = evt.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
             volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
             return View(volunteerEventViewModel);
         }
@@ -75,9 +75,7 @@ namespace TheGathering.Web.Controllers
                 return HttpNotFound();
             }
 
-            VolunteerEvent volEvent = calendarService.GetEventById((int)id);
-
-            List<int> idList = volEvent.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
+            List<int> idList = volunteerEvent.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
             List<Volunteer> signedUpVolunteers = volunteerService.GetVolunteersById(idList);
             List<Volunteer> addableVolunteers = volunteerService.GetAllVolunteers();
 
@@ -96,8 +94,6 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult AddVolunteerToEvent(int? eventID, int? volunteerID)
         {
             if (eventID == null || volunteerID == null)
@@ -105,9 +101,21 @@ namespace TheGathering.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            volunteerService.AddVolunteerVolunteerEvent((int)eventID, (int)volunteerID);
+            volunteerService.AddVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
 
-            return RedirectToAction("AddVolunteers", (int)eventID);
+            return RedirectToAction("AddVolunteers", new { id = (int)eventID });
+        }
+
+        public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
+        {
+            if (eventID == null || volunteerID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
+
+            return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
         }
 
         public ActionResult MealSiteDetails(int? id)
