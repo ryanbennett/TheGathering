@@ -58,7 +58,7 @@ namespace TheGathering.Web.Controllers
             VolunteerEvent toBeDeleted = service.GetEventById(id);
             service.DeleteEvent(toBeDeleted);
             //mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.MealSite.Id);
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageEvents", "AdminPortal", null);
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace TheGathering.Web.Controllers
                     volunteerEvent.MealSite_Id = viewModel.MealSiteId;
                     service.AddEvent(volunteerEvent);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ManageEvents", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -139,7 +139,7 @@ namespace TheGathering.Web.Controllers
                     VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
                     service.SaveEdits(volunteerEvent);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ManageEvents", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;

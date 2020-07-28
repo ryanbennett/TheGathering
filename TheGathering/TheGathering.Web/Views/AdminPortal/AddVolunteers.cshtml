@@ -1,13 +1,13 @@
-﻿@model  TheGathering.Web.Models.VolunteerEventViewModel
+﻿@model TheGathering.Web.ViewModels.AddVolunteerViewModel
 @{
-    ViewBag.Title = "ViewVolunteers";
+    ViewBag.Title = "AddVolunteers";
 }
 
-<h2>Volunteers For Event</h2>
+<h2>AddVolunteers</h2>
 
 <p>
-    @Html.ActionLink("Back to Event Details", "EventDetails", new { id = Model.Id }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Add Volunteers to Event", "AddVolunteers", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to Event Details", "EventDetails", new { id = Model.Event.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to Portal Home", "Index", null, new { @class = "btn btn-default" })
 </p>
 
 <table class="table">
@@ -43,7 +43,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.SignedUpVolunteers)
+    @foreach (var item in Model.AvailableVolunteers)
 
     {
         <tr>
@@ -76,9 +76,7 @@
             </th>
 
             <th>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Add To Event", "AddVolunteerToEvent", new { eventID = Model.Event.Id, volunteerID = item.Id })
             </th>
         </tr>
 

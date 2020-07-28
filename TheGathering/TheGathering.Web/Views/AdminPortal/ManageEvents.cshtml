@@ -4,9 +4,9 @@
     ViewBag.Title = "ManageEvents";
 }
 
-<h2>Index</h2>
+<h2>Manage Events</h2>
 <p>
-    @Html.ActionLink("Create New", "EventCreate", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create New", "Create", "VolunteerEvent", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Calender", "ManageCalender", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
 </p>
@@ -50,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", "VolunteerEvent", new { id = item.Id }, null) |
+                @Html.ActionLink("Details", "EventDetails", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", "VolunteerEvent", new { id = item.Id }, null)
             </td>
         </tr>
     }

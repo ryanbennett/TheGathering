@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
+using TheGathering.Web.ViewModels;
 using TheGathering.Web.ViewModels.MealSite;
 using TheGathering.Web.ViewModels.VolunteerModels;
 
@@ -49,10 +50,59 @@ namespace TheGathering.Web.Controllers
         public ActionResult ViewVolunteers(int eventID)
         {
             var evt = calendarService.GetEventById(eventID);
-                var volunteerEventViewModel = new VolunteerEventViewModel(evt);
-                List<int> IdList = evt.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
+            var volunteerEventViewModel = new VolunteerEventViewModel(evt);
+            List<int> IdList = evt.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
             volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
             return View(volunteerEventViewModel);
+        }
+
+        public ActionResult AddVolunteers(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            VolunteerEvent volEvent = calendarService.GetEventById((int)id);
+
+            List<int> idList = volEvent.VolunteerVolunteerEvents.Select(vve => vve.VolunteerId).ToList();
+            List<Volunteer> signedUpVolunteers = volunteerService.GetVolunteersById(idList);
+            List<Volunteer> addableVolunteers = volunteerService.GetAllVolunteers();
+
+            foreach (Volunteer v in signedUpVolunteers)
+            {
+                addableVolunteers.Remove(v);
+            }
+
+            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            AddVolunteerViewModel viewModel = new AddVolunteerViewModel
+            {
+                Event = volunteerEvent,
+                AvailableVolunteers = addableVolunteers
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddVolunteerToEvent(int? eventID, int? volunteerID)
+        {
+            if (eventID == null || volunteerID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            volunteerService.AddVolunteerVolunteerEvent((int)eventID, (int)volunteerID);
+
+            return RedirectToAction("AddVolunteers", (int)eventID);
         }
 
         public ActionResult MealSiteDetails(int? id)
@@ -68,76 +118,6 @@ namespace TheGathering.Web.Controllers
             }
             MealSiteViewModel viewModel = new MealSiteViewModel(mealSite);
             return View(viewModel);
-        }
-
-        public ActionResult CreateVolunteer()
-        {
-            return View();
-        }
-
-        [HttpPost]
-
-        public ActionResult CreateVolunteer(Volunteer volunteer)
-        {
-            if (ModelState.IsValid)
-            {
-                volunteerService.Create(volunteer);
-                return RedirectToAction("Index");
-            }
-            return View();
-
-        }
-
-        public ActionResult EditVolunteer(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Volunteer volunteer = volunteerService.GetById((int)id);
-            if (volunteer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(volunteer);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditVolunteer(Volunteer volunteer)
-        {
-            if (ModelState.IsValid)
-            {
-                volunteerService.Edit(volunteer);
-                return RedirectToAction("Index");
-            }
-            return View(volunteer);
-        }
-
-        public ActionResult DeleteVolunteer(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Volunteer volunteer = volunteerService.GetById((int)id);
-            if (volunteer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(volunteer);
-        }
-        [HttpPost]
-        public ActionResult DeleteVolunteer(int id)
-        {
-            Volunteer volunteer = volunteerService.GetById((int)id);
-            volunteerService.DeleteVolunteer(volunteer);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult ManageCalender()
-        {
-            return View(calendarService.GetAllEvents());
         }
 
         public ActionResult EventDetails(int? id)
