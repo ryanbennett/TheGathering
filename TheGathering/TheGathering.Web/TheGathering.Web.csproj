@@ -229,6 +229,8 @@
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerGroup\GroupNumberEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\SignUpGroupViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
@@ -447,6 +449,7 @@
     <Content Include="Views\VolunteerGroup\SignUpGroupNumber.cshtml" />
     <Content Include="Views\VolunteerEvent\GroupDetails.cshtml" />
     <Content Include="Views\VolunteerGroup\EventAlreadyRegistered.cshtml" />
+    <Content Include="Views\VolunteerGroup\GroupEventsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

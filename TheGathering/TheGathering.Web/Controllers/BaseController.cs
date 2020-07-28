@@ -39,7 +39,7 @@ namespace TheGathering.Web.Controllers
             var volunteer = volunteerService.GetByApplicationUserId(User.Identity.GetUserId());
             return volunteer;
         }
-        public VolunteerGroupLeader GetCurrentVolunteerGroup()
+        public VolunteerGroupLeader GetCurrentVolunteerGroupLeader()
         {
             var volunteerGroupService = new VolunteerGroupService();
             var volunteerGroup = volunteerGroupService.GetLeaderByApplicationUserId(User.Identity.GetUserId());

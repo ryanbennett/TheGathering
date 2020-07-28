@@ -31,7 +31,7 @@ namespace TheGathering.Web.Controllers
         public ActionResult SignUpGroupEvent(int volunteerId, int eventId)
         {
             SignUpGroupViewModel model = new SignUpGroupViewModel();
-            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerGroupId(volunteerId);
+            var volunteerEventIds = _service.GetVolunteerGroupEvents(volunteerId);
             bool alreadyRegistered = volunteerEventIds.Any(id => id == eventId);
             if (alreadyRegistered)
             {
@@ -132,6 +132,17 @@ namespace TheGathering.Web.Controllers
         {
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
+        }
+
+        public ActionResult GroupEventsList()
+        {
+            var volunteergroup = GetCurrentVolunteerGroupLeader();
+           
+            GroupNumberEventsListViewModel viewModel = new GroupNumberEventsListViewModel();
+            viewModel.VolunteerGroupEvents = volunteergroup.VolunteerGroupVolunteerEvents;
+           
+            viewModel.VolunteerEvents = volunteergroup.VolunteerGroupVolunteerEvents.Select(vgve=>vgve.VolunteerEvent).ToList();
+            return View(viewModel);
         }
     }
 }

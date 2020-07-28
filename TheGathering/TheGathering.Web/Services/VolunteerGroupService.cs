@@ -38,7 +38,7 @@ namespace TheGathering.Web.Services
         {
             _repository.EditLeader(volunteergroupleader);
         }
-        public List<int> GetVolunteerEventIdsByVolunteerGroupId(int volunteerId)
+        public List<int> GetVolunteerGroupEvents(int volunteerId)
         {
             List<int> volunteerEventIds = new List<int>();
             foreach (VolunteerGroupVolunteerEvent vve in _repository.GetVolunteerEventIdsByVolunteerGroupId(volunteerId))

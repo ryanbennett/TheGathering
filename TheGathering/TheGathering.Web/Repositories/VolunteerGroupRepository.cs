@@ -33,7 +33,7 @@ namespace TheGathering.Web.Repositories
         }
         public VolunteerGroupLeader GetLeaderById(int id)
         {
-            var result = _context.VolunteerGroupLeaders.SingleOrDefault(volunteergroupleader => volunteergroupleader.Id == id);
+            var result = _context.VolunteerGroupLeaders.Include(vgl=>vgl.VolunteerGroupVolunteerEvents.Select(vgve=>vgve.VolunteerEvent)).SingleOrDefault(volunteergroupleader => volunteergroupleader.Id == id);
             return result;
         }
         public void DeleteLeader(VolunteerGroupLeader volunteergroupleader)
@@ -43,7 +43,7 @@ namespace TheGathering.Web.Repositories
         }
         public VolunteerGroupLeader GetLeaderByApplicationUserId(String applicationUserId)
         {
-            var result = _context.VolunteerGroupLeaders.SingleOrDefault(volunteergroupleader => volunteergroupleader.ApplicationUserId == applicationUserId);
+            var result = _context.VolunteerGroupLeaders.Include(vgl => vgl.VolunteerGroupVolunteerEvents.Select(vgve => vgve.VolunteerEvent)).SingleOrDefault(volunteergroupleader => volunteergroupleader.ApplicationUserId == applicationUserId);
             return result;
         }
         public void AddVolunteerGroupVolunteerEvent(VolunteerGroupLeader volunteergroupleader, VolunteerGroupVolunteerEvent vgve)

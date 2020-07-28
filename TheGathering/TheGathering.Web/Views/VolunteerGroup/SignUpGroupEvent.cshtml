@@ -51,8 +51,10 @@
         </div>
     </div>
 }
+<br />
 
 <!-- volunteerId = Model.VolunteerGroupLeader.Id, eventId = Model.VolunteerEvent.Id -->
 <p>
-    @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)
+    @Html.ActionLink("Go Back to Calendar Page", "Calendar", "VolunteerEvent")
+
 </p>
