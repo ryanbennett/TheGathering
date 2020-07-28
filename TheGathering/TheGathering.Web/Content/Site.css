@@ -53,6 +53,12 @@ label.h2font {
     font-size: x-large;
     font-weight: normal;
 }
+h2font {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: x-large;
+    font-weight: normal;
+}
 
 label.h3font {
     font-family: Sofia Pro, sans-serif;
