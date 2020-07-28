@@ -186,6 +186,7 @@ namespace TheGathering.Web.Controllers
                 ModelState.AddModelError("Email", "Email must contain a period");
             }
             if (ModelState.IsValid)
+
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
