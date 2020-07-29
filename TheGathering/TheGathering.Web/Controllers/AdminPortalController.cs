@@ -115,7 +115,7 @@ namespace TheGathering.Web.Controllers
             string userCode = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
             string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = userCode }, protocol: Request.Url.Scheme);
 
-            await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
             string message = $"A request to reset your account's password has been made Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
 
             await ConfirmationEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);

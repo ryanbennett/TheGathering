@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TheGathering.Web.Models
 {
-    public class VolunteerEventViewModel
+    public class VolunteerEventViewModels
     {
         public int Id { get; set; }
         [Display(Name = "Starting Shift Time")]
