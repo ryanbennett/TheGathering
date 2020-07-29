@@ -65,8 +65,8 @@ namespace TheGathering.Web.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+            {   //TODO Refactor for other users
+                //ViewBag.UserFriendlyName = GetCurrentVolunteerGroupLeader().LeaderFirstName;
             }
             base.OnActionExecuting(filterContext);
         }
