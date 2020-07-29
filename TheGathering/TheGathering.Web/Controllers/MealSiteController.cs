@@ -78,7 +78,7 @@ namespace TheGathering.Web.Controllers
                     return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
-                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.Error = INVALID_CALENDAR_DATES_ERROR;
                 return View(viewModel);
             }
 
