@@ -136,7 +136,10 @@ namespace TheGathering.Web.Controllers
         {
             return View();
         }
-
+        public ActionResult LeadershipInfo()
+        {
+            return View();
+        }
 
         public ActionResult Delete(int? id)
         {
