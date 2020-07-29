@@ -39,6 +39,12 @@ namespace TheGathering.Web.Controllers
             var volunteer = volunteerService.GetByApplicationUserId(User.Identity.GetUserId());
             return volunteer;
         }
+        public VolunteerGroupLeader GetCurrentVolunteerGroupLeader()
+        {
+            var volunteerGroupService = new VolunteerGroupService();
+            var volunteerGroup = volunteerGroupService.GetLeaderByApplicationUserId(User.Identity.GetUserId());
+            return volunteerGroup;
+        }
 
         public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text
         {
@@ -59,8 +65,8 @@ namespace TheGathering.Web.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+            {   //TODO Refactor for other users
+                //ViewBag.UserFriendlyName = GetCurrentVolunteerGroupLeader().LeaderFirstName;
             }
             base.OnActionExecuting(filterContext);
         }
