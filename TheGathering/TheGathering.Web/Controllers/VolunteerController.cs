@@ -91,6 +91,7 @@ namespace TheGathering.Web.Controllers
                     return RedirectToAction("EventAlreadyRegistered");
                 }
             }
+            model.VolunteerEvent.OpenSlots--;
             return View(model);
         }
         
