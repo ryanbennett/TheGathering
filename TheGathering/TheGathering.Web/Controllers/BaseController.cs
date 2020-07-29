@@ -17,6 +17,12 @@ namespace TheGathering.Web.Controllers
     public class BaseController : Controller
     {
         ApplicationUserManager _userManager;
+
+        /// <summary>
+        /// This is the email that's used for official gathering emails, used for confirmations and official email
+        /// </summary>
+        private const string GATHERING_EMAIL = "21ahmeda@elmbrookstudents.org";
+
         public ApplicationUserManager UserManager
         {
             get
@@ -40,20 +46,21 @@ namespace TheGathering.Web.Controllers
             return volunteer;
         }
 
-        public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text
+        public async Task SendGatheringEmail(string firstName, string email, string Subject, string PlainTextContent, string HtmlContent) //pass in email, subject, text
         {
             //subject is subject of email
             //PlainTextContent is non-html text of email
             //HtmlContent is a stylized version of plainTextContent
-            var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("21ahmeda@elmbrookstudents.org", "The Gathering");
-            var subject = Subject;
-            var to = new EmailAddress(email, firstName);
-            var plainTextContent = PlainTextContent;
-            var htmlContent = HtmlContent;
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg);
+            string apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
+            SendGridClient client = new SendGridClient(apiKey);
+            EmailAddress from = new EmailAddress(GATHERING_EMAIL, "The Gathering");
+            string subject = Subject;
+            EmailAddress to = new EmailAddress(email, firstName);
+            string plainTextContent = PlainTextContent;
+            string htmlContent = HtmlContent;
+
+            SendGridMessage msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            Response response = await client.SendEmailAsync(msg);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

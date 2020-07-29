@@ -212,7 +212,7 @@ namespace TheGathering.Web.Controllers
                     String htmlText = "<strong>Hello "+model.FirstName+",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
                         "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
 
-                    await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
+                    await SendGatheringEmail(model.FirstName, model.Email, subject, plainText, htmlText);
 
                     
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
