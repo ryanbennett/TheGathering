@@ -96,19 +96,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StartingShiftTime)
+            Shift Starting Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndingShiftTime)
+            Shift End Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpenSlots)
+            Remaining Slots
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
+            Meal Site
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Description
         </th>
         <th></th>
     </tr>
@@ -126,7 +126,7 @@
                 @Html.DisplayFor(modelItem => item.OpenSlots)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
