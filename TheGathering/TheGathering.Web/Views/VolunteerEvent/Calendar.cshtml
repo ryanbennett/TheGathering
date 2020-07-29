@@ -2,9 +2,9 @@
 @{
     ViewBag.Title = "Calendar";
 }
-
-<h2>Calendar</h2>
+<br />
 <div id="calender"></div>
+
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -68,7 +68,7 @@
                         right: 'month,basicWeek,basicDay,agenda'
                     },
                     eventLimit: true,
-                    eventColor: '#750049',
+                    eventColor: '#B89252',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
                         $('#myModal #eventTitle').text("Volunteer Event " + calEvent.id);
