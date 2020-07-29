@@ -21,7 +21,7 @@ namespace TheGathering.Web.Controllers
         /// <summary>
         /// This is the email that's used for official gathering emails, used for confirmations and official email
         /// </summary>
-        private const string GATHERING_EMAIL = "21ahmeda@elmbrookstudents.org";
+        public const string GATHERING_EMAIL = "21ahmeda@elmbrookstudents.org";
 
         public ApplicationUserManager UserManager
         {
@@ -46,7 +46,7 @@ namespace TheGathering.Web.Controllers
             return volunteer;
         }
 
-        public async Task SendGatheringEmail(string firstName, string email, string Subject, string PlainTextContent, string HtmlContent) //pass in email, subject, text
+        public async Task SendGatheringEmail(string firstName, string email, string subject, string plainTextContent, string htmlContent) //pass in email, subject, text
         {
             //subject is subject of email
             //PlainTextContent is non-html text of email
@@ -54,10 +54,7 @@ namespace TheGathering.Web.Controllers
             string apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
             SendGridClient client = new SendGridClient(apiKey);
             EmailAddress from = new EmailAddress(GATHERING_EMAIL, "The Gathering");
-            string subject = Subject;
             EmailAddress to = new EmailAddress(email, firstName);
-            string plainTextContent = PlainTextContent;
-            string htmlContent = HtmlContent;
 
             SendGridMessage msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             Response response = await client.SendEmailAsync(msg);

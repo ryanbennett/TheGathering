@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
@@ -97,6 +98,28 @@ namespace TheGathering.Web.Controllers
             };
 
             return View(viewModel);
+        }
+
+        public async Task<ActionResult> ResetUserPass(int? volunteerID)
+        {
+            if (volunteerID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Volunteer volunteer = volunteerService.GetById((int)volunteerID);
+
+            ApplicationUser user = await UserManager.FindByNameAsync(volunteer.Email);
+
+            // Secret Sauce ;D
+            string userCode = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = userCode }, protocol: Request.Url.Scheme);
+
+            await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            string message = $"A request to reset your account's password has been made Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
+
+            await SendGatheringEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
+            return RedirectToAction("ForgotPasswordConfirmation", "Account");
         }
 
         public ActionResult AddVolunteerToEvent(int? eventID, int? volunteerID)
@@ -261,7 +284,7 @@ namespace TheGathering.Web.Controllers
         public ActionResult ManageEvents()
         {
             return View(calendarService.GetAllEvents());
-        }
+        } 
 
         public ActionResult SignUpEvent(int eventId, string userId)
         {

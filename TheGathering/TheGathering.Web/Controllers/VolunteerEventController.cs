@@ -125,7 +125,8 @@ namespace TheGathering.Web.Controllers
             VolunteerEventViewModel viewModel = new VolunteerEventViewModel(volunteerEvent)
             {
                 DropDownItems = AllLocations(),
-                MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id)
+                MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id),
+                MealSiteId = volunteerEvent.MealSite_Id
             };
 
             return View(viewModel);
@@ -140,6 +141,7 @@ namespace TheGathering.Web.Controllers
                 if (viewModel.StartingShiftTime.CompareTo(viewModel.EndingShiftTime) < 0)
                 {
                     VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
+                    volunteerEvent.MealSite_Id = viewModel.MealSiteId;
                     service.SaveEdits(volunteerEvent);
 
                     return RedirectToAction("ManageEvents", "AdminPortal", null);

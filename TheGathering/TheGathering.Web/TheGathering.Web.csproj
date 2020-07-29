@@ -197,6 +197,10 @@
     <Compile Include="Migrations\202007281714276_UpdatedTime.Designer.cs">
       <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007291820233_AccountDeactivation.cs" />
+    <Compile Include="Migrations\202007291820233_AccountDeactivation.Designer.cs">
+      <DependentUpon>202007291820233_AccountDeactivation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -479,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007281714276_UpdatedTime.resx">
       <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007291820233_AccountDeactivation.resx">
+      <DependentUpon>202007291820233_AccountDeactivation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
