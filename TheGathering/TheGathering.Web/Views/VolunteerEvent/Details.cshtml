@@ -17,7 +17,7 @@
     <div class="generalTextBlack">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+                Shift Start Time
             </dt>
 
             <dd>
@@ -25,7 +25,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+                Shift End Time
             </dt>
 
             <dd>
@@ -33,7 +33,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
+                # of Open Slots
             </dt>
 
             <dd>
@@ -41,7 +41,7 @@
             </dd>
 
             @*<dt> TODO FIX
-                    @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
+                   Address
                 </dt>
 
                 <dd>
@@ -49,7 +49,7 @@
                 </dd>*@
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+                Description
             </dt>
 
             <dd>
@@ -58,8 +58,6 @@
         </dl>
     </div>
 </div>
-
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
 
 @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
