@@ -1,0 +1,110 @@
+﻿@model IEnumerable<TheGathering.Web.Models.MealSite>
+
+@{
+    ViewBag.Title = "MealSites";
+}
+<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Manage Meal Sites</h1>
+			<p>
+				<a class="btn btn-default" href="/MealSite/Create">New Meal Site</a>
+				@Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>All Locations</h1>
+			<div class="panel panel-default">
+				<table class="table table-center">
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Address
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.City)
+						</th>
+						<th></th>
+					</tr>
+
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.AddressLine1)
+							</td>
+
+							<td>
+								@Html.DisplayFor(modelItem => item.City)
+							</td>
+
+							<td>
+								<a class="btn btn-grey" href="/MealSite/Edit?id=@(item.Id)">Edit</a>
+							</td>
+							<td>
+								<a class="btn btn-grey" href="/MealSite/Delete?id=@(item.Id)">Delete</a>
+							</td>
+							<td>
+								<a class="btn btn-grey" href="MealSiteDetails?id=@(item.Id)">Details</a>
+							</td>
+						</tr>
+					}
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Map</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9">
+			<div id="myMap"></div>
+		</div>
+		<div class="col-sm-3">
+			<div class="panel panel-default">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<h2>Legend</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<p>
+								<img src="~/Content/Icons/Fork_Knife.png" width="30" height="30" /> - Third Party Meal Site
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<p>
+								<img src="~/Content/Logo/The_Gathering_Icon.png" width="40" height="40" /> - The Gathering Meal Site
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		
+	</div>
+</div>
+<script>
+	@foreach (var item in Model)
+	{
+		@Html.Raw("locations.push(new Location('" + item.AddressLine1 + ", " + item.City + "', "+ item.Id +"," + item.Latitude + "," + item.Longitude + ",'" + item.Name + "'," + item.IsTheGatheringSite.ToString().ToLower() + "));")
+	}
+</script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>

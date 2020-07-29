@@ -3,7 +3,7 @@
     ViewBag.Title = "SignUpEvent";
 }
 
-<h2>Sign Up for Event</h2>
+<h2>Cancel this Event</h2>
 
 <div>
     <dl class="dl-horizontal">
@@ -25,20 +25,18 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite)
+            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.AddressLine1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VolunteerEvent.MealSite)
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
         </dd>
     </dl>
     <p>
-        Are you sure you would like to sign up for this volunteer event?
+        Are you sure you would like to cancel this volunteer event?
     </p>
-    <p>
-        @Html.ActionLink("Yes", "EventRegistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id }, null)
-    </p>
-    <p>
-        @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)
-    </p>
+	<p>
+		@Html.ActionLink("Yes", "EventUnregistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id }, new { @class = "btn btn-large btn-danger" })
+		@Html.ActionLink("No", "Details", "Volunteer", new { id = Model.Volunteer.Id }, new { @class = "btn btn-large btn-primary" })
+	</p>
 </div>

@@ -2,17 +2,12 @@
 
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "EventDetails";
 }
 
-<h2>Details</h2>
+<h2 class="no-print">Details</h2>
 
 <div>
-    <!--
-
-    Displays the Id of event
-    <h4 class="minorHeading"> ID = (at symbol)Html.DisplayFor(model => model.VolunteerEvent.Id)</h4>
-    -->
     <hr />
     <div class="generalTextBlack">
         <dl class="dl-horizontal">
@@ -40,13 +35,13 @@
                 @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
             </dd>
 
-            @*<dt> TODO FIX
-                    @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.MealSite.AddressLine1)
-                </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+            </dd>
 
             <dt>
                 @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
@@ -55,11 +50,30 @@
             <dd>
                 @Html.DisplayFor(model => model.VolunteerEvent.Description)
             </dd>
+
+
         </dl>
     </div>
+    <h5><b>Signed Up Volunteers</b></h5>
+
+    @foreach (var item in Model.Volunteers)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </th>
+        </tr>
+    }
 </div>
 
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
 
-@Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+<div>
+    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
+    @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default no-print" })
+    @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
+    @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
+</div>

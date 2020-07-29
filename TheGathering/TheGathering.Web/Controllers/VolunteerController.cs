@@ -71,9 +71,27 @@ namespace TheGathering.Web.Controllers
             return View(volunteer);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View(_service.GetById(id));
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Volunteer volunteer = _service.GetById((int)id);
+            if (volunteer == null)
+            {
+                return HttpNotFound();
+            }
+            VolunteerViewModel viewModel = new VolunteerViewModel(volunteer);
+
+            var volunteerEvents = _service.GetVolunteerEventIdsByVolunteerId((int)id);
+            var events = _eventService.GetEventsByIds(volunteerEvents);
+
+            viewModel.VolunteerEvents = events.ToList();
+            viewModel.VolunteerEvents.Sort(new SortByDate());
+            viewModel.VolunteerEvents = viewModel.VolunteerEvents.Take(3).ToList();
+
+            return View(viewModel);
         }
 
         public ActionResult SignUpEvent(int eventId, string userId)
@@ -94,8 +112,26 @@ namespace TheGathering.Web.Controllers
             model.VolunteerEvent.OpenSlots--;
             return View(model);
         }
+
+        public ActionResult CancelSignUpEvent(int eventId, string userId)
+        {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = _service.GetByApplicationUserId(userId);
+            //TODO: change Volunteer get
+            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
+            if (!volunteerEventIds.Contains(eventId))
+            {
+                return RedirectToAction("EventNotRegistered");
+            }
+            return View(model);
+        }
         
         public ActionResult EventAlreadyRegistered()
+        {
+            return View();
+        }
+        public ActionResult EventNotRegistered()
         {
             return View();
         }
@@ -135,13 +171,20 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult UserEventsList()
         {
-           var volunteer = GetCurrentVolunteer();
-           var volunteerEvents = _service.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
-           var events = _eventService.GetEventsByIds(volunteerEvents);
-           
-           UserEventsListViewModel viewModel = new UserEventsListViewModel();
-           viewModel.VolunteerEvents = events;
-           return View(viewModel);
+            var volunteer = GetCurrentVolunteer();
+            var eventIds = _service.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
+            var events = _eventService.GetEventsByIds(eventIds);
+
+            var cancelledEventIds = _service.GetCancelledVolunteerEventIdsByVolunteerId(volunteer.Id);
+            var cancelledEvents = _eventService.GetEventsByIds(cancelledEventIds);
+
+            events.Sort(new SortByDate());
+            cancelledEvents.Sort(new SortByDate());
+
+            UserEventsListViewModel viewModel = new UserEventsListViewModel();
+            viewModel.VolunteerEvents = events;
+            viewModel.CancelledEvents = cancelledEvents;
+            return View(viewModel);
         }
 
         public ActionResult EventRegistered(int volunteerId, int eventId)
@@ -149,6 +192,19 @@ namespace TheGathering.Web.Controllers
             _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
             return View();
         }
+        public ActionResult EventUnregistered(int volunteerId, int eventId)
+        {
+            _service.RemoveVolunteerVolunteerEvent(volunteerId, eventId);
+            return View();
+        }
     }
 
+    // IComparer for Sorting Volunteer Events By Date
+    public class SortByDate : IComparer<VolunteerEvent>
+    {
+        public int Compare(VolunteerEvent x, VolunteerEvent y)
+        {
+            return y.StartingShiftTime.CompareTo(x.StartingShiftTime);
+        }
+    }
 }

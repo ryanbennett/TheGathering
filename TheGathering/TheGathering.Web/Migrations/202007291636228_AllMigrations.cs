@@ -3,7 +3,7 @@ namespace TheGathering.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class modelsv1 : DbMigration
+    public partial class AllMigrations : DbMigration
     {
         public override void Up()
         {
@@ -19,27 +19,25 @@ namespace TheGathering.Web.Migrations
                         Zipcode = c.String(),
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
-                        CrossStreet1 = c.String(),
-                        CrossStreet2 = c.String(),
                         IsTheGatheringSite = c.Boolean(nullable: false),
                         Breakfast_Used = c.Boolean(nullable: false),
                         Breakfast_DaysServed = c.String(),
                         Breakfast_MaximumGuestsServed = c.Int(),
                         Breakfast_MinimumGuestsServed = c.Int(),
-                        Breakfast_StartTime = c.DateTime(),
-                        Breakfast_EndTime = c.DateTime(),
+                        Breakfast_StartTime = c.String(),
+                        Breakfast_EndTime = c.String(),
                         Lunch_Used = c.Boolean(nullable: false),
                         Lunch_DaysServed = c.String(),
                         Lunch_MaximumGuestsServed = c.Int(),
                         Lunch_MinimumGuestsServed = c.Int(),
-                        Lunch_StartTime = c.DateTime(),
-                        Lunch_EndTime = c.DateTime(),
+                        Lunch_StartTime = c.String(),
+                        Lunch_EndTime = c.String(),
                         Dinner_Used = c.Boolean(nullable: false),
                         Dinner_DaysServed = c.String(),
                         Dinner_MaximumGuestsServed = c.Int(),
                         Dinner_MinimumGuestsServed = c.Int(),
-                        Dinner_StartTime = c.DateTime(),
-                        Dinner_EndTime = c.DateTime(),
+                        Dinner_StartTime = c.String(),
+                        Dinner_EndTime = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -59,6 +57,23 @@ namespace TheGathering.Web.Migrations
                 .Index(t => t.MealSite_Id);
             
             CreateTable(
+                "dbo.VolunteerGroupVolunteerEvents",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        VolunteerGroupId = c.Int(nullable: false),
+                        VolunteerEventId = c.Int(nullable: false),
+                        NumberOfGroupMembersSignedUp = c.Int(nullable: false),
+                        Confirmed = c.Boolean(nullable: false),
+                        VolunteerGroupLeader_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.VolunteerEvents", t => t.VolunteerEventId, cascadeDelete: true)
+                .ForeignKey("dbo.VolunteerGroupLeaders", t => t.VolunteerGroupLeader_Id)
+                .Index(t => t.VolunteerEventId)
+                .Index(t => t.VolunteerGroupLeader_Id);
+            
+            CreateTable(
                 "dbo.VolunteerVolunteerEvents",
                 c => new
                     {
@@ -66,12 +81,30 @@ namespace TheGathering.Web.Migrations
                         VolunteerId = c.Int(nullable: false),
                         VolunteerEventId = c.Int(nullable: false),
                         Confirmed = c.Boolean(nullable: false),
+                        IsItCanceled = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.VolunteerEvents", t => t.VolunteerEventId, cascadeDelete: true)
                 .ForeignKey("dbo.Volunteers", t => t.VolunteerId, cascadeDelete: true)
                 .Index(t => t.VolunteerId)
                 .Index(t => t.VolunteerEventId);
+            
+            CreateTable(
+                "dbo.VolunteerGroupLeaders",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        LeaderFirstName = c.String(),
+                        LeaderLastName = c.String(),
+                        LeaderBirthday = c.DateTime(nullable: false),
+                        LeaderEmail = c.String(),
+                        LeaderPhoneNumber = c.String(),
+                        GroupName = c.String(),
+                        SignUpForNewsLetter = c.Boolean(nullable: false),
+                        ApplicationUserId = c.String(),
+                        TotalGroupMembers = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Volunteers",
@@ -94,13 +127,19 @@ namespace TheGathering.Web.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.VolunteerVolunteerEvents", "VolunteerId", "dbo.Volunteers");
+            DropForeignKey("dbo.VolunteerGroupVolunteerEvents", "VolunteerGroupLeader_Id", "dbo.VolunteerGroupLeaders");
             DropForeignKey("dbo.VolunteerVolunteerEvents", "VolunteerEventId", "dbo.VolunteerEvents");
+            DropForeignKey("dbo.VolunteerGroupVolunteerEvents", "VolunteerEventId", "dbo.VolunteerEvents");
             DropForeignKey("dbo.VolunteerEvents", "MealSite_Id", "dbo.MealSites");
             DropIndex("dbo.VolunteerVolunteerEvents", new[] { "VolunteerEventId" });
             DropIndex("dbo.VolunteerVolunteerEvents", new[] { "VolunteerId" });
+            DropIndex("dbo.VolunteerGroupVolunteerEvents", new[] { "VolunteerGroupLeader_Id" });
+            DropIndex("dbo.VolunteerGroupVolunteerEvents", new[] { "VolunteerEventId" });
             DropIndex("dbo.VolunteerEvents", new[] { "MealSite_Id" });
             DropTable("dbo.Volunteers");
+            DropTable("dbo.VolunteerGroupLeaders");
             DropTable("dbo.VolunteerVolunteerEvents");
+            DropTable("dbo.VolunteerGroupVolunteerEvents");
             DropTable("dbo.VolunteerEvents");
             DropTable("dbo.MealSites");
         }

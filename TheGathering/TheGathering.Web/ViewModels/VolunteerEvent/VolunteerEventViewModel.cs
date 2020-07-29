@@ -25,9 +25,12 @@ namespace TheGathering.Web.Models
         public MealSite MealSite { get; set; }
 
         public string Description { get; set; }
-        public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
+
         public List<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; }
-      
+
+        public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; } = new List<VolunteerVolunteerEvent>();
+
+        public List<Volunteer> SignedUpVolunteers { get; set; } = new List<Volunteer>();
 
         /// <summary>
         /// This will be empty if there is no error, allows us to create an error for validating input information
@@ -35,6 +38,8 @@ namespace TheGathering.Web.Models
         public string Error { get; set; }
 
         public VolunteerEventViewModel() { }
+
+        public Volunteer volunteer { get; set; }
 
         public VolunteerEventViewModel(VolunteerEvent volunteerEvent)
         {

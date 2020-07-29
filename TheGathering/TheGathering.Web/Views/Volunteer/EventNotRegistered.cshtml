@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Event Not Registered";
+}
+
+<h2>EventAlreadyRegistered</h2>
+
+<div>
+    You've Haven't Registered for this Event!
+    <p>
+        @Html.ActionLink("Back to Event List", "Index", "VolunteerEvent", null, null)
+    </p>
+    <p>
+        @Html.ActionLink("To Calendar", "Calendar", "VolunteerEvent", null, null)
+    </p>
+    <p>
+        @Html.ActionLink("See Your Events", "UserEventsList", null, null)
+    </p>
+</div>
