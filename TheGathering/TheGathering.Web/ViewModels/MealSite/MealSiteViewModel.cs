@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,13 +22,6 @@ namespace TheGathering.Web.ViewModels.MealSite
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-
-        [Display(Name = "Cross Street 1")]
-        public string CrossStreet1 { get; set; }
-
-        [Display(Name = "Cross Street 2")]
-        public string CrossStreet2 { get; set; }
-
         public bool IsTheGatheringSite { get; set; }
 
         /*
@@ -38,7 +32,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public bool Breakfast_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Breakfast_DaysServed { get; set; }
+        public List<bool> Breakfast_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Breakfast_MaximumGuestsServed { get; set; }
@@ -47,16 +41,16 @@ namespace TheGathering.Web.ViewModels.MealSite
         public int? Breakfast_MinimumGuestsServed { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime? Breakfast_StartTime { get; set; }
+        public string Breakfast_StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime? Breakfast_EndTime { get; set; }
+        public string Breakfast_EndTime { get; set; }
 
         // Lunch
         public bool Lunch_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Lunch_DaysServed { get; set; }
+        public List<bool> Lunch_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Lunch_MaximumGuestsServed { get; set; }
@@ -65,16 +59,16 @@ namespace TheGathering.Web.ViewModels.MealSite
         public int? Lunch_MinimumGuestsServed { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime? Lunch_StartTime { get; set; }
+        public string Lunch_StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime? Lunch_EndTime { get; set; }
+        public string Lunch_EndTime { get; set; }
 
         // Dinner
         public bool Dinner_Used { get; set; }
 
         [Display(Name = "Days Served")]
-        public string Dinner_DaysServed { get; set; }
+        public List<bool> Dinner_DaysServed { get; set; }
 
         [Display(Name = "Maximum Guests Served")]
         public int? Dinner_MaximumGuestsServed { get; set; }
@@ -83,10 +77,10 @@ namespace TheGathering.Web.ViewModels.MealSite
         public int? Dinner_MinimumGuestsServed { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime? Dinner_StartTime { get; set; }
+        public string Dinner_StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime? Dinner_EndTime { get; set; }
+        public string Dinner_EndTime { get; set; }
 
         public List<VolunteerEvent> VolunteerEvents { get; set; }
 
@@ -95,38 +89,42 @@ namespace TheGathering.Web.ViewModels.MealSite
         /// </summary>
         public string Error { get; set; }
 
-        public MealSiteViewModel() { }
+        public MealSiteViewModel()
+        {
+            Breakfast_DaysServed = new List<bool>();
+            Lunch_DaysServed = new List<bool>();
+            Dinner_DaysServed = new List<bool>();
+        }
 
         public MealSiteViewModel(Models.MealSite mealSite)
         {
             // Transfer Variables
             Id = mealSite.Id;
+            Name = mealSite.Name;
             AddressLine1 = mealSite.AddressLine1;
             City = mealSite.City;
             Zipcode = mealSite.Zipcode;
             State = mealSite.State;
             Latitude = mealSite.Latitude;
             Longitude = mealSite.Longitude;
-            CrossStreet1 = mealSite.CrossStreet1;
-            CrossStreet2 = mealSite.CrossStreet2;
             IsTheGatheringSite = mealSite.IsTheGatheringSite;
 
             Breakfast_Used = mealSite.Breakfast_Used;
-            Breakfast_DaysServed = mealSite.Breakfast_DaysServed;
+            Breakfast_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Breakfast_DaysServed);
             Breakfast_MaximumGuestsServed = mealSite.Breakfast_MaximumGuestsServed;
             Breakfast_MinimumGuestsServed = mealSite.Breakfast_MinimumGuestsServed;
             Breakfast_StartTime = mealSite.Breakfast_StartTime;
             Breakfast_EndTime = mealSite.Breakfast_EndTime;
 
             Lunch_Used = mealSite.Lunch_Used;
-            Lunch_DaysServed = mealSite.Lunch_DaysServed;
+            Lunch_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Lunch_DaysServed);
             Lunch_MaximumGuestsServed = mealSite.Lunch_MaximumGuestsServed;
             Lunch_MinimumGuestsServed = mealSite.Lunch_MinimumGuestsServed;
             Lunch_StartTime = mealSite.Lunch_StartTime;
             Lunch_EndTime = mealSite.Lunch_EndTime;
 
             Dinner_Used = mealSite.Dinner_Used;
-            Dinner_DaysServed = mealSite.Dinner_DaysServed;
+            Dinner_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Dinner_DaysServed);
             Dinner_MaximumGuestsServed = mealSite.Dinner_MaximumGuestsServed;
             Dinner_MinimumGuestsServed = mealSite.Dinner_MinimumGuestsServed;
             Dinner_StartTime = mealSite.Dinner_StartTime;
@@ -165,12 +163,12 @@ namespace TheGathering.Web.ViewModels.MealSite
                 return true;
             }
 
-            if (Breakfast_StartTime == null || Breakfast_EndTime == null) { return false; }
+            if (Breakfast_StartTime == null && Breakfast_EndTime == null) { return true; }
 
-            DateTime start = (DateTime)Breakfast_StartTime;
-            DateTime end = (DateTime)Breakfast_EndTime;
+            int startInt = int.Parse(Breakfast_StartTime.Replace(":", ""));
+            int endInt = int.Parse(Breakfast_EndTime.Replace(":", ""));
 
-            if (start.CompareTo(end) < 0)
+            if (startInt >= endInt)
             {
                 return false;
             }
@@ -205,15 +203,15 @@ namespace TheGathering.Web.ViewModels.MealSite
 
             if (Lunch_StartTime == null && Lunch_EndTime == null) { return true; }
 
-            DateTime start = (DateTime)Lunch_StartTime;
-            DateTime end = (DateTime)Lunch_StartTime;
+            int startInt = int.Parse(Lunch_StartTime.Replace(":", ""));
+            int endInt = int.Parse(Lunch_EndTime.Replace(":", ""));
 
-            if (start.CompareTo(end) < 0)
+            if (startInt >= endInt)
             {
                 return false;
             }
 
-            else if (Lunch_MinimumGuestsServed < Breakfast_MaximumGuestsServed)
+            else if (Lunch_MinimumGuestsServed < Lunch_MaximumGuestsServed)
             {
                 return true;
             }
@@ -240,12 +238,12 @@ namespace TheGathering.Web.ViewModels.MealSite
                 Dinner_MinimumGuestsServed = null;
                 return true;
             }
-            if (Dinner_StartTime == null && Dinner_EndTime == null) { return false; }
+            if (Dinner_StartTime == null && Dinner_EndTime == null) { return true; }
 
-            DateTime start = (DateTime)Dinner_StartTime;
-            DateTime end = (DateTime)Dinner_EndTime;
+            int startInt = int.Parse(Dinner_StartTime.Replace(":", ""));
+            int endInt = int.Parse(Dinner_EndTime.Replace(":", ""));
 
-            if (start.CompareTo(end) < 0)
+            if (startInt >= endInt)
             {
                 return false;
             }
