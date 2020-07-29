@@ -190,25 +190,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007231840395_NewMigration.cs" />
-    <Compile Include="Migrations\202007231840395_NewMigration.Designer.cs">
-      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007221745115_VolunteerGroups.cs" />
-    <Compile Include="Migrations\202007221745115_VolunteerGroups.Designer.cs">
-      <DependentUpon>202007221745115_VolunteerGroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.cs" />
-    <Compile Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.Designer.cs">
-      <DependentUpon>202007221929268_VolunteerGroupVolunteerEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007231423218_VolunteerSlots.cs" />
-    <Compile Include="Migrations\202007231423218_VolunteerSlots.Designer.cs">
-      <DependentUpon>202007231423218_VolunteerSlots.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007281714276_UpdatedTime.cs" />
-    <Compile Include="Migrations\202007281714276_UpdatedTime.Designer.cs">
-      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
+    <Compile Include="Migrations\202007291636228_AllMigrations.cs" />
+    <Compile Include="Migrations\202007291636228_AllMigrations.Designer.cs">
+      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -505,20 +489,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231840395_NewMigration.resx">
-      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007221745115_VolunteerGroups.resx">
-      <DependentUpon>202007221745115_VolunteerGroups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007221929268_VolunteerGroupVolunteerEvent.resx">
-      <DependentUpon>202007221929268_VolunteerGroupVolunteerEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231423218_VolunteerSlots.resx">
-      <DependentUpon>202007231423218_VolunteerSlots.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007281714276_UpdatedTime.resx">
-      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007291636228_AllMigrations.resx">
+      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -25,9 +25,8 @@ namespace TheGathering.Web.Models
         public MealSite MealSite { get; set; }
 
         public string Description { get; set; }
-        public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
+
         public List<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; }
-      
 
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; } = new List<VolunteerVolunteerEvent>();
 
