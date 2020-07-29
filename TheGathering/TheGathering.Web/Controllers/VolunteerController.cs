@@ -102,14 +102,15 @@ namespace TheGathering.Web.Controllers
             model.VolunteerEvent = _eventService.GetEventById(eventId);
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
             var events = _eventService.GetEventsByIds(volunteerEventIds);
-            foreach(int id in volunteerEventIds)
+            var openSlots = model.VolunteerEvent.OpenSlots;
+            foreach (int id in volunteerEventIds)
             {
                 if(id == eventId)
                 {
                     return RedirectToAction("EventAlreadyRegistered");
                 }
             }
-            model.VolunteerEvent.OpenSlots--;
+            _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
             return View(model);
         }
 
