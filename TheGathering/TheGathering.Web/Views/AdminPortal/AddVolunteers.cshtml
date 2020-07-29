@@ -1,0 +1,85 @@
+﻿@model TheGathering.Web.ViewModels.AddVolunteerViewModel
+@{
+    ViewBag.Title = "AddVolunteers";
+}
+
+<h2>AddVolunteers</h2>
+
+<p>
+    @Html.ActionLink("Back to Volunteer List", "ViewVolunteers", new { eventID = Model.Event.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to Portal Home", "Index", null, new { @class = "btn btn-default" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("First Name")
+        </th>
+
+        <th>
+            @Html.DisplayName("Last Name")
+        </th>
+
+        <th>
+            @Html.DisplayName("Birthday")
+        </th>
+
+        <th>
+            @Html.DisplayName("Emails")
+        </th>
+
+        <th>
+            @Html.DisplayName("Phone Number")
+        </th>
+
+        <th>
+            @Html.DisplayName("Interested in Leadership")
+        </th>
+
+        <th>
+            @Html.DisplayName("Signed up for Newsletter")
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.AvailableVolunteers)
+
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.Email)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.InterestInLeadership)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
+            </th>
+
+            <th>
+                @Html.ActionLink("Add To Event", "AddVolunteerToEvent", new { eventID = Model.Event.Id, volunteerID = item.Id })
+            </th>
+        </tr>
+
+    }
+
+</table>

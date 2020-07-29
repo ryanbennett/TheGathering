@@ -16,7 +16,7 @@ namespace TheGathering.Web.Controllers
         private CalendarService service = new CalendarService();
         private MealSiteService mealSiteService = new MealSiteService();
 
-        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
+        public const string INVALID_CALENDER_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
@@ -58,7 +58,7 @@ namespace TheGathering.Web.Controllers
             VolunteerEvent toBeDeleted = service.GetEventById(id);
             service.DeleteEvent(toBeDeleted);
             //mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.MealSite.Id);
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageEvents", "AdminPortal", null);
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace TheGathering.Web.Controllers
                     volunteerEvent.MealSite_Id = viewModel.MealSiteId;
                     service.AddEvent(volunteerEvent);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ManageEvents", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -96,11 +96,17 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
+
+            volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            VolunteerEventViewModel volunteerEventViewModel = new VolunteerEventViewModel(volunteerEvent);
             Volunteer volunteer = GetCurrentVolunteer();
-            signUpEventViewModel.Volunteer = volunteer;
-            signUpEventViewModel.VolunteerEvent = volunteerEvent;
-            return View(signUpEventViewModel);
+
+            volunteerEventViewModel.volunteer = volunteer;
+
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
+            volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
+
+            return View(volunteerEventViewModel);
         }
 
         public ActionResult Edit(int? id)
@@ -136,7 +142,7 @@ namespace TheGathering.Web.Controllers
                     VolunteerEvent volunteerEvent = new VolunteerEvent(viewModel);
                     service.SaveEdits(volunteerEvent);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ManageEvents", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -154,6 +160,12 @@ namespace TheGathering.Web.Controllers
         public JsonResult GetEvents()
         {
             var events = service.GetAllEvents();
+
+            foreach (var item in events)
+            {
+                item.MealSite.VolunteerEvents = null;
+            }
+
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
@@ -175,5 +187,32 @@ namespace TheGathering.Web.Controllers
             }
             return Locations;
         }
+
+        //I tried to use itextSharp for file storage
+        /*
+             var doc = new iTextSharp.text.Document();
+    var reader = new PdfReader(renderedBytes);
+    using (FileStream fs = new FileStream(Server.MapPath("~/Receipt" +
+         Convert.ToString(Session["CurrentUserName"]) + ".pdf"), FileMode.Create))
+    {
+        PdfStamper stamper = new PdfStamper(reader, fs);
+        string Printer = "Xerox Phaser 3635MFP PCL6";
+        // This is the script for automatically printing the pdf in acrobat viewer
+        stamper.JavaScript = "var pp = getPrintParams();pp.interactive =pp.constants.interactionLevel.automatic; pp.printerName = " +
+                       Printer + ";print(pp);\r";
+        stamper.Close();
+    }
+    reader.Close();
+    FileStream fss = new FileStream(Server.MapPath("~/Receipt.pdf"), FileMode.Open);
+    byte[] bytes = new byte[fss.Length];
+    fss.Read(bytes, 0, Convert.ToInt32(fss.Length));
+    fss.Close();
+    System.IO.File.Delete(Server.MapPath("~/Receipt.pdf"));
+
+    //Here we returns the file result for view(PDF)
+    ModelState.Clear();
+    Session.Clear(); //Clears the session variable for reuse 
+    return File(bytes, "application/pdf");
+        */
     }
 }

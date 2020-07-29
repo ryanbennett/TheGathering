@@ -1,6 +1,6 @@
 ﻿@model TheGathering.Web.ViewModels.MealSite.MealSiteViewModel
 @{
-	ViewBag.Title = "Details";
+    ViewBag.Title = "Details";
 }
 
 <script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
@@ -8,249 +8,314 @@
 <h1>@Model.Name</h1>
 <div class="row">
     <div class="col-sm-6">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="panel panel-default col-sm-12">
-					<table class="table">
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.Name)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.Name)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.AddressLine1)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.AddressLine1)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.City)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.City)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.State)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.State)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.Zipcode)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.Zipcode)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.CrossStreet1)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.CrossStreet1)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.CrossStreet2)
-							</th>
-							<td>
-								@Html.DisplayFor(model => model.CrossStreet2)
-							</td>
-						</tr>
-						<tr>
-							<th>
-								Part of The Gathering
-							</th>
-							<td>
-								@if (Model.IsTheGatheringSite)
-								{
-									<span>Yes</span>
-								}
-								else
-								{
-									<span>No</span>
-								}
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<div class="row">
-				<h2>Meals Served</h2>
-			</div>
-			@if (Model.Breakfast_Used)
-			{
-				<div class="row">
-					<h3>
-						Breakfast
-					</h3>
-					<div class="panel panel-default col-sm-12">
-						<table class="table">
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Breakfast_DaysServed)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Breakfast_DaysServed)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Breakfast_MaximumGuestsServed)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Breakfast_MaximumGuestsServed)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Breakfast_MinimumGuestsServed)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Breakfast_MinimumGuestsServed)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Breakfast_StartTime)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Breakfast_StartTime)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Breakfast_EndTime)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Breakfast_EndTime)
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="panel panel-default col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AddressLine1)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.AddressLine1)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.City)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.State)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.State)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Zipcode)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Zipcode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Part of The Gathering
+                            </th>
+                            <td>
+                                @if (Model.IsTheGatheringSite)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <h2>Meals Served</h2>
+            </div>
+            @if (Model.Breakfast_Used)
+            {
+                <div class="row">
+                    <h3>
+                        Breakfast
+                    </h3>
+                    <div class="panel panel-default col-sm-12">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(model => model.Breakfast_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                </th>
+                                <th>
+                                    @if (Model.Breakfast_DaysServed[0])
+                                    {
+                                        <label>Sunday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[1])
+                                    {
+                                        <label>Monday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[2])
+                                    {
+                                        <label>Tuesday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[3])
+                                    {
+                                        <label>Wednesday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[4])
+                                    {
+                                        <label>Thursday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[5])
+                                    {
+                                        <label>Friday</label>
+                                    }
+                                    @if (Model.Breakfast_DaysServed[6])
+                                    {
+                                        <label>Saturday</label>
+                                    }
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Breakfast_MaximumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Breakfast_MaximumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Breakfast_MinimumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Breakfast_MinimumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Breakfast_StartTime)
+                                </th>
+                                <td>
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Breakfast_StartTime)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Breakfast_EndTime)
+                                </th>
+                                <td>
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Breakfast_EndTime)
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            }
 
-			@if (Model.Lunch_Used)
-			{
-				<div class="row">
-					<h3>
-						Lunch
-					</h3>
-					<div class="panel panel-default col-sm-12">
-						<table class="table">
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Lunch_DaysServed)
-								</th>
+            @if (Model.Lunch_Used)
+            {
+                <div class="row">
+                    <h3>
+                        Lunch
+                    </h3>
+                    <div class="panel panel-default col-sm-12">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                </th>
+                                <th>
+                                    @if (Model.Lunch_DaysServed[0])
+                                    {
+                                        <label>Sunday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[1])
+                                    {
+                                        <label>Monday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[2])
+                                    {
+                                        <label>Tuesday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[3])
+                                    {
+                                        <label>Wednesday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[4])
+                                    {
+                                        <label>Thursday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[5])
+                                    {
+                                        <label>Friday</label>
+                                    }
+                                    @if (Model.Lunch_DaysServed[6])
+                                    {
+                                        <label>Saturday</label>
+                                    }
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lunch_MaximumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Lunch_MaximumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lunch_MinimumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Lunch_MinimumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lunch_StartTime)
+                                </th>
 								<td>
-									@Html.DisplayFor(model => model.Lunch_DaysServed)
+									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
 								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Lunch_MaximumGuestsServed)
-								</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lunch_EndTime)
+                                </th>
 								<td>
-									@Html.DisplayFor(model => model.Lunch_MaximumGuestsServed)
+									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
 								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Lunch_MinimumGuestsServed)
-								</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            }
+            @if (Model.Dinner_Used)
+            {
+                <div class="row">
+                    <h3>
+                        Dinner
+                    </h3>
+                    <div class="panel panel-default col-sm-12">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                </th>
+                                <th>
+                                    @if (Model.Dinner_DaysServed[0])
+                                    {
+                                        <label>Sunday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[1])
+                                    {
+                                        <label>Monday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[2])
+                                    {
+                                        <label>Tuesday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[3])
+                                    {
+                                        <label>Wednesday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[4])
+                                    {
+                                        <label>Thursday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[5])
+                                    {
+                                        <label>Friday</label>
+                                    }
+                                    @if (Model.Dinner_DaysServed[6])
+                                    {
+                                        <label>Saturday</label>
+                                    }
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Dinner_MaximumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Dinner_MaximumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Dinner_MinimumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Dinner_MinimumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Dinner_StartTime)
+                                </th>
 								<td>
-									@Html.DisplayFor(model => model.Lunch_MinimumGuestsServed)
+									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_EndTime)
 								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Lunch_StartTime)
-								</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Dinner_EndTime)
+                                </th>
 								<td>
-									@Html.DisplayFor(model => model.Lunch_StartTime)
+									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_EndTime)
 								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Lunch_EndTime)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Lunch_EndTime)
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			}
-			@if (Model.Dinner_Used)
-			{
-				<div class="row">
-					<h3>
-						Dinner
-					</h3>
-					<div class="panel panel-default col-sm-12">
-						<table class="table">
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Dinner_DaysServed)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Dinner_DaysServed)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Dinner_MaximumGuestsServed)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Dinner_MaximumGuestsServed)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Dinner_MinimumGuestsServed)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Dinner_MinimumGuestsServed)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Dinner_StartTime)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Dinner_StartTime)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									@Html.DisplayNameFor(model => model.Dinner_EndTime)
-								</th>
-								<td>
-									@Html.DisplayFor(model => model.Dinner_EndTime)
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			}
-		</div>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
     <div class="col-sm-6">
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
-        
+
         <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
         <a class="btn btn-grey" href="/MealSite/">Back Home</a>
 
