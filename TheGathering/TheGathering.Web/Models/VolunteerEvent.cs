@@ -26,7 +26,7 @@ namespace TheGathering.Web.Models
         
         public string Description { get; set; }
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
-
+        public List<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; }
         public VolunteerEvent() { }
 
         public VolunteerEvent(VolunteerEventViewModel volunteerEvent)

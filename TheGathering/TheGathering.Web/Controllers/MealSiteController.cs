@@ -17,7 +17,7 @@ namespace TheGathering.Web.Controllers
         private MealSiteService mealSiteService = new MealSiteService();
         private CalendarService volunteerEventService = new CalendarService();
 
-        public const string INVALID_CALENDER_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
+        public const string INVALID_CALENDAR_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         // GET: MealSite
         public ActionResult Index()
@@ -53,7 +53,7 @@ namespace TheGathering.Web.Controllers
                     return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
-                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.Error = INVALID_CALENDAR_DATES_ERROR;
                 return View(viewModel);
             }
 
@@ -78,7 +78,7 @@ namespace TheGathering.Web.Controllers
                     return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
-                viewModel.Error = INVALID_CALENDER_DATES_ERROR;
+                viewModel.Error = INVALID_CALENDAR_DATES_ERROR;
                 return View(viewModel);
             }
 

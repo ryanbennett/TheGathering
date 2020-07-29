@@ -38,5 +38,9 @@ namespace TheGathering.Web.Services
         {
             repository.AddEvent(toAdd);
         }
+        public void ReduceOpenSlots(VolunteerEvent volunteerEvent, int openSlots)
+        {
+            repository.ReduceOpenSlots(volunteerEvent, openSlots);
+        }
     }
 }

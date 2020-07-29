@@ -26,6 +26,8 @@ namespace TheGathering.Web.Models
 
         public string Description { get; set; }
 
+        public List<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; }
+
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; } = new List<VolunteerVolunteerEvent>();
 
         public List<Volunteer> SignedUpVolunteers { get; set; } = new List<Volunteer>();
