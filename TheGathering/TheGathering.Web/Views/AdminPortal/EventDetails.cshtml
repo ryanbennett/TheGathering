@@ -54,20 +54,17 @@
 
         </dl>
     </div>
-    <h5><b>Signed Up Volunteers</b></h5>
-
-    @foreach (var item in Model.Volunteers)
-    {
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </th>
-
-            <th>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </th>
-        </tr>
-    }
+    <h3>Volunteers</h3>
+	<table class="table">
+		@foreach (var item in Model.Volunteers)
+        {
+		    <tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+				</td>
+            </tr>
+        }
+	</table>
 </div>
 
 
@@ -76,4 +73,14 @@
     @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default no-print" })
     @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
     @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
+    
+    @{
+        System.Text.StringBuilder builder = new System.Text.StringBuilder();
+        foreach (var item in Model.Volunteers)
+        {
+            builder.Append(item.Email);
+            builder.Append(",");
+        }
+    }
+    <a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-default no-print">Email Volunteers</a>
 </div>
