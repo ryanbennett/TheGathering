@@ -56,6 +56,7 @@ namespace TheGathering.Web.Controllers
                 _userManager = value;
             }
         }
+        
 
         //
         // GET: /Account/Login
@@ -235,6 +236,105 @@ namespace TheGathering.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult GroupRegister()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> GroupRegister(GroupRegistrationViewModel model)
+        {
+
+            DateTime local = model.LeaderBirthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (model.LeaderFirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (model.GroupName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("GroupName", "Group name cannot contain numbers");
+            }
+            if (model.LeaderLastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (model.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var VolunteerGroupService = new VolunteerGroupService();
+
+                    VolunteerGroupLeader volunteerLeader = new VolunteerGroupLeader();
+                    volunteerLeader.LeaderFirstName = model.LeaderFirstName;
+                    volunteerLeader.LeaderLastName = model.LeaderLastName;
+                    volunteerLeader.LeaderBirthday = model.LeaderBirthday;
+                    volunteerLeader.LeaderPhoneNumber = model.LeaderPhoneNumber;
+                    volunteerLeader.SignUpForNewsLetter = model.SignUpForNewsLetter;
+                    volunteerLeader.ApplicationUserId = user.Id;
+                    volunteerLeader.LeaderEmail = model.Email;
+                    volunteerLeader.GroupName = model.GroupName;
+                    volunteerLeader.TotalGroupMembers = model.TotalGroupMembers;
+
+                    VolunteerGroupService.CreateLeader(volunteerLeader);
+
+                    String subject = "The Gathering Registration Confirmation";
+                    String plainText = "Hello " + model.LeaderFirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon.";
+                    String htmlText = "<strong>Hello " + model.LeaderFirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+
+                    await ConfirmationEmail(model.LeaderFirstName, model.Email, subject, plainText, htmlText);
+
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
 
         [AllowAnonymous]
         public ActionResult AdminRegister()

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TheGathering.Web.Models.VolunteerGroupLeader>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderPhoneNumber)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.TotalGroupMembers)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.GroupName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LeaderFirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LeaderLastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LeaderEmail)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LeaderPhoneNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalGroupMembers)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
+}
+
+</table>
