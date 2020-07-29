@@ -3,7 +3,7 @@ namespace TheGathering.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class modelsv1 : DbMigration
+    public partial class NewMigration : DbMigration
     {
         public override void Up()
         {
@@ -66,6 +66,7 @@ namespace TheGathering.Web.Migrations
                         VolunteerId = c.Int(nullable: false),
                         VolunteerEventId = c.Int(nullable: false),
                         Confirmed = c.Boolean(nullable: false),
+                        IsItCanceled = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.VolunteerEvents", t => t.VolunteerEventId, cascadeDelete: true)

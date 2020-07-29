@@ -364,3 +364,11 @@ td {
 .navbar {
     background-color: #434345;
 }
+
+
+/* Hides Elements when Printing */
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
