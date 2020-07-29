@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.ViewModels.VolunteerModels.SignUpEventViewModel
+﻿@model TheGathering.Web.Models.VolunteerEventViewModel
 
 
 @{
@@ -17,27 +17,27 @@
     <div class="generalTextBlack">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+                @Html.DisplayNameFor(model => model.StartingShiftTime)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+                @Html.DisplayFor(model => model.StartingShiftTime)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+                @Html.DisplayNameFor(model => model.EndingShiftTime)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+                @Html.DisplayFor(model => model.EndingShiftTime)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
+                @Html.DisplayNameFor(model => model.OpenSlots)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
+                @Html.DisplayFor(model => model.OpenSlots)
             </dd>
 
             <dt>
@@ -49,26 +49,19 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+                @Html.DisplayNameFor(model => model.Description)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.Description)
+                @Html.DisplayFor(model => model.Description)
             </dd>
-
-
         </dl>
     </div>
 </div>
-    
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId  }, new { @class = "btn btn-primary btn-large" })
 
+@if(Model.volunteer != null) {
+    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.Id, userId = Model.volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
+ }
 
-
-    <!--
-        may need to change new {id...}
-    -->
-    <div>
-        @Html.ActionLink("Back to Calendar", "Calendar") |
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+@Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })

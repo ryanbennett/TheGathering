@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,13 +21,6 @@ namespace TheGathering.Web.Models
         
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-
-        [Display(Name = "Cross Street 1")]
-        public string CrossStreet1 { get; set; }
-
-        [Display(Name = "Cross Street 2")]
-        public string CrossStreet2 { get; set; }
-
         public bool IsTheGatheringSite { get; set; }
 
         /*
@@ -46,10 +40,10 @@ namespace TheGathering.Web.Models
         public int? Breakfast_MinimumGuestsServed { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime? Breakfast_StartTime { get; set; }
+        public string Breakfast_StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime? Breakfast_EndTime { get; set; }
+        public string Breakfast_EndTime { get; set; }
 
         // Lunch
         public bool Lunch_Used { get; set; }
@@ -64,10 +58,10 @@ namespace TheGathering.Web.Models
         public int? Lunch_MinimumGuestsServed { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime? Lunch_StartTime { get; set; }
+        public string Lunch_StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime? Lunch_EndTime { get; set; }
+        public string Lunch_EndTime { get; set; }
 
         // Dinner
         public bool Dinner_Used { get; set; }
@@ -82,10 +76,10 @@ namespace TheGathering.Web.Models
         public int? Dinner_MinimumGuestsServed { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime? Dinner_StartTime { get; set; }
+        public string Dinner_StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        public DateTime? Dinner_EndTime { get; set; }
+        public string Dinner_EndTime { get; set; }
 
         public List<VolunteerEvent> VolunteerEvents { get; set; }
 
@@ -95,36 +89,36 @@ namespace TheGathering.Web.Models
                                         + "Lunch_Used, Lunch_DaysServed, Lunch_MaximumGuestsServed, Lunch_MinimumGuestsServed, Lunch_StartTime, Lunch_EndTime, "
                                         + "Dinner_Used, Dinner_DaysServed, Dinner_MaximumGuestsServed, Dinner_MinimumGuestsServed, Dinner_StartTime, Dinner_EndTime";
         public MealSite() { }
+
         public MealSite(MealSiteViewModel model)
         {
             // Transfer Variables
             Id = model.Id;
+            Name = model.Name;
             AddressLine1 = model.AddressLine1;
             City = model.City;
             Zipcode = model.Zipcode;
             State = model.State;
             Latitude = model.Latitude;
             Longitude = model.Longitude;
-            CrossStreet1 = model.CrossStreet1;
-            CrossStreet2 = model.CrossStreet2;
             IsTheGatheringSite = model.IsTheGatheringSite;
 
             Breakfast_Used = model.Breakfast_Used;
-            Breakfast_DaysServed = model.Breakfast_DaysServed;
+            Breakfast_DaysServed = JsonConvert.SerializeObject(model.Breakfast_DaysServed);
             Breakfast_MaximumGuestsServed = model.Breakfast_MaximumGuestsServed;
             Breakfast_MinimumGuestsServed = model.Breakfast_MinimumGuestsServed;
             Breakfast_StartTime = model.Breakfast_StartTime;
             Breakfast_EndTime = model.Breakfast_EndTime;
 
             Lunch_Used = model.Lunch_Used;
-            Lunch_DaysServed = model.Lunch_DaysServed;
+            Lunch_DaysServed = JsonConvert.SerializeObject(model.Lunch_DaysServed);
             Lunch_MaximumGuestsServed = model.Lunch_MaximumGuestsServed;
             Lunch_MinimumGuestsServed = model.Lunch_MinimumGuestsServed;
             Lunch_StartTime = model.Lunch_StartTime;
             Lunch_EndTime = model.Lunch_EndTime;
 
             Dinner_Used = model.Dinner_Used;
-            Dinner_DaysServed = model.Dinner_DaysServed;
+            Dinner_DaysServed = JsonConvert.SerializeObject(model.Dinner_DaysServed);
             Dinner_MaximumGuestsServed = model.Dinner_MaximumGuestsServed;
             Dinner_MinimumGuestsServed = model.Dinner_MinimumGuestsServed;
             Dinner_StartTime = model.Dinner_StartTime;
@@ -135,6 +129,27 @@ namespace TheGathering.Web.Models
                 VolunteerEvents = model.VolunteerEvents.ToList();
             }
 
+        }
+
+        public static string twelveTo24HourTime(string twelveHourTime)
+        {
+            try
+            {
+                string[] split = twelveHourTime.Split(':');
+                int hr = int.Parse(split[0]);
+                int min = int.Parse(split[1]);
+                int newHr = hr % 12;
+                if (newHr == 0)
+                    newHr = 12;
+                if (hr < 12)
+                    return newHr + ":" + min + " AM";
+                else
+                    return newHr + ":" + min + " PM";
+            }
+            catch
+            {
+                throw new Exception("Invalid Time: " + twelveHourTime);
+            }
         }
     }
 }
