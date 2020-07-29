@@ -55,5 +55,15 @@ namespace TheGathering.Web.Controllers
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+            }
+            base.OnActionExecuting(filterContext);
+        }
+
     }
 }

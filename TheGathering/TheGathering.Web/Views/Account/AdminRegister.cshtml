@@ -6,121 +6,95 @@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h2>Create a new Volunteer</h2>
-    <hr />
 
     <div class="row">
-        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Volunteer Name</h2></div>
-        <div class="col-sm-1 @*MinorHeadingRed*@"><h2>*</h2></div>
+        <h1>Admin Register</h1>
+        <h3>Create a new account</h3>
+        <hr />
     </div>
-    <div class="row">
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="col-sm-5">
-            <div class="form-group">
+    <form class="form-horizontal">
+        <div class="row">
 
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @*<div class="BodyTextMediumNormal">*@<p>First Name</p>@*</div>*@
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="col-sm-1 h2font">Name</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
+                </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
                 </div>
             </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="form-group">
 
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @*<div class="BodyTextMediumNormal">*@<p>Last Name</p>@*</div>*@
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label class="col-sm-1 @*control-label*@, h2font">Email</label>
+                <div class="col-sm-5">
+
+                </div>
+                <label class="col-sm-3 @*control-label*@, h2font">Phone Number</label>
+                <div class="col-sm-2">
+
                 </div>
             </div>
-        </div>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Volunteer Email</h2></div>
-        <div class="col-sm-1 @*MinorHeadingRed*@"><h2>*</h2></div>
-    </div>
-
-    <div class="form-group">
-
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @*<div class="BodyTextMediumNormal">*@<p>_________@@____.com</p>@*</div>*@
-        </div>
-    </div>
-    <div class="row">
-        <div class=col-sm-5>
             <div class="form-group">
-                <div class="col-md-9">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    @*<div class="BodyTextMediumNormal">*@<p>Volunteer Password</p>@*</div>*@
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "email@example.com" } })
+                </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "###-###-####" } })
                 </div>
             </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="form-group">
 
-                <div class="col-md-8">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                    @*<div class="BodyTextMediumNormal">*@<p>Confirm Password</p>@*</div>*@
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label class="col-sm-12"><h2>Password</h2><h3>Must include a capital letter, a number, and a special character.</h3></label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password" } })
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Volunteer Birthday</h2></div>
-        <div class="form-group">
-        </div>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
-            @*<div class="BodyTextMediumNormal">*@<p>mm / dd / yyyy</p>@*</div>*@
-            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-5 @*MinorHeadingNormal*@"><h2>Volunteer Phone Number</h2></div>
-        <div class="form-group">
-        </div>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @*<div class="BodyTextMediumNormal">*@<p>(###) - ### - ####</p>@*</div>*@
-            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
+        </div>
 
+        <div class="row">
 
-
-    <div class="form-group">
-        <div class="col-md-2 @*MinorHeadingNormal*@">Interest In leadership</div>
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.InterestInLeadership)
-                @Html.ValidationMessageFor(model => model.InterestInLeadership, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="col-sm-12 @*control-label*@, h2font">Birthday</label>
             </div>
-        </div>
-    </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", placeholder = "mm / dd / yyyy" } })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-2 @*MinorHeadingNormal*@">Sign Up For News Letter</div>
-        <div class="col-md-10">
-            <div class="checkbox">
+        </div>
+
+        <div class="row">
+            <div class="form-group form-check" style="padding-left:15px">
                 @Html.EditorFor(model => model.SignUpForNewsLetter)
                 @Html.ValidationMessageFor(model => model.SignUpForNewsLetter, "", new { @class = "text-danger" })
+                <label class="form-check-label pfont">I Would Like To Recieve The Gathering Newsletter</label>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="row">
             <input type="submit" class="btn btn-primary" value="Register" />
+            <br />
+            <br />
         </div>
-    </div>
+    </form>
 }
 
 @section Scripts {
