@@ -165,7 +165,9 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                    </div>
                                 </th>
                                 <th>
                                     @if (Model.Lunch_DaysServed[0])
@@ -244,7 +246,9 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                    </div>
                                 </th>
                                 <th>
                                     @if (Model.Dinner_DaysServed[0])
