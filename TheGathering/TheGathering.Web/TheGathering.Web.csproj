@@ -434,6 +434,7 @@
     <Content Include="Views\Volunteer\EventRegistered.cshtml" />
     <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
+    <Content Include="Views\Volunteer\LeadershipInterest.cshtml" />
     <Content Include="Views\AdminPortal\Index.cshtml" />
     <Content Include="Views\AdminPortal\Users.cshtml" />
     <Content Include="Views\AdminPortal\MealSites.cshtml" />

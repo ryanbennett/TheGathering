@@ -162,6 +162,11 @@ namespace TheGathering.Web.Controllers
             return View();
         }
 
+        public ActionResult LeadershipInterest()
+        {
+            return View();
+        }
+
         public ActionResult GetEventsByIds(List<int> eventId)
         {
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
