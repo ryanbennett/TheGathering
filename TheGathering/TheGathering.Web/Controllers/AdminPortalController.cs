@@ -81,6 +81,11 @@ namespace TheGathering.Web.Controllers
 
             foreach (Volunteer v in signedUpVolunteers)
             {
+                var volVolEvent = volunteerEvent.VolunteerVolunteerEvents.Where(ctx => ctx.VolunteerId == v.Id).ToList();
+
+                //If there's more than one item then they're most likely duplicates, there should only be one in this list
+                if (volVolEvent.Count > 0 && volVolEvent[0].IsItCanceled) { continue; }
+
                 addableVolunteers.Remove(v);
             }
 
@@ -101,7 +106,21 @@ namespace TheGathering.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            volunteerService.AddVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
+            var volEvent = calendarService.GetEventById((int)eventID);
+            var volunteerEvents = volEvent.VolunteerVolunteerEvents.Where(ctx => ctx.VolunteerId == (int)volunteerID).ToList();
+
+            //If we find VolunteerVolunteerEvents in the current volunteer event then we already added this volunteer to the event
+            if (volunteerEvents == null || volunteerEvents.Count < 1)
+            {
+                volunteerService.AddVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
+            }
+
+            //Change it so that the volunteer is no longer canceled, avoids duplicates
+            else
+            {
+                volunteerEvents[0].IsItCanceled = false;
+                calendarService.SaveEdits(volEvent);
+            }
 
             return RedirectToAction("AddVolunteers", new { id = (int)eventID });
         }
