@@ -1,0 +1,25 @@
+﻿@model TheGathering.Web.Models.Volunteer
+@{
+    ViewBag.Title = "Event Unregistered";
+}
+
+<h2>Event Unregistered</h2>
+
+<div>
+    <p>
+        You have been unregistered from this event!
+    </p>
+    <p> 
+        @Html.ActionLink("Back to Event List", "Index", "VolunteerEvent", null, null) 
+    </p>
+    <p>
+        @Html.ActionLink("To Calendar", "Calendar", "VolunteerEvent", null, null)
+    </p>
+    <p> 
+        @Html.ActionLink("See Your Events", "UserEventsList", null, null) 
+    </p>
+   
+
+</div>
+
+

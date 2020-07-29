@@ -1,19 +1,17 @@
-﻿
+﻿@model TheGathering.Web.Models.Volunteer
 @{
-    ViewBag.Title = "EventAlreadyRegistered";
+	ViewBag.Title = "EventRegistered";
 }
 
-<h2>EventAlreadyRegistered</h2>
+<h2>Event Already Registered</h2>
 
 <div>
-    You've Already Registered for this Event!
-    <p>
-        @Html.ActionLink("Back to Event List", "Index", "VolunteerEvent", null, null)
-    </p>
-    <p>
-        @Html.ActionLink("To Calendar", "Calendar", "VolunteerEvent", null, null)
-    </p>
-    <p>
-        @Html.ActionLink("See Your Events", "UserEventsList", null, null)
-    </p>
+	<p>
+		You have already registered for this event!
+	</p>
+	<p>
+		@Html.ActionLink("Back to Event List", "Index", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+		@Html.ActionLink("To Calendar", "Calendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+		@Html.ActionLink("See Your Events", "UserEventsList", null, new { @class = "btn btn-info" })
 </div>
+
