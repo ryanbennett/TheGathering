@@ -225,7 +225,7 @@ namespace TheGathering.Web.Controllers
 
                     
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "VolunteerEventController");
                 }
                 AddErrors(result);
             }
