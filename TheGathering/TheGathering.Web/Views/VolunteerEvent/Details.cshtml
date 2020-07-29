@@ -59,9 +59,9 @@
     </div>
 </div>
 
-@if (Model.volunteer != null)
+@if (Model.Volunteer != null)
 {
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.Id, userId = Model.volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
 }
 else
 {
