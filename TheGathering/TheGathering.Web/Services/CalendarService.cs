@@ -26,7 +26,6 @@ namespace TheGathering.Web.Services
         {
             return repository.GetEventsByIds(id);
         }
-
         public void SaveEdits(VolunteerEvent Event)
         {
             repository.SaveEdits(Event);

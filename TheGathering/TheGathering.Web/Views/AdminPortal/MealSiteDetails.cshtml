@@ -1,11 +1,11 @@
 ﻿@model TheGathering.Web.ViewModels.MealSite.MealSiteViewModel
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "MealSiteDetails";
 }
 
 <script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
 
-<h1>@Model.Name</h1>
+<h2>Details</h2>
 <div class="row">
     <div class="col-sm-6">
         <div class="container-fluid">
@@ -216,17 +216,17 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Lunch_StartTime)
                                 </th>
-								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
-								</td>
+                                <td>
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_StartTime)
+                                </td>
                             </tr>
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Lunch_EndTime)
                                 </th>
-								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
-								</td>
+                                <td>
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -295,17 +295,17 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Dinner_StartTime)
                                 </th>
-								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_EndTime)
-								</td>
+                                <td>
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_StartTime)
+                                </td>
                             </tr>
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Dinner_EndTime)
                                 </th>
-								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_EndTime)
-								</td>
+                                <td>
+                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_StartTime)
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -317,8 +317,7 @@
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
 
         <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
-        <a class="btn btn-grey" href="/MealSite/">Back Home</a>
-
+        <a class="btn btn-grey" href="MealSites">Back to Meal Sites</a>
 
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>

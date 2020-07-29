@@ -1,6 +1,6 @@
 ﻿@model TheGathering.Web.ViewModels.VolunteerModels.SignUpEventViewModel
 @{
-    ViewBag.Title = "SignUpEvent";
+    ViewBag.Title = "VolunteerSignUpEvent";
 }
 
 <h2>Sign Up for Event</h2>
@@ -36,9 +36,9 @@
         Are you sure you would like to sign up for this volunteer event?
     </p>
     <p>
-        @Html.ActionLink("Yes", "EventRegistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id }, null)
+        @Html.ActionLink("Yes", "VolunteerEventRegistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id }, null)
     </p>
     <p>
-        @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)
+        @Html.ActionLink("No", "VolunteerDetails", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)
     </p>
 </div>

@@ -27,11 +27,11 @@ namespace TheGathering.Web.Repositories
         
         public VolunteerEvent GetEventById(int id)
         {
-            return dbContext.VolunteerEvents.Find(id);
+            return dbContext.VolunteerEvents.Include(ve => ve.VolunteerVolunteerEvents).Include(ve => ve.MealSite).FirstOrDefault(e => e.Id == id);
         }
         public List<VolunteerEvent> GetEventsByIds(List<int> eventId)
         {
-            return dbContext.VolunteerEvents.Where(ve => eventId.Contains(ve.Id)).ToList();
+            return dbContext.VolunteerEvents.Include(ve => ve.MealSite).Where(ve => eventId.Contains(ve.Id)).ToList();
         }
         public void SaveEdits(VolunteerEvent toSave)
         {
