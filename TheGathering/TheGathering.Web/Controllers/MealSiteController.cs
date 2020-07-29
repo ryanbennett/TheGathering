@@ -17,7 +17,7 @@ namespace TheGathering.Web.Controllers
         private MealSiteService mealSiteService = new MealSiteService();
         private CalendarService volunteerEventService = new CalendarService();
 
-        public const string INVALID_CALENDER_DATES_ERROR = "The given calender dates are incorrect, make sure the start date is earlier than the end date.";
+        public const string INVALID_CALENDER_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         // GET: MealSite
         public ActionResult Index()
@@ -50,7 +50,7 @@ namespace TheGathering.Web.Controllers
                 {
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.UpdateMealSite(mealSite);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -75,7 +75,7 @@ namespace TheGathering.Web.Controllers
                 {
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.AddMealSite(mealSite);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MealSites", "AdminPortal", null);
                 }
 
                 viewModel.Error = INVALID_CALENDER_DATES_ERROR;
@@ -97,8 +97,8 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-
-            return View(MealSite);
+            MealSiteViewModel viewModel = new MealSiteViewModel(MealSite);
+            return View(viewModel);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -106,7 +106,7 @@ namespace TheGathering.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             mealSiteService.DeleteMealSite(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("MealSites", "AdminPortal", null);
         }
 
         public ActionResult Details(int? id)

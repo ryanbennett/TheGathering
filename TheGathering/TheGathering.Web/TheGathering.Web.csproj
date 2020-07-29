@@ -176,6 +176,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\AdminPortalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
@@ -188,9 +189,13 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007221709296_models-v1.cs" />
-    <Compile Include="Migrations\202007221709296_models-v1.Designer.cs">
-      <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
+    <Compile Include="Migrations\202007231840395_NewMigration.cs" />
+    <Compile Include="Migrations\202007231840395_NewMigration.Designer.cs">
+      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007281714276_UpdatedTime.cs" />
+    <Compile Include="Migrations\202007281714276_UpdatedTime.Designer.cs">
+      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -207,12 +212,15 @@
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
+    <Compile Include="Service\VolunteerService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\AddVolunteerViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
+    <Compile Include="ViewModels\Volunteer\VolunteerViewModel.cs" />
     <Compile Include="ViewModels\Volunteer\SignUpEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +267,6 @@
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team5 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\Google Maps\BMaps2.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\gcal.js" />
@@ -364,6 +371,7 @@
     <Content Include="Scripts\locale\zh-cn.js" />
     <Content Include="Scripts\locale\zh-tw.js" />
     <Content Include="Scripts\Meal Display\MealDisplay.js" />
+    <Content Include="Scripts\Meal Display\StartAndEndTime.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -426,10 +434,27 @@
     <Content Include="Views\Volunteer\EventRegistered.cshtml" />
     <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
+    <Content Include="Views\AdminPortal\Index.cshtml" />
+    <Content Include="Views\AdminPortal\Users.cshtml" />
+    <Content Include="Views\AdminPortal\MealSites.cshtml" />
+    <Content Include="Views\AdminPortal\MealSiteDetails.cshtml" />
+    <Content Include="Views\AdminPortal\ViewVolunteers.cshtml" />
+    <Content Include="Views\AdminPortal\ManageCalendar.cshtml" />
+    <Content Include="Views\AdminPortal\EventDetails.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerDetails.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerDelete.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerCreate.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerEdit.cshtml" />
+    <Content Include="Views\AdminPortal\ManageEvents.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerSignUpEvent.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerEventRegistered.cshtml" />
+    <Content Include="Views\AdminPortal\AddVolunteers.cshtml" />
+    <Content Include="Views\VolunteerEvent\PrintView.cshtml" />
+    <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
+    <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Service\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -449,8 +474,11 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007221709296_models-v1.resx">
-      <DependentUpon>202007221709296_models-v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007231840395_NewMigration.resx">
+      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007281714276_UpdatedTime.resx">
+      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
