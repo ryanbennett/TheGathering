@@ -1,66 +1,67 @@
-﻿@model TheGathering.Web.ViewModels.VolunteerModels.SignUpEventViewModel
+﻿@model TheGathering.Web.Models.VolunteerEventViewModel
 
 
 @{
-	ViewBag.Title = "Details";
+    ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
 
 <div>
-	<!--
+    <!--
 
-	Displays the Id of event
-	<h4 class="minorHeading"> ID = (at symbol)Html.DisplayFor(model => model.VolunteerEvent.Id)</h4>
-	-->
-	<hr />
+    Displays the Id of event
+    <h4 class="minorHeading"> ID = (at symbol)Html.DisplayFor(model => model.VolunteerEvent.Id)</h4>
+    -->
+    <hr />
     <div class="generalTextBlack">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+                @Html.DisplayNameFor(model => model.StartingShiftTime)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+                @Html.DisplayFor(model => model.StartingShiftTime)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+                @Html.DisplayNameFor(model => model.EndingShiftTime)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+                @Html.DisplayFor(model => model.EndingShiftTime)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
+                @Html.DisplayNameFor(model => model.OpenSlots)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
+                @Html.DisplayFor(model => model.OpenSlots)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+                @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+                @Html.DisplayFor(model => model.MealSite.AddressLine1)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+                @Html.DisplayNameFor(model => model.Description)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.Description)
+                @Html.DisplayFor(model => model.Description)
             </dd>
         </dl>
-        </div>
+    </div>
 </div>
-@if(Model.Volunteer != null) {
-	@Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
-}
-<button onclick="window.print()" class="btn btn-info">Print this page</button>
+
+@if(Model.volunteer != null) {
+    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.Id, userId = Model.volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
+ }
+
 @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })

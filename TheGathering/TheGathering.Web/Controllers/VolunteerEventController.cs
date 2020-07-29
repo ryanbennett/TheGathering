@@ -98,12 +98,15 @@ namespace TheGathering.Web.Controllers
             }
 
             volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
-            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
+            VolunteerEventViewModel volunteerEventViewModel = new VolunteerEventViewModel(volunteerEvent);
             Volunteer volunteer = GetCurrentVolunteer();
-            signUpEventViewModel.Volunteer = volunteer;
-            signUpEventViewModel.VolunteerEvent = volunteerEvent;
 
-            return View(signUpEventViewModel);
+            volunteerEventViewModel.volunteer = volunteer;
+
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
+            volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
+
+            return View(volunteerEventViewModel);
         }
 
         public ActionResult Edit(int? id)

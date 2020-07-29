@@ -5,7 +5,7 @@
     ViewBag.Title = "EventDetails";
 }
 
-<h2>Details</h2>
+<h2 class="no-print">Details</h2>
 
 <div>
     <hr />
@@ -54,15 +54,26 @@
 
         </dl>
     </div>
-</div>
-    
-<div>
-    @if (Model.Volunteer != null)
+    <h5><b>Signed Up Volunteers</b></h5>
+
+    @foreach (var item in Model.Volunteers)
     {
-        @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </th>
+
+            <th>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </th>
+        </tr>
     }
-    <button onclick="window.print()" class="btn btn-info">Print this page</button>
-    @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default" })
-    @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default" })
-    @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default" })
+</div>
+
+
+<div>
+    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
+    @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default no-print" })
+    @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
+    @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
 </div>

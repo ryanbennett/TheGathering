@@ -166,11 +166,14 @@ namespace TheGathering.Web.Controllers
                 return HttpNotFound();
             }
 
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
+
             volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
             SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel
             {
                 Volunteer = GetCurrentVolunteer(),
-                VolunteerEvent = volunteerEvent
+                VolunteerEvent = volunteerEvent,
+                Volunteers = volunteerService.GetVolunteersById(IdList)
             };
 
             return View(signUpEventViewModel);
