@@ -182,6 +182,7 @@
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Controllers\VolunteerEventController.cs" />
     <Compile Include="Controllers\MealSiteController.cs" />
+    <Compile Include="Controllers\VolunteerGroupController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,13 +190,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007231840395_NewMigration.cs" />
-    <Compile Include="Migrations\202007231840395_NewMigration.Designer.cs">
-      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007281714276_UpdatedTime.cs" />
-    <Compile Include="Migrations\202007281714276_UpdatedTime.Designer.cs">
-      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
+    <Compile Include="Migrations\202007291636228_AllMigrations.cs" />
+    <Compile Include="Migrations\202007291636228_AllMigrations.Designer.cs">
+      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -204,9 +201,13 @@
     <Compile Include="Models\Volunteer.cs" />
     <Compile Include="Models\VolunteerEvent.cs" />
     <Compile Include="Models\MealSite.cs" />
+    <Compile Include="Models\VolunteerGroupLeader.cs" />
+    <Compile Include="Models\VolunteerGroupVolunteerEvent.cs" />
     <Compile Include="Models\VolunteerVolunteerEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\VolunteerGroupRepository.cs" />
     <Compile Include="Repositories\VolunteerRepository.cs" />
+    <Compile Include="Services\VolunteerGroupService.cs" />
     <Compile Include="Services\VolunteerService.cs" />
     <Compile Include="Repositories\CalendarRepository.cs" />
     <Compile Include="Services\CalendarService.cs" />
@@ -216,8 +217,12 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\AddVolunteerViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerGroup\GroupNumberEventsListViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerGroup\SignUpGroupViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
     <Compile Include="ViewModels\Volunteer\VolunteerViewModel.cs" />
@@ -434,6 +439,16 @@
     <Content Include="Views\Volunteer\EventRegistered.cshtml" />
     <Content Include="Views\Volunteer\EventAlreadyRegistered.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
+    <Content Include="Views\Account\GroupRegister.cshtml" />
+    <Content Include="Views\VolunteerGroup\Index.cshtml" />
+    <Content Include="Views\VolunteerGroup\Edit.cshtml" />
+    <Content Include="Views\VolunteerGroup\Details.cshtml" />
+    <Content Include="Views\VolunteerGroup\Delete.cshtml" />
+    <Content Include="Views\VolunteerGroup\SignUpGroupEvent.cshtml" />
+    <Content Include="Views\VolunteerGroup\SignUpGroupNumber.cshtml" />
+    <Content Include="Views\VolunteerEvent\GroupDetails.cshtml" />
+    <Content Include="Views\VolunteerGroup\EventAlreadyRegistered.cshtml" />
+    <Content Include="Views\VolunteerGroup\GroupEventsList.cshtml" />
     <Content Include="Views\AdminPortal\Index.cshtml" />
     <Content Include="Views\AdminPortal\Users.cshtml" />
     <Content Include="Views\AdminPortal\MealSites.cshtml" />
@@ -474,11 +489,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231840395_NewMigration.resx">
-      <DependentUpon>202007231840395_NewMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007281714276_UpdatedTime.resx">
-      <DependentUpon>202007281714276_UpdatedTime.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007291636228_AllMigrations.resx">
+      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
