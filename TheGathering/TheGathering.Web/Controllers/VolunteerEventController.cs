@@ -65,6 +65,10 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(VolunteerEventViewModel viewModel)
         {
+            if (viewModel.OpenSlots < 1)
+            {
+                return RedirectToAction("ManageEvents", "AdminPortal", null);
+            }
             if (ModelState.IsValid)
             {
                 if (viewModel.StartingShiftTime.CompareTo(viewModel.EndingShiftTime) < 0)
@@ -83,6 +87,7 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
+        
 
         public ActionResult Details(int? id)
         {
