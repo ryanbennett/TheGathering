@@ -157,6 +157,11 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         public ActionResult GetEventsByIds(List<int> eventId)
         {
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);

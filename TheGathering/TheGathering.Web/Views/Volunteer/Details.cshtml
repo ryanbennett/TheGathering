@@ -4,105 +4,52 @@
     ViewBag.Title = "Details";
 }
 
-<div class="row">
-	<div class="col-sm-12">
-		<h1>@Model.FirstName @Model.LastName</h1>
-	</div>
+<div class="col-sm-8">
+    <h1>Details</h1>
+
+    <hr />
+
+    <h3>First Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.FirstName)
+    </p>
+
+    <h3>Last Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.LastName)
+    </p>
+
+    <h3>Birthday</h3>
+    <p>
+        @Html.DisplayFor(model => model.Birthday)
+    </p>
+
+    <h3>Email</h3>
+    <p>
+        @Html.DisplayFor(model => model.Email)
+    </p>
+
+    <h3>Phone Number</h3>
+    <p>
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </p>
+
+    <h3>Interest in Leadership</h3>
+    <p>
+        @Html.DisplayFor(model => model.InterestInLeadership)
+    </p>
+
+    <h3>Sign up for Newsletter</h3>
+    <p>
+        @Html.DisplayFor(model => model.SignUpForNewsLetter)
+    </p>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<div class="row">
-	<div class="col-sm-12">
-		<dl class="dl-horizontal">
-			<dt>
-				@Html.DisplayNameFor(model => model.FirstName)
-			</dt>
 
-			<dd>
-				@Html.DisplayFor(model => model.FirstName)																																																																																	<!-- Why do I hear boss music? -->
-			</dd>
 
-			<dt>
-				@Html.DisplayNameFor(model => model.LastName)
-			</dt>
 
-			<dd>
-				@Html.DisplayFor(model => model.LastName)
-			</dd>
 
-			<dt>
-				@Html.DisplayNameFor(model => model.Birthday)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.Birthday)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.Email)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.Email)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.PhoneNumber)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.PhoneNumber)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.InterestInLeadership)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.InterestInLeadership)
-			</dd>
-
-			<dt>
-				@Html.DisplayNameFor(model => model.SignUpForNewsLetter)
-			</dt>
-
-			<dd>
-				@Html.DisplayFor(model => model.SignUpForNewsLetter)
-			</dd>
-		</dl>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		<h3>Upcoming Events</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		<ul class="list-group">
-			@foreach (var volunteerEvent in Model.VolunteerEvents)
-			{
-			<li class="list-group-item">
-				<h4 class="list-group-item-heading">@volunteerEvent.MealSite.Name</h4>
-				@Html.ActionLink("Cancel", "CancelSignUpEvent", "Volunteer", new { eventId = volunteerEvent.Id, userId = Model.ApplicationUserId }, new { @class = "btn btn-danger btn-large btn-margin", style = "float: right;" })
-				@Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = volunteerEvent.Id }, new { @class = "btn btn-primary btn-large btn-margin", style = "float: right;" })
-				<p class="list-group-item-text">@volunteerEvent.MealSite.AddressLine1</p>
-				<p class="list-group-item-text">@volunteerEvent.StartingShiftTime.ToShortTimeString() - @volunteerEvent.EndingShiftTime.ToShortTimeString()</p>
-				<p class="list-group-item-text">@volunteerEvent.StartingShiftTime.ToShortDateString()</p>
-			</li>
-			}
-		</ul>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		@Html.ActionLink("View All Events", "UserEventsList", "Volunteer", null, new { @class = "btn btn-primary btn-large btn-margin" })
-		@Html.ActionLink("Edit Volunteer", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-large btn-margin" })
-		@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large btn-margin" })
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		<p>
-			
-		</p>
-	</div>
-</div>
