@@ -3,77 +3,53 @@
 @{
     ViewBag.Title = "Delete";
 }
+<div class="col-sm-8">
+    <h1>Delete</h1>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Volunteer</h4>
+    <h3>Are you sure you want to delete this?</h3>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+    <h3>First Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.FirstName)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+    <h3>Last Name</h3>
+    <p>
+        @Html.DisplayFor(model => model.LastName)
+    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+    <h3>Birthday</h3>
+    <p>
+        @Html.DisplayFor(model => model.Birthday)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+    <h3>Email</h3>
+    <p>
+        @Html.DisplayFor(model => model.Email)
+    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
+    <h3>Phone Number</h3>
+    <p>
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
+    <h3>Interest in Leadership</h3>
+    <p>
+        @Html.DisplayFor(model => model.InterestInLeadership)
+    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+    <h3>Sign up for Newsletter</h3>
+    <p>
+        @Html.DisplayFor(model => model.SignUpForNewsLetter)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InterestInLeadership)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InterestInLeadership)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SignUpForNewsLetter)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SignUpForNewsLetter)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.Id)
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

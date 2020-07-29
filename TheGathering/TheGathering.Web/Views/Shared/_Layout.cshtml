@@ -1,38 +1,97 @@
 ﻿<!DOCTYPE html>
+
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+<body class="body-back-color">
+    <nav class="navigation">
+            <div class="logo">
+                <img src="~/Content/The_Gathering_F2_Full_Color_White.png" width="150px" height="90px" />
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="donateButton">Donate</a></li>
+                <li>@Html.Partial("_LoginPartial")</li>
+            </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    <script src="~/Content/Navigation.js"></script>
+
+
+    <div class="container">
+        <div class="row">
+            @RenderBody()
         </div>
     </div>
+    <footer style=" background-color: darkgray" class="footer-top-margin">
+        <div class="container footerText" align="center">
+            <div class="row">
+                <div class="footerMargin">
+                    <div class="row" style="padding-bottom:30px;" align="center">
+                        <div class="col-sm-3" align="center">
+                            <a id="footerlink" href="http://www.thegatheringwis.org/contact">CONTACT US</a>
+                        </div>
+                        <div class="col-sm-2" align="center">
+                            <a id="footerlink" href="http://www.thegatheringwis.org/policies">POLICIES</a>
+                        </div>
+                        <div class="col-sm-3" align="center">
+                            <a id="footerlink" href="http://www.thegatheringwis.org/donate">HOW YOU CAN HELP</a>
+                        </div>
+                        <div class="col-sm-4" align="center">
+                            <a id="footerlink" href="http://eepurl.com/ma-3H">SIGN UP FOR OUR NEWSLETTER</a>
+                        </div>
+                    </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+                    <div class="row col-sm-12" align="center">
+
+                        THE GATHERING OF SOUTHEAST WISCONSIN ADMINISTRATIVE OFFICE, 804 E JUNEAU AVE, MILWAUKEE, WI, 53202,
+                    </div>
+                    <div class="row col-sm-8 col-sm-offset-2" align="center" style="padding-bottom:30px">
+                        UNITED STATES(414) 272-4122 SOULFOOD@THEGATHERINGWIS.ORG
+                    </div>
+                    <div class="row" algin="center" style="padding-bottom:30px">
+                        <nav class="social">
+                            <div class="col-sm-4 col-sm-offset-4" align="center">
+                                <a href="https://www.facebook.com/thegatheringcommunitymeals" style="margin-left:5px; margin-right: 5px;">
+                                    <i class="fa fa-facebook" style="color:black;font-size:20px"></i>
+                                </a>
+                                <a href="http://www.instagram.com/thegatheringcommunitymeals" style="margin-left:5px; margin-right: 5px;">
+                                    <i class="fa fa-instagram" style="color:black;font-size:20px"></i>
+                                </a>
+                                <a href="https://www.youtube.com/user/TheGatheringWIS" style="margin-left:5px; margin-right: 5px;">
+                                    <i class="fa fa-youtube-play" style="color:black;font-size:20px"></i>
+                                </a>
+                                <a href="https://twitter.com/thegathering_wi" style="margin-left:5px; margin-right: 5px;">
+                                    <i class="fa fa-twitter" style="color:black;font-size:20px"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/the-gathering-of-southeast-wi-inc" style="margin-left:5px; margin-right: 5px;">
+                                    <i class="fa fa-linkedin" style="color:black;font-size:20px"></i>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

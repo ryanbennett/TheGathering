@@ -237,12 +237,18 @@
     <Compile Include="ViewModels\Volunteer\SignUpEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angela.jpg" />
+    <Content Include="Content\black f.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Icons\Fork_Knife.png" />
     <Content Include="Content\Logo\The_Gathering_F2_Full_Color_White.png" />
+    <Content Include="Content\Navigation.js" />
+    <Content Include="Content\insta.png" />
+    <Content Include="Content\MealProgramSafeguards.png" />
+    <Content Include="Content\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\customcalendar.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
@@ -434,6 +440,7 @@
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
     <Content Include="Views\MealSite\MultiMapTest.cshtml" />
+    <Content Include="Views\Volunteer\Test.cshtml" />
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
     <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
     <Content Include="Views\Volunteer\UserEventsList.cshtml" />
@@ -455,6 +462,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Service\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
