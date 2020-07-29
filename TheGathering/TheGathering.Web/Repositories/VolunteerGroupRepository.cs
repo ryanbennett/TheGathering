@@ -54,5 +54,13 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteergroupleader).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public void ReduceOpenSlots(VolunteerEvent volunteerEvent, int origOpenSlots, int numVolunteers)
+        {
+            volunteerEvent.OpenSlots = origOpenSlots - numVolunteers;
+            _context.Entry(volunteerEvent).State = EntityState.Modified;
+            _context.SaveChanges();
+
+        }
     }
 }

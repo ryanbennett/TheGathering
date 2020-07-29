@@ -60,7 +60,11 @@ namespace TheGathering.Web.Services
             VolunteerGroupLeader volunteergroupleader = _repository.GetLeaderById(volunteerGroupId);
             _repository.AddVolunteerGroupVolunteerEvent(volunteergroupleader, vgve);
         }
-       
+        
+        public void ReduceOpenSlots(VolunteerEvent volunteerEvent, int origOpenSlots, int numVolunteers)
+        {
+            _repository.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
+        }
 
     }
 }

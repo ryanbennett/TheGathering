@@ -52,7 +52,8 @@ namespace TheGathering.Web.Controllers
             int eventId = signUpGroupViewModel.VolunteerEventID;
             int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
             var origOpenSlots = _eventService.GetEventById(eventId).OpenSlots;
-            _eventService.GetEventById(eventId).OpenSlots = origOpenSlots - numVolunteers;
+            var volunteerEvent = _eventService.GetEventById(eventId);
+            _service.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
             _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
             return RedirectToAction("GroupEventsList");
         }
