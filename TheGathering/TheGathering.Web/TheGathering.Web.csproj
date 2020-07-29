@@ -229,6 +229,7 @@
     <Compile Include="ViewModels\VolunteerGroup\SignUpGroupViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerModels\VolunteerReportViewModel.cs" />
     <Compile Include="ViewModels\Volunteer\VolunteerViewModel.cs" />
     <Compile Include="ViewModels\Volunteer\SignUpEventViewModel.cs" />
   </ItemGroup>
@@ -471,6 +472,7 @@
     <Content Include="Views\VolunteerEvent\PrintView.cshtml" />
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

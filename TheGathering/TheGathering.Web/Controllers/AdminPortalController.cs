@@ -118,7 +118,7 @@ namespace TheGathering.Web.Controllers
             await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
             string message = $"A request to reset your account's password has been made Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
 
-            await SendGatheringEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
+            await ConfirmationEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
             return RedirectToAction("ForgotPasswordConfirmation", "Account");
         }
 
@@ -316,6 +316,47 @@ namespace TheGathering.Web.Controllers
                 return RedirectToAction("EventNotRegistered");
             }
             return View(model);
+        }
+
+        public ActionResult VolunteerReport(int? id)
+        {
+            var volunteer = GetCurrentVolunteer();
+            var eventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
+            var events = calendarService.GetEventsByIds(eventIds);
+
+            var cancelledEventIds = volunteerService.GetCancelledVolunteerEventIdsByVolunteerId(volunteer.Id);
+            var cancelledEvents = calendarService.GetEventsByIds(cancelledEventIds);
+
+
+            events.Sort(new SortByDate());
+            cancelledEvents.Sort(new SortByDate());
+
+            var maybeLastEvent = events[0];
+            var maybeFirstEvent = events[events.Count() - 1];
+
+            DateTime today = DateTime.Today;
+            TimeSpan timeInBetween = today - maybeFirstEvent.StartingShiftTime;
+            int months = timeInBetween.Days / 31;
+            double frequency = 0.0;
+          
+            if (months > 0)
+            {
+                frequency = events.Count() / months;
+            } 
+
+            VolunteerReportViewModel viewModel = new VolunteerReportViewModel();
+            viewModel.VolunteerEvents = events;
+            viewModel.CancelledEvents = cancelledEvents;
+            viewModel.Volunteer = volunteerService.GetById((int)id);
+
+            ViewBag.AmountOfSignedUpEvents = events.Count();
+            ViewBag.AmountOfCancelledEvents = cancelledEvents.Count();
+
+            
+            ViewBag.timeWithGathering = timeInBetween;
+            ViewBag.monthlyFrequency = frequency;
+
+            return View(viewModel);
         }
     }
 }

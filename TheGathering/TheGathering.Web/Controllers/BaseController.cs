@@ -52,18 +52,20 @@ namespace TheGathering.Web.Controllers
             return volunteerGroup;
         }
 
-        public async Task SendGatheringEmail(string firstName, string email, string subject, string plainTextContent, string htmlContent) //pass in email, subject, text
+        public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text
         {
             //subject is subject of email
             //PlainTextContent is non-html text of email
             //HtmlContent is a stylized version of plainTextContent
-            string apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
-            SendGridClient client = new SendGridClient(apiKey);
-            EmailAddress from = new EmailAddress(GATHERING_EMAIL, "The Gathering");
-            EmailAddress to = new EmailAddress(email, firstName);
-
-            SendGridMessage msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            Response response = await client.SendEmailAsync(msg);
+            var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("21ahmeda@elmbrookstudents.org", "The Gathering");
+            var subject = Subject;
+            var to = new EmailAddress(email, firstName);
+            var plainTextContent = PlainTextContent;
+            var htmlContent = HtmlContent;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

@@ -1,0 +1,123 @@
+﻿@model TheGathering.Web.ViewModels.VolunteerModels.VolunteerReportViewModel
+
+@{
+    ViewBag.Title = "VolunteerReport";
+}
+
+<h2>Volunteer Report</h2>
+
+<div>
+    <hr />
+    <div class="generalTextBlack">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.FirstName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.FirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.LastName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.LastName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.Birthday)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.Birthday)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.InterestInLeadership)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.InterestInLeadership)
+            </dd>
+
+
+            <h5>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h5>
+            <table class="table">
+                <tr>
+                    <td><h4>
+                        Starting Shift Time
+                    </h4></td>
+                    <td><h4>
+                        Ending Shift Time
+                    </h4></td>
+
+                    <td><h4>
+                        Meal Site
+                    </h4></td>
+                    <td><h4>
+                        Description
+                    </h4></td>
+                </tr>
+
+                @foreach (TheGathering.Web.Models.VolunteerEvent item in Model.VolunteerEvents)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                        </td>
+
+                        <td>
+                            @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+            <h5>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h5>
+            @foreach (var item in Model.CancelledEvents)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+                </tr>
+            }
+            <h5>
+                Monthly Frequency: @ViewBag.monthlyFrequency;
+            </h5>
+            <h5>
+                Time with the Gathering: @ViewBag.timeWithGathering;
+            </h5>
+        </dl>
+    </div>
+</div>
+
+<div>
+    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
+
+</div>
+
+
+
+
