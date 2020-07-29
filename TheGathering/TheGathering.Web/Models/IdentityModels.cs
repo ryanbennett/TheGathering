@@ -24,7 +24,8 @@ namespace TheGathering.Web.Models
         public DbSet<VolunteerEvent> VolunteerEvents { get; set; }
         public DbSet<MealSite> MealSites { get; set; }
         public DbSet<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
-
+        public DbSet<VolunteerGroupLeader> VolunteerGroupLeaders { get; set; }
+        public DbSet<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

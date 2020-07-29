@@ -1,8 +1,9 @@
-﻿@model TheGathering.Web.ViewModels.VolunteerModels.SignUpEventViewModel
+﻿
+@model TheGathering.Web.ViewModels.VolunteerGroup.SignUpGroupViewModel
 
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "GroupDetails";
 }
 
 <h2>Details</h2>
@@ -55,11 +56,18 @@
             <dd>
                 @Html.DisplayFor(model => model.VolunteerEvent.Description)
             </dd>
+
+
         </dl>
     </div>
 </div>
+@Html.ActionLink("Sign Up for this Event", "SignUpGroupEvent", "VolunteerGroup", new { eventId = Model.VolunteerEvent.Id, userId = Model.VolunteerGroupLeader.ApplicationUserId }, new { @class = "btn btn-primary btn-large" })
 
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
 
-@Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+<!--
+    may need to change new {id...}
+-->
+<div>
+    @Html.ActionLink("Back to Calendar", "Calendar") |
+    @Html.ActionLink("Back to List", "Index")
+</div>
