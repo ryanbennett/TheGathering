@@ -179,10 +179,22 @@ namespace TheGathering.Web.Controllers
 
             events.Sort(new SortByDate());
             cancelledEvents.Sort(new SortByDate());
+            List<VolunteerEvent> CurrentEvents = new List<VolunteerEvent>();
+            List<VolunteerEvent> PastEvents = new List<VolunteerEvent>();
+            foreach (VolunteerEvent item in events)
+            {
+                if (item.StartingShiftTime > DateTime.Now)
+                    CurrentEvents.Add(item);
+                else
+                    PastEvents.Add(item);
+            }
 
             UserEventsListViewModel viewModel = new UserEventsListViewModel();
             viewModel.VolunteerEvents = events;
             viewModel.CancelledEvents = cancelledEvents;
+            viewModel.CurrentEvents = CurrentEvents;
+            viewModel.PastEvents = PastEvents;
+
             return View(viewModel);
         }
 
