@@ -5,7 +5,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h1>Details</h1>
 
 <div>
     <!--
@@ -14,7 +14,7 @@
     <h4 class="minorHeading"> ID = (at symbol)Html.DisplayFor(model => model.VolunteerEvent.Id)</h4>
     -->
     <hr />
-    <div class="generalTextBlack">
+
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
@@ -57,7 +57,7 @@
             </dd>
         </dl>
     </div>
-</div>
+
 
 @if (Model.Volunteer != null && Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
 {
