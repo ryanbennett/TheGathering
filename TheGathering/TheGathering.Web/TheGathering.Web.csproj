@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202007291636228_AllMigrations.Designer.cs">
       <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007301551233_VolunteerGroupLeaderChanges.cs" />
+    <Compile Include="Migrations\202007301551233_VolunteerGroupLeaderChanges.Designer.cs">
+      <DependentUpon>202007301551233_VolunteerGroupLeaderChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007291636228_AllMigrations.resx">
       <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007301551233_VolunteerGroupLeaderChanges.resx">
+      <DependentUpon>202007301551233_VolunteerGroupLeaderChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
