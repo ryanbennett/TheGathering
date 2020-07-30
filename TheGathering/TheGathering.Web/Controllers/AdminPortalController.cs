@@ -433,55 +433,6 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-
-        // MealSite
-
-
-
-        public ActionResult MealSiteDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MealSite mealSite = mealService.GetMealSiteById((int)id);
-            if (mealSite == null)
-            {
-                return HttpNotFound();
-            }
-            MealSiteViewModel viewModel = new MealSiteViewModel(mealSite);
-            return View(viewModel);
-        }
-
-        public ActionResult EventDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
-
-            if (volunteerEvent == null)
-            {
-                return HttpNotFound();
-            }
-
-            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
-
-            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
-            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel
-            {
-                Volunteer = GetCurrentVolunteer(),
-                VolunteerEvent = volunteerEvent,
-                Volunteers = volunteerService.GetVolunteersById(IdList)
-            };
-
-            return View(signUpEventViewModel);
-        }
-
-
-
         // Volunteer Events
 
 
