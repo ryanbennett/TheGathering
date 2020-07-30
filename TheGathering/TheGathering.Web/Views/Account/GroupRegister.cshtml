@@ -4,16 +4,16 @@
     ViewBag.Title = "GroupRegister";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Group Register</h2>
 
 @using (Html.BeginForm("GroupRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account</h4>
+    <h3>Create a new account</h3>
     <hr />
 
     <div class="row">
-        <div class="col-sm-1 @*MinorHeadingNormal*@"><h2> Group Leader Name</h2></div>
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2> Group Leader Name</h2></div>
     </div>
     <div class="row">
         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
 
 
     <div class="row">
-        <div class="col-sm-1 @*MinorHeadingNormal*@"><h2>Group Leader Email</h2></div>
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Group Leader Email</h2></div>
     </div>
 
     <div class="form-group">
@@ -53,16 +53,27 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-2 @*MinorHeadingNormal*@"><h2>Password</h2></div>
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Password</h2></div>
     </div>
     <div class="row">
-        The Password Must Include:
+        <div class="col-sm-3">
+            <h4 class="semibold">The Password Must Include:</h4>
+        </div>
     </div>
-    <ul class="row">
-        <li>A Capital Letter</li>
-        <li>A Number</li>
-        <li>A Special Character</li>
-    </ul>
+    <div class="col-sm-3">
+        <ul>
+            <li>6 Characters</li>
+            <li>A Capital Letter</li>
+            <li>A Number</li>
+            <li>A Special Character</li>
+            <li class="semibold">Example: Abc123!</li">
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+    </div>
 
     <br />
     <div class="row">
@@ -86,7 +97,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2 @*MinorHeadingNormal*@"><h2>Group Leader Birthday</h2></div>
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Group Leader Birthday</h2></div>
     </div>
     <div class="row">
         <div class=col-sm-5>
@@ -115,7 +126,9 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Group Name</h2></div>
+    </div>
     <div class="row">
         <div class=col-sm-5>
             <div class="form-group">
@@ -129,18 +142,21 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Total Group Members</h2></div>
+    </div>
+    <div class="row">
         <div class=col-sm-5>
             <div class="form-group">
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.TotalGroupMembers, new { htmlAttributes = new { @class = "form-control" } })
-                    <div class="BodyTextMediumNormal"><p>Total Group Members</p></div>
+                    <div class="BodyTextMediumNormal"><p>(including the group leader)</p></div>
                     @Html.ValidationMessageFor(model => model.TotalGroupMembers, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     </div>
 
-<div class="form-group">
+    <div class="form-group">
 
         <div class="form-group form-check">
 
@@ -151,10 +167,10 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-primary" value="GroupRegister" />
+                <input type="submit" class="btn btn-primary" value="Register your group" />
             </div>
         </div>
-        
+
 
         @section Scripts {
             @Scripts.Render("~/bundles/jqueryval")
