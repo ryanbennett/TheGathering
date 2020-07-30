@@ -23,6 +23,11 @@
             }
             ]
         </dd>
+        <dt>Events:</dt>
+        <dd>[
+            @Html.ActionLink("Your Events", "UserEventsList", new { Controller = "Volunteer", id = "" })
+            ]
+        </dd>
         <dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
