@@ -21,11 +21,11 @@ namespace TheGathering.Web.Models
         public string LeaderPhoneNumber { get; set; }
         [Display(Name = "Group Name")]
         public string GroupName { get; set; }
-        [Display(Name = "News Letter Sign Up")]
+        [Display(Name = "Newsletter")]
         public Boolean SignUpForNewsLetter { get; set; }
         public List<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; } = new List<VolunteerGroupVolunteerEvent>();
         public String ApplicationUserId { get; set; }
-        [Display(Name = "Number of Group Members")]
+        [Display(Name = "Total Group Members")]
         public int TotalGroupMembers { get; set; }
         
         
