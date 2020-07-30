@@ -11,6 +11,7 @@ using TheGathering.Web.Services;
 using TheGathering.Web.ViewModels;
 using TheGathering.Web.ViewModels.MealSite;
 using TheGathering.Web.ViewModels.VolunteerModels;
+using TheGathering.Web.ViewModels.VolunteerGroup;
 
 namespace TheGathering.Web.Controllers
 {
@@ -525,8 +526,6 @@ namespace TheGathering.Web.Controllers
 
         // Volunteer Groups
 
-
-
         public ActionResult GroupLeaderEdit(int? id)
         {
             if (id == null)
@@ -575,5 +574,54 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GroupLeaderDetails(int id)
+        {
+            return View(volunteerGroupService.GetLeaderById(id));
+        }
+
+        public ActionResult SignUpGroupEvent(int volunteerId, int eventId)
+        {
+            SignUpGroupViewModel model = new SignUpGroupViewModel();
+            var volunteerEventIds = volunteerGroupService.GetVolunteerGroupEvents(volunteerId);
+            bool alreadyRegistered = volunteerEventIds.Any(id => id == eventId);
+            if (alreadyRegistered)
+            {
+                return RedirectToAction("EventAlreadyRegistered");
+            }
+            model.VolunteerGroupLeader = volunteerGroupService.GetLeaderById(volunteerId);
+            model.VolunteerEvent = calendarService.GetEventById((int)eventId);
+            model.VolunteerGroupLeaderID = model.VolunteerGroupLeader.Id;
+            model.VolunteerEventID = model.VolunteerEvent.Id;
+            //TO DO: Change Hardcoding (model.VolunteerGroupLeader.Id)
+            var events = calendarService.GetEventsByIds(volunteerEventIds);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SignUpGroupEvent(SignUpGroupViewModel signUpGroupViewModel)
+        {
+            int numVolunteers = signUpGroupViewModel.VolunteerSlots;
+            int eventId = signUpGroupViewModel.VolunteerEventID;
+            int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
+            var origOpenSlots = calendarService.GetEventById(eventId).OpenSlots;
+            var volunteerEvent = calendarService.GetEventById(eventId);
+            volunteerGroupService.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
+            volunteerGroupService.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
+            return RedirectToAction("GroupEventsList");
+        }
+
+        public ActionResult GroupLeaderEventAlreadyRegistered()
+        {
+            return View();
+        }
+        public ActionResult GroupLeaderEventList()
+        {
+            var volunteergroup = GetCurrentVolunteerGroupLeader();
+
+            GroupNumberEventsListViewModel viewModel = new GroupNumberEventsListViewModel();
+            viewModel.VolunteerGroupEvents = volunteergroup.VolunteerGroupVolunteerEvents;
+
+            viewModel.VolunteerEvents = volunteergroup.VolunteerGroupVolunteerEvents.Select(vgve => vgve.VolunteerEvent).ToList();
+            return View(viewModel);
+        }
     }
 }

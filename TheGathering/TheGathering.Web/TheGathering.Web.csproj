@@ -480,6 +480,10 @@
     <Content Include="Views\AdminPortal\GroupLeaderEdit.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderDetails.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderDelete.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderSignUpEvents.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderSignUpNumber.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderEventAlreadyRegistered.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderEventList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
