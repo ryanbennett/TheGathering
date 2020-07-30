@@ -1,6 +1,6 @@
 ﻿@model TheGathering.Web.ViewModels.VolunteerGroup.GroupNumberEventsListViewModel
 @{
-    ViewBag.Title = "GroupEventsList";
+    ViewBag.Title = "Group Events List";
 }
 
 <h2>GroupEventsList</h2>
@@ -11,19 +11,19 @@
 <table class="table">
     <tr>
         <th>
-            Shift Start Time
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
         </th>
         <th>
-            Shift Ending time
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
         </th>
         <th>
-            Number of People going from your Group
+            @Html.DisplayNameFor(model => model.VolunteerGroupEvents[0].NumberOfGroupMembersSignedUp)
         </th>
         <th>
-            Meal Site Location
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
         </th>
         <th>
-            Description
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
         </th>
         <th></th>
     </tr>
