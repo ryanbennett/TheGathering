@@ -5,7 +5,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h1>Details</h1>
 
 <div>
     <!--
@@ -14,7 +14,7 @@
     <h4 class="minorHeading"> ID = (at symbol)Html.DisplayFor(model => model.VolunteerEvent.Id)</h4>
     -->
     <hr />
-    <div class="generalTextBlack">
+
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
@@ -57,9 +57,19 @@
             </dd>
         </dl>
     </div>
-</div>
 
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
 
+@if (Model.Volunteer != null && Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
+{
+    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
+}
+else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
+{
+    @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+}
+else
+{
+    <h3>This event has already passed</h3>
+}
 @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })

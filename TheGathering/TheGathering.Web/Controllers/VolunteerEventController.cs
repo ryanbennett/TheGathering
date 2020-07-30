@@ -24,7 +24,7 @@ namespace TheGathering.Web.Controllers
         {
             List<VolunteerEvent> events = service.GetAllEvents();
 
-            return View();
+            return View(events);
         }
 
         public ActionResult Create()
