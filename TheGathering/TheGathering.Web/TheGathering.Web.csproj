@@ -473,6 +473,11 @@
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerReport.cshtml" />
+    <Content Include="Views\AdminPortal\ManageGroupLeaders.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderCreate.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderEdit.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderDetails.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

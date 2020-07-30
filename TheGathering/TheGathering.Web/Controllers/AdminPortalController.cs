@@ -15,9 +15,17 @@ namespace TheGathering.Web.Controllers
 {
     public class AdminPortalController : BaseController
     {
+
+        // Services
+
         private VolunteerService volunteerService = new VolunteerService();
         private MealSiteService mealService = new MealSiteService();
         private CalendarService calendarService = new CalendarService();
+        private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
+
+
+        // Basic pages
+
 
         // GET: AdminPortal
         public ActionResult Index()
@@ -47,6 +55,11 @@ namespace TheGathering.Web.Controllers
         {
             return View(calendarService.GetAllEvents());
         }
+
+
+        // Volunteer
+
+
 
         public Volunteer GetVolunteerById(int id)
         {
@@ -160,48 +173,6 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
         }
 
-        public ActionResult MealSiteDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MealSite mealSite = mealService.GetMealSiteById((int)id);
-            if (mealSite == null)
-            {
-                return HttpNotFound();
-            }
-            MealSiteViewModel viewModel = new MealSiteViewModel(mealSite);
-            return View(viewModel);
-        }
-
-        public ActionResult EventDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
-
-            if (volunteerEvent == null)
-            {
-                return HttpNotFound();
-            }
-
-            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
-
-            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
-            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel
-            {
-                Volunteer = GetCurrentVolunteer(),
-                VolunteerEvent = volunteerEvent,
-                Volunteers = volunteerService.GetVolunteersById(IdList)
-            };
-
-            return View(signUpEventViewModel);
-        }
-
         public ActionResult VolunteerCreate()
         {
             return View();
@@ -281,42 +252,7 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Users");
         }
 
-        public ActionResult ManageEvents()
-        {
-            return View(calendarService.GetAllEvents());
-        }
 
-        public ActionResult SignUpEvent(int eventId, string userId)
-        {
-            SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = volunteerService.GetByApplicationUserId(userId);
-            //TODO: change Volunteer get
-            model.VolunteerEvent = calendarService.GetEventById(eventId);
-            var volunteerEventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
-            var events = calendarService.GetEventsByIds(volunteerEventIds);
-            foreach (int id in volunteerEventIds)
-            {
-                if (id == eventId)
-                {
-                    return RedirectToAction("EventAlreadyRegistered");
-                }
-            }
-            return View(model);
-        }
-
-        public ActionResult CancelSignUpEvent(int eventId, string userId)
-        {
-            SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = volunteerService.GetByApplicationUserId(userId);
-            //TODO: change Volunteer get
-            model.VolunteerEvent = calendarService.GetEventById(eventId);
-            var volunteerEventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
-            if (!volunteerEventIds.Contains(eventId))
-            {
-                return RedirectToAction("EventNotRegistered");
-            }
-            return View(model);
-        }
 
         public ActionResult VolunteerReport(int? id)
         {
@@ -371,5 +307,149 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
+
+
+        // MealSite
+
+
+
+        public ActionResult MealSiteDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MealSite mealSite = mealService.GetMealSiteById((int)id);
+            if (mealSite == null)
+            {
+                return HttpNotFound();
+            }
+            MealSiteViewModel viewModel = new MealSiteViewModel(mealSite);
+            return View(viewModel);
+        }
+
+        public ActionResult EventDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
+
+            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel
+            {
+                Volunteer = GetCurrentVolunteer(),
+                VolunteerEvent = volunteerEvent,
+                Volunteers = volunteerService.GetVolunteersById(IdList)
+            };
+
+            return View(signUpEventViewModel);
+        }
+
+
+
+        // Volunteer Events
+
+
+        public ActionResult ManageEvents()
+        {
+            return View(calendarService.GetAllEvents());
+        }
+
+        public ActionResult SignUpEvent(int eventId, string userId)
+        {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = volunteerService.GetByApplicationUserId(userId);
+            //TODO: change Volunteer get
+            model.VolunteerEvent = calendarService.GetEventById(eventId);
+            var volunteerEventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
+            var events = calendarService.GetEventsByIds(volunteerEventIds);
+            foreach (int id in volunteerEventIds)
+            {
+                if (id == eventId)
+                {
+                    return RedirectToAction("EventAlreadyRegistered");
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult CancelSignUpEvent(int eventId, string userId)
+        {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = volunteerService.GetByApplicationUserId(userId);
+            //TODO: change Volunteer get
+            model.VolunteerEvent = calendarService.GetEventById(eventId);
+            var volunteerEventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
+            if (!volunteerEventIds.Contains(eventId))
+            {
+                return RedirectToAction("EventNotRegistered");
+            }
+            return View(model);
+        }
+
+
+
+        // Volunteer Groups
+
+
+
+        public ActionResult GroupLeaderEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VolunteerGroupLeader volunteergroupleader = volunteerGroupService.GetLeaderById((int)id);
+            if (volunteergroupleader == null)
+            {
+                return HttpNotFound();
+            }
+            return View(volunteergroupleader);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GroupLeaderEdit(VolunteerGroupLeader volunteergroupleader)
+        {
+            if (ModelState.IsValid)
+            {
+                volunteerGroupService.EditLeader(volunteergroupleader);
+                return RedirectToAction("Index");
+            }
+            return View(volunteergroupleader);
+        }
+
+        public ActionResult GroupLeaderDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VolunteerGroupLeader volunteergroupleader = volunteerGroupService.GetLeaderById((int)id);
+            if (volunteergroupleader == null)
+            {
+                return HttpNotFound();
+            }
+            return View(volunteergroupleader);
+        }
+
+        [HttpPost]
+        public ActionResult GroupLeaderDelete(int id)
+        {
+            VolunteerGroupLeader volunteergroupleader = volunteerGroupService.GetLeaderById(id);
+            volunteerGroupService.DeleteLeader(volunteergroupleader);
+            return RedirectToAction("Index");
+        }
+
     }
 }

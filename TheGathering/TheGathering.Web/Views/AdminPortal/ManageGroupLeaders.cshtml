@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TheGathering.Web.Models.VolunteerGroupLeader>
+
+@{
+    ViewBag.Title = "ManageGroupLeaders";
+}
+
+<h2>ManageGroupLeaders</h2>
+<p>
+    @Html.ActionLink("Create New", "GroupLeaderCreate", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderFirstName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderLastName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderBirthday)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderEmail)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderPhoneNumber)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.SignUpForNewsLetter)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaderFirstName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaderLastName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaderBirthday)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaderEmail)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaderPhoneNumber)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "GroupLeaderEdit", new { id = item.Id })
+                @Html.ActionLink("Details", "GroupLeaderDetails", new { id = item.Id })
+                @Html.ActionLink("Delete", "GroupLeaderDelete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
