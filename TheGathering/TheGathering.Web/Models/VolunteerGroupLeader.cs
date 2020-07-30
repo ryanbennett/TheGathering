@@ -10,8 +10,10 @@ namespace TheGathering.Web.Models
     {
         public int Id { get; set; }
         [Display(Name = "Leader First Name")]
+        [StringLength(60, MinimumLength = 1)]
         public string LeaderFirstName { get; set; }
         [Display(Name = "Leader Last Name")]
+        [StringLength(60, MinimumLength = 1)]
         public string LeaderLastName { get; set; }
         [Display(Name = "Leader D.O.B.")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
@@ -19,14 +21,17 @@ namespace TheGathering.Web.Models
         [Display(Name = "Leader Email")]
         public string LeaderEmail { get; set; }
         [Display(Name = "Leader Phone Number")]
+        [StringLength(13, MinimumLength = 9)]
         public string LeaderPhoneNumber { get; set; }
         [Display(Name = "Group Name")]
+        [StringLength(60, MinimumLength = 1)]
         public string GroupName { get; set; }
         [Display(Name = "Newsletter")]
         public Boolean SignUpForNewsLetter { get; set; }
         public List<VolunteerGroupVolunteerEvent> VolunteerGroupVolunteerEvents { get; set; } = new List<VolunteerGroupVolunteerEvent>();
         public String ApplicationUserId { get; set; }
         [Display(Name = "Total Group Members")]
+        [Range(1,999)]
         public int TotalGroupMembers { get; set; }
         
         
