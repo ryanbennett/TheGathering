@@ -104,10 +104,13 @@
                 </tr>
             }
             <h5>
-                Monthly Frequency: @ViewBag.monthlyFrequency;
+                Monthly Frequency: @ViewBag.monthlyFrequency events
             </h5>
             <h5>
-                Time with the Gathering: @ViewBag.timeWithGathering;
+                Time with the Gathering: @ViewBag.timeWithGathering days
+            </h5>
+            <h5>
+                Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
             </h5>
         </dl>
     </div>
@@ -115,7 +118,7 @@
 
 <div>
     <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-
+    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default no-print"})
 </div>
 
 
