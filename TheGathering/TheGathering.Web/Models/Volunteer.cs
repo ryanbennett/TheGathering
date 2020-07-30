@@ -18,5 +18,10 @@ namespace TheGathering.Web.Models
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
         public string ApplicationUserId { get; set; }
         public bool IsAccountActive { get; set; }
+
+        public Volunteer()
+        {
+            IsAccountActive = true;
+        }
     }
 }

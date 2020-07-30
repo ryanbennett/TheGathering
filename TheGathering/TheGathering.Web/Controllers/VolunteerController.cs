@@ -138,7 +138,7 @@ namespace TheGathering.Web.Controllers
         }
 
 
-        public ActionResult Delete(int? id)
+        public ActionResult Deactivate(int? id)
         {
             if (id == null)
             {
@@ -151,11 +151,12 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteer);
         }
+
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Deactivate(int id)
         {
             Volunteer volunteer = _service.GetById((int)id);
-            _service.DeleteVolunteer(volunteer);
+            _service.ChangeVolunteerActivation(volunteer, false);
             return RedirectToAction("Index");
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -35,7 +36,7 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult Users()
         {
-            var volunteers = volunteerService.GetAllVolunteers();
+            var volunteers = volunteerService.GetAllActiveAndInactiveVolunteers();
 
             if (volunteers == null)
             {
@@ -73,6 +74,42 @@ namespace TheGathering.Web.Controllers
             List<int> IdList = evt.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
             volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
             return View(volunteerEventViewModel);
+        }
+
+        public ActionResult ChangeAccountActivationConfirmation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Volunteer vol = volunteerService.GetById((int)id);
+
+            if (vol == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(vol);
+        }
+
+        public ActionResult AccountActivationChange(int? id, bool? active)
+        {
+            if (active == null || id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Volunteer vol = volunteerService.GetById((int)id);
+
+            if (vol == null)
+            {
+                return HttpNotFound();
+            }
+
+            volunteerService.ChangeVolunteerActivation(vol, (bool)active);
+
+            return RedirectToAction("VolunteerDetails", new { id = (int)id });
         }
 
         public ActionResult AddVolunteers(int? id)
@@ -131,7 +168,7 @@ namespace TheGathering.Web.Controllers
             //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
             string message = $"A request to reset your account's password has been made Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
 
-            await ConfirmationEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
+            await SendGatheringEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
             return RedirectToAction("ForgotPasswordConfirmation", "Account");
         }
 
@@ -172,6 +209,93 @@ namespace TheGathering.Web.Controllers
 
             return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
         }
+
+        public ActionResult MealSiteDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MealSite mealSite = mealService.GetMealSiteById((int)id);
+            if (mealSite == null)
+            {
+                return HttpNotFound();
+            }
+            MealSiteViewModel viewModel = new MealSiteViewModel(mealSite);
+            return View(viewModel);
+        }
+
+        public ActionResult EventDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
+
+            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel
+            {
+                Volunteer = GetCurrentVolunteer(),
+                VolunteerEvent = volunteerEvent,
+                Volunteers = volunteerService.GetVolunteersById(IdList)
+            };
+
+            return View(signUpEventViewModel);
+        }
+
+        public ActionResult EmailEventVolunteers(int? eventID)
+        {
+            if (eventID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volEvent = calendarService.GetEventById((int)eventID);
+
+            if (volEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            VolunteerEmailViewModel emailModel = new VolunteerEmailViewModel
+            {
+                VolunteerEvent = volEvent,
+                Message = string.Empty
+            };
+
+            return View(emailModel);
+        }
+
+        /*
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmailEventVolunteers([Bind(Include = "VolunteerEvent, Message")] VolunteerEmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                List<string> emails = new List<string>(model.VolunteerEvent.VolunteerVolunteerEvents.Count);
+
+                foreach (VolunteerVolunteerEvent item in model.VolunteerEvent.VolunteerVolunteerEvents)
+                {
+                    if (item.IsItCanceled) { continue; }
+
+                    Volunteer vol = volunteerService.GetById(item.VolunteerId);
+
+                    emails.Add(vol.Email);
+                }
+            }
+
+
+        }*/
 
         public ActionResult VolunteerCreate()
         {

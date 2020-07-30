@@ -223,6 +223,7 @@
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\AddVolunteerViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerEmailViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupNumberEventsListViewModel.cs" />
@@ -424,7 +425,6 @@
     <Content Include="Views\Volunteer\Create.cshtml" />
     <Content Include="Views\Volunteer\Details.cshtml" />
     <Content Include="Views\Volunteer\Index.cshtml" />
-    <Content Include="Views\Volunteer\Delete.cshtml" />
     <Content Include="Views\Volunteer\Edit.cshtml" />
     <Content Include="Views\VolunteerEvent\Create.cshtml" />
     <Content Include="Views\VolunteerEvent\Index.cshtml" />
@@ -462,7 +462,6 @@
     <Content Include="Views\AdminPortal\ManageCalendar.cshtml" />
     <Content Include="Views\AdminPortal\EventDetails.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerDetails.cshtml" />
-    <Content Include="Views\AdminPortal\VolunteerDelete.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerCreate.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerEdit.cshtml" />
     <Content Include="Views\AdminPortal\ManageEvents.cshtml" />
@@ -473,6 +472,9 @@
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerReport.cshtml" />
+    <Content Include="Views\Volunteer\Deactivate.cshtml" />
+    <Content Include="Views\AdminPortal\ChangeAccountActivationConfirmation.cshtml" />
+    <Content Include="Views\AdminPortal\EmailEventVolunteers.cshtml" />
     <Content Include="Views\AdminPortal\ManageGroupLeaders.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderCreate.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderEdit.cshtml" />

@@ -31,6 +31,11 @@ namespace TheGathering.Web.Services
             return _repository.GetAllVolunteers();
         }
 
+        public List<Volunteer> GetAllActiveAndInactiveVolunteers()
+        {
+            return _repository.GetAllActiveAndInactiveVolunteers();
+        }
+
         public List<int> GetVolunteerEventIdsByVolunteerId(int volunteerId)
         {
             List<int> volunteerEventIds = new List<int>();
@@ -51,6 +56,11 @@ namespace TheGathering.Web.Services
                 volunteerEventIds.Add(vve.VolunteerEventId);
             }
             return volunteerEventIds;
+        }
+
+        public void ChangeVolunteerActivation(Volunteer volunteer, bool active)
+        {
+            _repository.ChangeVolunteerActivation(volunteer, active);
         }
 
         public void DeleteVolunteer(Volunteer volunteer)

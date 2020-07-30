@@ -39,6 +39,10 @@
         <th>
             @Html.DisplayNameFor(model => model.SignUpForNewsLetter)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.IsAccountActive)
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -73,9 +77,12 @@
             </td>
 
             <td>
+                @Html.DisplayFor(modelItem => item.IsAccountActive)
+            </td>
+
+            <td>
                 @Html.ActionLink("Edit", "VolunteerEdit", new { id = item.Id })
                 @Html.ActionLink("Details", "VolunteerDetails", new { id = item.Id })
-                @Html.ActionLink("Delete", "VolunteerDelete", new { id = item.Id })
             </td>
         </tr>
     }
