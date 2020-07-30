@@ -79,6 +79,9 @@
                         if (calEvent.end != null) {
                             $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("DD-MMM-YYYY hh:mm a")));
                         }
+                        if (calEvent.description == null) {
+                            calEvent.description = ' ';
+                        }
                         $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
                         $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location + ', ' + calEvent.city + ', ' + calEvent.state));
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
@@ -136,9 +139,8 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Individual Sign Up", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { volunteerId = 1, eventId = item.Id }, null)
-                <!--TODO CHANGE TO SIGN UP, details too redundant-->
             </td>
         </tr>
     }
