@@ -59,13 +59,17 @@
     </div>
 </div>
 
-@if (Model.Volunteer != null)
+@if (Model.Volunteer != null && Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
 {
     @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
 }
-else
+else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
 {
     @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+}
+else
+{
+    <h3>This event has already passed</h3>
 }
 @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
