@@ -5,7 +5,6 @@
 <br />
 <div id="calender"></div>
 
-
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -68,8 +67,8 @@
                         center: 'title',
                         right: 'month,basicWeek,basicDay,agenda'
                     },
-                    eventLimit: true,
-                    eventColor: '#750049',
+                    eventLimit: false,
+                    eventColor: '#687A6D',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
                         $('#myModal #eventTitle').text("Volunteer Event " + calEvent.id);
@@ -93,7 +92,9 @@
 
 }
 <br />
-<h3>All Volunteer Events</h3>
+<div class="h2font">
+    <h2 align="center">All Volunteer Events</h2>
+</div>
 <table class="table">
     <tr>
         <th>
