@@ -7,13 +7,13 @@ namespace TheGathering.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AccountDeactivation : IMigrationMetadata
+    public sealed partial class AllMigrations : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AccountDeactivation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AllMigrations));
         
         string IMigrationMetadata.Id
         {
-            get { return "202007291820233_AccountDeactivation"; }
+            get { return "202007301425598_AllMigrations"; }
         }
         
         string IMigrationMetadata.Source

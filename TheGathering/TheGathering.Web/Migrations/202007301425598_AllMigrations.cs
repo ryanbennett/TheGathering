@@ -119,6 +119,7 @@ namespace TheGathering.Web.Migrations
                         InterestInLeadership = c.Boolean(nullable: false),
                         SignUpForNewsLetter = c.Boolean(nullable: false),
                         ApplicationUserId = c.String(),
+                        IsAccountActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

@@ -284,7 +284,7 @@ namespace TheGathering.Web.Controllers
         public ActionResult ManageEvents()
         {
             return View(calendarService.GetAllEvents());
-        } 
+        }
 
         public ActionResult SignUpEvent(int eventId, string userId)
         {
@@ -334,15 +334,28 @@ namespace TheGathering.Web.Controllers
             var maybeLastEvent = events[0];
             var maybeFirstEvent = events[events.Count() - 1];
 
-            DateTime today = DateTime.Today;
-            TimeSpan timeInBetween = today - maybeFirstEvent.StartingShiftTime;
+            DateTime now = DateTime.UtcNow;
+            now = now.AddHours(-5);
+            TimeSpan timeInBetween = now - maybeFirstEvent.StartingShiftTime;
             int months = timeInBetween.Days / 31;
             double frequency = 0.0;
-          
+            TimeSpan volunteerHours = new TimeSpan(0, 0, 0, 0);
+
+            foreach (var finishedEvent in events)
+            {
+                if (finishedEvent.EndingShiftTime <= now)
+                {
+                    volunteerHours += (finishedEvent.EndingShiftTime - finishedEvent.StartingShiftTime);
+                }
+            }
+
+            ViewBag.totalHours = volunteerHours.Hours;
+            ViewBag.totalMinutes = volunteerHours.Minutes;
+
             if (months > 0)
             {
                 frequency = events.Count() / months;
-            } 
+            }
 
             VolunteerReportViewModel viewModel = new VolunteerReportViewModel();
             viewModel.VolunteerEvents = events;
@@ -352,8 +365,8 @@ namespace TheGathering.Web.Controllers
             ViewBag.AmountOfSignedUpEvents = events.Count();
             ViewBag.AmountOfCancelledEvents = cancelledEvents.Count();
 
-            
-            ViewBag.timeWithGathering = timeInBetween;
+
+            ViewBag.timeWithGathering = timeInBetween.Days;
             ViewBag.monthlyFrequency = frequency;
 
             return View(viewModel);

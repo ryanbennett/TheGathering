@@ -190,13 +190,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007291636228_AllMigrations.cs" />
-    <Compile Include="Migrations\202007291636228_AllMigrations.Designer.cs">
-      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007291820233_AccountDeactivation.cs" />
-    <Compile Include="Migrations\202007291820233_AccountDeactivation.Designer.cs">
-      <DependentUpon>202007291820233_AccountDeactivation.cs</DependentUpon>
+    <Compile Include="Migrations\202007301425598_AllMigrations.cs" />
+    <Compile Include="Migrations\202007301425598_AllMigrations.Designer.cs">
+      <DependentUpon>202007301425598_AllMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202007301451591_MigrationsFix.cs" />
     <Compile Include="Migrations\202007301451591_MigrationsFix.Designer.cs">
@@ -499,11 +495,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007291636228_AllMigrations.resx">
-      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007291820233_AccountDeactivation.resx">
-      <DependentUpon>202007291820233_AccountDeactivation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007301425598_AllMigrations.resx">
+      <DependentUpon>202007301425598_AllMigrations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007301451591_MigrationsFix.resx">
       <DependentUpon>202007301451591_MigrationsFix.cs</DependentUpon>
