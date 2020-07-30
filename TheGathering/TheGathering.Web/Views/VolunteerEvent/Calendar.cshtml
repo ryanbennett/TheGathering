@@ -25,6 +25,7 @@
 <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
 <link href="~/Content/fullcalendar.print.min.css" media="print" rel="stylesheet" />
 <link href="~/Content/customcalendar.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
 @section Scripts{
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/fullcalendar.min.js"></script>
@@ -68,7 +69,7 @@
                         right: 'month,basicWeek,basicDay,agenda'
                     },
                     eventLimit: true,
-                    eventColor: '#B89252',
+                    eventColor: '#750049',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
                         $('#myModal #eventTitle').text("Volunteer Event " + calEvent.id);

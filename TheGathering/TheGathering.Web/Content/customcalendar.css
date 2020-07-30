@@ -1,23 +1,19 @@
-﻿body {
-    background-color: #e1e3f7;
-    color: #434345;
-    font-family: 'Baskerville Old Face';
-}
-
+﻿
 .fc button {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    -moz-box-sizing: initial;
+    -webkit-box-sizing: initial;
+    box-sizing: initial;
     /* dimensions */
     margin: 0;
     height: 2.1em;
     padding: 0 .6em;
     /* text & cursor */
     font-size: 1em;
+    font-family: 'Times New Roman'; 
     /* normalize */
     white-space: nowrap;
     cursor: pointer;
-    color: #B89252;
+    color: white;
 }
 
 .fc table {
@@ -28,7 +24,8 @@
     border-collapse: collapse;
     border-spacing: 0;
     font-size: 1em;
-    background-color: #F3EACE; /* gold, can be changed later */
+    font-family: 'Times New Roman';
+    background-color: #d1e8eb; /* gold, can be changed later */
     /* normalize cross-browser */
 }
 
@@ -50,20 +47,98 @@
         border-width: 2px;
         /* overcome neighboring borders */
     }
-/*
+
 .fc-state-default {
-    background-color: #f5f5f5;
-    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-    background-repeat: repeat-x;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color: #333;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-image: none;
+    background-image: none;
+    background-image: none;
+    background-image: none;
+    background-image: none;
+    background-repeat: no-repeat;
+    text-shadow: none;
+    box-shadow: none;
+    font-family: Sofia Pro, sans-serif;
+    color: white;
+    font-size: medium;
+    font-weight: 400;
+    /*text-transform: uppercase;*/
+    background-color: #434345;
+    padding: 10px;
+    border-color: #434345;
+    border-width: thin;
+    border-style: none;
+}
+.fc-button .fc-button-inner:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.fc-button.fc-state-active .fc-button-inner {
+    background-color: green;
+    color: #fff;
+}
+
+.fc-button .fc-button-inner {
+    background-color: #000;
+    color: #fff;
+}
+.fc-state-hover,
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled {
+    background-color: #B0D0B9;
+    color: black;
+    opacity: 0.9;
+}
+    .fc-state-default.fc-corner-left {
+        /* non-theme */
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .fc-state-default.fc-corner-right {
+        /* non-theme */
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+.fc-state-down,
+.fc-state-active {
+    background-color: #B0D0B9;
+    color: black;
+    background-image: none;
+    box-shadow: none;
+}
+.fc-icon {
+    display: inline-block;
+    height: 1em;
+    line-height: 1em;
+    font-size: 1em;
+    text-align: center;
+    overflow: hidden;
+    font-family: "Courier New", Courier, monospace;
+    color: white;
+    font-weight: 400;
+    /* don't allow browser text-selection */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*
+background-color: #f5f5f5;
+background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+background-repeat: repeat-x;
+border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+color: #333;
+text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .fc-state-hover,
