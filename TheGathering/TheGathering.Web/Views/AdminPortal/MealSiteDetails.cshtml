@@ -333,11 +333,11 @@
         <div>
             @if (Model.IsMealSiteActive)
             {
-                @Html.ActionLink("Deactivate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Deactivate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-grey" })
             }
             else
             {
-                @Html.ActionLink("Activate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Activate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-grey" })
             }
         </div>
         <a class="btn btn-grey" href="MealSites">Back to Meal Sites</a>
