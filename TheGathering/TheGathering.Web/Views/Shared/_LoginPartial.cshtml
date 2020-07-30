@@ -7,14 +7,16 @@
 
     {
         String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-        <li><a href="~/Views/VolunteerEvent/Calendar.cshtml">~/Views/VolunteerEvent/Calendar.cshtml">Dashboard</a></li>
-        <li><a href="#">My Events</a></li>
-        <li><a href="#">Leadership</a></li>
+    
+        <li><a href="https://localhost:44367/VolunteerEvent/Calendar">Dashboard</a></li>
+        <li><a href="https://localhost:44367/Volunteer/UserEventsList">My Events</a></li>
+        <li><a href="https://localhost:44367/Volunteer/LeadershipInfo">Leadership</a></li>
         <li><a href="#" class="donateButton">Donate</a></li>
         @Html.AntiForgeryToken()
         <li> @Html.ActionLink(message, "Index", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        <li><a href=""><i class="fa fa-gear setting-icon" style="font-size: 21px"></i></a></li>
+        <li><a href="https://localhost:44367/Manage/Index"><i class="fa fa-gear setting-icon" style="font-size: 21px"></i></a></li>
+    
     }
 }
 else
