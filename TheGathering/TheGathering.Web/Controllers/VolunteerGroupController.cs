@@ -108,6 +108,10 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Email", "Email must contain an @");
             }
+            if (volunteergroupleader.TotalGroupMembers<0)
+            {
+                ModelState.AddModelError("TotalGroupMembers", "Total Group Members must be greater than 0");
+            }
             /***
             if (volunteergroupleader.LeaderPhoneNumber.Length > 11)
             {
