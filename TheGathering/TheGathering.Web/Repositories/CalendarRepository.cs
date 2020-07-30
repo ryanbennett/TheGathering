@@ -39,7 +39,7 @@ namespace TheGathering.Web.Repositories
             ve.StartingShiftTime = toSave.StartingShiftTime;
             ve.EndingShiftTime = toSave.EndingShiftTime;
             ve.OpenSlots = toSave.OpenSlots;
-            ve.MealSite_Id = toSave.Id;
+            ve.MealSite_Id = toSave.MealSite_Id;
             ve.Description = toSave.Description;
             ve.VolunteerVolunteerEvents = toSave.VolunteerVolunteerEvents;
             dbContext.SaveChanges();
