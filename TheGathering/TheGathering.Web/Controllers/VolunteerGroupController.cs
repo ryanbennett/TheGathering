@@ -100,6 +100,23 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(VolunteerGroupLeader volunteergroupleader)
         {
+            if (volunteergroupleader.LeaderEmail.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (volunteergroupleader.LeaderEmail.Contains('@') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain an @");
+            }
+            /***
+            if (volunteergroupleader.LeaderPhoneNumber.Length > 11)
+            {
+                ModelState.AddModelError("LeaderPhoneNumber", "Phone number must be shorter than 11 numbers");
+            }
+            if (volunteergroupleader.LeaderPhoneNumber.Any(char.IsDigit) == false)
+            {
+                ModelState.AddModelError("LeaderPhoneNumber", "Phone number must not have non-numeric characters in it.");
+            }***/
             if (ModelState.IsValid)
             {
                 _service.EditLeader(volunteergroupleader);
