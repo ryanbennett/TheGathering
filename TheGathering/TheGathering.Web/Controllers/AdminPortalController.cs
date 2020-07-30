@@ -269,6 +269,7 @@ namespace TheGathering.Web.Controllers
 
             VolunteerEmailViewModel emailModel = new VolunteerEmailViewModel
             {
+                EventId = volEvent.Id,
                 VolunteerEvent = volEvent,
                 Message = string.Empty
             };
@@ -276,16 +277,18 @@ namespace TheGathering.Web.Controllers
             return View(emailModel);
         }
 
-        /*
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EmailEventVolunteers([Bind(Include = "VolunteerEvent, Message")] VolunteerEmailViewModel model)
+        public async Task<ActionResult> EmailEventVolunteers([Bind(Include = "EventId, Subject, Message")] VolunteerEmailViewModel model)
         {
             if (ModelState.IsValid)
             {
-                List<string> emails = new List<string>(model.VolunteerEvent.VolunteerVolunteerEvents.Count);
+                VolunteerEvent volunteerEvent = calendarService.GetEventById(model.EventId);
 
-                foreach (VolunteerVolunteerEvent item in model.VolunteerEvent.VolunteerVolunteerEvents)
+                List<string> emails = new List<string>(volunteerEvent.VolunteerVolunteerEvents.Count);
+
+                foreach (VolunteerVolunteerEvent item in volunteerEvent.VolunteerVolunteerEvents)
                 {
                     if (item.IsItCanceled) { continue; }
 
@@ -293,10 +296,13 @@ namespace TheGathering.Web.Controllers
 
                     emails.Add(vol.Email);
                 }
+
+                await SendGatheringEmail(emails, model.Subject, model.Message, model.Message);
+                return RedirectToAction("EventDetails", new { id = model.EventId });
             }
 
-
-        }*/
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
 
         public ActionResult VolunteerCreate()
         {

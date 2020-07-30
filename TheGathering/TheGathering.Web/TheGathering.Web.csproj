@@ -190,10 +190,6 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007301425598_AllMigrations.cs" />
-    <Compile Include="Migrations\202007301425598_AllMigrations.Designer.cs">
-      <DependentUpon>202007301425598_AllMigrations.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202007301451591_MigrationsFix.cs" />
     <Compile Include="Migrations\202007301451591_MigrationsFix.Designer.cs">
       <DependentUpon>202007301451591_MigrationsFix.cs</DependentUpon>
@@ -472,7 +468,7 @@
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerReport.cshtml" />
-    <Content Include="Views\Volunteer\Deactivate.cshtml" />
+    <Content Include="Views\Volunteer\Delete.cshtml" />
     <Content Include="Views\AdminPortal\ChangeAccountActivationConfirmation.cshtml" />
     <Content Include="Views\AdminPortal\EmailEventVolunteers.cshtml" />
     <Content Include="Views\AdminPortal\ManageGroupLeaders.cshtml" />
@@ -505,9 +501,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007301425598_AllMigrations.resx">
-      <DependentUpon>202007301425598_AllMigrations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007301451591_MigrationsFix.resx">
       <DependentUpon>202007301451591_MigrationsFix.cs</DependentUpon>

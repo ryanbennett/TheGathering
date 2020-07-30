@@ -73,7 +73,8 @@
     @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default no-print" })
     @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
     @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
-    
+    @Html.ActionLink("Email Volunteers", "EmailEventVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
+
     @{
         System.Text.StringBuilder builder = new System.Text.StringBuilder();
         foreach (var item in Model.Volunteers)
@@ -82,5 +83,5 @@
             builder.Append(",");
         }
     }
-    <a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-default no-print">Email Volunteers</a>
+    <a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-default no-print">Email Volunteers With Personal Email</a>
 </div>

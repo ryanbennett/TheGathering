@@ -10,18 +10,30 @@
     }
 </script>
 
-<h2>Email Event Volunteers</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
+        <div class="form-group">
+            <h2>Email Event Volunteers</h2>
+        </div>
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return noEnter", @style = "min-width:100%;" } })
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return noEnter" } })
+            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control", @type = "text", @onkeypress = "return noEnter", @rows = 20, @style="min-width:100%;" } })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Send Email" class="btn btn-success" />
+            @Html.ActionLink("Back to Details", "EventDetails", new { id = Model.VolunteerEvent.Id }, new { @class = "btn btn-default" })
         </div>
     </div>
 }
