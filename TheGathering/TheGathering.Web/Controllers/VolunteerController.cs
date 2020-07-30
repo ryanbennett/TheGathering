@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
 using TheGathering.Web.ViewModels.VolunteerModels;
@@ -139,6 +142,17 @@ namespace TheGathering.Web.Controllers
         public ActionResult LeadershipInfo()
         {
             return View();
+        }
+        
+        [Authorize]
+        public async Task<ActionResult> LeadershipEmail()
+        {
+            Volunteer volunteer = GetCurrentVolunteer();
+            String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
+            String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber;
+            await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
+            return RedirectToAction("Calendar", "VolunteerEvent", null);
+           
         }
 
         public ActionResult Delete(int? id)
