@@ -105,6 +105,18 @@ namespace TheGathering.Web.Controllers
             return View(signUpEventViewModel);
         }
 
+        public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
+        {
+            if (eventID == null || volunteerID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
+
+            return View();
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
