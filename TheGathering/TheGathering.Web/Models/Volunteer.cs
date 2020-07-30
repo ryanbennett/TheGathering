@@ -14,6 +14,7 @@ namespace TheGathering.Web.Models
         [Display(Name = "Last name")]
         public String LastName { get; set; }
         [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
         [Display(Name = "Email")]
         public String Email { get; set; }
