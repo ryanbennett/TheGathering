@@ -29,7 +29,31 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VolunteerEvent.MealSite)
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.Zipcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.Zipcode)
         </dd>
     </dl>
     <p>
