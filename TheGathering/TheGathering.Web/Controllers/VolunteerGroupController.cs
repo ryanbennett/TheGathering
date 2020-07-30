@@ -51,13 +51,25 @@ namespace TheGathering.Web.Controllers
             int numVolunteers = signUpGroupViewModel.VolunteerSlots;
             int eventId = signUpGroupViewModel.VolunteerEventID;
             int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
+            signUpGroupViewModel.VolunteerEvent = _eventService.GetEventById(eventId);
+            signUpGroupViewModel.VolunteerGroupLeader = _service.GetLeaderById(volunteerId);
             var origOpenSlots = _eventService.GetEventById(eventId).OpenSlots;
             var volunteerEvent = _eventService.GetEventById(eventId);
-            if (origOpenSlots < numVolunteers)
-                return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
-            _service.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
-            _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
-            return RedirectToAction("GroupEventsList");
+            if (signUpGroupViewModel.VolunteerSlots<1)
+            {
+                ModelState.AddModelError("VolunteerSlots", "The number of volunteers cannot be less than 1");
+            }
+           
+            if (ModelState.IsValid)
+            {
+                if (origOpenSlots < numVolunteers)
+                    return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
+                _service.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
+                _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
+                return RedirectToAction("GroupEventsList");
+            }
+
+            return View(signUpGroupViewModel);
         }
         public ActionResult EventAlreadyRegistered()
         {
