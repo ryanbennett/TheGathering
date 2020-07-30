@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TheGathering.Web.Models;
@@ -94,7 +95,7 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult SignUpEvent(int eventId, string userId)
+        public async Task<ActionResult> SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
             model.Volunteer = _service.GetByApplicationUserId(userId);
@@ -111,8 +112,37 @@ namespace TheGathering.Web.Controllers
                 }
             }
             _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
+            //Confirmation Email stuff
+            
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(model.Volunteer.ApplicationUserId);
+            var callbackUrl = Url.Action("ConfirmEmailEvent", "Volunteer",
+               new { userId = userId, code = code, eventId = eventId, volunteerId = model.Volunteer.Id}, protocol: Request.Url.Scheme);
+
+            Console.WriteLine(callbackUrl);
+
+            string subject = "The Gathering Event Confirmation";
+            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for the event! Click the link to confirm that you will be at the event!" + callbackUrl;
+            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/> Thank you for sigining up for the event! Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/>";
+
+            await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
+
             return View(model);
         }
+
+        [AllowAnonymous]
+        public ActionResult ConfirmEmailEvent(string userId, string code, int eventId, int volunteerId)
+        {
+            VolunteerEvent volunteerEvent = _eventService.GetEventById(eventId);
+            var volunteer = volunteerEvent.VolunteerVolunteerEvents.Where(vol => vol.VolunteerEventId == volunteerEvent.Id).ToList();
+            if(volunteer.Count > 0)
+            {
+                volunteer[0].Confirmed = true;
+                _eventService.SaveEdits(volunteerEvent);
+            }
+            return RedirectToAction("Calendar", "VolunteerEvent", null);
+
+        }
+
 
         public ActionResult CancelSignUpEvent(int eventId, string userId)
         {
