@@ -66,8 +66,8 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
-
-            return View(meal);
+            MealSiteViewModel site = new MealSiteViewModel(meal);
+            return View(site);
         }
 
         public ActionResult MealSiteActivationChange(int? id, bool? active)
