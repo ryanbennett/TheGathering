@@ -12,6 +12,17 @@ using TheGathering.Web.ViewModels;
 using TheGathering.Web.ViewModels.MealSite;
 using TheGathering.Web.ViewModels.VolunteerModels;
 using TheGathering.Web.ViewModels.VolunteerGroup;
+using TheGathering.Web.ViewModels.Account;
+
+using System.Globalization;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web.Configuration;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace TheGathering.Web.Controllers
 {
@@ -47,7 +58,12 @@ namespace TheGathering.Web.Controllers
             return View(volunteers);
         }
 
-        public ActionResult MealSites()
+        public ActionResult ManageGroupLeaders()
+        {
+            return View(volunteerGroupService.GetAllVolunteerGroups());
+        }
+
+    public ActionResult MealSites()
         {
 
             return View(mealService.GetAllMealSites());
@@ -609,6 +625,137 @@ namespace TheGathering.Web.Controllers
 
             viewModel.VolunteerEvents = volunteergroup.VolunteerGroupVolunteerEvents.Select(vgve => vgve.VolunteerEvent).ToList();
             return View(viewModel);
+        }
+
+        public async Task<ActionResult> GroupLeaderResetUserPass(int? groupLeaderID)
+        {
+            if (groupLeaderID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerGroupLeader volunteer = volunteerGroupService.GetLeaderById((int)groupLeaderID);
+
+            ApplicationUser user = await UserManager.FindByNameAsync(volunteer.LeaderEmail);
+
+            // Secret Sauce ;D
+            string userCode = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = userCode }, protocol: Request.Url.Scheme);
+
+            //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            string message = $"An admin has created an account using this email address. If this is an error, <a href=\"thegatheringwis.org\"> please visit our website and contact us.</a> Please set your password by clicking <a href=\"" + callbackUrl + "\">here</a>";                                                                                                                                                                                                                                                                       /* Why do I hear boss music? */
+
+            await SendGatheringEmail(volunteer.LeaderFirstName, user.Email, "The Gathering Account Password Reset", message, message);
+            return RedirectToAction("ForgotPasswordConfirmation", "Account");
+        }
+
+    
+
+
+        public ActionResult GroupLeaderCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> GroupLeaderCreate(GroupRegistrationViewModel model)
+        {
+
+            DateTime local = model.LeaderBirthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (model.LeaderFirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (model.GroupName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("GroupName", "Group name cannot contain numbers");
+            }
+            if (model.LeaderLastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (model.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var VolunteerGroupService = new VolunteerGroupService();
+
+                    VolunteerGroupLeader volunteerLeader = new VolunteerGroupLeader();
+                    volunteerLeader.LeaderFirstName = model.LeaderFirstName;
+                    volunteerLeader.LeaderLastName = model.LeaderLastName;
+                    volunteerLeader.LeaderBirthday = model.LeaderBirthday;
+                    volunteerLeader.LeaderPhoneNumber = model.LeaderPhoneNumber;
+                    volunteerLeader.SignUpForNewsLetter = model.SignUpForNewsLetter;
+                    volunteerLeader.ApplicationUserId = user.Id;
+                    volunteerLeader.LeaderEmail = model.Email;
+                    volunteerLeader.GroupName = model.GroupName;
+                    volunteerLeader.TotalGroupMembers = model.TotalGroupMembers;
+
+                    VolunteerGroupService.CreateLeader(volunteerLeader);
+
+                    ApplicationUser user2 = await UserManager.FindByNameAsync(volunteerLeader.LeaderEmail);
+
+                    // Secret Sauce ;D
+                    string userCode = await UserManager.GeneratePasswordResetTokenAsync(user2.Id);
+                    string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user2.Id, code = userCode }, protocol: Request.Url.Scheme);
+
+                    //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    String subject = "The Gathering Registration Confirmation";
+                    String plainText = "Hello " + model.LeaderFirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon. An admin has created an account using this email address. If this is an error, please visit our website at thegatheringwis.org.";
+                    String htmlText = "<strong>Hello " + model.LeaderFirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon. An admin has created an account using this email address. If this is an error, <a href=\"thegatheringwis.org\"> please visit our website and contact us.</a> Please set your password by clicking <a href=\"" + callbackUrl + "\">here</a> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+
+                    await ConfirmationEmail(model.LeaderFirstName, model.Email, subject, plainText, htmlText);
+
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
     }
 }

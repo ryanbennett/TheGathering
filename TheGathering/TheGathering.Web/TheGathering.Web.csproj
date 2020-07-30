@@ -190,6 +190,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007301911514_AllMigrations.cs" />
+    <Compile Include="Migrations\202007301911514_AllMigrations.Designer.cs">
+      <DependentUpon>202007301911514_AllMigrations.cs</DependentUpon>
     <Compile Include="Migrations\202007302002515_MealSiteActivation.cs" />
     <Compile Include="Migrations\202007302002515_MealSiteActivation.Designer.cs">
       <DependentUpon>202007302002515_MealSiteActivation.cs</DependentUpon>
@@ -503,6 +506,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007301911514_AllMigrations.resx">
+      <DependentUpon>202007301911514_AllMigrations.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\202007302002515_MealSiteActivation.resx">
       <DependentUpon>202007302002515_MealSiteActivation.cs</DependentUpon>
     </EmbeddedResource>
