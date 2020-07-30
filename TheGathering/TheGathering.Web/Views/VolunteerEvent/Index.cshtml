@@ -4,9 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Volunteer Homepage</h2>
+<!-- TODO: include some pictures and mission statements or whatever, stuff that's like about the gathering, etc. -->
 <p>
-	@Html.ActionLink("Calendar", "Calendar", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
@@ -28,29 +29,31 @@
         <th></th>
     </tr>
 
-@foreach (TheGathering.Web.Models.VolunteerEvent item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartingShiftTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndingShiftTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OpenSlots)
-        </td>
-        <td>
-            @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
-        </td>
+    @foreach (TheGathering.Web.Models.VolunteerEvent item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingShiftTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingShiftTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenSlots)
+            </td>
+            <td>
+                @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { volunteerId = 1, eventId = item.Id }, null) |
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Details and Individual Sign Up", "Details", new { id = item.Id }) |
+
+                @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { volunteerId = 1, eventId = item.Id }, null) |
+            </td>
+        </tr>
+    }
 
 </table>
