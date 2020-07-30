@@ -510,9 +510,6 @@
     <EmbeddedResource Include="Migrations\202007301451591_MigrationsFix.resx">
       <DependentUpon>202007301451591_MigrationsFix.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007301745494_MealSiteActivation.resx">
-      <DependentUpon>202007301745494_MealSiteActivation.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
