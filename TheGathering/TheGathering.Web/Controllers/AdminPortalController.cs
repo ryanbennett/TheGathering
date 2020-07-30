@@ -53,11 +53,41 @@ namespace TheGathering.Web.Controllers
             return View(mealService.GetAllMealSites());
         }
 
-        public ActionResult ManageCalendar()
+        public ActionResult ChangeMealSiteActivationConfirmation(int? id)
         {
-            return View(calendarService.GetAllEvents());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            MealSite meal = mealService.GetMealSiteById((int)id);
+
+            if (meal == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(meal);
         }
 
+        public ActionResult MealSiteActivationChange(int? id, bool? active)
+        {
+            if (active == null || id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            MealSite meal = mealService.GetMealSiteById((int)id);
+
+            if (meal == null)
+            {
+                return HttpNotFound();
+            }
+
+            mealService.ChangeMealSiteActivation(meal, (bool)active);
+
+            return RedirectToAction("MealSiteDetails", new { id = (int)id });
+        }
 
         // Volunteer
 

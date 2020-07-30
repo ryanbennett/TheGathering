@@ -1,11 +1,20 @@
 ﻿@model TheGathering.Web.ViewModels.MealSite.MealSiteViewModel
 @{
-    ViewBag.Title = "MealSiteDetails";
+    ViewBag.Title = "ChangeMealSitConfirmation";
 }
 
-<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
-<link href="~/Content/Site.css" rel="stylesheet" />
-<h2>Details</h2>
+@if (Model.IsMealSiteActive)
+{
+    <h2>Deactivate MealSite?</h2>
+}
+
+else
+{
+    <h2>Activate MealSite?</h2>
+}
+
+@Html.AntiForgeryToken()
+
 <div class="row">
     <div class="col-sm-6">
         <div class="container-fluid">
@@ -330,21 +339,18 @@
     <div class="col-sm-6">
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
         <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
-        <div>
-            @if (Model.IsMealSiteActive)
-            {
-                @Html.ActionLink("Deactivate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
-            }
-            else
-            {
-                @Html.ActionLink("Activate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
-            }
-        </div>
         <a class="btn btn-grey" href="MealSites">Back to Meal Sites</a>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>
-</div>
+    <p>
+        @if (Model.IsMealSiteActive)
+        {
+            @Html.ActionLink("Deactivate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-default" })
+        }
 
-<script>
-	locations.push(new Location("@Model.AddressLine1, @Model.City", @Model.Id, @Model.Latitude, @Model.Longitude, "@Model.Name", @Model.IsTheGatheringSite.ToString().ToLower()));
-</script>
+        else
+        {
+            @Html.ActionLink("Activate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-default" })
+        }
+    </p>
+</div>

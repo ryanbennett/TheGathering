@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202007301451591_MigrationsFix.Designer.cs">
       <DependentUpon>202007301451591_MigrationsFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007301745494_MealSiteActivation.cs" />
+    <Compile Include="Migrations\202007301745494_MealSiteActivation.Designer.cs">
+      <DependentUpon>202007301745494_MealSiteActivation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -480,6 +484,7 @@
     <Content Include="Views\AdminPortal\GroupLeaderSignUpNumber.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderEventAlreadyRegistered.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderEventList.cshtml" />
+    <Content Include="Views\AdminPortal\ChangeMealSiteActivationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -504,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007301451591_MigrationsFix.resx">
       <DependentUpon>202007301451591_MigrationsFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007301745494_MealSiteActivation.resx">
+      <DependentUpon>202007301745494_MealSiteActivation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
