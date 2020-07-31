@@ -15,53 +15,68 @@
     -->
     <hr />
 
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
+        </dd>
+
+        @*<dt> TODO FIX
+                @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
-            </dd>
+                @Html.DisplayFor(model => model.MealSite.AddressLine1)
+            </dd>*@
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
-            </dd>
-
-            @*<dt> TODO FIX
-                    @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.MealSite.AddressLine1)
-                </dd>*@
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.Description)
-            </dd>
-        </dl>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.Description)
+        </dd>
+    </dl>
+</div>
 
 
 @if (Model.Volunteer != null && Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
 {
-    @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
+    bool signedUp = false;
+    foreach (var item in Model.Volunteers)
+    {
+        if (item.Id.Equals(Model.Volunteer.Id))
+        {
+            signedUp = true;
+        }
+    }
+    if (signedUp)
+    {
+        @Html.ActionLink("Unsignup for this event", "RemoveVolunteerFromEvent", new { eventId = Model.VolunteerEvent.Id, volunteerId = Model.Volunteer.Id }, new { @class = "btn btn-primary" })
+    }
+    else
+    {
+        @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
+    }
 }
 else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
 {
@@ -71,5 +86,7 @@ else
 {
     <h3>This event has already passed</h3>
 }
+
+
 @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
