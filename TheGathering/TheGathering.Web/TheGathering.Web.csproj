@@ -235,6 +235,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\GatheringNavLogo.png" />
     <Content Include="Content\Icons\Fork_Knife.png" />
     <Content Include="Content\Logo\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\Navigation.js" />
@@ -467,6 +468,7 @@
     <Content Include="Views\VolunteerEvent\PrintView.cshtml" />
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
+    <Content Include="Views\Volunteer\LeadershipInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
