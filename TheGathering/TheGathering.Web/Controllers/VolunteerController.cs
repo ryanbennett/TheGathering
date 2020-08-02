@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -248,7 +248,15 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
-            _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
+            if (_service.GetCancelledVolunteerEventIdsByVolunteerId(volunteerId).Contains(eventId))
+            {
+                _service.ReSignUpForVolunteerVolunteerEvent(volunteerId, eventId);
+            }
+            else
+            {
+                _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
+            }
+            
             return View();
         }
         public ActionResult EventUnregistered(int volunteerId, int eventId)
