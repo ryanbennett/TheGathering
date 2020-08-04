@@ -62,7 +62,7 @@
         <div class="form-group">
 
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LeaderBirthday, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.LeaderBirthday, new { htmlAttributes = new { @class = "form-control", placeholder = "mm / dd / yyyy", @type = "date" } })
                 <div class="BodyTextMediumNormal"><p>mm / dd / yyyy</p></div>
                 @Html.ValidationMessageFor(model => model.LeaderBirthday, "", new { @class = "text-danger" })
             </div>
