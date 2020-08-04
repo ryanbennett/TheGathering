@@ -793,7 +793,7 @@ namespace TheGathering.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.LeaderFirstName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, MakeRandomPassword());
                 if (result.Succeeded)
                 {
@@ -821,10 +821,10 @@ namespace TheGathering.Web.Controllers
                     //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     String subject = "The Gathering Registration Confirmation";
-                    String plainText = "Hello " + model.LeaderFirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                    String plainText = "Hello " + model.LeaderFirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our " +
                         "organization. We look forward to seeing you soon. An admin has created an account using this email address. If this is an error, please visit our website at thegatheringwis.org.";
                     String htmlText = "<strong>Hello " + model.LeaderFirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon. An admin has created an account using this email address. If this is an error, <a href=\"thegatheringwis.org\"> please visit our website and contact us.</a> Please set your password by clicking <a href=\"" + callbackUrl + "\">here</a> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                        "organization. We look forward to seeing you soon. An admin has created an account using this email address. If this is an error, <a href=\"thegatheringwis.org\"> please visit our website and contact us.</a> Please set your password by clicking <a href=\"" + callbackUrl + "\">here. </a> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
 
                     await ConfirmationEmail(model.LeaderFirstName, model.Email, subject, plainText, htmlText);
 
@@ -837,7 +837,7 @@ namespace TheGathering.Web.Controllers
 
 
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ManageGroupLeaders");
                 }
                 AddErrors(result);
             }
