@@ -129,7 +129,7 @@ namespace TheGathering.Web.Controllers
                     return RedirectToAction("EventAlreadyRegistered");
                 }
             }
-            _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
+           
             return View(model);
         }
 
@@ -209,6 +209,12 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = GetCurrentVolunteer();
+            //TODO: change Volunteer get
+            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            var openSlots = model.VolunteerEvent.OpenSlots;
+            _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
             _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
             return View();
         }
