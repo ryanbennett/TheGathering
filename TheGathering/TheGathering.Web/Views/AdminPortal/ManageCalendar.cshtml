@@ -48,7 +48,9 @@
                             start: moment(v.StartingShiftTime),
                             end: moment(v.EndingShiftTime),
                             description: v.Description,
-                            location: v.Location,
+                            location: v.MealSite.AddressLine1,
+                            city: v.MealSite.City,
+                            state: v.MealSite.State,
                             openslots: v.OpenSlots,
                             color: v.ThemeColor,
                             allDay: v.IsFullDay
@@ -83,8 +85,11 @@
                         if (calEvent.end != null) {
                             $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("DD-MMM-YYYY hh:mm a")));
                         }
+                        if (calEvent.description == null) {
+                            calEvent.description = ' ';
+                        }
                         $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
-                        $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
+                        $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location + ', ' + calEvent.city + ', ' + calEvent.state));
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
                         $description.append($('<p/>').html('<a href="/VolunteerEvent/Details/' + calEvent.id + '">Sign up for Event</a>'));
                         $('#myModal #pDetails').empty().html($description);
