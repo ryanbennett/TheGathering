@@ -38,6 +38,10 @@
         <th>
             @Html.DisplayNameFor(model => model.SignUpForNewsLetter)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.IsAccountActive)
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -69,6 +73,9 @@
 
             <td>
                 @Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAccountActive)
             </td>
 
             <td>

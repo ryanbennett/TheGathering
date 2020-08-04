@@ -3,7 +3,7 @@ namespace TheGathering.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class MigrationsFix : DbMigration
+    public partial class AllMigrations : DbMigration
     {
         public override void Up()
         {
@@ -104,6 +104,7 @@ namespace TheGathering.Web.Migrations
                         SignUpForNewsLetter = c.Boolean(nullable: false),
                         ApplicationUserId = c.String(),
                         TotalGroupMembers = c.Int(nullable: false),
+                        IsAccountActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

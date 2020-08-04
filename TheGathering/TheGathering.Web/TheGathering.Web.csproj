@@ -190,9 +190,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007301956015_MigrationsFix.cs" />
-    <Compile Include="Migrations\202007301956015_MigrationsFix.Designer.cs">
-      <DependentUpon>202007301956015_MigrationsFix.cs</DependentUpon>
+    <Compile Include="Migrations\202008041917284_AllMigrations.cs" />
+    <Compile Include="Migrations\202008041917284_AllMigrations.Designer.cs">
+      <DependentUpon>202008041917284_AllMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -504,8 +504,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007301956015_MigrationsFix.resx">
-      <DependentUpon>202007301956015_MigrationsFix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008041917284_AllMigrations.resx">
+      <DependentUpon>202008041917284_AllMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
