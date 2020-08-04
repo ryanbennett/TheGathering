@@ -1,0 +1,100 @@
+﻿@model TheGathering.Web.ViewModels.Account.AdminAccountRegisterViewModel
+
+@{
+    ViewBag.Title = "VolunteerAccountRegister";
+}
+
+@using (Html.BeginForm("VolunteerAccountRegister", "AdminPortal", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <h1>@ViewBag.Title</h1>
+        <h3>Create a new account</h3>
+        <hr />
+    </div>
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <h2>NOTE:</h2>
+                    The user will recieve a password reset link, for this user to use their account they must first reset their new account's password.
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+
+            <div class="form-group">
+                <label class="col-sm-1 h2font">Name</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
+                </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label class="col-sm-1 @*control-label*@, h2font">Email</label>
+                <div class="col-sm-5">
+
+                </div>
+                <label class="col-sm-3 @*control-label*@, h2font">Phone Number</label>
+                <div class="col-sm-2">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "email@example.com" } })
+                </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "###-###-####" } })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group">
+                <label class="col-sm-12 @*control-label*@, h2font">Birthday</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", placeholder = "mm / dd / yyyy", @type = "datetime-local" } })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group form-check" style="padding-left:15px">
+                @Html.EditorFor(model => model.SignUpForNewsLetter)
+                @Html.ValidationMessageFor(model => model.SignUpForNewsLetter, "", new { @class = "text-danger" })
+                <label class="form-check-label pfont">I Would Like To Recieve The Gathering Newsletter</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" class="btn btn-primary" value="Register" />
+            @Html.ActionLink("Back", "Users", null, new { @class = "btn btn-primary" })
+            <br />
+            <br />
+        </div>
+    </form>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

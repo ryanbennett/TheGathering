@@ -215,6 +215,7 @@
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Service\VolunteerService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Account\AdminAccountRegisterViewModel.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
@@ -458,7 +459,6 @@
     <Content Include="Views\AdminPortal\ManageCalendar.cshtml" />
     <Content Include="Views\AdminPortal\EventDetails.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerDetails.cshtml" />
-    <Content Include="Views\AdminPortal\VolunteerCreate.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerEdit.cshtml" />
     <Content Include="Views\AdminPortal\ManageEvents.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerSignUpEvent.cshtml" />
@@ -481,6 +481,7 @@
     <Content Include="Views\AdminPortal\GroupLeaderEventAlreadyRegistered.cshtml" />
     <Content Include="Views\AdminPortal\GroupLeaderEventList.cshtml" />
     <Content Include="Views\AdminPortal\ChangeMealSiteActivationConfirmation.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerAccountRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
