@@ -131,6 +131,22 @@ namespace TheGathering.Web.Controllers
 
             return View(vol);
         }
+        public ActionResult ChangeLeaderActivationConfirmation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerGroupLeader lead = volunteerGroupService.GetLeaderById((int)id);
+
+            if (lead == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(lead);
+        }
 
         public ActionResult AccountActivationChange(int? id, bool? active)
         {
@@ -147,6 +163,24 @@ namespace TheGathering.Web.Controllers
             }
 
             volunteerService.ChangeVolunteerActivation(vol, (bool)active);
+
+            return RedirectToAction("VolunteerDetails", new { id = (int)id });
+        }
+        public ActionResult LeaderActivationChange(int? id, bool? active)
+        {
+            if (active == null || id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerGroupLeader lead = volunteerGroupService.GetLeaderById((int)id);
+
+            if (lead == null)
+            {
+                return HttpNotFound();
+            }
+
+            volunteerGroupService.ChangeGroupLeaderActivation(lead, (bool)active);
 
             return RedirectToAction("VolunteerDetails", new { id = (int)id });
         }
