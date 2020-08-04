@@ -58,7 +58,7 @@ namespace TheGathering.Web.Controllers
     public ActionResult MealSites()
         {
 
-            return View(mealService.GetAllMealSites());
+            return View(mealService.GetAllActiveAndInActiveMealSites());
         }
 
         public ActionResult ChangeMealSiteActivationConfirmation(int? id)

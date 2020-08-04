@@ -91,11 +91,9 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    <div>
-                                        Days Served
-                                    </div>
+                                    Days Served
                                 </th>
-                                <th>
+                                <td>
                                     @if (Model.Breakfast_DaysServed[0])
                                     {
                                         <div>Sunday</div>
@@ -124,7 +122,7 @@
                                     {
                                         <div>Saturday</div>
                                     }
-                                </th>
+                                </td>
                             </tr>
                             <tr>
                                 <th>
@@ -173,11 +171,9 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    <div>
-                                        @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
-                                    </div>
+                                    Days Served
                                 </th>
-                                <th>
+                                <td>
                                     @if (Model.Lunch_DaysServed[0])
                                     {
                                         <div>Sunday</div>
@@ -206,7 +202,7 @@
                                     {
                                         <div>Saturday</div>
                                     }
-                                </th>
+                                </td>
                             </tr>
                             <tr>
                                 <th>
@@ -254,11 +250,9 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    <div>
-                                        @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
-                                    </div>
+                                    @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
                                 </th>
-                                <th>
+                                <td>
                                     @if (Model.Dinner_DaysServed[0])
                                     {
                                         <div>Sunday</div>
@@ -287,7 +281,7 @@
                                     {
                                         <div>Saturday</div>
                                     }
-                                </th>
+                                </td>
                             </tr>
                             <tr>
                                 <th>
