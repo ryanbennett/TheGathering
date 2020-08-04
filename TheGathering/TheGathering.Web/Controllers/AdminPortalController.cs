@@ -584,6 +584,11 @@ namespace TheGathering.Web.Controllers
             return View(calendarService.GetAllEvents());
         }
 
+        public ActionResult ManageCalendar()
+        {
+            return View(calendarService.GetAllEvents());
+        }
+
         public ActionResult SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
