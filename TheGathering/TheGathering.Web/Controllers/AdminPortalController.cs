@@ -654,6 +654,37 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult GroupLeaderCreate()
         {
+            string lowercaseChars = "abcdefghijklmnopqrstuvwxyza";
+            string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZA";
+            string numberChars = "12345678901";
+            string specialChars = "!@#$%^&*()-_+={}[]:',<.>/?";
+
+            string pass = "";
+
+            Random random = new Random();
+
+            int randNum1 = random.Next(25);
+            int randNum2 = random.Next(25);
+            int randNum3 = random.Next(9);
+            int randNum4 = random.Next(25);
+
+            pass += uppercaseChars.Substring(randNum1, 5);
+            pass += lowercaseChars.Substring(randNum2, 5);
+            pass += numberChars.Substring(randNum3, 5);
+            pass += specialChars.Substring(randNum4, 5);
+
+            var randNumber = -1;
+
+            for (int i = 0; i < 15; i++)
+            {
+                randNumber = random.Next(25);
+                pass += lowercaseChars.Substring(randNumber, randNumber + 1);
+            }
+
+            var randoPassword = pass;
+
+            ViewBag.randomPassword = randoPassword;
+
             return View();
         }
 
