@@ -13,6 +13,7 @@ using TheGathering.Web.ViewModels.VolunteerGroup;
 using TheGathering.Web.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using System.Globalization;
+using System.Text;
 
 namespace TheGathering.Web.Controllers
 {
@@ -26,6 +27,7 @@ namespace TheGathering.Web.Controllers
         private CalendarService calendarService = new CalendarService();
         private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
 
+        private Random rnd = new Random();
 
         // Basic pages
 
@@ -310,11 +312,21 @@ namespace TheGathering.Web.Controllers
             return View(model);
         }
 
-        public static string MakeRandomPassword()
+        public string MakeRandomPassword()
         {
-            string randomPass = Guid.NewGuid().ToString();
-            randomPass += 'A';
-            return randomPass;
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.Append(Guid.NewGuid().ToString());
+
+            int indCheck = rnd.Next(0, strBuilder.Length);
+
+            while (!char.IsLetter(strBuilder[indCheck]))
+            {
+                indCheck = rnd.Next(0, strBuilder.Length);
+            }
+
+            strBuilder[indCheck] = char.ToUpper(strBuilder[indCheck]);
+
+            return strBuilder.ToString();
         }
 
         public ActionResult AddVolunteerToEvent(int? eventID, int? volunteerID)
