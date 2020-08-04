@@ -75,10 +75,25 @@
             @Html.DisplayFor(model => model.TotalGroupMembers)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAccountActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAccountActive)
+        </dd>
     </dl>
 </div>
 <p>
     @Html.ActionLink("Send Reset Password Link", "GroupLeaderResetUserPass", new { groupLeaderID = Model.Id }, new { @class = "btn btn-default" })
+    @if (Model.IsAccountActive)
+    {
+        @Html.ActionLink("Deactivate Account", "ChangeAccountActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("Activate Account", "ChangeAccountActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "ManageGroupLeaders")
 </p>
