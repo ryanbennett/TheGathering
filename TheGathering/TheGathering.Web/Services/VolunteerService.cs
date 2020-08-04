@@ -89,5 +89,9 @@ namespace TheGathering.Web.Services
         {
             _repository.RemoveVolunteerVolunteerEvent(volunteerId, eventId);
         }
+        public void ReSignUpForVolunteerVolunteerEvent(int volunteerId, int eventId)
+        {
+            _repository.ReSignUpForVolunteerVolunteerEvent(volunteerId, eventId);
+        }
     }
 }

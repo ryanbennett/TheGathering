@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -226,24 +226,20 @@ namespace TheGathering.Web.Controllers
 
                     VolunteerService.Create(volunteer);
 
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                       new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+
                     String subject = "The Gathering Registration Confirmation";
                     String plainText = "Hello " + model.FirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
                         "organization. We look forward to seeing you soon.";
-                    String htmlText = "<strong>Hello " + model.FirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                    String htmlText = "<strong>Hello "+model.FirstName+",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                        "organization. We look forward to seeing you soon.<br/> <a href='" + callbackUrl + "' target='_new'>Confirm Email</a>";
 
                     await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
-
-
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-
+                    
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     return RedirectToAction("Calendar", "VolunteerEvent", null);
                 }
@@ -344,7 +340,7 @@ namespace TheGathering.Web.Controllers
                     String plainText = "Hello " + model.LeaderFirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
                         "organization. We look forward to seeing you soon.";
                     String htmlText = "<strong>Hello " + model.LeaderFirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                        "organization. We look forward to seeing you soon.";
 
                     await ConfirmationEmail(model.LeaderFirstName, model.Email, subject, plainText, htmlText);
 

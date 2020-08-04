@@ -3,21 +3,25 @@
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 
     {
-        @Html.AntiForgeryToken()
         String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-    <li>
-        @Html.ActionLink(message, "Index", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })
-    </li>
+    
+        <li><a href="https://localhost:44367/VolunteerEvent/Calendar">Dashboard</a></li>
+        <li><a href="https://localhost:44367/Volunteer/UserEventsList">My Events</a></li>
+        <li><a href="https://localhost:44367/Volunteer/LeadershipInfo">Leadership</a></li>
+        <li><a href="#" class="donateButton">Donate</a></li>
+        @Html.AntiForgeryToken()
+        <li> @Html.ActionLink(message, "Index", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        
+        <li><a href="https://localhost:44367/Manage/Index"><i class="fa fa-gear setting-icon" style="font-size: 21px"></i></a></li>
+    
     }
 }
 else
 {
-
+    <li><a href="#" class="donateButton">Donate</a></li>
     <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
 

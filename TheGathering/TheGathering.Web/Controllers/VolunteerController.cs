@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
 using TheGathering.Web.ViewModels.VolunteerModels;
@@ -94,7 +97,7 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult SignUpEvent(int eventId, string userId)
+        public async Task<ActionResult> SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
             model.Volunteer = _service.GetByApplicationUserId(userId);
@@ -111,8 +114,37 @@ namespace TheGathering.Web.Controllers
                 }
             }
             _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
+            //Confirmation Email stuff
+            
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(model.Volunteer.ApplicationUserId);
+            var callbackUrl = Url.Action("ConfirmEmailEvent", "Volunteer",
+               new { userId = userId, code = code, eventId = eventId, volunteerId = model.Volunteer.Id}, protocol: Request.Url.Scheme);
+
+            Console.WriteLine(callbackUrl);
+
+            string subject = "The Gathering Event Confirmation";
+            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for the event! Click the link to confirm that you will be at the event!" + callbackUrl;
+            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/> Thank you for sigining up for the event! Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/>";
+
+            await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
+
             return View(model);
         }
+
+        [AllowAnonymous]
+        public ActionResult ConfirmEmailEvent(string userId, string code, int eventId, int volunteerId)
+        {
+            VolunteerEvent volunteerEvent = _eventService.GetEventById(eventId);
+            var volunteer = volunteerEvent.VolunteerVolunteerEvents.Where(vol => vol.VolunteerEventId == volunteerEvent.Id).ToList();
+            if(volunteer.Count > 0)
+            {
+                volunteer[0].Confirmed = true;
+                _eventService.SaveEdits(volunteerEvent);
+            }
+            return RedirectToAction("Calendar", "VolunteerEvent", null);
+
+        }
+
 
         public ActionResult CancelSignUpEvent(int eventId, string userId)
         {
@@ -136,7 +168,21 @@ namespace TheGathering.Web.Controllers
         {
             return View();
         }
-
+        public ActionResult LeadershipInfo()
+        {
+            return View();
+        }
+        
+        [Authorize]
+        public async Task<ActionResult> LeadershipEmail()
+        {
+            Volunteer volunteer = GetCurrentVolunteer();
+            String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
+            String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber;
+            await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
+            return RedirectToAction("Calendar", "VolunteerEvent", null);
+           
+        }
 
         public ActionResult Delete(int? id)
         {
@@ -202,7 +248,15 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
-            _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
+            if (_service.GetCancelledVolunteerEventIdsByVolunteerId(volunteerId).Contains(eventId))
+            {
+                _service.ReSignUpForVolunteerVolunteerEvent(volunteerId, eventId);
+            }
+            else
+            {
+                _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
+            }
+            
             return View();
         }
         public ActionResult EventUnregistered(int volunteerId, int eventId)

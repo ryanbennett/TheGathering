@@ -99,10 +99,25 @@ namespace TheGathering.Web.Controllers
             volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
             SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
             Volunteer volunteer = GetCurrentVolunteer();
+
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
             signUpEventViewModel.Volunteer = volunteer;
             signUpEventViewModel.VolunteerEvent = volunteerEvent;
+            signUpEventViewModel.Volunteers = volunteerService.GetVolunteersById(IdList);
 
             return View(signUpEventViewModel);
+        }
+
+        public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
+        {
+            if (eventID == null || volunteerID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
+
+            return RedirectToAction("EventUnregistered", "Volunteer", new { volunteerId = (int)volunteerID, eventId=(int)eventID});
         }
 
         public ActionResult Edit(int? id)

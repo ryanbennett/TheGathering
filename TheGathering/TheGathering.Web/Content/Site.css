@@ -113,6 +113,18 @@ th {
     font-size: large;
     font-weight: 400;
 }
+dt {
+    font-family: Sofia Pro, sans-serif;
+    color: #434345;
+    font-size: large;
+    font-weight: 400;
+}
+dd {
+    font-family: Baskerville;
+    color: #434345;
+    font-size: medium;
+    font-weight: 400;
+}
 .centerText {
     text-align: center;
 }
@@ -319,6 +331,10 @@ td {
 
 .sub-menu-1 {
     display: none;
+}
+.setting-icon {
+    font-size: 21px;
+    transform: translateY(4px);
 }
 /* Bing Maps */
 #myMap {
