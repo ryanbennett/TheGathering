@@ -240,6 +240,7 @@
     <Content Include="Content\Navigation.js" />
     <Content Include="Content\insta.png" />
     <Content Include="Content\MealProgramSafeguards.png" />
+    <Content Include="Content\question-mark-icon-24x24.png" />
     <Content Include="Content\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\customcalendar.css" />
     <Content Include="Content\fullcalendar.css" />

@@ -8,14 +8,20 @@
 {
     @Html.AntiForgeryToken()
 
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
     <div class="row">
         <h1>@ViewBag.Title</h1>
         <h3>Create a new account</h3>
         <hr />
     </div>
+    @Html.ValidationSummary("", new { @class = "text-danger" })
     <form class="form-horizontal">
         <div class="row">
-
             <div class="form-group">
                 <label class="col-sm-1 h2font">Name</label>
             </div>
@@ -27,59 +33,58 @@
                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
                 </div>
             </div>
-
         </div>
 
         <div class="row">
-       
-                <div class="form-group">
-                    <label class="col-sm-1 @*control-label*@, h2font">Email</label>
-                    <div class="col-sm-5">
-
-                    </div>
-                    <label class="col-sm-3 @*control-label*@, h2font">Phone Number</label>
-                    <div class="col-sm-2">
-
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-1 @*control-label*@, h2font">Email</label>
+                <div class="col-sm-5">
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "email@example.com" } })
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "###-###-####" } })
-                    </div>
+                <label class="col-sm-3 @*control-label*@, h2font">Phone Number</label>
+                <div class="col-sm-2">
                 </div>
-       
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "email@example.com" } })
+                </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "###-###-####" } })
+                </div>
+            </div>
         </div>
 
         <div class="row">
-       
-                <div class="form-group">
-                    <label class="col-sm-12"><h2>Password</h2><h3>Must include a capital letter, a number, and a special character.</h3></label>
+            <div class="form-group">
+                <label class="col-sm-12">
+                    <h2>Password</h2><h3font>Must include a capital letter, a number, and a special character.</h3font><a href="#" data-toggle="tooltip" title="JohnDoe123*">
+                        <img src="~/Content/question-mark-icon-24x24.png" />
+                    </a>
+                </label>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
-                    </div>
-                    <div class="col-sm-6">
-                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password" } })
-                    </div>
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password" } })
                 </div>
-     
+            </div>
         </div>
 
         <div class="row">
-  
-                <div class="form-group">
-                    <label class="col-sm-12 @*control-label*@, h2font">Birthday</label>
+
+            <div class="form-group">
+                <label class="col-sm-12 @*control-label*@, h2font">Birthday</label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", placeholder = "mm / dd / yyyy" } })
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", placeholder = "mm / dd / yyyy" } })
-                    </div>
-                </div>
-          
+            </div>
+
         </div>
 
         <div class="row">
