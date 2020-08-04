@@ -151,6 +151,7 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("VolunteerDetails", new { id = (int)id });
         }
 
+
         public ActionResult AddVolunteers(int? id)
         {
             if (id == null)
@@ -524,7 +525,7 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult VolunteerReport(int? id)
         {
-            var volunteer = GetCurrentVolunteer();
+            var volunteer = GetVolunteerById((int)id);
             var eventIds = volunteerService.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
             var events = calendarService.GetEventsByIds(eventIds);
 
@@ -534,9 +535,9 @@ namespace TheGathering.Web.Controllers
 
             events.Sort(new SortByDate());
             cancelledEvents.Sort(new SortByDate());
-
-            var maybeLastEvent = events[0];
             var maybeFirstEvent = events[events.Count() - 1];
+            var maybeLastEvent = events[0];
+
 
             DateTime now = DateTime.UtcNow;
             now = now.AddHours(-5);
