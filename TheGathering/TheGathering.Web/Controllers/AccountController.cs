@@ -451,13 +451,28 @@ namespace TheGathering.Web.Controllers
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("21ahmeda@elmbrookstudents.org", "The Gathering");
+                var subject = "The Gathering Password Reset";
+                var to = new EmailAddress(model.Email);
+                var plainTextContent = " Please reset your password by clicking the link" + callbackUrl;
+                var htmlContent = "Please reset your password by clicking <br/> <a href='" + callbackUrl + "' target='_new'>Here</a> <br/>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+               
+               // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+               // Send an email with this link
+               // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+               // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+               // UserManager.EmailService = new EmailService();
+               // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+               // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+               
+                
             }
 
             // If we got this far, something failed, redisplay form
