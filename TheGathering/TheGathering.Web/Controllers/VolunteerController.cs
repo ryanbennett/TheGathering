@@ -242,6 +242,7 @@ namespace TheGathering.Web.Controllers
             viewModel.CancelledEvents = cancelledEvents;
             viewModel.CurrentEvents = CurrentEvents;
             viewModel.PastEvents = PastEvents;
+            viewModel.Volunteer = volunteer;
 
             return View(viewModel);
         }
