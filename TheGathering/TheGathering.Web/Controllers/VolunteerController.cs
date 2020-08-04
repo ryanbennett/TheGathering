@@ -261,7 +261,13 @@ namespace TheGathering.Web.Controllers
         }
         public ActionResult EventUnregistered(int volunteerId, int eventId)
         {
+            SignUpEventViewModel model = new SignUpEventViewModel();
             _service.RemoveVolunteerVolunteerEvent(volunteerId, eventId);
+            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            var openSlots = model.VolunteerEvent.OpenSlots;
+
+            _eventService.IncreaseOpenSlots(model.VolunteerEvent, openSlots);
+
             return View();
         }
     }
