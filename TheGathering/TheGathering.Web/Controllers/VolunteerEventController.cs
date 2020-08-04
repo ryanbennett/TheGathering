@@ -65,9 +65,10 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(VolunteerEventViewModel viewModel)
         {
+            viewModel.DropDownItems = AllLocations();
             if (viewModel.OpenSlots < 1)
             {
-                return RedirectToAction("ManageEvents", "AdminPortal", null);
+                ModelState.AddModelError("OpenSlots", "The number of open slots must be greater than 0");
             }
             if (ModelState.IsValid)
             {
@@ -81,7 +82,6 @@ namespace TheGathering.Web.Controllers
                 }
 
                 viewModel.Error = INVALID_CALENDAR_DATES_ERROR;
-                viewModel.DropDownItems = AllLocations();
                 return View(viewModel);
             }
 
