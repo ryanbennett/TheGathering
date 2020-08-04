@@ -117,7 +117,7 @@ namespace TheGathering.Web.Controllers
 
             volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
 
-            return RedirectToAction("UserEventsList", "Volunteer", null);
+            return RedirectToAction("EventUnregistered", "Volunteer", new { volunteerId = (int)volunteerID, eventId=(int)eventID});
         }
 
         public ActionResult Edit(int? id)

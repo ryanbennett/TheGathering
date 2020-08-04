@@ -71,11 +71,11 @@
     }
     if (signedUp)
     {
-        @Html.ActionLink("Unsignup for this event", "RemoveVolunteerFromEvent", new { eventId = Model.VolunteerEvent.Id, volunteerId = Model.Volunteer.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel Signup", "RemoveVolunteerFromEvent", new { eventId = Model.VolunteerEvent.Id, volunteerId = Model.Volunteer.Id }, new { @class = "btn btn-primary" })
     }
     else
     {
-        @Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Sign Up", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
     }
 }
 else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)

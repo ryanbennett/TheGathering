@@ -44,6 +44,14 @@ namespace TheGathering.Web.Repositories
             ve.VolunteerVolunteerEvents = toSave.VolunteerVolunteerEvents;
             dbContext.SaveChanges();
         }
+
+        public void IncreaseOpenSlots(VolunteerEvent volunteerEvent, int openSlots)
+        {
+            volunteerEvent.OpenSlots = openSlots + 1;
+            dbContext.Entry(volunteerEvent).State = EntityState.Modified;
+            dbContext.SaveChanges();
+        }
+
         public void AddEvent(VolunteerEvent toAdd)
         {
             dbContext.VolunteerEvents.Add(toAdd);
