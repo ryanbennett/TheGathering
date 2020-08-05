@@ -29,6 +29,11 @@ namespace TheGathering.Web.Services
             return _repository.GetAllVolunteerGroups();
         }
 
+        public void ChangeGroupLeaderActivation(VolunteerGroupLeader leader, bool active)
+        {
+            _repository.ChangeGroupLeaderActivation(leader, active);
+        }
+
         public VolunteerGroupLeader GetLeaderByApplicationUserId(string userId)
         {
             return _repository.GetLeaderByApplicationUserId(userId);

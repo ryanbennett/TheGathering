@@ -41,9 +41,14 @@ namespace TheGathering.Web.Repositories
             return result;
         }
 
-        public List<Volunteer> GetAllVolunteers()
+        public List<Volunteer> GetAllActiveAndInactiveVolunteers()
         {
             return _context.Volunteers.ToList();
+        }
+
+        public List<Volunteer> GetAllVolunteers()
+        {
+            return _context.Volunteers.Where(v => v.IsAccountActive).ToList();
         }
 
         public List<VolunteerVolunteerEvent> GetVolunteerEventIdsByVolunteerId(int volunteerId)
@@ -56,6 +61,12 @@ namespace TheGathering.Web.Repositories
         {
             var volunteer = _context.Volunteers.Include(v => v.VolunteerVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
             return volunteer.VolunteerVolunteerEvents.Where(vve => vve.IsItCanceled).ToList();
+        }
+
+        public void ChangeVolunteerActivation(Volunteer volunteer, bool active)
+        {
+            _context.Volunteers.SingleOrDefault(v => v.Id == volunteer.Id).IsAccountActive = active;
+            _context.SaveChanges();
         }
 
         public void DeleteVolunteer(Volunteer volunteer)

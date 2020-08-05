@@ -19,10 +19,10 @@ namespace TheGathering.Web.ViewModels.MealSite
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
-
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public bool IsTheGatheringSite { get; set; }
+        public bool IsMealSiteActive { get; set; }
 
         /*
          *      Breakfast, Lunch, and Dinner Meals
@@ -94,6 +94,7 @@ namespace TheGathering.Web.ViewModels.MealSite
             Breakfast_DaysServed = new List<bool>();
             Lunch_DaysServed = new List<bool>();
             Dinner_DaysServed = new List<bool>();
+            IsMealSiteActive = true;
         }
 
         public MealSiteViewModel(Models.MealSite mealSite)
@@ -108,6 +109,7 @@ namespace TheGathering.Web.ViewModels.MealSite
             Latitude = mealSite.Latitude;
             Longitude = mealSite.Longitude;
             IsTheGatheringSite = mealSite.IsTheGatheringSite;
+            IsMealSiteActive = mealSite.IsMealSiteActive;
 
             Breakfast_Used = mealSite.Breakfast_Used;
             Breakfast_DaysServed = JsonConvert.DeserializeObject<List<bool>>(mealSite.Breakfast_DaysServed);

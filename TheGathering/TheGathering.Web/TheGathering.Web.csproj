@@ -190,9 +190,9 @@
     <Compile Include="Migrations\202007020244371_init_account_models.Designer.cs">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007291636228_AllMigrations.cs" />
-    <Compile Include="Migrations\202007291636228_AllMigrations.Designer.cs">
-      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
+    <Compile Include="Migrations\202008041917284_AllMigrations.cs" />
+    <Compile Include="Migrations\202008041917284_AllMigrations.Designer.cs">
+      <DependentUpon>202008041917284_AllMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -215,16 +215,19 @@
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Service\VolunteerService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Account\AdminAccountRegisterViewModel.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\AddVolunteerViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerEmailViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupNumberEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\SignUpGroupViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerModels\VolunteerReportViewModel.cs" />
     <Compile Include="ViewModels\Volunteer\VolunteerViewModel.cs" />
     <Compile Include="ViewModels\Volunteer\SignUpEventViewModel.cs" />
   </ItemGroup>
@@ -421,7 +424,6 @@
     <Content Include="Views\Volunteer\Create.cshtml" />
     <Content Include="Views\Volunteer\Details.cshtml" />
     <Content Include="Views\Volunteer\Index.cshtml" />
-    <Content Include="Views\Volunteer\Delete.cshtml" />
     <Content Include="Views\Volunteer\Edit.cshtml" />
     <Content Include="Views\VolunteerEvent\Create.cshtml" />
     <Content Include="Views\VolunteerEvent\Index.cshtml" />
@@ -447,7 +449,6 @@
     <Content Include="Views\VolunteerGroup\Details.cshtml" />
     <Content Include="Views\VolunteerGroup\Delete.cshtml" />
     <Content Include="Views\VolunteerGroup\SignUpGroupEvent.cshtml" />
-    <Content Include="Views\VolunteerGroup\SignUpGroupNumber.cshtml" />
     <Content Include="Views\VolunteerEvent\GroupDetails.cshtml" />
     <Content Include="Views\VolunteerGroup\EventAlreadyRegistered.cshtml" />
     <Content Include="Views\VolunteerGroup\GroupEventsList.cshtml" />
@@ -459,8 +460,6 @@
     <Content Include="Views\AdminPortal\ManageCalendar.cshtml" />
     <Content Include="Views\AdminPortal\EventDetails.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerDetails.cshtml" />
-    <Content Include="Views\AdminPortal\VolunteerDelete.cshtml" />
-    <Content Include="Views\AdminPortal\VolunteerCreate.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerEdit.cshtml" />
     <Content Include="Views\AdminPortal\ManageEvents.cshtml" />
     <Content Include="Views\AdminPortal\VolunteerSignUpEvent.cshtml" />
@@ -469,6 +468,21 @@
     <Content Include="Views\VolunteerEvent\PrintView.cshtml" />
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerReport.cshtml" />
+    <Content Include="Views\Volunteer\Delete.cshtml" />
+    <Content Include="Views\AdminPortal\ChangeAccountActivationConfirmation.cshtml" />
+    <Content Include="Views\AdminPortal\EmailEventVolunteers.cshtml" />
+    <Content Include="Views\AdminPortal\ManageGroupLeaders.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderCreate.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderEdit.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderDetails.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderDelete.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderSignUpEvents.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderSignUpNumber.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderEventAlreadyRegistered.cshtml" />
+    <Content Include="Views\AdminPortal\GroupLeaderEventList.cshtml" />
+    <Content Include="Views\AdminPortal\ChangeMealSiteActivationConfirmation.cshtml" />
+    <Content Include="Views\AdminPortal\VolunteerAccountRegister.cshtml" />
     <Content Include="Views\Volunteer\LeadershipInfo.cshtml" />
     <Content Include="Views\VolunteerEvent\VolunteerCalendar.cshtml" />
     <Content Include="Views\VolunteerEvent\VolunteerDetails.cshtml" />
@@ -494,8 +508,8 @@
     <EmbeddedResource Include="Migrations\202007020244371_init_account_models.resx">
       <DependentUpon>202007020244371_init_account_models.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007291636228_AllMigrations.resx">
-      <DependentUpon>202007291636228_AllMigrations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008041917284_AllMigrations.resx">
+      <DependentUpon>202008041917284_AllMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

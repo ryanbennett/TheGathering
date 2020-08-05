@@ -63,5 +63,12 @@ namespace TheGathering.Web.Repositories
             dbContext.Entry(volunteerEvent).State = EntityState.Modified;
             dbContext.SaveChanges();
         }
+        public void VolunteerCanceled(int volunteerEventId)
+        {
+            VolunteerEvent volunteerEvent = GetEventById(volunteerEventId);
+            volunteerEvent.OpenSlots++;
+            dbContext.Entry(volunteerEvent).State = EntityState.Modified;
+            dbContext.SaveChanges();
+        }
     }
 }

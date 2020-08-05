@@ -208,10 +208,25 @@ async function updateLonLat()
 
     var locData = await getLocationData(address);
 
-    var latitude = document.getElementById("lat");
-    var longitude = document.getElementById("lon");
-    latitude.value = locData.point.coordinates[0];
-    longitude.value = locData.point.coordinates[1];
+    console.log(locData.confidence + " - " + address);
+
+    // Verify Location Exists
+    if (locData.entityType == "Address" && locData.confidence != "Low") {
+        document.getElementById("submit").disabled = false;
+        document.getElementById("addressLineGroup").className = "form-group";
+        document.getElementById("addressLineReturn").innerText = "";
+        //document.getElementById("addressLineTbx").value = locData.address.addressLine;
+        //document.getElementById("cityTbx").value = locData.address.locality;
+        var latitude = document.getElementById("lat");
+        var longitude = document.getElementById("lon");
+        latitude.value = locData.point.coordinates[0];
+        longitude.value = locData.point.coordinates[1];
+    }
+    else {
+        document.getElementById("submit").disabled = true;
+        document.getElementById("addressLineGroup").className = "form-group has-error";
+        document.getElementById("addressLineReturn").innerText = "Invalid Location";
+    }
 }
 
 /*

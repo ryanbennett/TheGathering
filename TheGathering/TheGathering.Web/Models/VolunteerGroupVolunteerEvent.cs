@@ -14,6 +14,7 @@ namespace TheGathering.Web.Models
         public VolunteerEvent VolunteerEvent { get; set; }
 
         //[Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
+        [Display(Name = "Number of Group Members Signed Up")]
         public int NumberOfGroupMembersSignedUp { get; set; }
         public Boolean Confirmed { get; set; }
     }

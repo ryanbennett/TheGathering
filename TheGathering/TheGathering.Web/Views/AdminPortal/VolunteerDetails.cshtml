@@ -68,9 +68,26 @@
             @Html.DisplayFor(model => model.SignUpForNewsLetter)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAccountActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAccountActive)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "VolunteerEdit", new { id = Model.Id }, new { @class = "btn btn-default"}) |
+    @Html.ActionLink("Send Reset Password Link", "ResetUserPass", new { volunteerID = Model.Id }, new { @class = "btn btn-default" })
+    @if (Model.IsAccountActive)
+    {
+        @Html.ActionLink("Deactivate Account", "ChangeAccountActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("Activate Account", "ChangeAccountActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
+    @Html.ActionLink("Edit", "VolunteerEdit", new { id = Model.Id }, new { @class = "btn btn-default" })
     @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("View Report", "VolunteerReport", new { id = Model.Id }, new { @class = "btn btn-default" })
 </p>

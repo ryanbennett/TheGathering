@@ -18,6 +18,11 @@ namespace TheGathering.Web.Repositories
 
         public List<MealSite> GetAllMealSites()
         {
+            return dbContext.MealSites.Where(m => m.IsMealSiteActive).ToList();
+        }
+
+        public List<MealSite> GetAllActiveAndInActiveMealSites()
+        {
             return dbContext.MealSites.ToList();
         }
 
@@ -38,6 +43,12 @@ namespace TheGathering.Web.Repositories
             MealSite mealSite = dbContext.MealSites.Include(m => m.VolunteerEvents).SingleOrDefault(m => m.Id == id);
 
             return mealSite;
+        }
+
+        public void ChangeMealSiteActivation(MealSite mealSite, bool active)
+        {
+            dbContext.MealSites.SingleOrDefault(m => m.Id == mealSite.Id).IsMealSiteActive = active;
+            dbContext.SaveChanges();        
         }
 
         public void UpdateMealSite(MealSite mealSite)

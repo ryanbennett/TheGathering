@@ -29,6 +29,9 @@
 						<th>
 							@Html.DisplayNameFor(model => model.City)
 						</th>
+						<th>
+							Is Meal Site Active?
+						</th>
 						<th></th>
 					</tr>
 
@@ -45,13 +48,15 @@
 							<td>
 								@Html.DisplayFor(modelItem => item.City)
 							</td>
+							
+							<td>
+								@Html.DisplayFor(ModelItem => item.IsMealSiteActive)
+							</td>
 
 							<td>
 								<a class="btn btn-grey" href="/MealSite/Edit?id=@(item.Id)">Edit</a>
 							</td>
-							<td>
-								<a class="btn btn-grey" href="/MealSite/Delete?id=@(item.Id)">Delete</a>
-							</td>
+
 							<td>
 								<a class="btn btn-grey" href="MealSiteDetails?id=@(item.Id)">Details</a>
 							</td>

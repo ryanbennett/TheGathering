@@ -1,14 +1,21 @@
 ﻿@model TheGathering.Web.Models.Volunteer
-
 @{
-    ViewBag.Title = "VolunteerDelete";
+    ViewBag.Title = "ChangeAccountActivation";
 }
 
-<h2>Delete</h2>
+@if (Model.IsAccountActive)
+{
+    <h2>Deactivate Account?</h2>
+}
 
-<h3>Are you sure you want to delete this?</h3>
+else
+{
+    <h2>Activate Account?</h2>
+}
+
+@Html.AntiForgeryToken()
+
 <div>
-    <h4>Volunteer</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -67,14 +74,24 @@
             @Html.DisplayFor(model => model.SignUpForNewsLetter)
         </dd>
 
-    </dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAccountActive)
+        </dt>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Id)
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Users", null, new { @class = "btn btn-default" })
-        </div>
-    }
+        <dd>
+            @Html.DisplayFor(model => model.IsAccountActive)
+        </dd>
+    </dl>
 </div>
+
+<p>
+    @if (Model.IsAccountActive)
+    {
+        @Html.ActionLink("Deactivate", "AccountActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-default" })
+    }
+
+    else
+    {
+        @Html.ActionLink("Activate", "AccountActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-default" })
+    }
+</p>

@@ -4,7 +4,7 @@
 }
 
 <script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
-
+<link href="~/Content/Site.css" rel="stylesheet" />
 <h2>Details</h2>
 <div class="row">
     <div class="col-sm-6">
@@ -67,6 +67,14 @@
                                 }
                             </td>
                         </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsMealSiteActive)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.IsMealSiteActive)
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -83,38 +91,38 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.LabelFor(model => model.Breakfast_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                    Days Served
                                 </th>
-                                <th>
+                                <td>
                                     @if (Model.Breakfast_DaysServed[0])
                                     {
-                                        <label>Sunday</label>
+                                        <div>Sunday</div>
                                     }
                                     @if (Model.Breakfast_DaysServed[1])
                                     {
-                                        <label>Monday</label>
+                                        <div>Monday</div>
                                     }
                                     @if (Model.Breakfast_DaysServed[2])
                                     {
-                                        <label>Tuesday</label>
+                                        <div>Tuesday</div>
                                     }
                                     @if (Model.Breakfast_DaysServed[3])
                                     {
-                                        <label>Wednesday</label>
+                                        <div>Wednesday</div>
                                     }
                                     @if (Model.Breakfast_DaysServed[4])
                                     {
-                                        <label>Thursday</label>
+                                        <div>Thursday</div>
                                     }
                                     @if (Model.Breakfast_DaysServed[5])
                                     {
-                                        <label>Friday</label>
+                                        <div>Friday</div>
                                     }
                                     @if (Model.Breakfast_DaysServed[6])
                                     {
-                                        <label>Saturday</label>
+                                        <div>Saturday</div>
                                     }
-                                </th>
+                                </td>
                             </tr>
                             <tr>
                                 <th>
@@ -163,38 +171,38 @@
                         <table class="table">
                             <tr>
                                 <th>
-                                    @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
+                                    Days Served
                                 </th>
-                                <th>
+                                <td>
                                     @if (Model.Lunch_DaysServed[0])
                                     {
-                                        <label>Sunday</label>
+                                        <div>Sunday</div>
                                     }
                                     @if (Model.Lunch_DaysServed[1])
                                     {
-                                        <label>Monday</label>
+                                        <div>Monday</div>
                                     }
                                     @if (Model.Lunch_DaysServed[2])
                                     {
-                                        <label>Tuesday</label>
+                                        <div>Tuesday</div>
                                     }
                                     @if (Model.Lunch_DaysServed[3])
                                     {
-                                        <label>Wednesday</label>
+                                        <div>Wednesday</div>
                                     }
                                     @if (Model.Lunch_DaysServed[4])
                                     {
-                                        <label>Thursday</label>
+                                        <div>Thursday</div>
                                     }
                                     @if (Model.Lunch_DaysServed[5])
                                     {
-                                        <label>Friday</label>
+                                        <div>Friday</div>
                                     }
                                     @if (Model.Lunch_DaysServed[6])
                                     {
-                                        <label>Saturday</label>
+                                        <div>Saturday</div>
                                     }
-                                </th>
+                                </td>
                             </tr>
                             <tr>
                                 <th>
@@ -244,36 +252,36 @@
                                 <th>
                                     @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
                                 </th>
-                                <th>
+                                <td>
                                     @if (Model.Dinner_DaysServed[0])
                                     {
-                                        <label>Sunday</label>
+                                        <div>Sunday</div>
                                     }
                                     @if (Model.Dinner_DaysServed[1])
                                     {
-                                        <label>Monday</label>
+                                        <div>Monday</div>
                                     }
                                     @if (Model.Dinner_DaysServed[2])
                                     {
-                                        <label>Tuesday</label>
+                                        <div>Tuesday</div>
                                     }
                                     @if (Model.Dinner_DaysServed[3])
                                     {
-                                        <label>Wednesday</label>
+                                        <div>Wednesday</div>
                                     }
                                     @if (Model.Dinner_DaysServed[4])
                                     {
-                                        <label>Thursday</label>
+                                        <div>Thursday</div>
                                     }
                                     @if (Model.Dinner_DaysServed[5])
                                     {
-                                        <label>Friday</label>
+                                        <div>Friday</div>
                                     }
                                     @if (Model.Dinner_DaysServed[6])
                                     {
-                                        <label>Saturday</label>
+                                        <div>Saturday</div>
                                     }
-                                </th>
+                                </td>
                             </tr>
                             <tr>
                                 <th>
@@ -315,10 +323,16 @@
     </div>
     <div class="col-sm-6">
         <div id="myMap" style="position:relative;width:600px;height:400px;"></div>
-
         <a class="btn btn-grey btn-margin" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/dir/?api=1&destination=@(Model.AddressLine1),+@(Model.City),+@(Model.State),+@(Model.Zipcode)">Directions (Google Maps)</a>
-        <a class="btn btn-grey" href="MealSites">Back to Meal Sites</a>
-
+        @if (Model.IsMealSiteActive)
+        {
+            @Html.ActionLink("Deactivate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-grey" })
+        }
+        else
+        {
+            @Html.ActionLink("Activate Meal Site", "ChangeMealSiteActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-grey" })
+        }
+        @Html.ActionLink("Back to Meal Sites", "MealSites", null, new { @class = "btn btn-grey btn-margin" })
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>
 </div>

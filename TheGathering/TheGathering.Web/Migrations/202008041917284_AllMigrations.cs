@@ -20,6 +20,7 @@ namespace TheGathering.Web.Migrations
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
                         IsTheGatheringSite = c.Boolean(nullable: false),
+                        IsMealSiteActive = c.Boolean(nullable: false),
                         Breakfast_Used = c.Boolean(nullable: false),
                         Breakfast_DaysServed = c.String(),
                         Breakfast_MaximumGuestsServed = c.Int(),
@@ -103,6 +104,7 @@ namespace TheGathering.Web.Migrations
                         SignUpForNewsLetter = c.Boolean(nullable: false),
                         ApplicationUserId = c.String(),
                         TotalGroupMembers = c.Int(nullable: false),
+                        IsAccountActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -119,6 +121,7 @@ namespace TheGathering.Web.Migrations
                         InterestInLeadership = c.Boolean(nullable: false),
                         SignUpForNewsLetter = c.Boolean(nullable: false),
                         ApplicationUserId = c.String(),
+                        IsAccountActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
