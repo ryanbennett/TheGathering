@@ -40,6 +40,12 @@
             <dd>
                 @Html.DisplayFor(model => model.Volunteer.InterestInLeadership)
             </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.IsAccountActive)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.IsAccountActive)
+            </dd>
 
 
             <h5>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h5>
@@ -141,7 +147,7 @@
 
 
 
-           
+
             <h5>
                 Monthly Frequency: @ViewBag.monthlyFrequency events
             </h5>
