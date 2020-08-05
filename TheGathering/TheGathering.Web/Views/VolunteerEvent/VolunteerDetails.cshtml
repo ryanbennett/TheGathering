@@ -1,0 +1,100 @@
+﻿@model TheGathering.Web.ViewModels.VolunteerModels.SignUpEventViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+}
+<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
+<h1>Details</h1>
+
+<div>
+    <!--
+
+    Displays the Id of event
+    <h4 class="minorHeading"> ID = (at symbol)Html.DisplayFor(model => model.VolunteerEvent.Id)</h4>
+    -->
+    <hr />
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    Location
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VolunteerEvent.MealSite.Name)<br />
+                    @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)<br />
+                    @Html.DisplayFor(model => model.VolunteerEvent.MealSite.City), @Html.DisplayFor(model => model.VolunteerEvent.MealSite.State) @Html.DisplayFor(model => model.VolunteerEvent.MealSite.Zipcode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VolunteerEvent.Description)
+                </dd>
+            </dl>
+            @if (Model.Volunteer != null && Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
+            {
+                bool signedUp = false;
+                foreach (var item in Model.Volunteers)
+                {
+                    if (item.Id.Equals(Model.Volunteer.Id))
+                    {
+                        signedUp = true;
+                    }
+                }
+                if (signedUp)
+                {
+                    @Html.ActionLink("Cancel Signup", "RemoveVolunteerFromEvent", new { eventId = Model.VolunteerEvent.Id, volunteerId = Model.Volunteer.Id }, new { @class = "btn btn-primary" })
+                }
+                else
+                {
+                    @Html.ActionLink("Sign Up", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-primary" })
+                }
+            }
+            else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
+            {
+                @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+            }
+            else
+            {
+                <h3>This event has already passed</h3>
+            }
+            @Html.ActionLink("Back to Calendar", "VolunteerCalendar", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="col-sm-6">
+            <div id="myMap"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    @Html.Raw("locations.push(new Location('" + Model.VolunteerEvent.MealSite.AddressLine1 + ", " + Model.VolunteerEvent.MealSite.City + "', "+ Model.VolunteerEvent.MealSite.Id +"," + Model.VolunteerEvent.MealSite.Latitude + "," + Model.VolunteerEvent.MealSite.Longitude + ",'" + Model.VolunteerEvent.MealSite.Name + "'," + Model.VolunteerEvent.MealSite.IsTheGatheringSite.ToString().ToLower() + "));")
+</script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
