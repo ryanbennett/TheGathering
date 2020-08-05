@@ -168,6 +168,11 @@ namespace TheGathering.Web.Controllers
             return View(service.GetAllEvents());
         }
 
+        public ActionResult VolunteerCalendar()
+        {
+            return View(service.GetAllEvents());
+        }
+
         public JsonResult GetEvents()
         {
             var events = service.GetAllEvents();

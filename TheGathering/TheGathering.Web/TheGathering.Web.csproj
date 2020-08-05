@@ -470,6 +470,7 @@
     <Content Include="Views\VolunteerEvent\_PrintLayout.cshtml" />
     <Content Include="Views\AdminPortal\PrintEvent.cshtml" />
     <Content Include="Views\Volunteer\LeadershipInfo.cshtml" />
+    <Content Include="Views\VolunteerEvent\VolunteerCalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
