@@ -14,6 +14,7 @@ namespace TheGathering.Web.ViewModels.Account
         public String FirstName { get; set; }
         [Required]
         public String LastName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
         public String PhoneNumber { get; set; }
         public bool InterestInLeadership { get; set; }

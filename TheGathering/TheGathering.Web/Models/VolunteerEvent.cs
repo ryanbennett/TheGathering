@@ -11,14 +11,14 @@ namespace TheGathering.Web.Models
     public class VolunteerEvent
     {
         public int Id { get; set; }
-        [Display(Name = "Starting Shift Time")]
+        [Display(Name = "Shift Start Time")]
         public DateTime StartingShiftTime { get; set; }
 
-        [Display(Name = "Ending Shift Time")]
+        [Display(Name = "Shift End Time")]
         public DateTime EndingShiftTime { get; set; }
         [Display(Name = "Open Slots")]
         public int OpenSlots { get; set; }
-
+        [Display(Name = "Meal Site")]
         public MealSite MealSite { get; set; }
 
         [ForeignKey("MealSite")]

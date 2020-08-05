@@ -63,6 +63,23 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Volunteer volunteer)
         {
+            if (volunteer.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (volunteer.Email.Contains('@') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain an @");
+            }
+            /***
+            if (volunteer.PhoneNumber.Length > 11)
+            {
+                ModelState.AddModelError("PhoneNumber", "Phone number must be shorter than 11 numbers");
+            }
+            if (volunteer.PhoneNumber.Any(char.IsDigit) == false)
+            {
+                ModelState.AddModelError("PhoneNumber", "Phone number must not have non-numeric characters in it.");
+            }***/
             if (ModelState.IsValid)
             {
                 _service.Edit(volunteer);
@@ -94,15 +111,17 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult SignUpEvent(int eventId, string userId)
+        public ActionResult SignUpEvent(int eventId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = _service.GetByApplicationUserId(userId);
+            
+            model.Volunteer = GetCurrentVolunteer();
             //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
-            var events = _eventService.GetEventsByIds(volunteerEventIds);
             var openSlots = model.VolunteerEvent.OpenSlots;
+            if (openSlots <= 0)
+                return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
             foreach (int id in volunteerEventIds)
             {
                 if(id == eventId)
@@ -110,7 +129,7 @@ namespace TheGathering.Web.Controllers
                     return RedirectToAction("EventAlreadyRegistered");
                 }
             }
-            _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
+           
             return View(model);
         }
 
@@ -191,6 +210,12 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
+            SignUpEventViewModel model = new SignUpEventViewModel();
+            model.Volunteer = GetCurrentVolunteer();
+            //TODO: change Volunteer get
+            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            var openSlots = model.VolunteerEvent.OpenSlots;
+            _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
             _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
             return View();
         }

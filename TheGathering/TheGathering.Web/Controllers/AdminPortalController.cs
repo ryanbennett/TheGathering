@@ -399,6 +399,7 @@ namespace TheGathering.Web.Controllers
 
             volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
 
+            calendarService.VolunteerCanceled((int)eventID);
             return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
         }
 
