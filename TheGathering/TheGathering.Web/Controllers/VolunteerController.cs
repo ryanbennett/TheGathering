@@ -47,14 +47,18 @@ namespace TheGathering.Web.Controllers
 
         }
 
-       
+
         public ActionResult Edit(int? id)
         {
+            Volunteer volunteer;
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                volunteer = GetCurrentVolunteer();
             }
-            Volunteer volunteer = _service.GetById((int)id);
+            else
+            {
+                volunteer = _service.GetById((int)id);
+            }
             if (volunteer == null)
             {
                 return HttpNotFound();
@@ -108,17 +112,17 @@ namespace TheGathering.Web.Controllers
             var openSlots = model.VolunteerEvent.OpenSlots;
             foreach (int id in volunteerEventIds)
             {
-                if(id == eventId)
+                if (id == eventId)
                 {
                     return RedirectToAction("EventAlreadyRegistered");
                 }
             }
             _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
             //Confirmation Email stuff
-            
+
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(model.Volunteer.ApplicationUserId);
             var callbackUrl = Url.Action("ConfirmEmailEvent", "Volunteer",
-               new { userId = userId, code = code, eventId = eventId, volunteerId = model.Volunteer.Id}, protocol: Request.Url.Scheme);
+               new { userId = userId, code = code, eventId = eventId, volunteerId = model.Volunteer.Id }, protocol: Request.Url.Scheme);
 
             Console.WriteLine(callbackUrl);
 
@@ -136,7 +140,7 @@ namespace TheGathering.Web.Controllers
         {
             VolunteerEvent volunteerEvent = _eventService.GetEventById(eventId);
             var volunteer = volunteerEvent.VolunteerVolunteerEvents.Where(vol => vol.VolunteerEventId == volunteerEvent.Id).ToList();
-            if(volunteer.Count > 0)
+            if (volunteer.Count > 0)
             {
                 volunteer[0].Confirmed = true;
                 _eventService.SaveEdits(volunteerEvent);
@@ -159,7 +163,7 @@ namespace TheGathering.Web.Controllers
             }
             return View(model);
         }
-        
+
         public ActionResult EventAlreadyRegistered()
         {
             return View();
@@ -172,7 +176,7 @@ namespace TheGathering.Web.Controllers
         {
             return View();
         }
-        
+
         [Authorize]
         public async Task<ActionResult> LeadershipEmail()
         {
@@ -181,7 +185,7 @@ namespace TheGathering.Web.Controllers
             String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber;
             await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
             return RedirectToAction("Calendar", "VolunteerEvent", null);
-           
+
         }
 
         public ActionResult Delete(int? id)
@@ -257,7 +261,7 @@ namespace TheGathering.Web.Controllers
             {
                 _service.AddVolunteerVolunteerEvent(volunteerId, eventId);
             }
-            
+
             return View();
         }
         public ActionResult EventUnregistered(int volunteerId, int eventId)
