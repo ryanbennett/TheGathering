@@ -77,8 +77,12 @@
                         if (calEvent.end != null) {
                             $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("DD-MMM-YYYY hh:mm a")));
                         }
-                        $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
-                        $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
+                        if (calEvent.description != null) {
+                            $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
+                        }
+                        if (calEvent.location != null) {
+                            $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
+                        }
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
                         $description.append($('<p/>').html('<a href="/VolunteerEvent/VolunteerDetails/' + calEvent.id + '">Sign up for Event</a>'));
                         $('#myModal #pDetails').empty().html($description);
@@ -128,7 +132,8 @@
                     @Html.DisplayFor(modelItem => item.OpenSlots)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                    @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)<br />
+                    @Html.DisplayFor(modelItem => item.MealSite.City), @Html.DisplayFor(modelItem => item.MealSite.State) @Html.DisplayFor(modelItem => item.MealSite.Zipcode)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
