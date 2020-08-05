@@ -569,9 +569,16 @@ namespace TheGathering.Web.Controllers
 
             events.Sort(new SortByDate());
             cancelledEvents.Sort(new SortByDate());
-            var maybeFirstEvent = events[events.Count() - 1];
-            var maybeLastEvent = events[0];
-
+            var maybeFirstEvent = new VolunteerEvent();
+            var maybeLastEvent = new VolunteerEvent();
+            if (events.Count() > 0) {
+                maybeFirstEvent = events[events.Count() - 1];
+                maybeLastEvent = events[0];
+            }
+            else
+            {
+                               //Nothing happens
+            }
 
             DateTime now = DateTime.UtcNow;
             now = now.AddHours(-5);
@@ -604,8 +611,18 @@ namespace TheGathering.Web.Controllers
             ViewBag.AmountOfSignedUpEvents = events.Count();
             ViewBag.AmountOfCancelledEvents = cancelledEvents.Count();
 
+            
 
-            ViewBag.timeWithGathering = timeInBetween.Days;
+            if (events.Count() > 0)
+            {
+                ViewBag.timeWithGathering = timeInBetween.Days;
+            }
+            else
+            {
+                ViewBag.timeWithGathering = 0;
+            }
+
+
             ViewBag.monthlyFrequency = frequency;
 
             return View(viewModel);

@@ -45,19 +45,27 @@
             <h5>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h5>
             <table class="table">
                 <tr>
-                    <td><h4>
-                        Starting Shift Time
-                    </h4></td>
-                    <td><h4>
-                        Ending Shift Time
-                    </h4></td>
+                    <td>
+                        <h4>
+                            Starting Shift Time
+                        </h4>
+                    </td>
+                    <td>
+                        <h4>
+                            Ending Shift Time
+                        </h4>
+                    </td>
 
-                    <td><h4>
-                        Meal Site
-                    </h4></td>
-                    <td><h4>
-                        Description
-                    </h4></td>
+                    <td>
+                        <h4>
+                            Meal Site
+                        </h4>
+                    </td>
+                    <td>
+                        <h4>
+                            Description
+                        </h4>
+                    </td>
                 </tr>
 
                 @foreach (TheGathering.Web.Models.VolunteerEvent item in Model.VolunteerEvents)
@@ -84,25 +92,56 @@
             </table>
 
             <h5>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h5>
-            @foreach (var item in Model.CancelledEvents)
-            {
+            <table class="table">
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                        <h4>
+                            Starting Shift Time
+                        </h4>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                        <h4>
+                            Ending Shift Time
+                        </h4>
                     </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                        <h4>
+                            Meal Site
+                        </h4>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        <h4>
+                            Description
+                        </h4>
                     </td>
-
                 </tr>
-            }
+
+                @foreach (var item in Model.CancelledEvents)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+
+
+
+           
             <h5>
                 Monthly Frequency: @ViewBag.monthlyFrequency events
             </h5>
