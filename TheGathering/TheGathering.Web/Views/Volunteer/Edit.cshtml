@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-
+        <br />
         <div class="row">
             <div class="form-group">
                 <label class="col-sm-6 @*control-label*@, h2font">Phone Number</label>
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-
+        <br />
         <div class="row">
             <div class="form-group form-check" style="padding-left:15px">
                 @Html.EditorFor(model => model.SignUpForNewsLetter)
@@ -62,7 +62,13 @@
                 <label class="form-check-label pfont">I Would Like To Recieve The Gathering Newsletter</label>
             </div>
         </div>
-        @Html.ActionLink("Forgot your password?", "ForgotPassword","Account")
+        @Html.HiddenFor(model => model.Email)
+        @Html.HiddenFor(model => model.InterestInLeadership)
+        @Html.HiddenFor(model => model.VolunteerVolunteerEvents)
+        @Html.HiddenFor(model => model.ApplicationUserId)
+        <a>
+            @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account")
+        </a>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Save" />
         </div>
