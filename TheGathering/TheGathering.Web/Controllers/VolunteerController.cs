@@ -73,7 +73,7 @@ namespace TheGathering.Web.Controllers
             if (ModelState.IsValid)
             {
                 _service.Edit(volunteer);
-                return RedirectToAction("Index");
+                return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
             }
             return View(volunteer);
         }
