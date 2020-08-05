@@ -134,7 +134,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.ActionLink("Sign Up", "VolunteerDetails", new { id = item.Id })
+                    @Html.ActionLink("Sign Up", "VolunteerDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
