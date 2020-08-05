@@ -118,7 +118,7 @@ else
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = item.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "VolunteerDetails", "VolunteerEvent", new { id = item.Id }, new { @class = "btn btn-primary" })
                         </td>
                     </tr>
                 }
@@ -131,6 +131,6 @@ else
 
 <div class="row">
     <div class="col-sm-6">
-        @Html.ActionLink("Go to Calendar", "Calendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Go to Calendar", "VolunteerCalendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
     </div>
 </div>

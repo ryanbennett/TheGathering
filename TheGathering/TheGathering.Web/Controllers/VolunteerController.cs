@@ -100,7 +100,6 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-
         public async Task<ActionResult> SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
@@ -145,7 +144,7 @@ namespace TheGathering.Web.Controllers
                 volunteer[0].Confirmed = true;
                 _eventService.SaveEdits(volunteerEvent);
             }
-            return RedirectToAction("Calendar", "VolunteerEvent", null);
+            return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
 
         }
 
@@ -184,8 +183,8 @@ namespace TheGathering.Web.Controllers
             String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
             String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber;
             await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
-            return RedirectToAction("Calendar", "VolunteerEvent", null);
-
+            return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
+           
         }
 
         public ActionResult Delete(int? id)

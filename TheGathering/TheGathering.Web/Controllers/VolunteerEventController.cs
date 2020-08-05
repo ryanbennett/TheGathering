@@ -108,6 +108,30 @@ namespace TheGathering.Web.Controllers
             return View(signUpEventViewModel);
         }
 
+        public ActionResult VolunteerDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VolunteerEvent volunteerEvent = service.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+            volunteerEvent.MealSite = mealSiteService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            SignUpEventViewModel signUpEventViewModel = new SignUpEventViewModel();
+            Volunteer volunteer = GetCurrentVolunteer();
+
+            List<int> IdList = volunteerEvent.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
+            signUpEventViewModel.Volunteer = volunteer;
+            signUpEventViewModel.VolunteerEvent = volunteerEvent;
+            signUpEventViewModel.Volunteers = volunteerService.GetVolunteersById(IdList);
+
+            return View(signUpEventViewModel);
+        }
+
         public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
         {
             if (eventID == null || volunteerID == null)
@@ -164,6 +188,11 @@ namespace TheGathering.Web.Controllers
         }
 
         public ActionResult Calendar()
+        {
+            return View(service.GetAllEvents());
+        }
+
+        public ActionResult VolunteerCalendar()
         {
             return View(service.GetAllEvents());
         }

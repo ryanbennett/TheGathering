@@ -89,7 +89,7 @@ namespace TheGathering.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Calendar", "VolunteerEvent", null);
+                    return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -241,7 +241,7 @@ namespace TheGathering.Web.Controllers
                     
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    return RedirectToAction("Calendar", "VolunteerEvent", null);
+                    return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
                 }
                 AddErrors(result);
             }
