@@ -13,7 +13,7 @@ namespace TheGathering.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202007291636228_AllMigrations"; }
+            get { return "202008041917284_AllMigrations"; }
         }
         
         string IMigrationMetadata.Source

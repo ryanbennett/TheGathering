@@ -170,11 +170,12 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteer);
         }
+
         [HttpPost]
         public ActionResult Delete(int id)
         {
             Volunteer volunteer = _service.GetById((int)id);
-            _service.DeleteVolunteer(volunteer);
+            _service.ChangeVolunteerActivation(volunteer, false);
             return RedirectToAction("Index");
         }
 

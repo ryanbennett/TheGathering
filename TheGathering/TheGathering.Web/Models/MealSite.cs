@@ -18,10 +18,10 @@ namespace TheGathering.Web.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
-        
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public bool IsTheGatheringSite { get; set; }
+        public bool IsMealSiteActive { get; set; }
 
         /*
          *      Breakfast, Lunch, and Dinner Meals
@@ -88,7 +88,10 @@ namespace TheGathering.Web.Models
                                         + "Breakfast_Used, Breakfast_DaysServed, Breakfast_MaximumGuestsServed, Breakfast_MinimumGuestsServed, Breakfast_StartTime, Breakfast_EndTime, "
                                         + "Lunch_Used, Lunch_DaysServed, Lunch_MaximumGuestsServed, Lunch_MinimumGuestsServed, Lunch_StartTime, Lunch_EndTime, "
                                         + "Dinner_Used, Dinner_DaysServed, Dinner_MaximumGuestsServed, Dinner_MinimumGuestsServed, Dinner_StartTime, Dinner_EndTime";
-        public MealSite() { }
+        public MealSite() 
+        {
+            IsMealSiteActive = true;        
+        }
 
         public MealSite(MealSiteViewModel model)
         {
@@ -102,6 +105,7 @@ namespace TheGathering.Web.Models
             Latitude = model.Latitude;
             Longitude = model.Longitude;
             IsTheGatheringSite = model.IsTheGatheringSite;
+            IsMealSiteActive = model.IsMealSiteActive;
 
             Breakfast_Used = model.Breakfast_Used;
             Breakfast_DaysServed = JsonConvert.SerializeObject(model.Breakfast_DaysServed);

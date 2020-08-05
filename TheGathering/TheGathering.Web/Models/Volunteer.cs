@@ -25,6 +25,12 @@ namespace TheGathering.Web.Models
         [Display(Name = "Sign Up for News Letter")]
         public Boolean SignUpForNewsLetter { get; set; }
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
-        public String ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
+        public bool IsAccountActive { get; set; }
+
+        public Volunteer()
+        {
+            IsAccountActive = true;
+        }
     }
 }

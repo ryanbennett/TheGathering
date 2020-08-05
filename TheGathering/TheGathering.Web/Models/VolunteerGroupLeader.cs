@@ -28,7 +28,11 @@ namespace TheGathering.Web.Models
         public String ApplicationUserId { get; set; }
         [Display(Name = "Total Group Members")]
         public int TotalGroupMembers { get; set; }
-        
-        
+
+        public bool IsAccountActive { get; set; }
+        public VolunteerGroupLeader()
+        {
+            IsAccountActive = true;
+        }
     }
 }

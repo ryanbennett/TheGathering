@@ -60,5 +60,6 @@
 </div>
 @Html.ActionLink("Sign Up", "SignUpEvent", "Volunteer", new { volunteerId = Model.Volunteer, eventId = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary" })
 
+@Html.ActionLink("Sign Up for this Event", "SignUpEvent", "Volunteer", new { eventId = Model.VolunteerEvent.Id, userId = Model.Volunteer.ApplicationUserId }, new { @class = "btn btn-success" })
 @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })

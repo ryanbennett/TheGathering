@@ -1,18 +1,30 @@
-﻿@model TheGathering.Web.ViewModels.Account.AccountRegistrationViewModel
+﻿@model TheGathering.Web.ViewModels.Account.AdminAccountRegisterViewModel
+
 @{
-    ViewBag.Title = "AdminRegister";
+    ViewBag.Title = "VolunteerAccountRegister";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("VolunteerAccountRegister", "AdminPortal", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="row">
-        <h1>Admin Register</h1>
+        <h1>@ViewBag.Title</h1>
         <h3>Create a new account</h3>
         <hr />
     </div>
     <form class="form-horizontal">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <h2>NOTE:</h2>
+                    The user will recieve a password reset link, for this user to use their account they must first reset their new account's password.
+                </div>
+            </div>
+        </div>
+
+        <br />
+
         <div class="row">
 
             <div class="form-group">
@@ -55,22 +67,6 @@
         <div class="row">
 
             <div class="form-group">
-                <label class="col-sm-12"><h2>Password</h2><h3>Must include a capital letter, a number, and a special character.</h3></label>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
-                </div>
-                <div class="col-sm-6">
-                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password" } })
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="form-group">
                 <label class="col-sm-12 @*control-label*@, h2font">Birthday</label>
             </div>
             <div class="form-group">
@@ -91,11 +87,13 @@
 
         <div class="row">
             <input type="submit" class="btn btn-primary" value="Register" />
+            @Html.ActionLink("Back", "Users", null, new { @class = "btn btn-primary" })
             <br />
             <br />
         </div>
     </form>
 }
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

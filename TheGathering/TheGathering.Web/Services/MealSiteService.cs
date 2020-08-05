@@ -23,6 +23,11 @@ namespace TheGathering.Web.Services
             return mealSiteRepository.GetAllMealSites();
         }
 
+        public List<MealSite> GetAllActiveAndInActiveMealSites()
+        {
+            return mealSiteRepository.GetAllActiveAndInActiveMealSites();
+        }
+
         public void AddMealSite(MealSite mealSite)
         {
             mealSiteRepository.AddMealSite(mealSite);
@@ -36,6 +41,11 @@ namespace TheGathering.Web.Services
         public void DeleteMealSite(int mealSiteID)
         {
             mealSiteRepository.DeleteMealSite(GetMealSiteById(mealSiteID));
+        }
+
+        public void ChangeMealSiteActivation(MealSite mealSite, bool active)
+        {
+            mealSiteRepository.ChangeMealSiteActivation(mealSite, active);
         }
 
         public MealSite GetMealSiteById(int id)

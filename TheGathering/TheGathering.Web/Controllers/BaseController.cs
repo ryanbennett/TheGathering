@@ -17,6 +17,12 @@ namespace TheGathering.Web.Controllers
     public class BaseController : Controller
     {
         ApplicationUserManager _userManager;
+
+        /// <summary>
+        /// This is the email that's used for official gathering emails, used for confirmations and official email
+        /// </summary>
+        public const string GATHERING_EMAIL = "21ahmeda@elmbrookstudents.org";
+
         public ApplicationUserManager UserManager
         {
             get
@@ -46,18 +52,38 @@ namespace TheGathering.Web.Controllers
             return volunteerGroup;
         }
 
-        public async Task ConfirmationEmail(String firstName, String email, String Subject, String PlainTextContent, String HtmlContent) //pass in email, subject, text
+        public async Task SendGatheringEmail(string firstName, string email, string subject, string plainTextContent, string htmlContent)
+        {
+            await ConfirmationEmail(firstName, email, subject, plainTextContent, htmlContent);
+        }
+
+        public async Task SendGatheringEmail(List<string> emails, string subject, string plainTextContent, string htmlContent)
+        {
+            string apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
+            SendGridClient client = new SendGridClient(apiKey);
+            EmailAddress from = new EmailAddress(GATHERING_EMAIL, "The Gathering");
+
+            List<EmailAddress> recipients = new List<EmailAddress>(emails.Count);
+
+            foreach (string item in emails)
+            {
+                recipients.Add(new EmailAddress(item));
+            }
+
+            SendGridMessage msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, recipients, subject, plainTextContent, htmlContent);
+            await client.SendEmailAsync(msg);
+        }
+
+
+        public async Task ConfirmationEmail(string firstName, string email, string subject, string plainTextContent, string htmlContent) //pass in email, subject, text
         {
             //subject is subject of email
             //PlainTextContent is non-html text of email
             //HtmlContent is a stylized version of plainTextContent
             var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("21ahmeda@elmbrookstudents.org", "The Gathering");
-            var subject = Subject;
+            var from = new EmailAddress(GATHERING_EMAIL, "The Gathering");
             var to = new EmailAddress(email, firstName);
-            var plainTextContent = PlainTextContent;
-            var htmlContent = HtmlContent;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }

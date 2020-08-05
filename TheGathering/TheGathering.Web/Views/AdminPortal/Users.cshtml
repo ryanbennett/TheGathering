@@ -7,7 +7,7 @@
 <h2>Manage Users</h2>
 
 <p>
-    @Html.ActionLink("Create New", "VolunteerCreate", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Register New Volunteer", "VolunteerAccountRegister", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
 </p>
 <table class="table">
@@ -38,6 +38,10 @@
 
         <th>
             @Html.DisplayNameFor(model => model.SignUpForNewsLetter)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.IsAccountActive)
         </th>
     </tr>
 
@@ -73,9 +77,12 @@
             </td>
 
             <td>
+                @Html.DisplayFor(modelItem => item.IsAccountActive)
+            </td>
+
+            <td>
                 @Html.ActionLink("Edit", "VolunteerEdit", new { id = item.Id })
                 @Html.ActionLink("Details", "VolunteerDetails", new { id = item.Id })
-                @Html.ActionLink("Delete", "VolunteerDelete", new { id = item.Id })
             </td>
         </tr>
     }

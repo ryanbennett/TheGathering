@@ -31,6 +31,11 @@ namespace TheGathering.Web.Repositories
         {
             return _context.VolunteerGroupLeaders.ToList();
         }
+        public void ChangeGroupLeaderActivation(VolunteerGroupLeader leader, bool active)
+        {
+            _context.VolunteerGroupLeaders.SingleOrDefault(v => v.Id == leader.Id).IsAccountActive = active;
+            _context.SaveChanges();
+        }
         public VolunteerGroupLeader GetLeaderById(int id)
         {
             var result = _context.VolunteerGroupLeaders.Include(vgl=>vgl.VolunteerGroupVolunteerEvents.Select(vgve=>vgve.VolunteerEvent)).SingleOrDefault(volunteergroupleader => volunteergroupleader.Id == id);
