@@ -96,41 +96,6 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-        public async Task<ActionResult> SignUpEvent(int volunteerId, int eventId)
-        {
-            SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = _service.GetById(volunteerId);
-            //TODO: change Volunteer get
-            model.VolunteerEvent = _eventService.GetEventById(eventId);
-            var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
-            var events = _eventService.GetEventsByIds(volunteerEventIds);
-            var openSlots = model.VolunteerEvent.OpenSlots;
-            foreach (int id in volunteerEventIds)
-            {
-                if (id == eventId)
-                {
-                    return RedirectToAction("EventAlreadyRegistered");
-                }
-            }
-            _eventService.ReduceOpenSlots(model.VolunteerEvent, openSlots);
-            //Confirmation Email stuff
-
-            String userId = model.Volunteer.ApplicationUserId;
-
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(model.Volunteer.ApplicationUserId);
-            var callbackUrl = Url.Action("ConfirmEmailEvent", "Volunteer",
-               new { userId = userId, code = code, eventId = eventId, volunteerId = model.Volunteer.Id }, protocol: Request.Url.Scheme);
-
-            Console.WriteLine(callbackUrl);
-
-            string subject = "The Gathering Event Confirmation";
-            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for the event! Click the link to confirm that you will be at the event!" + callbackUrl;
-            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/> Thank you for sigining up for the event! Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/>";
-
-            await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
-
-            return View(model);
-        }
         public async Task<ActionResult> SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
