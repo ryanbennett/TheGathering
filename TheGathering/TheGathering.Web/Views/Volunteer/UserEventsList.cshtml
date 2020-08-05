@@ -21,9 +21,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].OpenSlots)
-                    </th>
+                    
                     <th>
                         Meal Site
                     </th>
@@ -42,9 +40,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.EndingShiftTime)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OpenSlots)
-                        </td>
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.MealSite.Name)<br />
                             @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)<br />
@@ -87,11 +83,9 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
                     </th>
+                    
                     <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].OpenSlots)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
+                        Meal Site
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
@@ -108,11 +102,11 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.EndingShiftTime)
                         </td>
+                        
                         <td>
-                            @Html.DisplayFor(modelItem => item.OpenSlots)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                            @Html.DisplayFor(modelItem => item.MealSite.Name)<br />
+                            @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)<br />
+                            @Html.DisplayFor(modelItem => item.MealSite.City), @Html.DisplayFor(modelItem => item.MealSite.State) @Html.DisplayFor(modelItem => item.MealSite.Zipcode)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Description)
