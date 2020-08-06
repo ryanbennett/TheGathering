@@ -31,6 +31,8 @@ namespace TheGathering.Web.Controllers
         public ActionResult SignUpGroupEvent(int volunteerId, int eventId)
         {
             SignUpGroupViewModel model = new SignUpGroupViewModel();
+            var VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            volunteerId = VolunteerGroupLeader.Id;
             var volunteerEventIds = _service.GetVolunteerGroupEvents(volunteerId);
             bool alreadyRegistered = volunteerEventIds.Any(id => id == eventId);
             if (alreadyRegistered)
