@@ -19,6 +19,7 @@ namespace TheGathering.Web.Controllers
         public const string INVALID_CALENDAR_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         private VolunteerService volunteerService = new VolunteerService();
+        private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -222,11 +223,11 @@ namespace TheGathering.Web.Controllers
             foreach (VolunteerEvent volunteerEvent in service.GetAllEvents())
             {
                 VolunteerEvent ve = volunteerEvent;
-                ve.VolunteerVolunteerEvents = new List<VolunteerVolunteerEvent>();
-                var events = volunteerService.GetVolunteerVolunteerEvents(GetCurrentVolunteer().Id);
+                ve.VolunteerGroupVolunteerEvents = new List<VolunteerGroupVolunteerEvent>();
+                var events = volunteerGroupService.GetVolunteerGroupVolunteerEvents(GetCurrentVolunteerGroupLeader().Id);
                 if (events != null)
                 {
-                    ve.VolunteerVolunteerEvents = events;
+                    ve.VolunteerGroupVolunteerEvents = events;
                 }
                 viewModel.VolunteerEvents.Add(ve);
             }

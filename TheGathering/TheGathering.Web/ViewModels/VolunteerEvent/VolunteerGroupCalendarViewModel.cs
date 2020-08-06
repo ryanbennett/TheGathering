@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using TheGathering.Web.Models;
 
-namespace TheGathering.Web.ViewModels.VolunteerGroup
+namespace TheGathering.Web.ViewModels.VolunteerEvent
 {
     public class VolunteerGroupCalendarViewModel
     {
