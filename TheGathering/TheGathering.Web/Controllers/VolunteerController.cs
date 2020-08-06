@@ -70,23 +70,34 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Volunteer volunteer)
         {
-            if (volunteer.Email.Contains('.') == false)
+            DateTime local = volunteer.Birthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
             {
-                ModelState.AddModelError("Email", "Email must contain a period");
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
             }
-            if (volunteer.Email.Contains('@') == false)
+            if (local >= server)
             {
-                ModelState.AddModelError("Email", "Email must contain an @");
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
             }
-            /***
-            if (volunteer.PhoneNumber.Length > 11)
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (volunteer.FirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (volunteer.LastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (volunteer.PhoneNumber.Length >= 11)
             {
                 ModelState.AddModelError("PhoneNumber", "Phone number must be shorter than 11 numbers");
             }
-            if (volunteer.PhoneNumber.Any(char.IsDigit) == false)
-            {
-                ModelState.AddModelError("PhoneNumber", "Phone number must not have non-numeric characters in it.");
-            }***/
+
             if (ModelState.IsValid)
             {
                 _service.Edit(volunteer);
@@ -127,7 +138,7 @@ namespace TheGathering.Web.Controllers
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
             var openSlots = model.VolunteerEvent.OpenSlots;
             if (openSlots <= 0)
-                return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
+                return RedirectToAction("EventFull");
             foreach (int id in volunteerEventIds)
             {
                 if (id == eventId)
@@ -149,7 +160,7 @@ namespace TheGathering.Web.Controllers
 
             await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
 
-            return View(model);
+            return RedirectToAction("EventRegistered", new { volunteerId = model.Volunteer.Id, eventId = eventId});
         }
 
         [AllowAnonymous]
@@ -297,6 +308,10 @@ namespace TheGathering.Web.Controllers
 
             _eventService.IncreaseOpenSlots(model.VolunteerEvent, openSlots);
 
+            return View();
+        }
+        public ActionResult EventFull()
+        {
             return View();
         }
     }

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Web;
 using TheGathering.Web.Models;
 
-namespace TheGathering.Web.ViewModels.VolunteerGroup
+namespace TheGathering.Web.ViewModels.VolunteerEvent
 {
-    public class GroupNumberEventsListViewModel
+    public class VolunteerCalendarViewModel
     {
-        public List<VolunteerGroupVolunteerEvent> VolunteerGroupEvents { get; set; }
-
         public List<Models.VolunteerEvent> VolunteerEvents { get; set; }
+        public Volunteer Volunteer { get; set; }
     }
 }

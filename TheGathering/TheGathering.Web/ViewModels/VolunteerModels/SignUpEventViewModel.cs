@@ -9,7 +9,7 @@ namespace TheGathering.Web.ViewModels.VolunteerModels
     public class SignUpEventViewModel
     {
         public Volunteer Volunteer { get; set; }
-        public VolunteerEvent VolunteerEvent { get; set; }
+        public Models.VolunteerEvent VolunteerEvent { get; set; }
         public List<Volunteer> Volunteers { get; set; }
     }
 }

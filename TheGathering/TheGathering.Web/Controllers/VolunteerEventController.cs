@@ -201,7 +201,22 @@ namespace TheGathering.Web.Controllers
 
         public ActionResult VolunteerCalendar()
         {
-            return View(service.GetAllEvents());
+            ViewModels.VolunteerEvent.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerCalendarViewModel();
+            viewModel.Volunteer = GetCurrentVolunteer();
+            viewModel.VolunteerEvents = new List<VolunteerEvent>();
+
+            foreach (VolunteerEvent volunteerEvent in service.GetAllEvents())
+            {
+                VolunteerEvent ve = volunteerEvent;
+                ve.VolunteerVolunteerEvents = new List<VolunteerVolunteerEvent>();
+                var events = volunteerService.GetVolunteerVolunteerEvents(GetCurrentVolunteer().Id);
+                if (events != null)
+                {
+                    ve.VolunteerVolunteerEvents = events;
+                }
+                viewModel.VolunteerEvents.Add(ve);
+            } 
+            return View(viewModel);
         }
 
         public JsonResult GetEvents()

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "EventFull";
+}
+
+<h2>Event Full</h2>
+
+<div>
+    <p>
+        I'm sorry, this event is full. Please select a different event.
+    </p>
+    <p>
+        @Html.ActionLink("To Calendar", "VolunteerCalendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("See Your Events", "UserEventsList", null, new { @class = "btn btn-primary" })
+</div>
+

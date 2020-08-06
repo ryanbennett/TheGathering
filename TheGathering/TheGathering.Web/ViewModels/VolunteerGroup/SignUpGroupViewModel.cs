@@ -11,7 +11,7 @@ namespace TheGathering.Web.ViewModels.VolunteerGroup
         public int VolunteerGroupLeaderID { get; set; }
         public int VolunteerEventID { get; set; }
         public VolunteerGroupLeader VolunteerGroupLeader { get; set; }
-        public VolunteerEvent VolunteerEvent { get; set; }
+        public Models.VolunteerEvent VolunteerEvent { get; set; }
         public int VolunteerSlots { get; set; }
     }
 }

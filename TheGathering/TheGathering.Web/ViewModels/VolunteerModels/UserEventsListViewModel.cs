@@ -7,10 +7,10 @@ namespace TheGathering.Web.ViewModels.VolunteerModels
 {
     public class UserEventsListViewModel
     {
-        public List<VolunteerEvent> VolunteerEvents { get; set; }
-        public List<VolunteerEvent> CancelledEvents { get; set; }
-        public List<VolunteerEvent> CurrentEvents { get; set; }
-        public List<VolunteerEvent> PastEvents { get; set; }
+        public List<Models.VolunteerEvent> VolunteerEvents { get; set; }
+        public List<Models.VolunteerEvent> CancelledEvents { get; set; }
+        public List<Models.VolunteerEvent> CurrentEvents { get; set; }
+        public List<Models.VolunteerEvent> PastEvents { get; set; }
         public Volunteer Volunteer { get; set; }
 
     }

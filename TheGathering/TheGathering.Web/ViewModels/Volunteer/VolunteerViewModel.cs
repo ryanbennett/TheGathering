@@ -16,7 +16,7 @@ namespace TheGathering.Web.ViewModels.VolunteerModels
         public string PhoneNumber { get; set; }
         public bool InterestInLeadership { get; set; }
         public bool SignUpForNewsLetter { get; set; }
-        public List<VolunteerEvent> VolunteerEvents { get; set; }
+        public List<Models.VolunteerEvent> VolunteerEvents { get; set; }
         public string ApplicationUserId { get; set; }
 
         public VolunteerViewModel(Volunteer volunteer)
