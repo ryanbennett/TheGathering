@@ -486,6 +486,7 @@
     <Content Include="Views\Volunteer\LeadershipInfo.cshtml" />
     <Content Include="Views\VolunteerEvent\VolunteerCalendar.cshtml" />
     <Content Include="Views\VolunteerEvent\VolunteerDetails.cshtml" />
+    <Content Include="Views\Volunteer\EventFull.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

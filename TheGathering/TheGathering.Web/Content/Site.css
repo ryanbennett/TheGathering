@@ -388,6 +388,10 @@ td {
     margin: 10px;
 }
 
+.checkbox-left-padding {
+    padding-left: 20px;
+}
+
 /* TEMP Navbar */
 .navbar {
     background-color: #434345;
