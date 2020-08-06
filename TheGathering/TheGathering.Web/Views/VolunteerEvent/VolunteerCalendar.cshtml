@@ -148,7 +148,7 @@
                 <td>
                     @if (item.VolunteerVolunteerEvents.Select(v => v.VolunteerEventId).Contains(item.Id))
                     {
-                        @Html.ActionLink("Unsign Up", "VolunteerDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Cancel Sign Up", "VolunteerDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
                     }
                     else
                     {

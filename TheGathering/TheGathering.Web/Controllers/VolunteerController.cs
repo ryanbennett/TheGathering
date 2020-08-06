@@ -13,6 +13,7 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
+
     public class VolunteerController : BaseController
     {
         // GET: Volunteer
