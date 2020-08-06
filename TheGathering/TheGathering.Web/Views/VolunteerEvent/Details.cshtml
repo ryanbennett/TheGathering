@@ -51,9 +51,9 @@
                     @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
                 </dd>
 
-            <dt>
-               @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+                </dt>
 
                 <dd>
                     @Html.DisplayFor(model => model.VolunteerEvent.Description)
@@ -93,7 +93,8 @@
         </div>
     </div>
 </div>
-@Html.ActionLink("Sign Up", "SignUpEvent", "Volunteer", new { volunteerId = Model.Volunteer, eventId = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary" })
+@*Commented out because there were two signup buttons, this could have possible happened because of a merge conflict. *@
+@*@Html.ActionLink("Sign Up", "SignUpEvent", "Volunteer", new { volunteerId = Model.Volunteer, eventId = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary" })*@
 
 <script>
     @Html.Raw("locations.push(new Location('" + Model.VolunteerEvent.MealSite.AddressLine1 + ", " + Model.VolunteerEvent.MealSite.City + "', "+ Model.VolunteerEvent.MealSite.Id +"," + Model.VolunteerEvent.MealSite.Latitude + "," + Model.VolunteerEvent.MealSite.Longitude + ",'" + Model.VolunteerEvent.MealSite.Name + "'," + Model.VolunteerEvent.MealSite.IsTheGatheringSite.ToString().ToLower() + "));")
