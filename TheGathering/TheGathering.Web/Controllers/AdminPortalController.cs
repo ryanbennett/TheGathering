@@ -843,6 +843,10 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Email", "Email must contain a period");
             }
+            if (model.TotalGroupMembers <= 0)
+            {
+                ModelState.AddModelError("TotalGroupMembers", "Total group members must be greater than 0");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
