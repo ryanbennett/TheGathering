@@ -51,8 +51,24 @@ namespace TheGathering.Web.Controllers
                     MealSite mealSite = new MealSite(viewModel);
                     mealSiteService.UpdateMealSite(mealSite);
                     return RedirectToAction("MealSites", "AdminPortal", null);
-                }
+                } else {
+                    if (viewModel.ValidateBreakfastData() == false)
+                    {
+                        if (viewModel.Breakfast_MaximumGuestsServed < viewModel.Breakfast_MinimumGuestsServed)
+                        {
+                            // throw error
+                        }
+                        else {
+                            // throw other error
+                        }
+                    } else if (viewModel.ValidateLunchData() == false)
+                    {
 
+                    } else
+                    {
+
+                    }
+                }
                 viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR;
                 return View(viewModel);
             }

@@ -48,30 +48,21 @@
             </dd>
 
 
-            <h5>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h5>
+            <h3>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h3>
             <table class="table">
                 <tr>
-                    <td>
-                        <h4>
-                            Starting Shift Time
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Ending Shift Time
-                        </h4>
-                    </td>
-
-                    <td>
-                        <h4>
-                            Meal Site
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Description
-                        </h4>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
+                    </th>
                 </tr>
 
                 @foreach (TheGathering.Web.Models.VolunteerEvent item in Model.VolunteerEvents)
@@ -79,6 +70,7 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.StartingShiftTime)
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EndingShiftTime)
@@ -97,30 +89,22 @@
 
             </table>
 
-            <h5>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h5>
+            <h3>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h3>
             <table class="table">
                 <tr>
-                    <td>
-                        <h4>
-                            Starting Shift Time
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Ending Shift Time
-                        </h4>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].StartingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].EndingShiftTime)
+                    </th>
 
-                    <td>
-                        <h4>
-                            Meal Site
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Description
-                        </h4>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].MealSite.AddressLine1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].Description)
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.CancelledEvents)
@@ -163,7 +147,7 @@
 
 <div>
     <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default no-print"})
+    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default no-print" })
 </div>
 
 
