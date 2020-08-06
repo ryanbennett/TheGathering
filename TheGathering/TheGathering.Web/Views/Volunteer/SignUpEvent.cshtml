@@ -25,44 +25,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite)
+            Meal Site
         </dt>
-
+        <dd>
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.Name)
+        </dd>
         <dd>
             @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.City)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.State)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.State)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.Zipcode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.Zipcode)
+            @Html.DisplayFor(model => model.VolunteerEvent.MealSite.City), @Html.DisplayFor(model => model.VolunteerEvent.MealSite.State) @Html.DisplayFor(model => model.VolunteerEvent.MealSite.Zipcode)
         </dd>
     </dl>
     <p>
         Are you sure you would like to sign up for this volunteer event?
     </p>
-    <p>
-        @Html.ActionLink("Yes", "EventRegistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id }, null)
-    </p>
-    <p>
-        @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, null)
-    </p>
+
+        @Html.ActionLink("Yes", "EventRegistered", new { volunteerId = Model.Volunteer.Id, eventId = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("No", "Details", "VolunteerEvent", new { id = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary" })
+
 </div>

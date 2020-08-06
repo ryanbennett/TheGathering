@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -27,7 +28,7 @@ namespace TheGathering.Web.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -39,9 +40,9 @@ namespace TheGathering.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -56,7 +57,7 @@ namespace TheGathering.Web.Controllers
                 _userManager = value;
             }
         }
-        
+
 
         //
         // GET: /Account/Login
@@ -83,12 +84,12 @@ namespace TheGathering.Web.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
-            
+
 
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -129,7 +130,7 @@ namespace TheGathering.Web.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -158,7 +159,7 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(AccountRegistrationViewModel model)
         {
-            
+
             DateTime local = model.Birthday.ToUniversalTime();
             DateTime server = DateTime.Now.ToUniversalTime();
             var age = server.Subtract(local);
@@ -186,6 +187,24 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Email", "Email must contain a period");
             }
+            if (model.Password.Any(char.IsDigit) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain numbers");
+            }
+            if (model.Password.Any(char.IsUpper) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain an uppercase letter");
+            }
+            if (model.Password.Any(char.IsLower) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain a lowercase letter");
+            }
+            if (!model.Password.Contains("!") && !model.Password.Contains("@") && !model.Password.Contains("#") && !model.Password.Contains("$") & !model.Password.Contains("%") && !model.Password.Contains("^") && !model.Password.Contains("&") && !model.Password.Contains("*"))
+            {
+                ModelState.AddModelError("Password", "Password must contain a symobl or special character");
+            }
+
+
             if (ModelState.IsValid)
 
             {
@@ -207,31 +226,28 @@ namespace TheGathering.Web.Controllers
 
                     VolunteerService.Create(volunteer);
 
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                       new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+
                     String subject = "The Gathering Registration Confirmation";
-                    String plainText= "Hello "+model.FirstName+", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
+                    String plainText = "Hello " + model.FirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
                         "organization. We look forward to seeing you soon.";
                     String htmlText = "<strong>Hello "+model.FirstName+",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                        "organization. We look forward to seeing you soon.<br/> <a href='" + callbackUrl + "' target='_new'>Confirm Email</a>";
 
                     await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
-
                     
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    
-
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
+
             return View(model);
         }
 
@@ -283,6 +299,22 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Email", "Email must contain a period");
             }
+            if (model.Password.Any(char.IsDigit) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain numbers");
+            }
+            if (model.Password.Any(char.IsUpper) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain an uppercase letter");
+            }
+            if (model.Password.Any(char.IsLower) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain a lowercase letter");
+            }
+            if (model.Password.Any(char.IsSymbol) == false)
+            {
+                ModelState.AddModelError("Password", "Password must contain a symobl or special character");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -308,7 +340,7 @@ namespace TheGathering.Web.Controllers
                     String plainText = "Hello " + model.LeaderFirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
                         "organization. We look forward to seeing you soon.";
                     String htmlText = "<strong>Hello " + model.LeaderFirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                        "organization. We look forward to seeing you soon.";
 
                     await ConfirmationEmail(model.LeaderFirstName, model.Email, subject, plainText, htmlText);
 
@@ -365,7 +397,7 @@ namespace TheGathering.Web.Controllers
 
                     VolunteerService.Create(volunteer);
 
-                    
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -419,13 +451,28 @@ namespace TheGathering.Web.Controllers
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var apiKey = WebConfigurationManager.AppSettings["SendGridEnvironmentalKey"];
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("21ahmeda@elmbrookstudents.org", "The Gathering");
+                var subject = "The Gathering Password Reset";
+                var to = new EmailAddress(model.Email);
+                var plainTextContent = " Please reset your password by clicking the link" + callbackUrl;
+                var htmlContent = "Please reset your password by clicking <br/> <a href='" + callbackUrl + "' target='_new'>Here</a> <br/>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+               
+               // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+               // Send an email with this link
+               // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+               // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+               // UserManager.EmailService = new EmailService();
+               // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+               // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+               
+                
             }
 
             // If we got this far, something failed, redisplay form

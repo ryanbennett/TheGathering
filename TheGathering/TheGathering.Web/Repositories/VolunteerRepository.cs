@@ -98,5 +98,14 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteer).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public void ReSignUpForVolunteerVolunteerEvent(int volunteerId, int eventId)
+        {
+            Volunteer volunteer = _context.Volunteers.Include(v => v.VolunteerVolunteerEvents).SingleOrDefault(v => v.Id == volunteerId);
+            VolunteerVolunteerEvent toAdd = volunteer.VolunteerVolunteerEvents.Find(vve => vve.VolunteerEventId == eventId);
+            toAdd.IsItCanceled = false;//If vve is there but has been cancelled, will undo that
+            _context.Entry(volunteer).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
     }
 }

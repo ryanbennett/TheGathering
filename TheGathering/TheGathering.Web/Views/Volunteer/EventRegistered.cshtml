@@ -11,10 +11,9 @@
     </p>
    
     <p>
-        @Html.ActionLink("Back To Calendar", "Calendar", "VolunteerEvent", null, null)
-    </p>
-    <p> 
-        @Html.ActionLink("See Your Events", "UserEventsList", null, null) 
+        @Html.ActionLink("Back To Calendar", "VolunteerCalendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("See Your Events", "UserEventsList", null, new { @class = "btn btn-primary" }) 
     </p>
    
 

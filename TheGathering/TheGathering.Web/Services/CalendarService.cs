@@ -42,6 +42,11 @@ namespace TheGathering.Web.Services
         {
             repository.ReduceOpenSlots(volunteerEvent, openSlots);
         }
+
+        public void IncreaseOpenSlots(VolunteerEvent volunteerEvent, int openSlots)
+        {
+            repository.IncreaseOpenSlots(volunteerEvent, openSlots);
+        }
         public void VolunteerCanceled(int volunteerEventId)
         {
             repository.VolunteerCanceled(volunteerEventId);
