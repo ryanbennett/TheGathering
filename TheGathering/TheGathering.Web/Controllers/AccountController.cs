@@ -201,7 +201,7 @@ namespace TheGathering.Web.Controllers
             }
             if (!model.Password.Contains("!") && !model.Password.Contains("@") && !model.Password.Contains("#") && !model.Password.Contains("$") & !model.Password.Contains("%") && !model.Password.Contains("^") && !model.Password.Contains("&") && !model.Password.Contains("*"))
             {
-                ModelState.AddModelError("Password", "Password must contain a symobl or special character");
+                ModelState.AddModelError("Password", "Password must contain a symbol or special character");
             }
 
 
@@ -313,7 +313,7 @@ namespace TheGathering.Web.Controllers
             }
             if (model.Password.Any(char.IsSymbol) == false)
             {
-                ModelState.AddModelError("Password", "Password must contain a symobl or special character");
+                ModelState.AddModelError("Password", "Password must contain a symbol or special character");
             }
             if (ModelState.IsValid)
             {
