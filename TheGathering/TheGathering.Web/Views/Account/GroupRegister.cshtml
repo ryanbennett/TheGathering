@@ -9,9 +9,13 @@
 @using (Html.BeginForm("GroupRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
     <h3>Create a new account</h3>
     <hr />
-
     <div class="row">
         <div class="col-sm-3 @*MinorHeadingNormal*@"><h2> Group Leader Name</h2></div>
     </div>
@@ -56,25 +60,13 @@
         <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Password</h2></div>
     </div>
     <div class="row">
-        <div class="col-sm-3">
-            <h4 class="semibold">The Password Must Include:</h4>
-        </div>
+        <div class="col-sm-10">
+            <h3font class="semibold">Must include a capital and a lowercase letter, a number, a special character, and be 6 characters long.</h3font><a href="#" data-toggle="tooltip" title="For example: Abc123!">
+        <img src="~/Content/question-mark-icon-24x24.png" />
+    </a>
+</div>
     </div>
-    <div class="col-sm-3">
-        <ul>
-            <li>6 Characters</li>
-            <li>A Capital Letter</li>
-            <li>A Number</li>
-            <li>A Special Character</li>
-            <li class="semibold">Example: Abc123!</li>
-        </ul>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-
-        </div>
-    </div>
-
+  
     <br />
     <div class="row">
         <div class=col-sm-5>
