@@ -25,6 +25,8 @@
 <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
 <link href="~/Content/fullcalendar.print.min.css" media="print" rel="stylesheet" />
 <link href="~/Content/customcalendar.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+
 @section Scripts{
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/fullcalendar.min.js"></script>
@@ -42,7 +44,9 @@
                             start: moment(v.StartingShiftTime),
                             end: moment(v.EndingShiftTime),
                             description: v.Description,
-                            location: v.Location,
+                            location: v.MealSite.AddressLine1,
+                            city: v.MealSite.City,
+                            state: v.MealSite.State,
                             openslots: v.OpenSlots,
                             color: v.ThemeColor,
                             allDay: v.IsFullDay
@@ -67,8 +71,8 @@
                         center: 'title',
                         right: 'month,basicWeek,basicDay,agenda'
                     },
-                    eventLimit: true,
-                    eventColor: '#750049',
+                    eventLimit: false,
+                    eventColor: '#687A6D',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
                         $('#myModal #eventTitle').text("Volunteer Event " + calEvent.id);
@@ -80,9 +84,9 @@
                         if (calEvent.description != null) {
                             $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
                         }
-                        if (calEvent.location != null) {
-                            $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location));
-                        }
+                        
+                        $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
+                        $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location + ', ' + calEvent.city + ', ' + calEvent.state));
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
                         $description.append($('<p/>').html('<a href="/VolunteerEvent/VolunteerDetails/' + calEvent.id + '">Sign up for Event</a>'));
                         $('#myModal #pDetails').empty().html($description);
@@ -96,7 +100,9 @@
 
 }
 <br />
-<h3>Future Volunteer Events</h3>
+<div class="h2font">
+    <h2 align="center">Upcoming Events</h2>
+</div>
 <table class="table">
     <tr>
         <th>
