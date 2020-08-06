@@ -311,7 +311,7 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Password", "Password must contain a lowercase letter");
             }
-            if (model.Password.Any(char.IsSymbol) == false)
+            if (!model.Password.Contains("!") && !model.Password.Contains("@") && !model.Password.Contains("#") && !model.Password.Contains("$") & !model.Password.Contains("%") && !model.Password.Contains("^") && !model.Password.Contains("&") && !model.Password.Contains("*"))
             {
                 ModelState.AddModelError("Password", "Password must contain a symbol or special character");
             }
