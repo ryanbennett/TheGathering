@@ -9,9 +9,13 @@
 @using (Html.BeginForm("GroupRegister", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
     <h3>Create a new account</h3>
     <hr />
-
     <div class="row">
         <div class="col-sm-3 @*MinorHeadingNormal*@"><h2> Group Leader Name</h2></div>
     </div>
@@ -20,8 +24,7 @@
         <div class="col-sm-5">
             <div class="form-group">
                 <div class="col-md-9">
-                    @Html.EditorFor(model => model.LeaderFirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    <div class="BodyTextMediumNormal"><p>Group Leader First Name</p></div>
+                    @Html.EditorFor(model => model.LeaderFirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Group Leader First Name" } })
                     @Html.ValidationMessageFor(model => model.LeaderFirstName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -30,8 +33,7 @@
             <div class="form-group">
 
                 <div class="col-md-9">
-                    @Html.EditorFor(model => model.LeaderLastName, new { htmlAttributes = new { @class = "form-control" } })
-                    <div class="BodyTextMediumNormal"><p>Group Leader Last Name</p></div>
+                    @Html.EditorFor(model => model.LeaderLastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Group Leader Last Name" } })
                     @Html.ValidationMessageFor(model => model.LeaderLastName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -47,8 +49,7 @@
     <div class="form-group">
 
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-            <div class="BodyTextMediumNormal"><p>_________@@____.___</p></div>
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "_________@____.___" })
         </div>
     </div>
 
@@ -56,31 +57,19 @@
         <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Password</h2></div>
     </div>
     <div class="row">
-        <div class="col-sm-3">
-            <h4 class="semibold">The Password Must Include:</h4>
-        </div>
+        <div class="col-sm-10">
+            <h3font class="semibold">Must include a capital and a lowercase letter, a number, a special character, and be 6 characters long.</h3font><a href="#" data-toggle="tooltip" title="For example: Abc123!">
+        <img src="~/Content/question-mark-icon-24x24.png" />
+    </a>
+</div>
     </div>
-    <div class="col-sm-3">
-        <ul>
-            <li>6 Characters</li>
-            <li>A Capital Letter</li>
-            <li>A Number</li>
-            <li>A Special Character</li>
-            <li class="semibold">Example: Abc123!</li>
-        </ul>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-
-        </div>
-    </div>
-
+  
     <br />
     <div class="row">
         <div class=col-sm-5>
             <div class="form-group">
                 <div class="col-md-9">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
                     <div class="BodyTextMediumNormal"><p>Password</p></div>
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
@@ -89,7 +78,7 @@
         <div class="col-sm-5">
             <div class="form-group">
                 <div class="col-md-8">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
                     <div class="BodyTextMediumNormal"><p>Confirm Password</p></div>
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
@@ -104,8 +93,7 @@
             <div class="form-group">
 
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.LeaderBirthday, new { htmlAttributes = new { @class = "form-control" } })
-                    <div class="BodyTextMediumNormal"><p>mm / dd / yyyy</p></div>
+                    @Html.EditorFor(model => model.LeaderBirthday, new { htmlAttributes = new { @class = "form-control", placeholder = "mm / dd / yyyy" } })
                     @Html.ValidationMessageFor(model => model.LeaderBirthday, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -119,8 +107,7 @@
             <div class="form-group">
 
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.LeaderPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    <div class="BodyTextMediumNormal"><p>### - ### - ####</p></div>
+                    @Html.EditorFor(model => model.LeaderPhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "### - ### - ####" } })
                     @Html.ValidationMessageFor(model => model.LeaderPhoneNumber, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -134,8 +121,7 @@
             <div class="form-group">
 
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control" } })
-                    <div class="BodyTextMediumNormal"><p>Group Name</p></div>
+                    @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control", placeholder = "Group Name" } })
                     @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
                 </div>
             </div>
