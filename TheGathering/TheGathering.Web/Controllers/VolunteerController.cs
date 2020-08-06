@@ -127,7 +127,7 @@ namespace TheGathering.Web.Controllers
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
             var openSlots = model.VolunteerEvent.OpenSlots;
             if (openSlots <= 0)
-                return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
+                return RedirectToAction("EventFull");
             foreach (int id in volunteerEventIds)
             {
                 if (id == eventId)
@@ -297,6 +297,10 @@ namespace TheGathering.Web.Controllers
 
             _eventService.IncreaseOpenSlots(model.VolunteerEvent, openSlots);
 
+            return View();
+        }
+        public ActionResult EventFull()
+        {
             return View();
         }
     }
