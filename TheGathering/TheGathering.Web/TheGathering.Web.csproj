@@ -226,6 +226,7 @@
     <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupNumberEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\SignUpGroupViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerGroupCalendarViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\SignUpEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\UserEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerModels\VolunteerReportViewModel.cs" />

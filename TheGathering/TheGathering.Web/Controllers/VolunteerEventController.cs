@@ -194,11 +194,6 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Calendar()
-        {
-            return View(service.GetAllEvents());
-        }
-
         public ActionResult VolunteerCalendar()
         {
             ViewModels.VolunteerEvent.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerCalendarViewModel();
@@ -216,6 +211,25 @@ namespace TheGathering.Web.Controllers
                 }
                 viewModel.VolunteerEvents.Add(ve);
             } 
+            return View(viewModel);
+        }
+        public ActionResult Calendar()
+        {
+            ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel();
+            viewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            viewModel.VolunteerEvents = new List<VolunteerEvent>();
+
+            foreach (VolunteerEvent volunteerEvent in service.GetAllEvents())
+            {
+                VolunteerEvent ve = volunteerEvent;
+                ve.VolunteerVolunteerEvents = new List<VolunteerVolunteerEvent>();
+                var events = volunteerService.GetVolunteerVolunteerEvents(GetCurrentVolunteer().Id);
+                if (events != null)
+                {
+                    ve.VolunteerVolunteerEvents = events;
+                }
+                viewModel.VolunteerEvents.Add(ve);
+            }
             return View(viewModel);
         }
 
