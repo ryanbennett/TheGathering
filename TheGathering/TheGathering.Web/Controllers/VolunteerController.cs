@@ -160,7 +160,7 @@ namespace TheGathering.Web.Controllers
 
             await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
 
-            return View(model);
+            return RedirectToAction("EventRegistered", new { volunteerId = model.Volunteer.Id, eventId = eventId});
         }
 
         [AllowAnonymous]

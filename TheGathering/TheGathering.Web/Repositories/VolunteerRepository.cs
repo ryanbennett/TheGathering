@@ -77,7 +77,7 @@ namespace TheGathering.Web.Repositories
 
         public List<VolunteerVolunteerEvent> GetVolunteerVolunteerEvents(int id)
         {
-            return _context.VolunteerVolunteerEvents.Where(vve => vve.VolunteerId == id).ToList();
+            return _context.VolunteerVolunteerEvents.Where(vve => vve.VolunteerId == id && !vve.IsItCanceled).ToList();
         }
 
         public void AddVolunteerVolunteerEvent(Volunteer volunteer, VolunteerVolunteerEvent vve)
