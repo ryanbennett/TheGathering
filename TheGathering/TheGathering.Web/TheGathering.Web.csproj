@@ -220,6 +220,7 @@
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\AddVolunteerViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerCalendarViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEmailViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />

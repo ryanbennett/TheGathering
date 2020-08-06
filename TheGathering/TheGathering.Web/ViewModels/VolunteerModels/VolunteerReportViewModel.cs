@@ -10,8 +10,8 @@ namespace TheGathering.Web.ViewModels.VolunteerModels
     public class VolunteerReportViewModel
     {
         public Volunteer Volunteer { get; set; }
-        public List<VolunteerEvent> VolunteerEvents { get; set; }
-        public List<VolunteerEvent> CancelledEvents { get; set; }
+        public List<Models.VolunteerEvent> VolunteerEvents { get; set; }
+        public List<Models.VolunteerEvent> CancelledEvents { get; set; }
 
     }
 }

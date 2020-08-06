@@ -75,6 +75,11 @@ namespace TheGathering.Web.Repositories
             _context.SaveChanges();
         }
 
+        public List<VolunteerVolunteerEvent> GetVolunteerVolunteerEvents(int id)
+        {
+            return _context.VolunteerVolunteerEvents.Where(vve => vve.VolunteerId == id).ToList();
+        }
+
         public void AddVolunteerVolunteerEvent(Volunteer volunteer, VolunteerVolunteerEvent vve)
         {
             if(volunteer.VolunteerVolunteerEvents == null)
