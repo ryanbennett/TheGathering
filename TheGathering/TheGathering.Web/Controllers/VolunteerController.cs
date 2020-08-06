@@ -222,8 +222,12 @@ namespace TheGathering.Web.Controllers
             String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
             String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber + "<br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
             await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
-            return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
-           
+            return RedirectToAction("LeadershipEmailConfirm", "Volunteer", null);
+        }
+
+        public ActionResult LeadershipEmailConfirm()
+        {
+            return View();
         }
 
         public ActionResult Delete(int? id)
