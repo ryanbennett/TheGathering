@@ -2,86 +2,98 @@
 
 
 @{
-    ViewBag.Title = "EventDetails";
+	ViewBag.Title = "EventDetails";
 }
 
+<script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
+
+
 <h2 class="no-print">Details</h2>
+<div class="row">
+	<div class="col-sm-6">
+		<hr />
+		<div class="generalTextBlack">
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
+				</dt>
 
+				<dd>
+					@Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
+				</dd>
+
+				<dt>
+					@Html.DisplayNameFor(model => model.VolunteerEvent.Description)
+				</dt>
+
+				<dd>
+					@Html.DisplayFor(model => model.VolunteerEvent.Description)
+				</dd>
+
+
+			</dl>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div id="myMap" style="position:relative;width:600px;height:400px;"></div>
+		<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
+	</div>
+</div>
 <div>
-    <hr />
-    <div class="generalTextBlack">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.StartingShiftTime)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.EndingShiftTime)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.OpenSlots)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.OpenSlots)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.MealSite.AddressLine1)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.MealSite.AddressLine1)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VolunteerEvent.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VolunteerEvent.Description)
-            </dd>
-
-
-        </dl>
-    </div>
-    <h3>Volunteers</h3>
+	<h3>Volunteers</h3>
 	<table class="table">
 		@foreach (var item in Model.Volunteers)
-        {
-		    <tr>
+		{
+			<tr>
 				<td>
 					@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
 				</td>
-            </tr>
-        }
+			</tr>
+		}
 	</table>
 </div>
-
+<script>
+	locations.push(new Location("@Model.VolunteerEvent.MealSite.AddressLine1, @Model.VolunteerEvent.MealSite.City", @Model.VolunteerEvent.MealSite.Id, @Model.VolunteerEvent.MealSite.Latitude, @Model.VolunteerEvent.MealSite.Longitude, "@Model.VolunteerEvent.MealSite.Name", @Model.VolunteerEvent.MealSite.IsTheGatheringSite.ToString().ToLower()));
+</script>
 
 <div>
-    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-    @Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default no-print" })
-    @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
-    @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
-    @Html.ActionLink("Email Volunteers", "EmailEventVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
+	<button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
+	@Html.ActionLink("Back to Calendar", "ManageCalendar", null, new { @class = "btn btn-default no-print" })
+	@Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
+	@Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
+	@Html.ActionLink("Email Volunteers", "EmailEventVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
 
-    @{
-        System.Text.StringBuilder builder = new System.Text.StringBuilder();
-        foreach (var item in Model.Volunteers)
-        {
-            builder.Append(item.Email);
-            builder.Append(",");
-        }
-    }
-    <a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-default no-print">Email Volunteers With Personal Email</a>
+	@{
+		System.Text.StringBuilder builder = new System.Text.StringBuilder();
+		foreach (var item in Model.Volunteers)
+		{
+			builder.Append(item.Email);
+			builder.Append(",");
+		}
+	}
+	<a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-default no-print">Email Volunteers With Personal Email</a>
 </div>
