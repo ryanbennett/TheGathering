@@ -1,41 +1,41 @@
 ﻿@model IEnumerable<TheGathering.Web.Models.VolunteerEvent>
-@{
+    @{
     ViewBag.Title = "ManageCalendar";
-}
+    }
 
-<h2>Manage Calendar</h2>
+    <h2>Manage Calendar</h2>
 
-<p>
-    @Html.ActionLink("Manage Events", "ManageEvents", null, new { @class = "btn btn-default" })
-    @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
-</p>
+    <p>
+        @Html.ActionLink("Manage Events", "ManageEvents", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back To Portal Home", "Index", null, new { @class = "btn btn-default" })
+    </p>
 
-<div id="calendar"></div>
+    <div id="calendar"></div>
 
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><span id="eventTitle"></span></h4>
-            </div>
-            <div class="modal-body">
-                <p id="pDetails"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
-<link href="~/Content/fullcalendar.print.min.css" media="print" rel="stylesheet" />
-<link href="~/Content/customcalendar.css" rel="stylesheet" />
-@section Scripts{
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+    <link href="~/Content/fullcalendar.print.min.css" media="print" rel="stylesheet" />
+    <link href="~/Content/customcalendar.css" rel="stylesheet" />
+    @section Scripts{
+        <script src="~/Scripts/moment.min.js"></script>
+        <script src="~/Scripts/fullcalendar.min.js"></script>
 
-    <script>
+        <script>
         $(document).ready(function () {
             var events = [];
             $.ajax({
@@ -99,32 +99,32 @@
                 })
             }
         })
-    </script>
+        </script>
 
-}
-<br />
-<h3>All Volunteer Events</h3>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StartingShiftTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndingShiftTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OpenSlots)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+    }
+    <br />
+    <h3>All Volunteer Events</h3>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartingShiftTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndingShiftTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpenSlots)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model)
+        @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -148,4 +148,4 @@
         </tr>
     }
 
-</table>
+    </table>
