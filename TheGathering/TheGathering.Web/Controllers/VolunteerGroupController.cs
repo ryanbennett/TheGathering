@@ -50,9 +50,9 @@ namespace TheGathering.Web.Controllers
         {
             int numVolunteers = signUpGroupViewModel.VolunteerSlots;
             int eventId = signUpGroupViewModel.VolunteerEventID;
-            int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
             signUpGroupViewModel.VolunteerEvent = _eventService.GetEventById(eventId);
-            signUpGroupViewModel.VolunteerGroupLeader = _service.GetLeaderById(volunteerId);
+            signUpGroupViewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            int volunteerId = signUpGroupViewModel.VolunteerGroupLeader.Id;
             var origOpenSlots = _eventService.GetEventById(eventId).OpenSlots;
             var volunteerEvent = _eventService.GetEventById(eventId);
             if (signUpGroupViewModel.VolunteerSlots<1)
