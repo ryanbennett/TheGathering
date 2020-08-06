@@ -156,8 +156,17 @@ namespace TheGathering.Web.Controllers
             Console.WriteLine(callbackUrl);
 
             string subject = "The Gathering Event Confirmation";
-            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for the event! Click the link to confirm that you will be at the event!" + callbackUrl;
-            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/> Thank you for sigining up for the event! Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/>";
+            string mealSite = model.VolunteerEvent.MealSite.Name;
+            string address = model.VolunteerEvent.MealSite.AddressLine1;
+            string city = model.VolunteerEvent.MealSite.City;
+            string state = model.VolunteerEvent.MealSite.State;
+            string zipcode = model.VolunteerEvent.MealSite.Zipcode;
+            string startTime = model.VolunteerEvent.StartingShiftTime.ToString();
+            string endTime = model.VolunteerEvent.EndingShiftTime.ToString();
+            string description = "Description: " + model.VolunteerEvent.Description;
+
+            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for this event. Location: " + mealSite + "-- " + address + ", " + city + ", " + state + " " + zipcode + ". Start time: " + startTime + ", End time: " + endTime + ". "+description+". Click the link to confirm that you will be at the event!" + callbackUrl;
+            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/><br/> Thank you for sigining up for this event:<br/>Location: " + mealSite +"-- "+ address+", "+ city+", "+ state+" "+zipcode+"<br/>Start time: "+startTime+"<br/>End time: "+endTime+"<br/>"+description+ "<br/><br/>Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>["+DateTime.Now+"]";
 
             await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
 
