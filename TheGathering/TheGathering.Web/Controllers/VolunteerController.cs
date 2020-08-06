@@ -13,12 +13,13 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-
+    [Authorize (Roles ="admin, volunteer")]
     public class VolunteerController : BaseController
     {
         // GET: Volunteer
         VolunteerService _service = new VolunteerService();
         CalendarService _eventService = new CalendarService();
+        [Authorize (Roles ="admin")]
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteers();
@@ -30,13 +31,15 @@ namespace TheGathering.Web.Controllers
 
             return View(model);
         }
+
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "admin")]
         public ActionResult Create(Volunteer volunteer)
         {
             if (ModelState.IsValid)
