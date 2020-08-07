@@ -212,6 +212,8 @@ namespace TheGathering.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "volunteer");
+
                     var VolunteerService = new VolunteerService();
 
                     Volunteer volunteer = new Volunteer();
@@ -227,6 +229,8 @@ namespace TheGathering.Web.Controllers
                     VolunteerService.Create(volunteer);
 
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+
                     var callbackUrl = Url.Action("ConfirmEmail", "Account",
                        new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 

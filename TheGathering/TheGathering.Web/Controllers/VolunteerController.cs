@@ -13,7 +13,7 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    [Authorize (Roles ="admin, volunteer")]
+    [Authorize(Roles ="admin,volunteer")]
     public class VolunteerController : BaseController
     {
         // GET: Volunteer
@@ -132,6 +132,7 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
+        [Authorize(Roles ="volunteer")]
         public async Task<ActionResult> SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
@@ -218,7 +219,7 @@ namespace TheGathering.Web.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles ="volunteer")]
         public async Task<ActionResult> LeadershipEmail()
         {
             Volunteer volunteer = GetCurrentVolunteer();
@@ -265,7 +266,7 @@ namespace TheGathering.Web.Controllers
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
         }
-
+        [Authorize(Roles ="volunteer")]
         public ActionResult UserEventsList()
         {
             var volunteer = GetCurrentVolunteer();
@@ -296,7 +297,6 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
             if (_service.GetCancelledVolunteerEventIdsByVolunteerId(volunteerId).Contains(eventId))
@@ -309,7 +309,7 @@ namespace TheGathering.Web.Controllers
             }
 
             SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = GetCurrentVolunteer();
+            model.Volunteer = _service.GetById(volunteerId);
             //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
             var openSlots = model.VolunteerEvent.OpenSlots;

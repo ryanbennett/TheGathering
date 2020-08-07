@@ -112,7 +112,7 @@ namespace TheGathering.Web.Controllers
 
             return View(signUpEventViewModel);
         }
-
+        [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerDetails(int? id)
         {
             if (id == null)
@@ -198,7 +198,7 @@ namespace TheGathering.Web.Controllers
         {
             return View(service.GetAllEvents());
         }
-
+        [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerCalendar()
         {
             ViewModels.VolunteerEvent.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerCalendarViewModel();
