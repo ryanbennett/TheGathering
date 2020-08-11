@@ -214,12 +214,15 @@
     <Compile Include="Repositories\MealSiteRepository.cs" />
     <Compile Include="Services\MealSiteService.cs" />
     <Compile Include="Service\VolunteerService.cs" />
+    <Compile Include="Sorting\VolunteerEventSorts\EventSortType.cs" />
+    <Compile Include="Sorting\VolunteerEventSorts\Sorts.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\AdminAccountRegisterViewModel.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\AddVolunteerViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\SortedEventsViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEmailViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />

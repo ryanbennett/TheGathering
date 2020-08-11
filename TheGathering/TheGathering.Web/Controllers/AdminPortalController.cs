@@ -14,6 +14,7 @@ using TheGathering.Web.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using System.Globalization;
 using System.Text;
+using TheGathering.Web.Sorting.VolunteerEventSorts;
 
 namespace TheGathering.Web.Controllers
 {
@@ -638,9 +639,17 @@ namespace TheGathering.Web.Controllers
         // Volunteer Events
 
 
-        public ActionResult ManageEvents()
+        public ActionResult ManageEvents(EventSortType? requestedSort)
         {
-            return View(calendarService.GetAllEvents());
+            EventSortType type = requestedSort ?? EventSortType.NewestAdded; //Set it to the current requested sort or default to none if there is none
+
+            SortedEventsViewModel view = new SortedEventsViewModel
+            {
+                Events = calendarService.GetSortedEvents(type),
+                SortItems = VolunteerEventSortsManager.GetSortSelectItems(type)
+            };
+
+            return View(view);
         }
 
         public ActionResult ManageCalendar()
