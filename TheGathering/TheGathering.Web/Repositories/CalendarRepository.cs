@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TheGathering.Web.Models;
-
 namespace TheGathering.Web.Repositories
 {
     public class CalendarRepository
@@ -14,7 +13,6 @@ namespace TheGathering.Web.Repositories
         {
             dbContext = new ApplicationDbContext();
         }
-
         public List<VolunteerEvent> GetAllEvents()
         {
             return dbContext.VolunteerEvents.Include(ve => ve.MealSite).ToList();
@@ -24,7 +22,6 @@ namespace TheGathering.Web.Repositories
             dbContext.VolunteerEvents.Remove(Event);
             dbContext.SaveChanges();
         }
-        
         public VolunteerEvent GetEventById(int id)
         {
             return dbContext.VolunteerEvents.Include(ve => ve.VolunteerVolunteerEvents).Include(ve => ve.MealSite).FirstOrDefault(e => e.Id == id);
@@ -44,14 +41,12 @@ namespace TheGathering.Web.Repositories
             ve.VolunteerVolunteerEvents = toSave.VolunteerVolunteerEvents;
             dbContext.SaveChanges();
         }
-
         public void IncreaseOpenSlots(VolunteerEvent volunteerEvent, int openSlots)
         {
             volunteerEvent.OpenSlots = openSlots + 1;
             dbContext.Entry(volunteerEvent).State = EntityState.Modified;
             dbContext.SaveChanges();
         }
-
         public void AddEvent(VolunteerEvent toAdd)
         {
             dbContext.VolunteerEvents.Add(toAdd);
