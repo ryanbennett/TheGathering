@@ -11,7 +11,6 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
     public class VolunteerEventController : BaseController
     {
         private CalendarService service = new CalendarService();
@@ -22,14 +21,14 @@ namespace TheGathering.Web.Controllers
         private VolunteerService volunteerService = new VolunteerService();
         private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
         // GET: VolunteerEvent
-        [Authorize(Roles = "volunteer")]
+        [Authorize(Roles = "volunteer,groupleader")]
         public ActionResult Index()
         {
             List<VolunteerEvent> events = service.GetAllEvents();
 
             return View(events);
         }
-
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             VolunteerEventViewModel model = new VolunteerEventViewModel();
@@ -63,7 +62,7 @@ namespace TheGathering.Web.Controllers
             //mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.MealSite.Id);
             return RedirectToAction("ManageEvents", "AdminPortal", null);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(VolunteerEventViewModel viewModel)
@@ -91,7 +90,7 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "volunteer")]
+        [Authorize(Roles = "groupleader")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -154,6 +153,7 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("EventUnregistered", "Volunteer", new { volunteerId = (int)volunteerID, eventId=(int)eventID});
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -176,7 +176,7 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MealSiteId, Id, StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
@@ -220,6 +220,7 @@ namespace TheGathering.Web.Controllers
             } 
             return View(viewModel);
         }
+        [Authorize(Roles = "groupleader")]
         public ActionResult Calendar()
         {
             ViewModels.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerGroupCalendarViewModel();
