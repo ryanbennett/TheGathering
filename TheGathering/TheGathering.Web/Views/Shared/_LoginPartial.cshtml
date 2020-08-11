@@ -1,22 +1,22 @@
 ﻿@using Microsoft.AspNet.Identity
 
 
-@if (Request.IsAuthenticated&&User.IsInRole("volunteer"))
+@if (Request.IsAuthenticated && User.IsInRole("volunteer"))
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 
     {
         String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-        
 
-        <li><a href="https://localhost:44367/VolunteerEvent/VolunteerCalendar">Calendar</a></li>
-        <li><a href="https://localhost:44367/Volunteer/UserEventsList">My Events</a></li>
-        <li><a href="https://localhost:44367/Volunteer/LeadershipInfo">Leadership</a></li>
+
+        <li>@Html.ActionLink("Calendar", "VolunteerCalendar", "VolunteerEvent", null, null)</li>
+        <li>@Html.ActionLink("My Events", "UserEventsList", "Volunteer", null, null)</li>
+        <li>@Html.ActionLink("Leadership", "LeadershipInfo", "Volunteer", null, null)</li>
         <li><a href="#" class="donateButton">Donate</a></li>
         @Html.AntiForgeryToken()
-        <li> @Html.ActionLink(message, "Edit", "Volunteer")</li>
+        <li> @Html.ActionLink(message, "Edit", "Volunteer", null, null)</li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
-    
+
     }
 }
 else
