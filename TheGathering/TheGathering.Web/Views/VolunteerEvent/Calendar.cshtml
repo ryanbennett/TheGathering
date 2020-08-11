@@ -1,5 +1,5 @@
-﻿@model IEnumerable<TheGathering.Web.Models.VolunteerEvent>
-@{
+﻿@model TheGathering.Web.ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel
+    @{ 
     ViewBag.Title = "Calendar";
 }
 <br />
@@ -104,24 +104,24 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StartingShiftTime)
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndingShiftTime)
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OpenSlots)
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].OpenSlots)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MealSite.AddressLine1)
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.VolunteerEvents)
     {
         if (item.StartingShiftTime > DateTime.Now)
         {

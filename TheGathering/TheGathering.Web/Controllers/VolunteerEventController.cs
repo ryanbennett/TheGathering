@@ -195,10 +195,7 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Calendar()
-        {
-            return View(service.GetAllEvents());
-        }
+
         [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerCalendar()
         {

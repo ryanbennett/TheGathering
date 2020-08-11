@@ -1,21 +1,25 @@
 ﻿@using Microsoft.AspNet.Identity
 
 
-@if (Request.IsAuthenticated&&User.IsInRole("volunteer"))
+@if (Request.IsAuthenticated)
 {
-    if (User.IsInRole("groupleader"))
+    if (User.IsInRole("volunteer"))
     {
-        String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-        
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
 
-        <li><a href="https://localhost:44367/VolunteerEvent/VolunteerCalendar">Calendar</a></li>
-        <li><a href="https://localhost:44367/Volunteer/UserEventsList">My Events</a></li>
-        <li><a href="https://localhost:44367/Volunteer/LeadershipInfo">Leadership</a></li>
-        <li><a href="#" class="donateButton">Donate</a></li>
-        @Html.AntiForgeryToken()
-        <li> @Html.ActionLink(message, "Edit", "Volunteer")</li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
-    
+            String message = "Hello " + @ViewBag.UserFriendlyName + "!";
+            <li><a href="https://localhost:44367/VolunteerEvent/VolunteerCalendar">Calendar</a></li>
+            <li><a href="https://localhost:44367/Volunteer/UserEventsList">My Events</a></li>
+            <li><a href="https://localhost:44367/Volunteer/LeadershipInfo">Leadership</a></li>
+            <li><a href="#" class="donateButton">Donate</a></li>
+            @Html.AntiForgeryToken()
+            <li> @Html.ActionLink(message, "Edit", "Volunteer")</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        }
+    }
+    else if (User.IsInRole("groupleader"))
+    {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {
             String message = "Hello " + @ViewBag.UserFriendlyName + "!";
@@ -32,7 +36,7 @@ else
 {
     <li><a href="#" class="donateButton">Donate</a></li>
     <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Register as a Group Leader", "GroupRegister", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
     <li>@Html.ActionLink("Register as an Individual", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
 
 }
