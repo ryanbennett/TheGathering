@@ -203,7 +203,7 @@ namespace TheGathering.Web.Controllers
         [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerCalendar()
         {
-            ViewModels.VolunteerEvent.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerCalendarViewModel();
+            ViewModels.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerCalendarViewModel();
             viewModel.Volunteer = GetCurrentVolunteer();
             viewModel.VolunteerEvents = new List<VolunteerEvent>();
 
@@ -222,7 +222,7 @@ namespace TheGathering.Web.Controllers
         }
         public ActionResult Calendar()
         {
-            ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel();
+            ViewModels.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerGroupCalendarViewModel();
             viewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
             viewModel.VolunteerEvents = new List<VolunteerEvent>();
 
