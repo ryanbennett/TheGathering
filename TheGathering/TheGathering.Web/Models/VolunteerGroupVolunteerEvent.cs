@@ -17,5 +17,10 @@ namespace TheGathering.Web.Models
         [Display(Name = "Number of Group Members Signed Up")]
         public int NumberOfGroupMembersSignedUp { get; set; }
         public Boolean Confirmed { get; set; }
+        public bool IsItCanceled { get; set; }
+        public VolunteerGroupVolunteerEvent()
+        {
+            IsItCanceled = false;
+        }
     }
 }
