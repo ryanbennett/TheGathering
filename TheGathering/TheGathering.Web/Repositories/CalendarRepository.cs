@@ -35,7 +35,7 @@ namespace TheGathering.Web.Repositories
         }
         public void SaveEdits(VolunteerEvent toSave)
         {
-            var ve = dbContext.VolunteerEvents.Find(toSave.Id);
+            var ve = dbContext.VolunteerEvents.FirstOrDefault(x => x.Id == toSave.Id);
             ve.StartingShiftTime = toSave.StartingShiftTime;
             ve.EndingShiftTime = toSave.EndingShiftTime;
             ve.OpenSlots = toSave.OpenSlots;
