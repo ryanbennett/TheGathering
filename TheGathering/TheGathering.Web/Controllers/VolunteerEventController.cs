@@ -21,13 +21,14 @@ namespace TheGathering.Web.Controllers
         private VolunteerService volunteerService = new VolunteerService();
         private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
         // GET: VolunteerEvent
+        [Authorize(Roles = "volunteer,groupleader")]
         public ActionResult Index()
         {
             List<VolunteerEvent> events = service.GetAllEvents();
 
             return View(events);
         }
-
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             VolunteerEventViewModel model = new VolunteerEventViewModel();
@@ -61,7 +62,7 @@ namespace TheGathering.Web.Controllers
             //mealSiteService.DeleteVolunteerEvent(toBeDeleted.Id, toBeDeleted.MealSite.Id);
             return RedirectToAction("ManageEvents", "AdminPortal", null);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(VolunteerEventViewModel viewModel)
@@ -88,8 +89,8 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-        
 
+        [Authorize(Roles = "groupleader")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -113,7 +114,8 @@ namespace TheGathering.Web.Controllers
 
             return View(signUpEventViewModel);
         }
-        [Authorize(Roles ="volunteer")]
+
+        [Authorize(Roles = "volunteer")]
         public ActionResult VolunteerDetails(int? id)
         {
             if (id == null)
@@ -138,6 +140,7 @@ namespace TheGathering.Web.Controllers
             return View(signUpEventViewModel);
         }
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
         {
             if (eventID == null || volunteerID == null)
@@ -150,6 +153,7 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("EventUnregistered", "Volunteer", new { volunteerId = (int)volunteerID, eventId=(int)eventID});
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -172,10 +176,10 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
+        public ActionResult Edit([Bind(Include = "MealSiteId, Id, StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -199,7 +203,7 @@ namespace TheGathering.Web.Controllers
         [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerCalendar()
         {
-            ViewModels.VolunteerEvent.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerCalendarViewModel();
+            ViewModels.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerCalendarViewModel();
             viewModel.Volunteer = GetCurrentVolunteer();
             viewModel.VolunteerEvents = new List<VolunteerEvent>();
 
@@ -216,9 +220,10 @@ namespace TheGathering.Web.Controllers
             } 
             return View(viewModel);
         }
+        [Authorize(Roles = "groupleader")]
         public ActionResult Calendar()
         {
-            ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel();
+            ViewModels.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerGroupCalendarViewModel();
             viewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
             viewModel.VolunteerEvents = new List<VolunteerEvent>();
 
@@ -266,32 +271,5 @@ namespace TheGathering.Web.Controllers
             }
             return Locations;
         }
-
-        //I tried to use itextSharp for file storage
-        /*
-             var doc = new iTextSharp.text.Document();
-    var reader = new PdfReader(renderedBytes);
-    using (FileStream fs = new FileStream(Server.MapPath("~/Receipt" +
-         Convert.ToString(Session["CurrentUserName"]) + ".pdf"), FileMode.Create))
-    {
-        PdfStamper stamper = new PdfStamper(reader, fs);
-        string Printer = "Xerox Phaser 3635MFP PCL6";
-        // This is the script for automatically printing the pdf in acrobat viewer
-        stamper.JavaScript = "var pp = getPrintParams();pp.interactive =pp.constants.interactionLevel.automatic; pp.printerName = " +
-                       Printer + ";print(pp);\r";
-        stamper.Close();
-    }
-    reader.Close();
-    FileStream fss = new FileStream(Server.MapPath("~/Receipt.pdf"), FileMode.Open);
-    byte[] bytes = new byte[fss.Length];
-    fss.Read(bytes, 0, Convert.ToInt32(fss.Length));
-    fss.Close();
-    System.IO.File.Delete(Server.MapPath("~/Receipt.pdf"));
-
-    //Here we returns the file result for view(PDF)
-    ModelState.Clear();
-    Session.Clear(); //Clears the session variable for reuse 
-    return File(bytes, "application/pdf");
-        */
     }
 }

@@ -3,16 +3,17 @@
 
 @if (Request.IsAuthenticated)
 {
-    if (User.IsInRole("volunteer"))
+    if (User.IsInRole("admin"))
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {
-
             String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-        <li>@Html.ActionLink("Calendar", "VolunteerCalendar", "VolunteerEvent", null, null)</li>
-        <li>@Html.ActionLink("My Events", "UserEventsList", "Volunteer", null, null)</li>
-        <li>@Html.ActionLink("Leadership", "LeadershipInfo", "Volunteer", null, null)</li>
-        <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
+            <li><a href="/AdminPortal/Index">Admin Portal</a></li>
+            <li><a href="/AdminPortal/Users">Users</a></li>
+            <li><a href="/AdminPortal/ManageGroupLeaders">Group Leaders</a></li>
+            <li><a href="/AdminPortal/MealSites">Meal Sites</a></li>
+            <li><a href="/AdminPortal/ManageEvents">Events</a></li>
+            <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
             @Html.AntiForgeryToken()
             <li> @Html.ActionLink(message, "Edit", "Volunteer")</li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
@@ -28,6 +29,21 @@
             <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
             @Html.AntiForgeryToken()
             <li> @Html.ActionLink(message, "Edit", "VolunteerGroup")</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        }
+    }
+    else if (User.IsInRole("volunteer"))
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+
+            String message = "Hello " + @ViewBag.UserFriendlyName + "!";
+            <li>@Html.ActionLink("Calendar", "VolunteerCalendar", "VolunteerEvent", null, null)</li>
+            <li>@Html.ActionLink("My Events", "UserEventsList", "Volunteer", null, null)</li>
+            <li>@Html.ActionLink("Leadership", "LeadershipInfo", "Volunteer", null, null)</li>
+            <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
+            @Html.AntiForgeryToken()
+            <li> @Html.ActionLink(message, "Edit", "Volunteer")</li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
         }
     }

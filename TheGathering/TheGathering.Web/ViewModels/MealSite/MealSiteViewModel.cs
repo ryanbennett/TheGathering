@@ -14,7 +14,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public int Id { get; set; }
         public string Name { get; set; }
 
-        [Display(Name = "Address")]
+        [Display(Name = "Street")]
         public string AddressLine1 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
@@ -175,7 +175,7 @@ namespace TheGathering.Web.ViewModels.MealSite
                 return false;
             }
 
-            else if (Breakfast_MinimumGuestsServed < Breakfast_MaximumGuestsServed)
+            else if (Breakfast_MinimumGuestsServed < Breakfast_MaximumGuestsServed && Breakfast_MinimumGuestsServed >= 0 && Breakfast_MaximumGuestsServed >= 0)
             {
                 return true;
             }
@@ -213,7 +213,7 @@ namespace TheGathering.Web.ViewModels.MealSite
                 return false;
             }
 
-            else if (Lunch_MinimumGuestsServed < Lunch_MaximumGuestsServed)
+            else if (Lunch_MinimumGuestsServed < Lunch_MaximumGuestsServed && Lunch_MinimumGuestsServed >= 0 && Lunch_MaximumGuestsServed >=0)
             {
                 return true;
             }
@@ -250,7 +250,7 @@ namespace TheGathering.Web.ViewModels.MealSite
                 return false;
             }
 
-            else if (Dinner_MinimumGuestsServed < Dinner_MaximumGuestsServed)
+            else if (Dinner_MinimumGuestsServed < Dinner_MaximumGuestsServed && Dinner_MinimumGuestsServed >= 0 && Dinner_MaximumGuestsServed >= 0)
             {
                 return true;
             }
