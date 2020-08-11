@@ -68,57 +68,6 @@ namespace TheGathering.Web.Controllers
                 return HttpNotFound();
             }
 
-
-            //for volunteer report stuff taken from admin portal
-            var eventIds = _service.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
-            var events = _eventService.GetEventsByIds(eventIds);
-            var maybeFirstEvent = new VolunteerEvent();
-            var maybeLastEvent = new VolunteerEvent();
-            if (events.Count() > 0)
-            {
-                maybeFirstEvent = events[events.Count() - 1];
-                maybeLastEvent = events[0];
-            }
-            else
-            {
-                //Nothing happens
-            }
-
-            DateTime now = DateTime.UtcNow;
-            now = now.AddHours(-5);
-            TimeSpan timeInBetween = now - maybeFirstEvent.StartingShiftTime;
-            int months = timeInBetween.Days / 31;
-            double frequency = 0.0;
-            TimeSpan volunteerHours = new TimeSpan(0, 0, 0, 0);
-
-            foreach (var finishedEvent in events)
-            {
-                if (finishedEvent.EndingShiftTime <= now)
-                {
-                    volunteerHours += (finishedEvent.EndingShiftTime - finishedEvent.StartingShiftTime);
-                }
-            }
-
-            ViewBag.totalHours = volunteerHours.Hours;
-            ViewBag.totalMinutes = volunteerHours.Minutes;
-
-            if (months > 0)
-            {
-                frequency = events.Count() / months;
-            }
-
-            if (events.Count() > 0)
-            {
-                ViewBag.timeWithGathering = timeInBetween.Days;
-            }
-            else
-            {
-                ViewBag.timeWithGathering = 0;
-            }
-
-
-            ViewBag.monthlyFrequency = frequency;
-
             return View(volunteer);
         }
 
@@ -346,6 +295,55 @@ namespace TheGathering.Web.Controllers
             viewModel.CurrentEvents = CurrentEvents;
             viewModel.PastEvents = PastEvents;
             viewModel.Volunteer = volunteer;
+
+
+            //for volunteer report stuff -- taken from admin portal
+            var maybeFirstEvent = new VolunteerEvent();
+            var maybeLastEvent = new VolunteerEvent();
+            if (events.Count() > 0)
+            {
+                maybeFirstEvent = events[events.Count() - 1];
+                maybeLastEvent = events[0];
+            }
+            else
+            {
+                //Nothing happens
+            }
+
+            DateTime now = DateTime.UtcNow;
+            now = now.AddHours(-5);
+            TimeSpan timeInBetween = now - maybeFirstEvent.StartingShiftTime;
+            int months = timeInBetween.Days / 31;
+            double frequency = 0.0;
+            TimeSpan volunteerHours = new TimeSpan(0, 0, 0, 0);
+
+            foreach (var finishedEvent in events)
+            {
+                if (finishedEvent.EndingShiftTime <= now)
+                {
+                    volunteerHours += (finishedEvent.EndingShiftTime - finishedEvent.StartingShiftTime);
+                }
+            }
+
+            ViewBag.totalHours = volunteerHours.Hours;
+            ViewBag.totalMinutes = volunteerHours.Minutes;
+
+            if (months > 0)
+            {
+                frequency = events.Count() / months;
+            }
+
+            if (events.Count() > 0)
+            {
+                ViewBag.timeWithGathering = timeInBetween.Days;
+            }
+            else
+            {
+                ViewBag.timeWithGathering = 0;
+            }
+
+
+            ViewBag.monthlyFrequency = frequency;
 
             return View(viewModel);
         }
