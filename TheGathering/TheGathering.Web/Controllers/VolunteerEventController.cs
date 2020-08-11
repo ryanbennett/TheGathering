@@ -174,7 +174,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
+        public ActionResult Edit([Bind(Include = "MealSiteId, Id, StartingShiftTime, EndingShiftTime, OpenSlots, Location, Description")] VolunteerEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
