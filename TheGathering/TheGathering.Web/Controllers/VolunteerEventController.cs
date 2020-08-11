@@ -19,6 +19,7 @@ namespace TheGathering.Web.Controllers
         public const string INVALID_CALENDAR_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         private VolunteerService volunteerService = new VolunteerService();
+        private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
         // GET: VolunteerEvent
         public ActionResult Index()
         {
@@ -194,10 +195,7 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Calendar()
-        {
-            return View(service.GetAllEvents());
-        }
+
         [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerCalendar()
         {
@@ -216,6 +214,25 @@ namespace TheGathering.Web.Controllers
                 }
                 viewModel.VolunteerEvents.Add(ve);
             } 
+            return View(viewModel);
+        }
+        public ActionResult Calendar()
+        {
+            ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel();
+            viewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            viewModel.VolunteerEvents = new List<VolunteerEvent>();
+
+            foreach (VolunteerEvent volunteerEvent in service.GetAllEvents())
+            {
+                VolunteerEvent ve = volunteerEvent;
+                ve.VolunteerGroupVolunteerEvents = new List<VolunteerGroupVolunteerEvent>();
+                var events = volunteerGroupService.GetVolunteerGroupVolunteerEvents(GetCurrentVolunteerGroupLeader().Id);
+                if (events != null)
+                {
+                    ve.VolunteerGroupVolunteerEvents = events;
+                }
+                viewModel.VolunteerEvents.Add(ve);
+            }
             return View(viewModel);
         }
 

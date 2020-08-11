@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202008041917284_AllMigrations.Designer.cs">
       <DependentUpon>202008041917284_AllMigrations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008061917039_VolunteerGroupVolunteerEvent.cs" />
+    <Compile Include="Migrations\202008061917039_VolunteerGroupVolunteerEvent.Designer.cs">
+      <DependentUpon>202008061917039_VolunteerGroupVolunteerEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -223,6 +227,7 @@
     <Compile Include="ViewModels\VolunteerEvent\VolunteerCalendarViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEmailViewModel.cs" />
     <Compile Include="ViewModels\VolunteerEvent\VolunteerEventViewModel.cs" />
+    <Compile Include="ViewModels\VolunteerEvent\VolunteerGroupCalendarViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\GroupNumberEventsListViewModel.cs" />
     <Compile Include="ViewModels\VolunteerGroup\SignUpGroupViewModel.cs" />
@@ -513,6 +518,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008041917284_AllMigrations.resx">
       <DependentUpon>202008041917284_AllMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008061917039_VolunteerGroupVolunteerEvent.resx">
+      <DependentUpon>202008061917039_VolunteerGroupVolunteerEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -67,5 +67,9 @@ namespace TheGathering.Web.Repositories
             _context.SaveChanges();
 
         }
+        public List<VolunteerGroupVolunteerEvent> GetVolunteerGroupVolunteerEvents(int id)
+        {
+            return _context.VolunteerGroupVolunteerEvents.Where(vgve => vgve.VolunteerGroupId == id && !vgve.IsItCanceled).ToList();
+        }
     }
 }
