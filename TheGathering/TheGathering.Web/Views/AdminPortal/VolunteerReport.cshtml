@@ -131,17 +131,18 @@
 
 
 
-
-            <h5>
-                Monthly Frequency: @ViewBag.monthlyFrequency events
-            </h5>
-            <h5>
-                Time with the Gathering: @ViewBag.timeWithGathering days
-            </h5>
-            <h5>
-                Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
-            </h5>
-        </dl>
+                <h5>
+                    Monthly Frequency: @ViewBag.monthlyFrequency events <a href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with the Gathering for at least a month.">
+                        <img src="~/Content/question-mark-icon-24x24.png" />
+                    </a>
+                </h5>
+                <h5>
+                    Time with the Gathering: @ViewBag.timeWithGathering days
+                </h5>
+                <h5>
+                    Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
+                </h5>
+</dl>
     </div>
 </div>
 

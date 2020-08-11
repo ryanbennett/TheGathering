@@ -623,6 +623,11 @@ namespace TheGathering.Web.Controllers
                 ViewBag.timeWithGathering = 0;
             }
 
+            if (ViewBag.timeWithGathering < 0)
+            {
+                ViewBag.timeWithGathering = 0;
+            }
+
 
             ViewBag.monthlyFrequency = frequency;
 
