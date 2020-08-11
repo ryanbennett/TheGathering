@@ -3,19 +3,18 @@
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-
+    if (User.IsInRole("groupleader"))
     {
-        String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-    
-        <li><a href="https://localhost:44367/VolunteerEvent/VolunteerCalendar">Dashboard</a></li>
-        <li><a href="https://localhost:44367/Volunteer/UserEventsList">My Events</a></li>
-        <li><a href="https://localhost:44367/Volunteer/LeadershipInfo">Leadership</a></li>
-        <li><a href="#" class="donateButton">Donate</a></li>
-        @Html.AntiForgeryToken()
-        <li> @Html.ActionLink(message, "Edit", "Volunteer")</li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
-    
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            String message = "Hello " + @ViewBag.UserFriendlyName + "!";
+            <li>@Html.ActionLink("Dashboard", "Calendar", "VolunteerEvent")</li>
+            <li>@Html.ActionLink("My Events", "GroupEventsList", "VolunteerGroup")</li>
+            <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
+            @Html.AntiForgeryToken()
+            <li> @Html.ActionLink(message, "Edit", "VolunteerGroup")</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        }
     }
 }
 else
@@ -23,5 +22,4 @@ else
     <li><a href="#" class="donateButton">Donate</a></li>
     <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-
 }
