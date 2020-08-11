@@ -194,9 +194,9 @@
     <Compile Include="Migrations\202008111533240_Allmigrations.Designer.cs">
       <DependentUpon>202008111533240_Allmigrations.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008061917039_VolunteerGroupVolunteerEvent.cs" />
-    <Compile Include="Migrations\202008061917039_VolunteerGroupVolunteerEvent.Designer.cs">
-      <DependentUpon>202008061917039_VolunteerGroupVolunteerEvent.cs</DependentUpon>
+    <Compile Include="Migrations\202008111909019_MigrationsFix.cs" />
+    <Compile Include="Migrations\202008111909019_MigrationsFix.Designer.cs">
+      <DependentUpon>202008111909019_MigrationsFix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -522,8 +522,8 @@
     <EmbeddedResource Include="Migrations\202008111533240_Allmigrations.resx">
       <DependentUpon>202008111533240_Allmigrations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008061917039_VolunteerGroupVolunteerEvent.resx">
-      <DependentUpon>202008061917039_VolunteerGroupVolunteerEvent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008111909019_MigrationsFix.resx">
+      <DependentUpon>202008111909019_MigrationsFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
