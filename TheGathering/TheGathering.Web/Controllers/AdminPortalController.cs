@@ -831,10 +831,6 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("FirstName", "First name cannot contain numbers");
             }
-            if (model.GroupName.Any(char.IsDigit) == true)
-            {
-                ModelState.AddModelError("GroupName", "Group name cannot contain numbers");
-            }
             if (model.LeaderLastName.Any(char.IsDigit) == true)
             {
                 ModelState.AddModelError("LastName", "Last name cannot contain numbers");
