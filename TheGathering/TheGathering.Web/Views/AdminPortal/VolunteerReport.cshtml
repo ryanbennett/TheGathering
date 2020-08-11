@@ -4,6 +4,12 @@
     ViewBag.Title = "VolunteerReport";
 }
 
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
 <h2>Volunteer Report</h2>
 
 <div>
@@ -48,30 +54,21 @@
             </dd>
 
 
-            <h5>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h5>
+            <h3>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h3>
             <table class="table">
                 <tr>
-                    <td>
-                        <h4>
-                            Starting Shift Time
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Ending Shift Time
-                        </h4>
-                    </td>
-
-                    <td>
-                        <h4>
-                            Meal Site
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Description
-                        </h4>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
+                    </th>
                 </tr>
 
                 @foreach (TheGathering.Web.Models.VolunteerEvent item in Model.VolunteerEvents)
@@ -79,6 +76,7 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.StartingShiftTime)
+
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EndingShiftTime)
@@ -97,30 +95,22 @@
 
             </table>
 
-            <h5>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h5>
+            <h3>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h3>
             <table class="table">
                 <tr>
-                    <td>
-                        <h4>
-                            Starting Shift Time
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Ending Shift Time
-                        </h4>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].StartingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].EndingShiftTime)
+                    </th>
 
-                    <td>
-                        <h4>
-                            Meal Site
-                        </h4>
-                    </td>
-                    <td>
-                        <h4>
-                            Description
-                        </h4>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].MealSite.AddressLine1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CancelledEvents[0].Description)
+                    </th>
                 </tr>
 
                 @foreach (var item in Model.CancelledEvents)
@@ -147,13 +137,16 @@
 
 
 
-
-            <h5>
+            <h5font>
                 Monthly Frequency: @ViewBag.monthlyFrequency events
-            </h5>
+            </h5font>
+            <a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with the Gathering for at least a month.">
+                <img height="16" src="~/Content/question-mark-icon-24x24.png" />
+            </a>
             <h5>
                 Time with the Gathering: @ViewBag.timeWithGathering days
             </h5>
+            <a></a>
             <h5>
                 Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
             </h5>
@@ -163,7 +156,7 @@
 
 <div>
     <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default no-print"})
+    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default no-print" })
 </div>
 
 

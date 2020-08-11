@@ -342,6 +342,9 @@ else
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=init&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
     </div>
 </div>
+<script>
+	locations.push(new Location("@Model.AddressLine1, @Model.City", @Model.Id, @Model.Latitude, @Model.Longitude, "@Model.Name", @Model.IsTheGatheringSite.ToString().ToLower()));
+</script>
 @if (Model.IsMealSiteActive)
 {
     @Html.ActionLink("Deactivate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-grey" })

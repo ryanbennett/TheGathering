@@ -37,6 +37,7 @@ namespace TheGathering.Web.Models
             OpenSlots = volunteerEvent.OpenSlots;
             Description = volunteerEvent.Description;
             VolunteerVolunteerEvents = volunteerEvent.VolunteerVolunteerEvents;
+            MealSite_Id = volunteerEvent.MealSiteId;
         }
     }
 }
