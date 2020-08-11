@@ -8,7 +8,7 @@ namespace TheGathering.Web.ViewModels
 {
     public class AddVolunteerViewModel
     {
-        public VolunteerEvent Event { get; set; }
+        public Models.VolunteerEvent Event { get; set; }
 
         public List<Volunteer> AvailableVolunteers { get; set; }
 

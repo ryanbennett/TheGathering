@@ -20,6 +20,7 @@ namespace TheGathering.Web.Controllers
         public const string INVALID_CALENDAR_DATES_ERROR = "The given Calendar dates are incorrect, make sure the start date is earlier than the end date.";
 
         private VolunteerService volunteerService = new VolunteerService();
+        private VolunteerGroupService volunteerGroupService = new VolunteerGroupService();
         // GET: VolunteerEvent
         [Authorize(Roles = "volunteer")]
         public ActionResult Index()
@@ -198,16 +199,45 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "volunteer")]
-        public ActionResult Calendar()
-        {
-            return View(service.GetAllEvents());
-        }
 
-        [Authorize(Roles = "volunteer")]
+        [Authorize(Roles ="volunteer")]
         public ActionResult VolunteerCalendar()
         {
-            return View(service.GetAllEvents());
+            ViewModels.VolunteerEvent.VolunteerCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerCalendarViewModel();
+            viewModel.Volunteer = GetCurrentVolunteer();
+            viewModel.VolunteerEvents = new List<VolunteerEvent>();
+
+            foreach (VolunteerEvent volunteerEvent in service.GetAllEvents())
+            {
+                VolunteerEvent ve = volunteerEvent;
+                ve.VolunteerVolunteerEvents = new List<VolunteerVolunteerEvent>();
+                var events = volunteerService.GetVolunteerVolunteerEvents(GetCurrentVolunteer().Id);
+                if (events != null)
+                {
+                    ve.VolunteerVolunteerEvents = events;
+                }
+                viewModel.VolunteerEvents.Add(ve);
+            } 
+            return View(viewModel);
+        }
+        public ActionResult Calendar()
+        {
+            ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel viewModel = new ViewModels.VolunteerEvent.VolunteerGroupCalendarViewModel();
+            viewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            viewModel.VolunteerEvents = new List<VolunteerEvent>();
+
+            foreach (VolunteerEvent volunteerEvent in service.GetAllEvents())
+            {
+                VolunteerEvent ve = volunteerEvent;
+                ve.VolunteerGroupVolunteerEvents = new List<VolunteerGroupVolunteerEvent>();
+                var events = volunteerGroupService.GetVolunteerGroupVolunteerEvents(GetCurrentVolunteerGroupLeader().Id);
+                if (events != null)
+                {
+                    ve.VolunteerGroupVolunteerEvents = events;
+                }
+                viewModel.VolunteerEvents.Add(ve);
+            }
+            return View(viewModel);
         }
 
         public JsonResult GetEvents()
@@ -240,32 +270,5 @@ namespace TheGathering.Web.Controllers
             }
             return Locations;
         }
-
-        //I tried to use itextSharp for file storage
-        /*
-             var doc = new iTextSharp.text.Document();
-    var reader = new PdfReader(renderedBytes);
-    using (FileStream fs = new FileStream(Server.MapPath("~/Receipt" +
-         Convert.ToString(Session["CurrentUserName"]) + ".pdf"), FileMode.Create))
-    {
-        PdfStamper stamper = new PdfStamper(reader, fs);
-        string Printer = "Xerox Phaser 3635MFP PCL6";
-        // This is the script for automatically printing the pdf in acrobat viewer
-        stamper.JavaScript = "var pp = getPrintParams();pp.interactive =pp.constants.interactionLevel.automatic; pp.printerName = " +
-                       Printer + ";print(pp);\r";
-        stamper.Close();
-    }
-    reader.Close();
-    FileStream fss = new FileStream(Server.MapPath("~/Receipt.pdf"), FileMode.Open);
-    byte[] bytes = new byte[fss.Length];
-    fss.Read(bytes, 0, Convert.ToInt32(fss.Length));
-    fss.Close();
-    System.IO.File.Delete(Server.MapPath("~/Receipt.pdf"));
-
-    //Here we returns the file result for view(PDF)
-    ModelState.Clear();
-    Session.Clear(); //Clears the session variable for reuse 
-    return File(bytes, "application/pdf");
-        */
     }
 }

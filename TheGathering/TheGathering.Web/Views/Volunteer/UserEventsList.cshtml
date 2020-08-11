@@ -3,8 +3,13 @@
 @{
     ViewBag.Title = "UserEventsList";
 }
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
-@if (Model.CurrentEvents.Count>0)
+@if (Model.CurrentEvents.Count > 0)
 {
     <div class="row">
         <div class="col-sm-6">
@@ -21,7 +26,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
                     </th>
-                    
+
                     <th>
                         Meal Site
                     </th>
@@ -40,7 +45,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.EndingShiftTime)
                         </td>
-                        
+
                         <td>
                             @Html.DisplayFor(modelItem => item.MealSite.Name)<br />
                             @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)<br />
@@ -66,7 +71,7 @@ else
     <h3>You are not currently signed up for any events</h3>
 }
 
-@if (Model.PastEvents.Count>0)
+@if (Model.PastEvents.Count > 0)
 {
     <div class="row">
         <div class="col-sm-12">
@@ -83,7 +88,7 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
                     </th>
-                    
+
                     <th>
                         Meal Site
                     </th>
@@ -102,7 +107,7 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.EndingShiftTime)
                         </td>
-                        
+
                         <td>
                             @Html.DisplayFor(modelItem => item.MealSite.Name)<br />
                             @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)<br />
@@ -122,6 +127,19 @@ else
     </div>
 }
 
+<h5font>
+    Monthly Frequency: @ViewBag.monthlyFrequency events
+</h5font>
+<a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with the Gathering for at least a month.">
+    <img height="16" src="~/Content/question-mark-icon-24x24.png" />
+</a>
+<h5>
+    Time with the Gathering: @ViewBag.timeWithGathering days
+</h5>
+<a></a>
+<h5>
+    Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
+</h5>
 
 <div class="row">
     <div class="col-sm-6">

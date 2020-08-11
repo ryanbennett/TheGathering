@@ -1,6 +1,11 @@
 ﻿.background {
     background-color: #434345;
 }
+#main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 .body-back-color {
     background-color: #FAF6EB;
 }
@@ -182,11 +187,16 @@ td {
         background-color: #B0D0B9;
         color: black;
     }
-
-.footer-top-margin{
-    margin-top: 20px;
+#footer {
+    position:sticky;
+    width: 100%;
+    margin-top: auto;
+    background-color: darkgray;
+    align-content: center;
+    bottom: 0;
+    padding: 32px 32px 25px;
+    flex: 0 0 50px;
 }
-
 .footerText {
     font-family: Sofia Pro, sans-serif !important;
     color: #434345;
@@ -196,19 +206,13 @@ td {
     line-height: 1.6;
 }
 /*possibly rename*/
-.footerMargin {
-    padding: 64px 32px;
-    margin-right: 154.5px;
-    margin-left: 154.5px;
-}
+
 
 #footerlink {
     color: #434345;
 }
 /*disscus with the other team and put it with the others*/
 /* Gold Buttons - maps */
-
-
 .navbar {
     font-family: Sofia Pro, sans-serif;
     color: #B0D0B9;
@@ -386,6 +390,10 @@ td {
 /* Margin Around Buttons - maps */
 .btn-margin {
     margin: 10px;
+}
+
+.checkbox-left-padding {
+    padding-left: 20px;
 }
 
 /* TEMP Navbar */

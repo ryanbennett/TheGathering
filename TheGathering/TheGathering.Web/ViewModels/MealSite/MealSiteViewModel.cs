@@ -82,7 +82,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         [Display(Name = "End Time")]
         public string Dinner_EndTime { get; set; }
 
-        public List<VolunteerEvent> VolunteerEvents { get; set; }
+        public List<Models.VolunteerEvent> VolunteerEvents { get; set; }
 
         /// <summary>
         /// This will be empty if there is no error, allows us to create an error for validating input information

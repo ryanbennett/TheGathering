@@ -70,6 +70,9 @@ namespace TheGathering.Web.Services
         {
             _repository.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
         }
-
+        public List<VolunteerGroupVolunteerEvent> GetVolunteerGroupVolunteerEvents(int id)
+        {
+            return _repository.GetVolunteerGroupVolunteerEvents(id);
+        }
     }
 }

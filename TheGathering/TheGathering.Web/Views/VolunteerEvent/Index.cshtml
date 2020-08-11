@@ -53,10 +53,9 @@
 				@Html.ActionLink("Details and Individual Sign Up", "Details", new { id = item.Id })
 			</td>
             <td>
-                @if (User.IsInRole("groupleader"))
-				{
-                    @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { volunteerId = 1, eventId = item.Id }, null)
-				}
+                @Html.ActionLink("Details and Individual Sign Up", "Details", new { id = item.Id }) |
+
+                @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { eventId = item.Id }, null) |
             </td>
         </tr>
     }

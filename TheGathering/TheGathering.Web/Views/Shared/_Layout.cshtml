@@ -19,39 +19,35 @@
 </head>
  
 <body class="body-back-color">
-    <nav class="navigation no-print">
-		    <div class="logo">
-			    @if (User.IsInRole("admin"))
-			    {
-				    <a href="/AdminPortal/Index"><img src="~/Content/GatheringNavLogo.png" width="150px" height="90px" /></a>
-			    }
-			    else
-			    {
-				    <a href="/"><img src="~/Content/GatheringNavLogo.png" width="150px" height="90px" /></a>
-			    }
-		    </div>
+    <div id="main">
+        <nav class="navigation no-print">
+            <div class="logo">
+                <a href="http://www.thegatheringwis.org/"><img src="~/Content/GatheringNavLogo.png" width="150px" height="90px" draggable="false" /></a>
+            </div>
             <ul class="nav-links">
                 @Html.Partial("_LoginPartial")
             </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>
-    <script src="~/Content/Navigation.js"></script>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+        <script src="~/Content/Navigation.js"></script>
 
 
-    <div class="container">
-        <div class="row">
-            @RenderBody()
+        <div class="container">
+            <div class="row">
+                @RenderBody()
+            </div>
         </div>
     </div>
-    <footer style=" background-color: darkgray" class="footer-top-margin no-print">
-        <div class="container footerText" align="center">
-            <div class="row">
-                <div class="footerMargin">
-                    <div class="row" style="padding-bottom:30px;" align="center">
+    <br />
+    <div id="footer" class="no-print fixed-bottom">
+        <div class="footerText" align="center">
+            <div class="row ">
+                <div>
+                    <div class="row" align="center">
                         <div class="col-sm-3" align="center">
                             <a id="footerlink" href="http://www.thegatheringwis.org/contact">CONTACT US</a>
                         </div>
@@ -73,7 +69,7 @@
                     <div class="row col-sm-8 col-sm-offset-2" align="center" style="padding-bottom:30px">
                         UNITED STATES(414) 272-4122 SOULFOOD@THEGATHERINGWIS.ORG
                     </div>
-                    <div class="row" algin="center" style="padding-bottom:30px">
+                    <div class="row" algin="center">
                         <nav class="social">
                             <div class="col-sm-4 col-sm-offset-4" align="center">
                                 <a href="https://www.facebook.com/thegatheringcommunitymeals" style="margin-left:5px; margin-right: 5px;">
@@ -97,7 +93,8 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

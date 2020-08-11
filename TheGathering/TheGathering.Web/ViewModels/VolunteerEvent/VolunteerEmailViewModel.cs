@@ -11,7 +11,7 @@ namespace TheGathering.Web.ViewModels
     {
         public int EventId { get; set; }
 
-        public VolunteerEvent VolunteerEvent { get; set; }
+        public Models.VolunteerEvent VolunteerEvent { get; set; }
 
         public string Subject { get; set; }
 

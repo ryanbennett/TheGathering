@@ -103,5 +103,10 @@ namespace TheGathering.Web.Services
         {
             _repository.ReSignUpForVolunteerVolunteerEvent(volunteerId, eventId);
         }
+
+        public List<VolunteerVolunteerEvent> GetVolunteerVolunteerEvents(int id)
+        {
+            return _repository.GetVolunteerVolunteerEvents(id);
+        }
     }
 }

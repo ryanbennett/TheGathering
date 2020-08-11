@@ -559,7 +559,7 @@ namespace TheGathering.Web.Controllers
         }
 
 
-
+        //if you edit this please go to [VolunteerController-->Edit] and implement the fixes in there too
         public ActionResult VolunteerReport(int? id)
         {
             var volunteer = GetVolunteerById((int)id);
@@ -845,10 +845,6 @@ namespace TheGathering.Web.Controllers
             if (model.LeaderFirstName.Any(char.IsDigit) == true)
             {
                 ModelState.AddModelError("FirstName", "First name cannot contain numbers");
-            }
-            if (model.GroupName.Any(char.IsDigit) == true)
-            {
-                ModelState.AddModelError("GroupName", "Group name cannot contain numbers");
             }
             if (model.LeaderLastName.Any(char.IsDigit) == true)
             {
