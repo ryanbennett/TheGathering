@@ -10,12 +10,14 @@ using TheGathering.Web.ViewModels.VolunteerGroup;
 
 namespace TheGathering.Web.Controllers
 {
+    
     public class VolunteerGroupController : BaseController
     {
         // GET: VolunteerGroup
         
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
+
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteerGroups();
@@ -27,10 +29,12 @@ namespace TheGathering.Web.Controllers
 
             return View(model);
         }
-     
-        public ActionResult SignUpGroupEvent(int volunteerId, int eventId)
+        [Authorize(Roles = "groupleader")]
+        public ActionResult SignUpGroupEvent(int eventId)
         {
             SignUpGroupViewModel model = new SignUpGroupViewModel();
+            var VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            int volunteerId = VolunteerGroupLeader.Id;
             var volunteerEventIds = _service.GetVolunteerGroupEvents(volunteerId);
             bool alreadyRegistered = volunteerEventIds.Any(id => id == eventId);
             if (alreadyRegistered)
@@ -46,13 +50,14 @@ namespace TheGathering.Web.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "groupleader")]
         public ActionResult SignUpGroupEvent(SignUpGroupViewModel signUpGroupViewModel)
         {
             int numVolunteers = signUpGroupViewModel.VolunteerSlots;
             int eventId = signUpGroupViewModel.VolunteerEventID;
-            int volunteerId = signUpGroupViewModel.VolunteerGroupLeaderID;
             signUpGroupViewModel.VolunteerEvent = _eventService.GetEventById(eventId);
-            signUpGroupViewModel.VolunteerGroupLeader = _service.GetLeaderById(volunteerId);
+            signUpGroupViewModel.VolunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            int volunteerId = signUpGroupViewModel.VolunteerGroupLeader.Id;
             var origOpenSlots = _eventService.GetEventById(eventId).OpenSlots;
             var volunteerEvent = _eventService.GetEventById(eventId);
             if (signUpGroupViewModel.VolunteerSlots<1)
@@ -93,7 +98,7 @@ namespace TheGathering.Web.Controllers
 
         }
 
-
+        [Authorize(Roles = "groupleader")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -110,6 +115,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "groupleader")]
         public ActionResult Edit(VolunteerGroupLeader volunteergroupleader)
         {
             if (volunteergroupleader.LeaderEmail.Contains('.') == false)
@@ -140,7 +146,7 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteergroupleader);
         }
-
+        [Authorize(Roles = "groupleader")]
         public ActionResult Details(int id)
         {
             return View(_service.GetLeaderById(id));
@@ -166,12 +172,13 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "groupleader")]
         public ActionResult GetEventsByIds(List<int> eventId)
         {
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
         }
-
+        [Authorize(Roles = "groupleader")]
         public ActionResult GroupEventsList()
         {
             var volunteergroup = GetCurrentVolunteerGroupLeader();

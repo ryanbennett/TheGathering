@@ -557,7 +557,7 @@ namespace TheGathering.Web.Controllers
         }
 
 
-
+        //if you edit this please go to [VolunteerController-->Edit] and implement the fixes in there too
         public ActionResult VolunteerReport(int? id)
         {
             var volunteer = GetVolunteerById((int)id);
