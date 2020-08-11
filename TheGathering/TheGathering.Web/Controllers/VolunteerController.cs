@@ -13,11 +13,13 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
+    [Authorize(Roles ="admin,volunteer")]
     public class VolunteerController : BaseController
     {
         // GET: Volunteer
         VolunteerService _service = new VolunteerService();
         CalendarService _eventService = new CalendarService();
+        [Authorize (Roles ="admin")]
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteers();
@@ -29,13 +31,15 @@ namespace TheGathering.Web.Controllers
 
             return View(model);
         }
+
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "admin")]
         public ActionResult Create(Volunteer volunteer)
         {
             if (ModelState.IsValid)
@@ -63,6 +67,58 @@ namespace TheGathering.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+
+            //for volunteer report stuff taken from admin portal
+            var eventIds = _service.GetVolunteerEventIdsByVolunteerId(volunteer.Id);
+            var events = _eventService.GetEventsByIds(eventIds);
+            var maybeFirstEvent = new VolunteerEvent();
+            var maybeLastEvent = new VolunteerEvent();
+            if (events.Count() > 0)
+            {
+                maybeFirstEvent = events[events.Count() - 1];
+                maybeLastEvent = events[0];
+            }
+            else
+            {
+                //Nothing happens
+            }
+
+            DateTime now = DateTime.UtcNow;
+            now = now.AddHours(-5);
+            TimeSpan timeInBetween = now - maybeFirstEvent.StartingShiftTime;
+            int months = timeInBetween.Days / 31;
+            double frequency = 0.0;
+            TimeSpan volunteerHours = new TimeSpan(0, 0, 0, 0);
+
+            foreach (var finishedEvent in events)
+            {
+                if (finishedEvent.EndingShiftTime <= now)
+                {
+                    volunteerHours += (finishedEvent.EndingShiftTime - finishedEvent.StartingShiftTime);
+                }
+            }
+
+            ViewBag.totalHours = volunteerHours.Hours;
+            ViewBag.totalMinutes = volunteerHours.Minutes;
+
+            if (months > 0)
+            {
+                frequency = events.Count() / months;
+            }
+
+            if (events.Count() > 0)
+            {
+                ViewBag.timeWithGathering = timeInBetween.Days;
+            }
+            else
+            {
+                ViewBag.timeWithGathering = 0;
+            }
+
+
+            ViewBag.monthlyFrequency = frequency;
+
             return View(volunteer);
         }
 
@@ -128,6 +184,7 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
+        [Authorize(Roles ="volunteer")]
         public async Task<ActionResult> SignUpEvent(int eventId, string userId)
         {
             SignUpEventViewModel model = new SignUpEventViewModel();
@@ -155,8 +212,17 @@ namespace TheGathering.Web.Controllers
             Console.WriteLine(callbackUrl);
 
             string subject = "The Gathering Event Confirmation";
-            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for the event! Click the link to confirm that you will be at the event!" + callbackUrl;
-            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/> Thank you for sigining up for the event! Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/>";
+            string mealSite = model.VolunteerEvent.MealSite.Name;
+            string address = model.VolunteerEvent.MealSite.AddressLine1;
+            string city = model.VolunteerEvent.MealSite.City;
+            string state = model.VolunteerEvent.MealSite.State;
+            string zipcode = model.VolunteerEvent.MealSite.Zipcode;
+            string startTime = model.VolunteerEvent.StartingShiftTime.ToString();
+            string endTime = model.VolunteerEvent.EndingShiftTime.ToString();
+            string description = "Description: " + model.VolunteerEvent.Description;
+
+            string plainText = "Hello " + model.Volunteer.FirstName + ", Thank you for sigining up for this event. Location: " + mealSite + "-- " + address + ", " + city + ", " + state + " " + zipcode + ". Start time: " + startTime + ", End time: " + endTime + ". "+description+". Click the link to confirm that you will be at the event!" + callbackUrl;
+            string htmlText = "Hello " + model.Volunteer.FirstName + ", <br/><br/> Thank you for sigining up for this event:<br/>Location: " + mealSite +"-- "+ address+", "+ city+", "+ state+" "+zipcode+"<br/>Start time: "+startTime+"<br/>End time: "+endTime+"<br/>"+description+ "<br/><br/>Click the link below to confirm that you will be at the event. <br/> <a href='" + callbackUrl + "' target='_new'>Click Here</a> <br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>["+DateTime.Now+"]";
 
             await ConfirmationEmail(model.Volunteer.FirstName, model.Volunteer.Email, subject, plainText, htmlText);
 
@@ -205,15 +271,19 @@ namespace TheGathering.Web.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles ="volunteer")]
         public async Task<ActionResult> LeadershipEmail()
         {
             Volunteer volunteer = GetCurrentVolunteer();
             String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
-            String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber;
+            String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber + "<br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
             await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
-            return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
-           
+            return RedirectToAction("LeadershipEmailConfirm", "Volunteer", null);
+        }
+
+        public ActionResult LeadershipEmailConfirm()
+        {
+            return View();
         }
 
         public ActionResult Delete(int? id)
@@ -248,7 +318,7 @@ namespace TheGathering.Web.Controllers
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
         }
-
+        [Authorize(Roles ="volunteer")]
         public ActionResult UserEventsList()
         {
             var volunteer = GetCurrentVolunteer();
@@ -279,7 +349,6 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
             if (_service.GetCancelledVolunteerEventIdsByVolunteerId(volunteerId).Contains(eventId))
@@ -292,7 +361,7 @@ namespace TheGathering.Web.Controllers
             }
 
             SignUpEventViewModel model = new SignUpEventViewModel();
-            model.Volunteer = GetCurrentVolunteer();
+            model.Volunteer = _service.GetById(volunteerId);
             //TODO: change Volunteer get
             model.VolunteerEvent = _eventService.GetEventById(eventId);
             var openSlots = model.VolunteerEvent.OpenSlots;
