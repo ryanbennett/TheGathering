@@ -11,6 +11,7 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class VolunteerEventController : BaseController
     {
         private CalendarService service = new CalendarService();
@@ -20,6 +21,7 @@ namespace TheGathering.Web.Controllers
 
         private VolunteerService volunteerService = new VolunteerService();
         // GET: VolunteerEvent
+        [Authorize(Roles = "volunteer")]
         public ActionResult Index()
         {
             List<VolunteerEvent> events = service.GetAllEvents();
@@ -87,8 +89,8 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-        
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -113,6 +115,7 @@ namespace TheGathering.Web.Controllers
             return View(signUpEventViewModel);
         }
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult VolunteerDetails(int? id)
         {
             if (id == null)
@@ -137,6 +140,7 @@ namespace TheGathering.Web.Controllers
             return View(signUpEventViewModel);
         }
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
         {
             if (eventID == null || volunteerID == null)
@@ -194,11 +198,13 @@ namespace TheGathering.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult Calendar()
         {
             return View(service.GetAllEvents());
         }
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult VolunteerCalendar()
         {
             return View(service.GetAllEvents());

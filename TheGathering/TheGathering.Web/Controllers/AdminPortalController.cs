@@ -17,6 +17,7 @@ using System.Text;
 
 namespace TheGathering.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminPortalController : BaseController
     {
 

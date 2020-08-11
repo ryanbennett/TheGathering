@@ -52,6 +52,15 @@ namespace TheGathering.Web.Migrations
             {
                 userManager.Create(user, "F3edTheHungry1235#");
 
+                // TEMP
+                userManager.AddToRole(user.Id, "admin");
+                userManager.AddToRole(user.Id, "volunteer");
+                userManager.AddToRole(user.Id, "groupleader");
+
+                Volunteer v = new Volunteer();
+                v.ApplicationUserId = user.Id;
+                v.Birthday = new DateTime(2000, 10, 10);
+                context.Volunteers.Add(v);
             }
 
         }

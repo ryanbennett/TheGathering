@@ -12,6 +12,7 @@ using TheGathering.Web.ViewModels.MealSite;
 
 namespace TheGathering.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class MealSiteController : Controller
     {
         private MealSiteService mealSiteService = new MealSiteService();
@@ -26,6 +27,7 @@ namespace TheGathering.Web.Controllers
 
 
         // GET: MealSite
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(mealSiteService.GetAllMealSites());
@@ -148,6 +150,7 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("MealSites", "AdminPortal", null);
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
