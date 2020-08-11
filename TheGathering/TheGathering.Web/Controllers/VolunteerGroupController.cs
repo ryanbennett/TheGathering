@@ -62,13 +62,15 @@ namespace TheGathering.Web.Controllers
             var volunteerEvent = _eventService.GetEventById(eventId);
             if (signUpGroupViewModel.VolunteerSlots<1)
             {
-                ModelState.AddModelError("VolunteerSlots", "The number of volunteers cannot be less than 1");
+                ModelState.AddModelError("VolunteerSlots", "The number of volunteers cannot be less than 1.");
             }
-           
+            if (origOpenSlots < numVolunteers)
+            {
+                ModelState.AddModelError("VolunteerSlots", "There are only "+origOpenSlots+" volunteer slots available.");
+            }
+
             if (ModelState.IsValid)
             {
-                if (origOpenSlots < numVolunteers)
-                    return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
                 _service.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
                 _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
                 return RedirectToAction("GroupEventsList");
