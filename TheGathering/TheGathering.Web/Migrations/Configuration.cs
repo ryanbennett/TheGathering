@@ -60,7 +60,25 @@ namespace TheGathering.Web.Migrations
                 Volunteer v = new Volunteer();
                 v.ApplicationUserId = user.Id;
                 v.Birthday = new DateTime(2000, 10, 10);
+                v.FirstName = "Admin";
+                v.LastName = "";
+                v.PhoneNumber = "";
+                v.InterestInLeadership = false;
+                v.SignUpForNewsLetter = false;
                 context.Volunteers.Add(v);
+
+                VolunteerGroupLeader g = new VolunteerGroupLeader();
+                g.ApplicationUserId = user.Id;
+                g.LeaderBirthday = new DateTime(2000, 10, 10);
+                g.GroupName = "Admin";
+                g.LeaderFirstName = "Admin";
+                g.LeaderLastName = "";
+                g.IsAccountActive = true;
+                g.LeaderEmail = "";
+                g.LeaderPhoneNumber = "";
+                g.SignUpForNewsLetter = false;
+                g.TotalGroupMembers = 0;
+                context.VolunteerGroupLeaders.Add(g);
             }
 
         }
