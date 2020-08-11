@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using TheGathering.Web.Models;
 using TheGathering.Web.Repositories;
+using TheGathering.Web.Sorting.VolunteerEventSorts;
 
 namespace TheGathering.Web.Services
 {
@@ -14,10 +15,51 @@ namespace TheGathering.Web.Services
         {
             repository = new CalendarRepository();
         }
+        
+
         public List<VolunteerEvent> GetAllEvents()
         {
             return repository.GetAllEvents();
         }
+
+        public List<VolunteerEvent> GetSortedEvents(EventSortType sort)
+        {
+            switch (sort)
+            {
+                case EventSortType.NewestAdded:
+                    return GetAllEvents();
+
+                case EventSortType.OpenSlots:
+                    var openSlotEvents = GetAllEvents();
+                    openSlotEvents.Sort(new SortByOpenSlots());
+
+                    return openSlotEvents;
+
+                case EventSortType.LocationDistance:
+
+                    break;
+
+                case EventSortType.DateLatest:
+                    var dateLatestEvents = GetAllEvents();
+                    dateLatestEvents.Sort(new SortByDateLatest());
+
+                    return dateLatestEvents;
+
+                case EventSortType.DateEarliest:
+                    var dateEarliestEvents = GetAllEvents();
+                    dateEarliestEvents.Sort(new SortByDateEarliest());
+
+                    return dateEarliestEvents;
+
+                default:
+                    //This shouldn't happen, all sort types should be handled
+
+                    return GetAllEvents();
+            }
+
+            return GetAllEvents();
+        }
+
         public VolunteerEvent GetEventById(int id)
         {
             return repository.GetEventById(id);

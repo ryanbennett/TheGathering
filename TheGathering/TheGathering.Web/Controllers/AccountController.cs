@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -89,7 +90,21 @@ namespace TheGathering.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
+                    var user = UserManager.FindByEmail(model.Email);
+                    if (UserManager.IsInRole(user.Id ,"volunteer"))
+                    {
+                        return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
+                    }
+                    else if (UserManager.IsInRole(user.Id, "groupleader"))
+                    {
+                        return RedirectToAction("Calendar", "VolunteerEvent", null);
+                    }
+                    else if(UserManager.IsInRole(user.Id, "admin"))
+                    {
+                        return RedirectToAction("Index", "AdminPortal", null);
+                    }
+                    ModelState.AddModelError("", "No role.");
+                    return View(model);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -352,7 +367,7 @@ namespace TheGathering.Web.Controllers
 
 
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Calendar", "VolunteerEvent");
                 }
                 AddErrors(result);
             }

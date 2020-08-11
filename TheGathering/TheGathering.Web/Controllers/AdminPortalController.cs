@@ -14,9 +14,11 @@ using TheGathering.Web.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using System.Globalization;
 using System.Text;
+using TheGathering.Web.Sorting.VolunteerEventSorts;
 
 namespace TheGathering.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminPortalController : BaseController
     {
 
@@ -623,6 +625,11 @@ namespace TheGathering.Web.Controllers
                 ViewBag.timeWithGathering = 0;
             }
 
+            if (ViewBag.timeWithGathering < 0)
+            {
+                ViewBag.timeWithGathering = 0;
+            }
+
 
             ViewBag.monthlyFrequency = frequency;
 
@@ -632,9 +639,17 @@ namespace TheGathering.Web.Controllers
         // Volunteer Events
 
 
-        public ActionResult ManageEvents()
+        public ActionResult ManageEvents(EventSortType? requestedSort)
         {
-            return View(calendarService.GetAllEvents());
+            EventSortType type = requestedSort ?? EventSortType.NewestAdded; //Set it to the current requested sort or default to none if there is none
+
+            SortedEventsViewModel view = new SortedEventsViewModel
+            {
+                Events = calendarService.GetSortedEvents(type),
+                SortItems = VolunteerEventSortsManager.GetSortSelectItems(type)
+            };
+
+            return View(view);
         }
 
         public ActionResult ManageCalendar()
@@ -838,6 +853,10 @@ namespace TheGathering.Web.Controllers
             if (model.Email.Contains('.') == false)
             {
                 ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (model.TotalGroupMembers <= 0)
+            {
+                ModelState.AddModelError("TotalGroupMembers", "Total group members must be greater than 0");
             }
             if (ModelState.IsValid)
             {
