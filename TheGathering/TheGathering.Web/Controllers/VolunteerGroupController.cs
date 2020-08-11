@@ -10,12 +10,14 @@ using TheGathering.Web.ViewModels.VolunteerGroup;
 
 namespace TheGathering.Web.Controllers
 {
+    
     public class VolunteerGroupController : BaseController
     {
         // GET: VolunteerGroup
         
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
+
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteerGroups();
@@ -27,7 +29,7 @@ namespace TheGathering.Web.Controllers
 
             return View(model);
         }
-     
+        [Authorize(Roles = "groupleader")]
         public ActionResult SignUpGroupEvent(int eventId)
         {
             SignUpGroupViewModel model = new SignUpGroupViewModel();
@@ -48,6 +50,7 @@ namespace TheGathering.Web.Controllers
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "groupleader")]
         public ActionResult SignUpGroupEvent(SignUpGroupViewModel signUpGroupViewModel)
         {
             int numVolunteers = signUpGroupViewModel.VolunteerSlots;
@@ -95,7 +98,7 @@ namespace TheGathering.Web.Controllers
 
         }
 
-
+        [Authorize(Roles = "groupleader")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -112,6 +115,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "groupleader")]
         public ActionResult Edit(VolunteerGroupLeader volunteergroupleader)
         {
             if (volunteergroupleader.LeaderEmail.Contains('.') == false)
@@ -142,7 +146,7 @@ namespace TheGathering.Web.Controllers
             }
             return View(volunteergroupleader);
         }
-
+        [Authorize(Roles = "groupleader")]
         public ActionResult Details(int id)
         {
             return View(_service.GetLeaderById(id));
@@ -168,12 +172,13 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "groupleader")]
         public ActionResult GetEventsByIds(List<int> eventId)
         {
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
         }
-
+        [Authorize(Roles = "groupleader")]
         public ActionResult GroupEventsList()
         {
             var volunteergroup = GetCurrentVolunteerGroupLeader();
