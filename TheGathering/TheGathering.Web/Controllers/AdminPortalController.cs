@@ -300,6 +300,8 @@ namespace TheGathering.Web.Controllers
 
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "volunteer");
+
                     VolunteerService VolunteerService = new VolunteerService();
 
                     Volunteer volunteer = new Volunteer
@@ -864,6 +866,8 @@ namespace TheGathering.Web.Controllers
                 var result = await UserManager.CreateAsync(user, MakeRandomPassword());
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "groupleader");
+
                     var VolunteerGroupService = new VolunteerGroupService();
 
                     VolunteerGroupLeader volunteerLeader = new VolunteerGroupLeader();

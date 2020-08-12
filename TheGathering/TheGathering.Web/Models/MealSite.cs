@@ -21,6 +21,7 @@ namespace TheGathering.Web.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public bool IsTheGatheringSite { get; set; }
+        [Display(Name = "Is Meal Site Active?")]
         public bool IsMealSiteActive { get; set; }
 
         /*
@@ -135,13 +136,14 @@ namespace TheGathering.Web.Models
 
         }
 
-        public static string twelveTo24HourTime(string twelveHourTime)
+        public static string ToTweleveHourTime(string twelveHourTime)
         {
             try
             {
                 string[] split = twelveHourTime.Split(':');
                 int hr = int.Parse(split[0]);
-                int min = int.Parse(split[1]);
+                int minInt = int.Parse(split[1]); //Use parse to verify that the minute is valid
+                string min = split[1];
                 int newHr = hr % 12;
                 if (newHr == 0)
                     newHr = 12;
