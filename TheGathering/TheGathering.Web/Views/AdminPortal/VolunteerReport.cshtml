@@ -166,6 +166,6 @@
 </div>
 
 <div>
-    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-primary no-print" })
+    <button onclick="window.print()" class="btn btn-primary no-print">Print this page</button>
+    @Html.ActionLink("Back to Details", "VolunteerDetails", new { id = Model.Volunteer.Id }, new { @class = "btn btn-primary no-print" })
 </div>
