@@ -1,14 +1,20 @@
-﻿@model TheGathering.Web.Models.VolunteerGroupLeader
+@model TheGathering.Web.Models.VolunteerGroupLeader
 
 @{
-    ViewBag.Title = "GroupLeaderDetails";
+	ViewBag.Title = "GroupLeaderDetails";
 }
 
-<h2>Details</h2>
+@if (Model.IsAccountActive)
+{
+	<h2>Deactivate Account?</h2>
+}
 
+else
+{
+	<h2>Activate Account?</h2>
+}
 
 <div class="form-horizontal">
-	<h4>Volunteer Group Leader</h4>
 	<hr />
 	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 	@Html.HiddenFor(model => model.Id)
@@ -72,15 +78,13 @@
 	</div>
 </div>
 <p>
-    @Html.ActionLink("Send Reset Password Link", "GroupLeaderResetUserPass", new { groupLeaderID = Model.Id }, new { @class = "btn btn-primary" })
-    @if (Model.IsAccountActive)
-    {
-        @Html.ActionLink("Deactivate Account", "ChangeLeaderActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    }
-    else
-    {
-        @Html.ActionLink("Activate Account", "ChangeLeaderActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    }
-    @Html.ActionLink("Edit", "GroupLeaderEdit", new { id = Model.Id }, new { @class = "btn btn-primary" }) 
-    @Html.ActionLink("Back to List", "ManageGroupLeaders", null, new { @class = "btn btn-primary" })
+	@if (Model.IsAccountActive)
+	{
+		@Html.ActionLink("Deactivate", "LeaderActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
+	}
+
+	else
+	{
+		@Html.ActionLink("Activate", "LeaderActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
+	}
 </p>
