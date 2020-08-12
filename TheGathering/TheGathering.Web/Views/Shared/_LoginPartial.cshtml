@@ -7,7 +7,7 @@
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {
-            String message = "Hello " + @ViewBag.UserFriendlyName + "!";
+            String message = "Hello Admin!";
             <li><a href="/AdminPortal/Index">Admin Portal</a></li>
             <li><a href="/AdminPortal/Users">Users</a></li>
             <li><a href="/AdminPortal/ManageGroupLeaders">Group Leaders</a></li>
