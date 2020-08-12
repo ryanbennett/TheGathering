@@ -17,7 +17,9 @@ namespace TheGathering.Web.Controllers
         
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
+        MealSiteService _mealSiteService = new MealSiteService();
 
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteerGroups();
@@ -62,13 +64,15 @@ namespace TheGathering.Web.Controllers
             var volunteerEvent = _eventService.GetEventById(eventId);
             if (signUpGroupViewModel.VolunteerSlots<1)
             {
-                ModelState.AddModelError("VolunteerSlots", "The number of volunteers cannot be less than 1");
+                ModelState.AddModelError("VolunteerSlots", "The number of volunteers cannot be less than 1.");
             }
-           
+            if (origOpenSlots < numVolunteers)
+            {
+                ModelState.AddModelError("VolunteerSlots", "There are only "+origOpenSlots+" volunteer slots available.");
+            }
+
             if (ModelState.IsValid)
             {
-                if (origOpenSlots < numVolunteers)
-                    return RedirectToAction("Index"); //TODO- Eventually make a view to redirect to
                 _service.ReduceOpenSlots(volunteerEvent, origOpenSlots, numVolunteers);
                 _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
                 return RedirectToAction("GroupEventsList");
@@ -101,16 +105,21 @@ namespace TheGathering.Web.Controllers
         [Authorize(Roles = "groupleader")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            VolunteerGroupLeader vgl ;
+            if (id != null && User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                vgl = _service.GetLeaderById((int)id);
             }
-            VolunteerGroupLeader volunteergroupleader = _service.GetLeaderById((int)id);
-            if (volunteergroupleader == null)
+            else
+            {
+                vgl = GetCurrentVolunteerGroupLeader();
+            }
+            if (vgl == null)
             {
                 return HttpNotFound();
             }
-            return View(volunteergroupleader);
+
+            return View(vgl);
         }
 
         [HttpPost]
@@ -181,13 +190,51 @@ namespace TheGathering.Web.Controllers
         [Authorize(Roles = "groupleader")]
         public ActionResult GroupEventsList()
         {
-            var volunteergroup = GetCurrentVolunteerGroupLeader();
+            //var volunteergroup = GetCurrentVolunteerGroupLeader();
+
+            //GroupNumberEventsListViewModel viewModel = new GroupNumberEventsListViewModel();
+            //viewModel.VolunteerGroupEvents = volunteergroup.VolunteerGroupVolunteerEvents;
+
+            
+            //return View(viewModel);
+
+            var volunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            var events = volunteerGroupLeader.VolunteerGroupVolunteerEvents.Select(vgve => vgve.VolunteerEvent).ToList();
            
+            //var cancelledEventIds = _service.GetCancelledVolunteerEventIdsByVolunteerId(volunteer.Id);
+            //var cancelledEvents = _eventService.GetEventsByIds(cancelledEventIds);
+
+            events.Sort(new SortByDate());
+            //cancelledEvents.Sort(new SortByDate());
+            List<VolunteerGroupVolunteerEvent> CurrentEvents = new List<VolunteerGroupVolunteerEvent>();
+            List<VolunteerGroupVolunteerEvent> PastEvents = new List<VolunteerGroupVolunteerEvent>();
+            foreach (VolunteerGroupVolunteerEvent item in volunteerGroupLeader.VolunteerGroupVolunteerEvents)
+            {
+                var mealsite = _mealSiteService.GetMealSiteById(item.VolunteerEvent.MealSite_Id);
+                item.VolunteerEvent.MealSite = mealsite;
+                if (item.VolunteerEvent.StartingShiftTime > DateTime.Now)
+                    CurrentEvents.Add(item);
+                else
+                    PastEvents.Add(item);
+            }
+            CurrentEvents.Sort(new SortByDateForVolunteerGroup());
+            PastEvents.Sort(new SortByDateForVolunteerGroup());
             GroupNumberEventsListViewModel viewModel = new GroupNumberEventsListViewModel();
-            viewModel.VolunteerGroupEvents = volunteergroup.VolunteerGroupVolunteerEvents;
-           
-            viewModel.VolunteerEvents = volunteergroup.VolunteerGroupVolunteerEvents.Select(vgve=>vgve.VolunteerEvent).ToList();
+            viewModel.VolunteerEvents = events;
+            //viewModel.CancelledEvents = cancelledEvents;
+            viewModel.CurrentEvents = CurrentEvents;
+            viewModel.PastEvents = PastEvents;
+            viewModel.volunteerGroupLeader = volunteerGroupLeader;
+
             return View(viewModel);
+
+        }
+    }
+    public class SortByDateForVolunteerGroup : IComparer<VolunteerGroupVolunteerEvent>
+    {
+        public int Compare(VolunteerGroupVolunteerEvent x, VolunteerGroupVolunteerEvent y)
+        {
+            return y.VolunteerEvent.StartingShiftTime.CompareTo(x.VolunteerEvent.StartingShiftTime);
         }
     }
 }

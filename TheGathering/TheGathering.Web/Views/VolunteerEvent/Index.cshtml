@@ -5,7 +5,7 @@
 }
 
 <h2>Volunteer Homepage</h2>
-<!-- TODO: include some pictures and mission statements or whatever, stuff that's like about the gathering, etc. -->
+<!-- TODO: include some pictures and mission statements or whatever, stuff that's like about The Gathering, etc. -->
 <p>
     @Html.ActionLink("Calendar", "Calendar", null, new { @class = "btn btn-primary" })
     @Html.ActionLink("Group Register", "GroupRegister", "Account", new { @class = "form-horizontal", role = "form" }, new { @class = "btn btn-primary" })
@@ -34,10 +34,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                @item.StartingShiftTime.ToString("g")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                @item.EndingShiftTime.ToString("g")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OpenSlots)
@@ -53,8 +53,6 @@
 				@Html.ActionLink("Details and Individual Sign Up", "Details", new { id = item.Id })
 			</td>
             <td>
-                @Html.ActionLink("Details and Individual Sign Up", "Details", new { id = item.Id }) |
-
                 @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { eventId = item.Id }, null) |
             </td>
         </tr>

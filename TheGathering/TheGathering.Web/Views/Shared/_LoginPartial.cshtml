@@ -24,7 +24,7 @@
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {
             String message = "Hello " + @ViewBag.UserFriendlyName + "!";
-            <li>@Html.ActionLink("Dashboard", "Calendar", "VolunteerEvent")</li>
+            <li>@Html.ActionLink("Calendar", "Calendar", "VolunteerEvent")</li>
             <li>@Html.ActionLink("My Events", "GroupEventsList", "VolunteerGroup")</li>
             <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
             @Html.AntiForgeryToken()
