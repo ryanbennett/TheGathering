@@ -86,7 +86,7 @@
                         $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
                         $description.append($('<p/>').html('<b>Location: </b>' + calEvent.location + ', ' + calEvent.city + ', ' + calEvent.state));
                         $description.append($('<p/>').html('<b>Number of Open Slots: </b>' + calEvent.openslots));
-                        $description.append($('<p/>').html('<a href="/VolunteerEvent/Details/' + calEvent.id + '">Sign up for Event</a>'));
+                        $description.append($('<p/>').html('<a href="/VolunteerGroup/SignUpGroupEvent?eventId=' + calEvent.id + '">Sign up for Event</a>'));
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
@@ -125,28 +125,36 @@
     {
         if (item.StartingShiftTime > DateTime.Now)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartingShiftTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndingShiftTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OpenSlots)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Group Sign Up", "SignUpGroupEvent", "VolunteerGroup", new {eventId = item.Id }, null)
-                    <!--TODO CHANGE TO SIGN UP, details too redundant-->
-                </td>
-            </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartingShiftTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndingShiftTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OpenSlots)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" }) 
+    </td>
+    <td>
+        @if (item.VolunteerGroupVolunteerEvents.Select(v => v.VolunteerEventId).Contains(item.Id))
+        {
+            @Html.ActionLink("Cancel Sign Up", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+        }
+        else
+        {
+            @Html.ActionLink("Sign Up", "SignUpGroupEvent", "VolunteerGroup", new { eventId = item.Id }, new { @class = "btn btn-primary" })
+        }
+    </td>
+</tr>
         }
 
     }
