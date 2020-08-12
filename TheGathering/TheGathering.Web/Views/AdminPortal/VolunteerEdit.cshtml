@@ -48,7 +48,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 form-inline">
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             <a class="no-print" href="#" data-toggle="tooltip" title="Emails cannot be changed">
                 <img height="16" src="~/Content/question-mark-icon-24x24.png" />
