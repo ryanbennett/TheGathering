@@ -103,16 +103,21 @@ namespace TheGathering.Web.Controllers
         [Authorize(Roles = "groupleader")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            VolunteerGroupLeader vgl ;
+            if (id != null && User.IsInRole("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                vgl = _service.GetLeaderById((int)id);
             }
-            VolunteerGroupLeader volunteergroupleader = _service.GetLeaderById((int)id);
-            if (volunteergroupleader == null)
+            else
+            {
+                vgl = GetCurrentVolunteerGroupLeader();
+            }
+            if (vgl == null)
             {
                 return HttpNotFound();
             }
-            return View(volunteergroupleader);
+
+            return View(vgl);
         }
 
         [HttpPost]
