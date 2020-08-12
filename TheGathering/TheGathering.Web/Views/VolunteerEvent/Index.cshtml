@@ -34,10 +34,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                @item.StartingShiftTime.ToString("g")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                @item.EndingShiftTime.ToString("g")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OpenSlots)
