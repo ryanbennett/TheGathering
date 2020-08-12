@@ -716,7 +716,7 @@ namespace TheGathering.Web.Controllers
             if (ModelState.IsValid)
             {
                 volunteerGroupService.EditLeader(volunteergroupleader);
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageGroupLeaders");
             }
             return View(volunteergroupleader);
         }
