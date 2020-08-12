@@ -21,70 +21,70 @@ else
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.LeaderFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.LeaderFirstName, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.LeaderLastName, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.LeaderLastName, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.LeaderBirthday, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.LeaderBirthday, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.LeaderEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.LeaderEmail, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.LeaderPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.LeaderPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.TotalGroupMembers, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
+		<div class="col-md-10 detailsOffset">
 			@Html.DisplayFor(model => model.TotalGroupMembers, new { htmlAttributes = new { @class = "form-control" } })
 		</div>
 	</div>
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.SignUpForNewsLetter, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			<div class="checkbox">
-				@Html.DisplayFor(model => model.SignUpForNewsLetter)
-			</div>
-		</div>
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.SignUpForNewsLetter)
+        </div>
 	</div>
 </div>
 <p>
-	@if (Model.IsAccountActive)
-	{
-		@Html.ActionLink("Deactivate", "LeaderActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
-	}
+    @if (Model.IsAccountActive)
+    {
+        @Html.ActionLink("Deactivate", "LeaderActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
+    }
 
-	else
-	{
-		@Html.ActionLink("Activate", "LeaderActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
-	}
+    else
+    {
+        @Html.ActionLink("Activate", "LeaderActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
+    }
+
+    @Html.ActionLink("Cancel", "GroupLeaderDetails", new { id = Model.Id }, new { @class = "btn btn-primary" })
 </p>

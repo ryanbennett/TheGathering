@@ -64,14 +64,13 @@
 
 	<div class="form-group">
 		@Html.LabelFor(model => model.SignUpForNewsLetter, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			<div class="checkbox">
-				@Html.DisplayFor(model => model.SignUpForNewsLetter)
-			</div>
-		</div>
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.SignUpForNewsLetter)
+        </div>
 	</div>
 </div>
 <p>
+    @Html.ActionLink("Back to List", "ManageGroupLeaders", null, new { @class = "btn btn-primary" })
     @Html.ActionLink("Send Reset Password Link", "GroupLeaderResetUserPass", new { groupLeaderID = Model.Id }, new { @class = "btn btn-primary" })
     @if (Model.IsAccountActive)
     {
@@ -81,6 +80,5 @@
     {
         @Html.ActionLink("Activate Account", "ChangeLeaderActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-primary" })
     }
-    @Html.ActionLink("Edit", "GroupLeaderEdit", new { id = Model.Id }, new { @class = "btn btn-primary" }) 
-    @Html.ActionLink("Back to List", "ManageGroupLeaders", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit", "GroupLeaderEdit", new { id = Model.Id }, new { @class = "btn btn-primary" })
 </p>
