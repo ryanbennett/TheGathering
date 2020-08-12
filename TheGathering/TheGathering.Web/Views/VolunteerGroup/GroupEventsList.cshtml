@@ -3,53 +3,136 @@
     ViewBag.Title = "GroupEventsList";
 }
 
-<h2>Group Events List</h2>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
-<p>
-    @Html.ActionLink("Calendar", "Calendar", "VolunteerEvent")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VolunteerGroupEvents[0].NumberOfGroupMembersSignedUp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
-        </th>
-        <th></th>
-    </tr>
+@if (Model.CurrentEvents.Count > 0)
+{
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Current Events</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
+                    </th>
 
-    @foreach (var item in Model.VolunteerGroupEvents)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VolunteerEvent.StartingShiftTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VolunteerEvent.EndingShiftTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfGroupMembersSignedUp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.AddressLine1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VolunteerEvent.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = item.VolunteerEvent.Id }, null)
-            </td>
-        </tr>
-    }
+                    <th>
+                        Meal Site
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
+                    </th>
+                    <th>
+                        Registered Slots
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
+                @foreach (var item in Model.CurrentEvents)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.StartingShiftTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.EndingShiftTime)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.Name)<br />
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.AddressLine1)<br />
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.City), @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.State) @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.Zipcode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumberOfGroupMembersSignedUp)
+                        </td>
+                        @*<td>
+                            @Html.ActionLink("Cancel Signup", "RemoveVolunteerFromEvent", "VolunteerEvent", new { eventId = item.Id, volunteerId = Model.Volunteer.Id }, new { @class = "btn btn-primary" })
+                        </td>*@
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    <h3>You are not currently signed up for any events</h3>
+}
+
+@if (Model.PastEvents.Count > 0)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Past Events</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
+                    </th>
+
+                    <th>
+                        Meal Site
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
+                    </th>
+                    <th>
+                        Registered Slots
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.PastEvents)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.StartingShiftTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.EndingShiftTime)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.Name)<br />
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.AddressLine1)<br />
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.City), @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.State) @Html.DisplayFor(modelItem => item.VolunteerEvent.MealSite.Zipcode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VolunteerEvent.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumberOfGroupMembersSignedUp)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", "VolunteerEvent", new { id = item.Id }, new { @class = "btn btn-primary" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+}
