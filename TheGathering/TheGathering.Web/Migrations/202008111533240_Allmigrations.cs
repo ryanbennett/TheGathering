@@ -3,7 +3,7 @@ namespace TheGathering.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AllMigrations : DbMigration
+    public partial class Allmigrations : DbMigration
     {
         public override void Up()
         {

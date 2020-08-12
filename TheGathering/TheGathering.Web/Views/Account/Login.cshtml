@@ -1,9 +1,8 @@
 ﻿@using TheGathering.Web.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+	ViewBag.Title = "Log in";
 }
-
 <h1>Log in</h1>
 <div class="row">
     <div class="col-sm-8">
@@ -27,8 +26,8 @@
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
 
-                    </div>
-                </div>
+					</div>
+				</div>
 
                 <div class="form-group form-check row checkbox-left-padding">
                     @Html.EditorFor(m => m.RememberMe)
@@ -52,5 +51,5 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/jqueryval")
 }

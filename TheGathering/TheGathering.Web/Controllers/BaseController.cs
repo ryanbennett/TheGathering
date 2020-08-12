@@ -20,7 +20,7 @@ namespace TheGathering.Web.Controllers
         ApplicationUserManager _userManager;
 
         /// <summary>
-        /// This is the email that's used for official gathering emails, used for confirmations and official email
+        /// This is the email that's used for official Gathering emails, used for confirmations and official email
         /// </summary>
         public const string GATHERING_EMAIL = "21ahmeda@elmbrookstudents.org";
 
