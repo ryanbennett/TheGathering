@@ -87,11 +87,11 @@ else
 <p>
     @if (Model.IsAccountActive)
     {
-        @Html.ActionLink("Deactivate", "AccountActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Deactivate", "AccountActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
     }
 
     else
     {
-        @Html.ActionLink("Activate", "AccountActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Activate", "AccountActivationChange", new { id = Model.Id, active = !Model.IsAccountActive }, new { @class = "btn btn-primary" })
     }
 </p>
