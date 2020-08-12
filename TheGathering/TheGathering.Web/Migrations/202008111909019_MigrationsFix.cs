@@ -3,7 +3,7 @@ namespace TheGathering.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class VolunteerGroupVolunteerEvent : DbMigration
+    public partial class MigrationsFix : DbMigration
     {
         public override void Up()
         {

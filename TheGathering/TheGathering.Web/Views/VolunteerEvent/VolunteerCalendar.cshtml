@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.ViewModels.VolunteerEvent.VolunteerCalendarViewModel
+﻿@model TheGathering.Web.ViewModels.VolunteerCalendarViewModel
 @{
     ViewBag.Title = "Calendar";
 }
@@ -126,10 +126,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                    @item.StartingShiftTime.ToString("g")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                    @item.EndingShiftTime.ToString("g")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OpenSlots)

@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using TheGathering.Web.Models;
@@ -51,17 +52,17 @@ namespace TheGathering.Web.Controllers
 
         }
 
-
+        [Authorize(Roles = "volunteer")]
         public ActionResult Edit(int? id)
         {
             Volunteer volunteer;
-            if (id == null)
+            if (id != null && User.IsInRole("admin"))
             {
-                volunteer = GetCurrentVolunteer();
+                volunteer = _service.GetById((int)id);
             }
             else
             {
-                volunteer = _service.GetById((int)id);
+                volunteer = GetCurrentVolunteer();
             }
             if (volunteer == null)
             {
@@ -73,6 +74,7 @@ namespace TheGathering.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "volunteer")]
         public ActionResult Edit(Volunteer volunteer)
         {
             DateTime local = volunteer.Birthday.ToUniversalTime();
@@ -86,9 +88,13 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Birthday", "Birthday date does not exist");
             }
-            if (age.TotalDays / 365 < 18)
-            {
+            if (age.TotalDays / 365 < 18){
                 ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (!User.IsInRole("admin") && volunteer.ApplicationUserId != User.Identity.GetUserId())
+            {
+                ModelState.AddModelError("ApplicationUserId", "Insufficient permissions");
+                return RedirectToAction("Login", "Account");
             }
             if (volunteer.FirstName.Any(char.IsDigit) == true)
             {
@@ -133,14 +139,20 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
-        [Authorize(Roles ="volunteer")]
-        public async Task<ActionResult> SignUpEvent(int eventId, string userId)
+
+        [Authorize(Roles = "volunteer")]
+        public async Task<ActionResult> SignUpEvent(int? eventId, string userId)
         {
+            if (eventId == null || userId == null)
+            {
+                return HttpNotFound();
+            }
+
             SignUpEventViewModel model = new SignUpEventViewModel();
             
             model.Volunteer = GetCurrentVolunteer();
             //TODO: change Volunteer get
-            model.VolunteerEvent = _eventService.GetEventById(eventId);
+            model.VolunteerEvent = _eventService.GetEventById((int)eventId);
             var volunteerEventIds = _service.GetVolunteerEventIdsByVolunteerId(model.Volunteer.Id);
             var openSlots = model.VolunteerEvent.OpenSlots;
             if (openSlots <= 0)
@@ -207,20 +219,25 @@ namespace TheGathering.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "volunteer")]
         public ActionResult EventAlreadyRegistered()
         {
             return View();
         }
+
+        [Authorize(Roles = "volunteer")]
         public ActionResult EventNotRegistered()
         {
             return View();
         }
+
+        [Authorize(Roles = "volunteer")]
         public ActionResult LeadershipInfo()
         {
             return View();
         }
 
-        [Authorize(Roles ="volunteer")]
+        [Authorize(Roles = "volunteer")]
         public async Task<ActionResult> LeadershipEmail()
         {
             Volunteer volunteer = GetCurrentVolunteer();
@@ -267,7 +284,8 @@ namespace TheGathering.Web.Controllers
             List<VolunteerEvent> volunteerEvents = _eventService.GetEventsByIds(eventId);
             return View(volunteerEvents);
         }
-        [Authorize(Roles ="volunteer")]
+
+        [Authorize(Roles = "volunteer")]
         public ActionResult UserEventsList()
         {
             var volunteer = GetCurrentVolunteer();
@@ -350,6 +368,8 @@ namespace TheGathering.Web.Controllers
 
             return View(viewModel);
         }
+
+        [Authorize(Roles = "volunteer")]
         public ActionResult EventRegistered(int volunteerId, int eventId)
         {
             if (_service.GetCancelledVolunteerEventIdsByVolunteerId(volunteerId).Contains(eventId))
@@ -384,6 +404,13 @@ namespace TheGathering.Web.Controllers
         {
             return View();
         }
+        public ActionResult SignUpForNewsletterComfirm()
+        {
+            Volunteer volunteer = GetCurrentVolunteer();
+            volunteer.SignUpForNewsLetter = true;
+            _service.Edit(volunteer);
+            return View();
+        }
     }
 
     // IComparer for Sorting Volunteer Events By Date
@@ -394,4 +421,5 @@ namespace TheGathering.Web.Controllers
             return y.StartingShiftTime.CompareTo(x.StartingShiftTime);
         }
     }
+    
 }
