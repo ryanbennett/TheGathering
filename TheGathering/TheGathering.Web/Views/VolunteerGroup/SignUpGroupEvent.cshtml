@@ -4,7 +4,7 @@
     ViewBag.Title = "SignUpGroupEvent";
 }
 
-<h2>SignUpGroupEvent</h2>
+<h2>Sign-Up Group Event</h2>
 @using (Html.BeginForm("SignUpGroupEvent", "VolunteerGroup", FormMethod.Post))
 {
 
@@ -50,16 +50,18 @@
             @Html.ValidationMessageFor(model => model.VolunteerSlots, "", new { @class = "text-danger" })
         </div>
     </div>
+    
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-0 col-md-12">
+            <br />
             <input type="submit" class="btn btn-primary" value="Sign Up" id="submit" />
+
+            <!-- volunteerId = Model.VolunteerGroupLeader.Id, eventId = Model.VolunteerEvent.Id -->
+            @Html.ActionLink("Back to Calendar", "Calendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
         </div>
     </div>
 }
 <br />
 
-<!-- volunteerId = Model.VolunteerGroupLeader.Id, eventId = Model.VolunteerEvent.Id -->
-<p>
-    @Html.ActionLink("Go Back to Calendar Page", "Calendar", "VolunteerEvent")
 
-</p>
+

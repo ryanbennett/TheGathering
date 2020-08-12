@@ -32,7 +32,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+                    @Model.VolunteerEvent.StartingShiftTime.ToString("g")
                 </dd>
 
                 <dt>
@@ -40,7 +40,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+                    @Model.VolunteerEvent.EndingShiftTime.ToString("g")
                 </dd>
 
                 <dt>
@@ -80,13 +80,16 @@
             }
             else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
             {
-                @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+                if (!User.IsInRole("groupleader"))
+                {
+                    @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+                }
             }
             else
             {
                 <h3>This event has already passed</h3>
             }
-            @Html.ActionLink("Back to Calendar", "VolunteerCalendar", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Back to Calendar", "Calendar", null, new { @class = "btn btn-primary" })
         </div>
         <div class="col-sm-6">
             <div id="myMap"></div>
