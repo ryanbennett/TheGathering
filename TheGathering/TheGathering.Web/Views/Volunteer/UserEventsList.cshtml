@@ -40,10 +40,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                            @item.StartingShiftTime.ToString("g")
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                            @item.EndingShiftTime.ToString("g")
                         </td>
 
                         <td>
@@ -130,11 +130,11 @@ else
 <h5font>
     Monthly Frequency: @ViewBag.monthlyFrequency events
 </h5font>
-<a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with the Gathering for at least a month.">
+<a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with The Gathering for at least a month.">
     <img height="16" src="~/Content/question-mark-icon-24x24.png" />
 </a>
 <h5>
-    Time with the Gathering: @ViewBag.timeWithGathering days
+    Time with The Gathering: @ViewBag.timeWithGathering days
 </h5>
 <a></a>
 <h5>

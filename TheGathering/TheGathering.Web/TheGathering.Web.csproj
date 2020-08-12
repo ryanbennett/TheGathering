@@ -444,7 +444,6 @@
     <Content Include="Views\MealSite\Edit.cshtml" />
     <Content Include="Views\MealSite\Index.cshtml" />
     <Content Include="Views\MealSite\Delete.cshtml" />
-    <Content Include="Views\MealSite\MultiMapTest.cshtml" />
     <Content Include="Views\Volunteer\Test.cshtml" />
     <Content Include="Views\VolunteerEvent\Calendar.cshtml" />
     <Content Include="Views\Volunteer\SignUpEvent.cshtml" />
@@ -497,6 +496,7 @@
     <Content Include="Views\VolunteerEvent\VolunteerDetails.cshtml" />
     <Content Include="Views\Volunteer\EventFull.cshtml" />
     <Content Include="Views\Volunteer\LeadershipEmailConfirm.cshtml" />
+    <Content Include="Views\Volunteer\SignUpForNewsletterComfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
