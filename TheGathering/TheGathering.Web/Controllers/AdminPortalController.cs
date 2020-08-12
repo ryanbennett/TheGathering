@@ -184,7 +184,7 @@ namespace TheGathering.Web.Controllers
 
             volunteerGroupService.ChangeGroupLeaderActivation(lead, (bool)active);
 
-            return RedirectToAction("VolunteerDetails", new { id = (int)id });
+            return RedirectToAction("GroupLeaderDetails", new { id = (int)id });
         }
 
 

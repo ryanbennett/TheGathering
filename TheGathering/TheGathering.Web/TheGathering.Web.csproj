@@ -500,6 +500,7 @@
     <Content Include="Views\Volunteer\EventFull.cshtml" />
     <Content Include="Views\Volunteer\LeadershipEmailConfirm.cshtml" />
     <Content Include="Views\Volunteer\SignUpForNewsletterComfirm.cshtml" />
+    <Content Include="Views\AdminPortal\ChangeLeaderActivationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
