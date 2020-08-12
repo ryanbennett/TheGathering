@@ -51,34 +51,7 @@ namespace TheGathering.Web.Migrations
             if (!context.Users.Any(u => u.UserName == user.UserName))
             {
                 userManager.Create(user, "F3edTheHungry1235#");
-
-                // TEMP
                 userManager.AddToRole(user.Id, "admin");
-                userManager.AddToRole(user.Id, "volunteer");
-                userManager.AddToRole(user.Id, "groupleader");
-
-                Volunteer v = new Volunteer();
-                v.ApplicationUserId = user.Id;
-                v.Birthday = new DateTime(2000, 10, 10);
-                v.FirstName = "Admin";
-                v.LastName = "";
-                v.PhoneNumber = "";
-                v.InterestInLeadership = false;
-                v.SignUpForNewsLetter = false;
-                context.Volunteers.Add(v);
-
-                VolunteerGroupLeader g = new VolunteerGroupLeader();
-                g.ApplicationUserId = user.Id;
-                g.LeaderBirthday = new DateTime(2000, 10, 10);
-                g.GroupName = "Admin";
-                g.LeaderFirstName = "Admin";
-                g.LeaderLastName = "";
-                g.IsAccountActive = true;
-                g.LeaderEmail = "";
-                g.LeaderPhoneNumber = "";
-                g.SignUpForNewsLetter = false;
-                g.TotalGroupMembers = 0;
-                context.VolunteerGroupLeaders.Add(g);
             }
 
         }
