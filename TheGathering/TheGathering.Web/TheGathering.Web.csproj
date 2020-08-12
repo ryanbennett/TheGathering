@@ -267,6 +267,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Fonts\Sofia Pro SemiBold.ttf" />
+    <None Include="Properties\PublishProfiles\thegathering-dev - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\thegathering-dev - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\thegathering-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\thegathering-dev-team0 - Web Deploy.pubxml" />

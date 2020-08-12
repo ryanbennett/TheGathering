@@ -22,6 +22,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public bool IsTheGatheringSite { get; set; }
+        [Display(Name = "Is Meal Site Active?" )]
         public bool IsMealSiteActive { get; set; }
 
         /*
