@@ -80,7 +80,10 @@
             }
             else if (Model.VolunteerEvent.StartingShiftTime > DateTime.Now)
             {
-                @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+                if (!User.IsInRole("groupleader"))
+                {
+                    @Html.ActionLink("Login to sign up", "Login", "Account", null, new { @class = "btn btn-primary" })
+                }
             }
             else
             {
