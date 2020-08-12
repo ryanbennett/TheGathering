@@ -222,6 +222,7 @@
     <Compile Include="Sorting\VolunteerEventSorts\Sorts.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\AdminAccountRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\AdminGroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />

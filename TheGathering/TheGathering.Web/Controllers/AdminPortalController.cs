@@ -826,7 +826,7 @@ namespace TheGathering.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GroupLeaderCreate(GroupRegistrationViewModel model)
+        public async Task<ActionResult> GroupLeaderCreate(AdminGroupRegistrationViewModel model)
         {
 
             DateTime local = model.LeaderBirthday.ToUniversalTime();

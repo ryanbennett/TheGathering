@@ -1,4 +1,4 @@
-﻿@model TheGathering.Web.ViewModels.Account.GroupRegistrationViewModel
+﻿@model TheGathering.Web.ViewModels.Account.AdminGroupRegistrationViewModel
 
 @{
     ViewBag.Title = "GroupLeaderCreate";
@@ -35,11 +35,6 @@
             </div>
         </div>
     </div>
-
-    <p hidden>
-        @Html.PasswordFor(m => m.Password, new { value = "defaultPassword123!" })
-        @Html.PasswordFor(m => m.ConfirmPassword, new { value = "defaultPassword123!" })
-    </p>
 
     <div class="row">
         <div class="col-sm-3 @*MinorHeadingNormal*@"><h2>Group Leader Email</h2></div>
