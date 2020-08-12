@@ -11,7 +11,7 @@
 @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>VolunteerGroupLeader</h4>
+    <h4>Volunteer Group Leader</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
@@ -63,10 +63,6 @@
             @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
-
-
 
     <div class="form-group">
         @Html.LabelFor(model => model.TotalGroupMembers, htmlAttributes: new { @class = "control-label col-md-2" })
