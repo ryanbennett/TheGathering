@@ -319,10 +319,8 @@ namespace TheGathering.Web.Controllers
                     VolunteerService.Create(volunteer);
 
                     string subject = "The Gathering Registration Confirmation";
-                    string plainText = "Hello " + model.FirstName + ", Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon.";
-                    string htmlText = "<strong>Hello " + model.FirstName + ",</strong><br/> Thank you for registering with The Gathering! Our volunteers are a vital part of our" +
-                        "organization. We look forward to seeing you soon. <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                    string plainText = "Hello " + model.FirstName + ", Thank you for creating an account with The Gathering! Our volunteers are the backbone of our organization. We are dedicated to Feeding the Hungry & Keeping Hearts Full and we look forward to seeing you soon.";
+                    string htmlText = "Hello " + model.FirstName + ", Thank you for creating an account with The Gathering! Our volunteers are the backbone of our organization. We are dedicated to Feeding the Hungry & Keeping Hearts Full and we look forward to seeing you soon.<br/> <a href='" + "' target='_new'>Click here to confirm your account</a> <br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
 
                     await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
 
@@ -331,7 +329,7 @@ namespace TheGathering.Web.Controllers
                     string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = userCode }, protocol: Request.Url.Scheme);
 
                     //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    string message = $"A request to reset your account's password has been made Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
+                    string message = $"A request to reset your account's password has been made. Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
 
                     await SendGatheringEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
 
