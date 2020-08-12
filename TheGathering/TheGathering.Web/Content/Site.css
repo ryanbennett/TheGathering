@@ -410,3 +410,7 @@ td {
         display: none !important;
     }
 }
+
+.detailsOffset {
+    padding-top:7px;
+}
