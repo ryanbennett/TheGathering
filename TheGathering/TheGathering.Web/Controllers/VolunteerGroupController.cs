@@ -18,6 +18,7 @@ namespace TheGathering.Web.Controllers
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
 
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             var model = _service.GetAllVolunteerGroups();
