@@ -83,7 +83,7 @@
 <div>
     <button onclick="window.print()" class="btn btn-primary no-print">Print this page</button>
     @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-primary no-print" })
-    @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary no-print" })
+    @Html.ActionLink("View Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary no-print" })
     @Html.ActionLink("Email Volunteers", "EmailEventVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary no-print" })
 
 	@{

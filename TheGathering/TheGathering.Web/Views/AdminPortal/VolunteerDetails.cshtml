@@ -64,8 +64,8 @@
 </div>
 <p>
     @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Send Reset Password Link", "ResetUserPass", new { volunteerID = Model.Id }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Edit", "VolunteerEdit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Send Reset Password Link", "ResetUserPass", new { volunteerID = Model.Id }, new { @class = "btn btn-primary" })
     @if (Model.IsAccountActive)
     {
         @Html.ActionLink("Deactivate Account", "ChangeAccountActivationConfirmation", new { id = Model.Id }, new { @class = "btn btn-primary" })
