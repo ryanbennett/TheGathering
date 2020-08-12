@@ -21,9 +21,9 @@ namespace TheGathering.Web.Controllers
         public const string INVALID_NUMBER_OF_GUESTS_ERROR = "The given number of guests are incorrect, make sure the maximum number of guests are greater than the minimum number of guests ";
         public const string INVALID_MEALSITE_TIME_ERROR = "The selected mealsite time is incorrect, make sure the start time is before the end time ";
 
-        public const string BREAKFAST_ADDON = "in breakfast seection";
-        public const string LUNCH_ADDON = "in lunch seection";
-        public const string DINNER_ADDON = "in dinner seection";
+        public const string BREAKFAST_ADDON = "in breakfast section";
+        public const string LUNCH_ADDON = "in lunch section";
+        public const string DINNER_ADDON = "in dinner section";
 
 
         // GET: MealSite
