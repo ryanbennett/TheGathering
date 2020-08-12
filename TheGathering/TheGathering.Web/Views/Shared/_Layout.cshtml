@@ -58,7 +58,14 @@
                             <a id="footerlink" href="http://www.thegatheringwis.org/donate">HOW YOU CAN HELP</a>
                         </div>
                         <div class="col-sm-4" align="center">
-                            <a id="footerlink" href="http://eepurl.com/ma-3H">SIGN UP FOR OUR NEWSLETTER</a>
+                            @if (Request.IsAuthenticated)
+                            {
+                                @Html.ActionLink("SIGN UP FOR OUR NEWSLETTER", "SignUpForNewsletterComfirm", "Volunteer")
+                            }
+                            else
+                            {
+                                <a id="footerlink" href="https://us4.list-manage.com/subscribe?id=2820eb1a9f&u=ffd36d348181fbbd8013c08d5">SIGN UP FOR OUR NEWSLETTER</a>
+                            }
                         </div>
                     </div>
 

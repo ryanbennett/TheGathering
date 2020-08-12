@@ -1,0 +1,12 @@
+﻿@model TheGathering.Web.Models.Volunteer
+@{
+    ViewBag.Title = "SignUpForNewsletterComfirm";
+}
+
+<div class="row">
+    <h2>Newsletter Comfirmation</h2>
+    <hr />
+    <p>You have successfully signed up for The Gathering's Newsletter.</p>
+    @Html.ActionLink("Back to calendar", "VolunteerCalendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+</div>
+

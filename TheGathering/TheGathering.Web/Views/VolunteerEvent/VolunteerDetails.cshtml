@@ -32,7 +32,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.VolunteerEvent.StartingShiftTime)
+                    @Model.VolunteerEvent.StartingShiftTime.ToString("g")
                 </dd>
 
                 <dt>
@@ -40,7 +40,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.VolunteerEvent.EndingShiftTime)
+                    @Model.VolunteerEvent.EndingShiftTime.ToString("g")
                 </dd>
 
                 <dt>

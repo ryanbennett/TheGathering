@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using TheGathering.Web.Models;
@@ -403,6 +404,13 @@ namespace TheGathering.Web.Controllers
         {
             return View();
         }
+        public ActionResult SignUpForNewsletterComfirm()
+        {
+            Volunteer volunteer = GetCurrentVolunteer();
+            volunteer.SignUpForNewsLetter = true;
+            _service.Edit(volunteer);
+            return View();
+        }
     }
 
     // IComparer for Sorting Volunteer Events By Date
@@ -413,4 +421,5 @@ namespace TheGathering.Web.Controllers
             return y.StartingShiftTime.CompareTo(x.StartingShiftTime);
         }
     }
+    
 }
