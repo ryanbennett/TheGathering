@@ -118,14 +118,6 @@
                             </tr>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Breakfast_MaximumGuestsServed)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Breakfast_MaximumGuestsServed)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
                                     @Html.DisplayNameFor(model => model.Breakfast_MinimumGuestsServed)
                                 </th>
                                 <td>
@@ -134,10 +126,18 @@
                             </tr>
                             <tr>
                                 <th>
+                                    @Html.DisplayNameFor(model => model.Breakfast_MaximumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Breakfast_MaximumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
                                     @Html.DisplayNameFor(model => model.Breakfast_StartTime)
                                 </th>
                                 <td>
-                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Breakfast_StartTime)
+                                    @TheGathering.Web.Models.MealSite.ToTweleveHourTime(Model.Breakfast_StartTime)
                                 </td>
                             </tr>
                             <tr>
@@ -145,7 +145,7 @@
                                     @Html.DisplayNameFor(model => model.Breakfast_EndTime)
                                 </th>
                                 <td>
-                                    @TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Breakfast_EndTime)
+                                    @TheGathering.Web.Models.MealSite.ToTweleveHourTime(Model.Breakfast_EndTime)
                                 </td>
                             </tr>
                         </table>
@@ -198,14 +198,6 @@
                             </tr>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Lunch_MaximumGuestsServed)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Lunch_MaximumGuestsServed)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
                                     @Html.DisplayNameFor(model => model.Lunch_MinimumGuestsServed)
                                 </th>
                                 <td>
@@ -214,10 +206,18 @@
                             </tr>
                             <tr>
                                 <th>
+                                    @Html.DisplayNameFor(model => model.Lunch_MaximumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Lunch_MaximumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
                                     @Html.DisplayNameFor(model => model.Lunch_StartTime)
                                 </th>
 								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
+									@TheGathering.Web.Models.MealSite.ToTweleveHourTime(Model.Lunch_StartTime)
 								</td>
                             </tr>
                             <tr>
@@ -225,7 +225,7 @@
                                     @Html.DisplayNameFor(model => model.Lunch_EndTime)
                                 </th>
 								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Lunch_EndTime)
+									@TheGathering.Web.Models.MealSite.ToTweleveHourTime(Model.Lunch_EndTime)
 								</td>
                             </tr>
                         </table>
@@ -277,14 +277,6 @@
                             </tr>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Dinner_MaximumGuestsServed)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Dinner_MaximumGuestsServed)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
                                     @Html.DisplayNameFor(model => model.Dinner_MinimumGuestsServed)
                                 </th>
                                 <td>
@@ -293,10 +285,18 @@
                             </tr>
                             <tr>
                                 <th>
+                                    @Html.DisplayNameFor(model => model.Dinner_MaximumGuestsServed)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Dinner_MaximumGuestsServed)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
                                     @Html.DisplayNameFor(model => model.Dinner_StartTime)
                                 </th>
 								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_EndTime)
+									@TheGathering.Web.Models.MealSite.ToTweleveHourTime(Model.Dinner_StartTime)
 								</td>
                             </tr>
                             <tr>
@@ -304,7 +304,7 @@
                                     @Html.DisplayNameFor(model => model.Dinner_EndTime)
                                 </th>
 								<td>
-									@TheGathering.Web.Models.MealSite.twelveTo24HourTime(Model.Dinner_EndTime)
+									@TheGathering.Web.Models.MealSite.ToTweleveHourTime(Model.Dinner_EndTime)
 								</td>
                             </tr>
                         </table>
