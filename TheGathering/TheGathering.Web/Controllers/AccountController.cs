@@ -251,8 +251,8 @@ namespace TheGathering.Web.Controllers
 
 
                     String subject = "The Gathering Registration Confirmation";
-                    String plainText = "Hello " + model.FirstName + ", Thank you for creating an account with The Gathering! Our volunteers are the backbone of our organization.We are dedicated toFeeding the Hungry & Keeping Hearts Full and we look forward to seeing you soon.";
-                    String htmlText = "Hello " + model.FirstName + ", Thank you for creating an account with The Gathering! Our volunteers are the backbone of our organization.We are dedicated to Feeding the Hungry & Keeping Hearts Full and we look forward to seeing you soon.<br/> <a href='" + callbackUrl + "' target='_new'>Click here to confirm your account</a> <br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                    String plainText = "Hello " + model.FirstName + ", Thank you for creating an account with The Gathering! Our volunteers are the backbone of our organization. We are dedicated to Feeding the Hungry & Keeping Hearts Full and we look forward to seeing you soon.";
+                    String htmlText = "Hello " + model.FirstName + ", Thank you for creating an account with The Gathering! Our volunteers are the backbone of our organization. We are dedicated to Feeding the Hungry & Keeping Hearts Full and we look forward to seeing you soon.<br/> <a href='" + callbackUrl + "' target='_new'>Click here to confirm your account</a> <br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
 
                     await ConfirmationEmail(model.FirstName, model.Email, subject, plainText, htmlText);
                     

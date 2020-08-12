@@ -254,10 +254,11 @@ td {
     list-style: none;
 }
 
-.nav-links li {
-    display: inline-block;
-    padding: 0px 20px;
-}
+    .nav-links li {
+        display: inline-block;
+        padding: 0px 20px;
+        margin: 10px;
+    }
     .nav-links li a {
         color: #B0D0B9;
         text-decoration: none;
@@ -267,6 +268,7 @@ td {
         font-family: Arial;
         cursor: pointer;
         transition: all 0.2s ease;
+        
     }
     .nav-links li a .name{
         color: white;
@@ -289,7 +291,7 @@ td {
         transition: all 0.3s ease;
     }
 /* Small Screen Navigation */
-@media screen and (max-width: 900px) {
+/*@media screen and (max-width: 900px) {
     body {
         overflow-x: hidden;
     }
@@ -317,6 +319,7 @@ td {
         padding: 0px 20px;
     }
 }
+    */
 .nav-active {
     transform: translateX(0%);
 }
