@@ -254,12 +254,15 @@
     <Content Include="Content\insta.png" />
     <Content Include="Content\MealProgramSafeguards.png" />
     <Content Include="Content\question-mark-icon-24x24.png" />
+    <Content Include="Content\the-gathering-of-southeast-wisconsin.png" />
+    <Content Include="Content\The_Gathering_F2_Black.png" />
     <Content Include="Content\The_Gathering_F2_Full_Color_White.png" />
     <Content Include="Content\customcalendar.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
     <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar.print.min.css" />
+    <Content Include="Content\usual+suspects.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -399,6 +402,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="usual+suspects.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
