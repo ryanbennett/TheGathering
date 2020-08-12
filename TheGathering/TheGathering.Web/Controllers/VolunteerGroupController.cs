@@ -189,13 +189,50 @@ namespace TheGathering.Web.Controllers
         [Authorize(Roles = "groupleader")]
         public ActionResult GroupEventsList()
         {
-            var volunteergroup = GetCurrentVolunteerGroupLeader();
+            //var volunteergroup = GetCurrentVolunteerGroupLeader();
+
+            //GroupNumberEventsListViewModel viewModel = new GroupNumberEventsListViewModel();
+            //viewModel.VolunteerGroupEvents = volunteergroup.VolunteerGroupVolunteerEvents;
+
+            
+            //return View(viewModel);
+
+            var volunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+            var events = volunteerGroupLeader.VolunteerGroupVolunteerEvents.Select(vgve => vgve.VolunteerEvent).ToList();
            
+            //var cancelledEventIds = _service.GetCancelledVolunteerEventIdsByVolunteerId(volunteer.Id);
+            //var cancelledEvents = _eventService.GetEventsByIds(cancelledEventIds);
+
+            events.Sort(new SortByDate());
+            //cancelledEvents.Sort(new SortByDate());
+            List<VolunteerGroupVolunteerEvent> CurrentEvents = new List<VolunteerGroupVolunteerEvent>();
+            List<VolunteerGroupVolunteerEvent> PastEvents = new List<VolunteerGroupVolunteerEvent>();
+            foreach (VolunteerGroupVolunteerEvent item in volunteerGroupLeader.VolunteerGroupVolunteerEvents)
+            {
+
+                if (item.VolunteerEvent.StartingShiftTime > DateTime.Now)
+                    CurrentEvents.Add(item);
+                else
+                    PastEvents.Add(item);
+            }
+            CurrentEvents.Sort(new SortByDateForVolunteerGroup());
+            PastEvents.Sort(new SortByDateForVolunteerGroup());
             GroupNumberEventsListViewModel viewModel = new GroupNumberEventsListViewModel();
-            viewModel.VolunteerGroupEvents = volunteergroup.VolunteerGroupVolunteerEvents;
-           
-            viewModel.VolunteerEvents = volunteergroup.VolunteerGroupVolunteerEvents.Select(vgve=>vgve.VolunteerEvent).ToList();
+            viewModel.VolunteerEvents = events;
+            //viewModel.CancelledEvents = cancelledEvents;
+            viewModel.CurrentEvents = CurrentEvents;
+            viewModel.PastEvents = PastEvents;
+            viewModel.volunteerGroupLeader = volunteerGroupLeader;
+
             return View(viewModel);
+
+        }
+    }
+    public class SortByDateForVolunteerGroup : IComparer<VolunteerGroupVolunteerEvent>
+    {
+        public int Compare(VolunteerGroupVolunteerEvent x, VolunteerGroupVolunteerEvent y)
+        {
+            return y.VolunteerEvent.StartingShiftTime.CompareTo(x.VolunteerEvent.StartingShiftTime);
         }
     }
 }
