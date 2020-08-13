@@ -118,9 +118,10 @@ namespace TheGathering.Web.Controllers
                     mealSiteService.AddMealSite(mealSite);
                     return RedirectToAction("MealSites", "AdminPortal", null);
                 }
-
-                viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR;
-                return View(viewModel);
+                else
+                {
+                    viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR;
+                }
             }
 
             return View(viewModel);
