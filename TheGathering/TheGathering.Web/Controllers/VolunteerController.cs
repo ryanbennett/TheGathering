@@ -104,10 +104,6 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("LastName", "Last name cannot contain numbers");
             }
-            if (volunteer.PhoneNumber.Length >= 11)
-            {
-                ModelState.AddModelError("PhoneNumber", "Phone number must be shorter than 11 numbers");
-            }
 
             if (ModelState.IsValid)
             {
