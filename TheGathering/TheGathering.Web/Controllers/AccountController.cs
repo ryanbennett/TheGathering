@@ -176,6 +176,7 @@ namespace TheGathering.Web.Controllers
         {
 
             DateTime local = model.Birthday.ToUniversalTime();
+            DateTime plus18Years = local.AddYears(18);
             DateTime server = DateTime.Now.ToUniversalTime();
             var age = server.Subtract(local);
             if (local.Year < 1900)
@@ -186,7 +187,7 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Birthday", "Birthday date does not exist");
             }
-            if (age.TotalDays / 365 < 18)
+            if (plus18Years>server)
             {
                 ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
             }
@@ -286,6 +287,7 @@ namespace TheGathering.Web.Controllers
         {
 
             DateTime local = model.LeaderBirthday.ToUniversalTime();
+            DateTime plus18Years = local.AddYears(18);
             DateTime server = DateTime.Now.ToUniversalTime();
             var age = server.Subtract(local);
             if (local.Year < 1900)
@@ -296,7 +298,7 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Birthday", "Birthday date does not exist");
             }
-            if (age.TotalDays / 365 < 18)
+            if (plus18Years>server)
             {
                 ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
             }

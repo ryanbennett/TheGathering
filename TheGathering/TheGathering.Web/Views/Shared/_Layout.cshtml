@@ -17,36 +17,36 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
- 
+
 <body class="body-back-color">
-    <div id="main">
-        <nav class="navigation no-print">
-            <div class="logo">
-                <a href="http://www.thegatheringwis.org/"><img class="img-responsive" src="~/Content/GatheringNavLogo.png" draggable="false" /></a>
-            </div>
-            <ul class="nav-links">
-                @Html.Partial("_LoginPartial")
-            </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-        </nav>
-        <script src="~/Content/Navigation.js"></script>
+    <div id="page-container">
+        <div id="content-wrap">
+            <nav class="navigation no-print">
+                <div class="logo">
+                    <a href="http://www.thegatheringwis.org/"><img class="img-responsive" src="~/Content/GatheringNavLogo.png" draggable="false" /></a>
+                </div>
+                <ul class="nav-links">
+                    @Html.Partial("_LoginPartial")
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+            <script src="~/Content/Navigation.js"></script>
 
 
-        <div class="container">
-            <div class="row">
-                @RenderBody()
+            <div class="container">
+                <div class="row">
+                    @RenderBody()
+                </div>
             </div>
+            <br />
         </div>
-    </div>
-    <br />
-    <div id="footer" class="no-print fixed-bottom">
-        <div class="footerText" align="center">
-            <div class="row ">
-                <div>
+        <div id="footer" class="no-print fixed-bottom">
+            <div class="footerText" align="center">
+                <div class="row ">
                     <div class="row" align="center">
                         <div class="col-sm-3" align="center">
                             <a id="footerlink" href="http://www.thegatheringwis.org/contact">CONTACT US</a>
@@ -101,7 +101,6 @@
             </div>
         </div>
     </div>
-
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
