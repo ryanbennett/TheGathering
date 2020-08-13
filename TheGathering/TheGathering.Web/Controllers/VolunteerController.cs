@@ -350,7 +350,7 @@ namespace TheGathering.Web.Controllers
                 }
             }
 
-            ViewBag.totalHours = volunteerHours.Hours;
+            ViewBag.totalHours = volunteerHours.Hours + (volunteerHours.Days * 24);
             ViewBag.totalMinutes = volunteerHours.Minutes;
 
             if (months > 0)
