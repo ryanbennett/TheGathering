@@ -328,6 +328,10 @@ namespace TheGathering.Web.Controllers
             {
                 ModelState.AddModelError("Password", "Password must contain a symbol or special character");
             }
+            if (model.TotalGroupMembers <1)
+            {
+                ModelState.AddModelError("TotalGroupMembers", "The number of total group members must be greater than 0.");
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
