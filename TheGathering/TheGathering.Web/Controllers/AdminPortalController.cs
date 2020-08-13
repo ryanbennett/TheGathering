@@ -519,6 +519,33 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult VolunteerEdit(Volunteer volunteer)
         {
+            DateTime local = volunteer.Birthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (volunteer.FirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (volunteer.LastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (volunteer.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
             if (ModelState.IsValid)
             {
                 volunteerService.Edit(volunteer);
@@ -711,6 +738,37 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GroupLeaderEdit(VolunteerGroupLeader volunteergroupleader)
         {
+            DateTime local = volunteergroupleader.LeaderBirthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (volunteergroupleader.LeaderFirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (volunteergroupleader.LeaderLastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (volunteergroupleader.LeaderEmail.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
+            if (volunteergroupleader.TotalGroupMembers <= 0)
+            {
+                ModelState.AddModelError("TotalGroupMembers", "Total group members must be greater than 0");
+            }
             if (ModelState.IsValid)
             {
                 volunteerGroupService.EditLeader(volunteergroupleader);
