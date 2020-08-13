@@ -28,11 +28,6 @@ select,
 textarea {
     max-width: 280px;
 }
-/*what does this do*/
-@font-face {
-    font-family: Sofia Pro SemiBold;
-    src: url('Fonts/Sofia Pro SemiBold.ttf');
-}
 
 h1 {
     font-family: Sofia Pro, sans-serif;
