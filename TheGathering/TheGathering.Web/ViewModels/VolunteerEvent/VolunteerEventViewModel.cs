@@ -31,6 +31,7 @@ namespace TheGathering.Web.Models
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; } = new List<VolunteerVolunteerEvent>();
 
         public List<Volunteer> SignedUpVolunteers { get; set; } = new List<Volunteer>();
+        public List<VolunteerGroupLeader> SignedUpVolunteerGroups { get; set; } = new List<VolunteerGroupLeader>();
 
         /// <summary>
         /// This will be empty if there is no error, allows us to create an error for validating input information

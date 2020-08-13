@@ -1,85 +1,165 @@
 ﻿@model  TheGathering.Web.Models.VolunteerEventViewModel
 @{
-    ViewBag.Title = "ViewVolunteers";
+	ViewBag.Title = "ViewVolunteers";
 }
 
 <h2>Volunteers For Event</h2>
 
 <p>
-    @Html.ActionLink("Back to Event Details", "EventDetails", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Add Volunteers to Event", "AddVolunteers", new { id = Model.Id }, new { @class = "btn btn-primary" })
+	@Html.ActionLink("Back to Event Details", "EventDetails", new { id = Model.Id }, new { @class = "btn btn-primary" })
+	@Html.ActionLink("Add Volunteers to Event", "AddVolunteers", new { id = Model.Id }, new { @class = "btn btn-primary" })
 </p>
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("First Name")
-        </th>
+	<tr>
+		<th>
+			@Html.DisplayName("First Name")
+		</th>
 
-        <th>
-            @Html.DisplayName("Last Name")
-        </th>
+		<th>
+			@Html.DisplayName("Last Name")
+		</th>
 
-        <th>
-            @Html.DisplayName("Birthday")
-        </th>
+		<th>
+			@Html.DisplayName("Birthday")
+		</th>
 
-        <th>
-            @Html.DisplayName("Emails")
-        </th>
+		<th>
+			@Html.DisplayName("Emails")
+		</th>
 
-        <th>
-            @Html.DisplayName("Phone Number")
-        </th>
+		<th>
+			@Html.DisplayName("Phone Number")
+		</th>
 
-        <th>
-            @Html.DisplayName("Interested in Leadership")
-        </th>
+		<th>
+			@Html.DisplayName("Interested in Leadership")
+		</th>
 
-        <th>
-            @Html.DisplayName("Signed up for Newsletter")
-        </th>
+		<th>
+			@Html.DisplayName("Signed up for Newsletter")
+		</th>
 
-        <th></th>
-    </tr>
+		<th></th>
+	</tr>
 
-    @foreach (var item in Model.SignedUpVolunteers)
-    {
-        <tr>
-            <th>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </th>
+	@foreach (var item in Model.SignedUpVolunteers)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.FirstName)
+			</td>
 
-            <th>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </th>
+			<td>
+				@Html.DisplayFor(modelItem => item.LastName)
+			</td>
 
-            <th>
-                @Html.DisplayFor(modelItem => item.Birthday)
-            </th>
+			<td>
+				@Html.DisplayFor(modelItem => item.Birthday)
+			</td>
 
-            <th>
-                @Html.DisplayFor(modelItem => item.Email)
-            </th>
+			<td>
+				@Html.DisplayFor(modelItem => item.Email)
+			</td>
 
-            <th>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </th>
+			<td>
+				@Html.DisplayFor(modelItem => item.PhoneNumber)
+			</td>
 
-            <th>
-                @Html.DisplayFor(modelItem => item.InterestInLeadership)
-            </th>
+			<td>
+				@Html.DisplayFor(modelItem => item.InterestInLeadership)
+			</td>
 
-            <th>
-                @Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
-            </th>
+			<td>
+				@Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
+			</td>
 
-            <th>
-                @Html.ActionLink("Details", "VolunteerDetails", new { id = item.Id }, null)
-                @Html.ActionLink("Delete", "RemoveVolunteerFromEvent", new { eventID = Model.Id, volunteerID = item.Id })
-            </th>
-        </tr>
+			<td>
+				@Html.ActionLink("Details", "VolunteerDetails", new { id = item.Id }, null)
+				@Html.ActionLink("Remove", "RemoveVolunteerFromEvent", new { eventID = Model.Id, volunteerID = item.Id })
+			</td>
+		</tr>
 
-    }
+	}
+
+</table>
+
+<h2>Volunteer Groups For Event</h2>
+
+<p>
+	@Html.ActionLink("Add Volunteer Groups to Event", "AddVolunteerGroups", new { id = Model.Id }, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Group Name")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's First Name")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's Last Name")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's Email")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's Phone Number")
+		</th>
+
+		<th>
+			@Html.DisplayName("Total Group Members")
+		</th>
+
+		<th>
+			@Html.DisplayName("Signed up for Newsletter")
+		</th>
+
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model.SignedUpVolunteerGroups)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.GroupName)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderFirstName)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderLastName)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderEmail)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderPhoneNumber)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.TotalGroupMembers)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
+			</td>
+
+			<td>
+				@Html.ActionLink("Details", "GroupLeaderDetails", new { id = item.Id }, null)
+				@Html.ActionLink("Remove", "RemoveVolunteerGroupFromEvent", new { eventID = Model.Id, volunteerGroupID = item.Id })
+			</td>
+		</tr>
+
+	}
 
 </table>

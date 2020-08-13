@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -18,13 +19,7 @@ namespace TheGathering.Web.Controllers
         private MealSiteService mealSiteService = new MealSiteService();
         private CalendarService volunteerEventService = new CalendarService();
 
-        public const string INVALID_NUMBER_OF_GUESTS_ERROR = "The given number of guests are incorrect, make sure the maximum number of guests are greater than the minimum number of guests ";
-        public const string INVALID_MEALSITE_TIME_ERROR = "The selected mealsite time is incorrect, make sure the start time is before the end time ";
-
-        public const string BREAKFAST_ADDON = "in breakfast section";
-        public const string LUNCH_ADDON = "in lunch section";
-        public const string DINNER_ADDON = "in dinner section";
-
+        public const string ERROR_SEPARATOR = " <br>";
 
         // GET: MealSite
         [AllowAnonymous]
@@ -54,48 +49,28 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.ValidateAllData())
+                List<string> allErrors = viewModel.GetBreakfastValidationErrors();
+                allErrors.AddRange(viewModel.GetDinnerValidationErrors());
+                allErrors.AddRange(viewModel.GetLunchValidationErrors());
+
+                if (allErrors.Count > 0)
                 {
-                    MealSite mealSite = new MealSite(viewModel);
-                    mealSiteService.UpdateMealSite(mealSite);
-                    return RedirectToAction("MealSites", "AdminPortal", null);
-                }
-                else if (viewModel.ValidateBreakfastData() == false)
-                {
-                    if (viewModel.Breakfast_MaximumGuestsServed < viewModel.Breakfast_MinimumGuestsServed | viewModel.Breakfast_MinimumGuestsServed < 0 | viewModel.Breakfast_MaximumGuestsServed < 0)
+                    StringBuilder str = new StringBuilder();
+
+                    foreach (string error in allErrors)
                     {
-                        viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR + BREAKFAST_ADDON;
-                        return View(viewModel);
+                        str.Append(error);
+                        str.Append(ERROR_SEPARATOR);
                     }
 
-                    viewModel.Error = INVALID_MEALSITE_TIME_ERROR + BREAKFAST_ADDON;
+                    viewModel.Error = str.ToString();
+
                     return View(viewModel);
                 }
-                else if (viewModel.ValidateLunchData() == false)
-                {
-                    if (viewModel.Lunch_MaximumGuestsServed < viewModel.Lunch_MinimumGuestsServed | viewModel.Lunch_MinimumGuestsServed < 0 | viewModel.Lunch_MaximumGuestsServed < 0)
-                    {
-                        viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR + LUNCH_ADDON;
-                        return View(viewModel);
-                    }
 
-                    viewModel.Error = INVALID_MEALSITE_TIME_ERROR + LUNCH_ADDON;
-                    return View(viewModel);
-
-                }
-                else if (viewModel.ValidateDinnerData() == false)
-                {
-                    if (viewModel.Dinner_MaximumGuestsServed < viewModel.Dinner_MinimumGuestsServed | viewModel.Dinner_MinimumGuestsServed < 0 | viewModel.Dinner_MaximumGuestsServed < 0)
-                    {
-                        viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR + DINNER_ADDON;
-                        return View(viewModel);
-                    }
-
-                    viewModel.Error = INVALID_MEALSITE_TIME_ERROR + DINNER_ADDON;
-                    return View(viewModel);
-                }
-                //viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR;
-                //return View(viewModel);
+                MealSite mealSite = new MealSite(viewModel);
+                mealSiteService.UpdateMealSite(mealSite);
+                return RedirectToAction("MealSites", "AdminPortal", null);
             }
 
             return View(viewModel);
@@ -112,16 +87,29 @@ namespace TheGathering.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.ValidateAllData())
+                List<string> allErrors = viewModel.GetBreakfastValidationErrors();
+                allErrors.AddRange(viewModel.GetDinnerValidationErrors());
+                allErrors.AddRange(viewModel.GetLunchValidationErrors());
+
+                if (allErrors.Count > 0)
                 {
-                    MealSite mealSite = new MealSite(viewModel);
-                    mealSiteService.AddMealSite(mealSite);
-                    return RedirectToAction("MealSites", "AdminPortal", null);
+                    StringBuilder str = new StringBuilder();
+
+                    foreach (string error in allErrors)
+                    {
+                        str.Append(error);
+                        str.Append(ERROR_SEPARATOR);
+                    }
+
+                    viewModel.Error = str.ToString();
+
+                    return View(viewModel);
                 }
-                else
-                {
-                    viewModel.Error = INVALID_NUMBER_OF_GUESTS_ERROR;
-                }
+
+                MealSite mealSite = new MealSite(viewModel);
+                mealSiteService.AddMealSite(mealSite);
+                return RedirectToAction("MealSites", "AdminPortal", null);
+
             }
 
             return View(viewModel);

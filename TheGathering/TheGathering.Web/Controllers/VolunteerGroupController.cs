@@ -77,7 +77,7 @@ namespace TheGathering.Web.Controllers
                 _service.AddVolunteerGroupVolunteerEvent(volunteerId, eventId, numVolunteers);
                 return RedirectToAction("GroupEventsList");
             }
-
+            GetCurrentVolunteerGroupLeader().TotalGroupMembers = numVolunteers;
             return View(signUpGroupViewModel);
         }
         public ActionResult EventAlreadyRegistered()

@@ -1,0 +1,83 @@
+﻿@model TheGathering.Web.ViewModels.AddVolunteerGroupViewModel
+@{
+	ViewBag.Title = "AddVolunteers";
+}
+
+<h2>Add Volunteer Groups</h2>
+
+<p>
+	@Html.ActionLink("Back to Volunteer List", "ViewVolunteers", new { eventID = Model.Event.Id }, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayName("Group Name")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's First Name")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's Last Name")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's Email")
+		</th>
+
+		<th>
+			@Html.DisplayName("Leader's Phone Number")
+		</th>
+
+		<th>
+			@Html.DisplayName("Total Group Members")
+		</th>
+
+		<th>
+			@Html.DisplayName("Signed up for Newsletter")
+		</th>
+
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model.AvailableVolunteerGroups)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.GroupName)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderFirstName)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderLastName)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderEmail)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.LeaderPhoneNumber)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.TotalGroupMembers)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => item.SignUpForNewsLetter)
+			</td>
+
+			<td>
+				@Html.ActionLink("Add To Event", "AddVolunteerGroupToEvent", new { eventID = Model.Event.Id, volunteerGroupID = item.Id }, new { @class="btn btn-primary" })
+			</td>
+		</tr>
+
+	}
+
+</table>
