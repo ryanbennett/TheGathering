@@ -4,42 +4,42 @@
     ViewBag.Title = "ManageGroupLeaders";
 }
 
-<h2>Manage Group Leaders</h2>
+<h1>Manage Group Leaders</h1>
 <p>
-    @Html.ActionLink("Create New", "GroupLeaderCreate", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Register New Group Leader", "GroupLeaderCreate", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LeaderFirstName)
+            First Name
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.LeaderLastName)
+            Last Name
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.LeaderBirthday)
+            Date of Birth
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.LeaderEmail)
+            Email
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.LeaderPhoneNumber)
+            Phone Number
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.GroupName)
+            Group Name
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.SignUpForNewsLetter)
+            Sign Up For Newsletter
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.IsAccountActive)
+            Account Active
         </th>
     </tr>
 

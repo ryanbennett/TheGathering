@@ -208,9 +208,13 @@ async function updateLonLat()
 
     var locData = await getLocationData(address);
 
-    console.log(locData.confidence + " - " + address);
-
     // Verify Location Exists
+    if (!(locData)) {
+        document.getElementById("submit").disabled = true;
+        document.getElementById("addressLineGroup").className = "form-group has-error";
+        document.getElementById("addressLineReturn").innerText = "Invalid Location";
+        return true;
+    }
     if (locData.entityType == "Address" && locData.confidence != "Low") {
         document.getElementById("submit").disabled = false;
         document.getElementById("addressLineGroup").className = "form-group";
@@ -221,11 +225,13 @@ async function updateLonLat()
         var longitude = document.getElementById("lon");
         latitude.value = locData.point.coordinates[0];
         longitude.value = locData.point.coordinates[1];
+        return false;
     }
     else {
         document.getElementById("submit").disabled = true;
         document.getElementById("addressLineGroup").className = "form-group has-error";
         document.getElementById("addressLineReturn").innerText = "Invalid Location";
+        return true;
     }
 }
 
@@ -283,4 +289,17 @@ function clearPushpinNumbers() {
             text: ""
         });
     }
+}
+
+function checkLonLat() {
+    $("#mealSiteForm").submit(async function (e) {
+        var latitude = document.getElementById("lat");
+        var longitude = document.getElementById("lon");
+
+        if (latitude.value == "" || longitude.value == "") {
+            document.getElementById("addressLineGroup").className = "form-group has-error";
+            document.getElementById("addressLineReturn").innerText = "Invalid Location";
+            e.preventDefault();
+        }
+    });
 }
