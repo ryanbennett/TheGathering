@@ -8,6 +8,29 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
+<h2>Your Report</h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h5font>
+            Monthly Frequency: @ViewBag.monthlyFrequency events
+        </h5font>
+        <a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with The Gathering for at least a month.">
+            <img height="16" src="~/Content/question-mark-icon-24x24.png" />
+        </a>
+        <h5>
+            Time with The Gathering: @ViewBag.timeWithGathering days
+        </h5>
+        <a></a>
+        <h5>
+            Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
+        </h5>
+    </div>
+
+    <div class="col-sm-6">
+        @Html.ActionLink("Go to Calendar", "VolunteerCalendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
 
 @if (Model.CurrentEvents.Count > 0)
 {
@@ -127,22 +150,3 @@ else
     </div>
 }
 
-<h5font>
-    Monthly Frequency: @ViewBag.monthlyFrequency events
-</h5font>
-<a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with The Gathering for at least a month.">
-    <img height="16" src="~/Content/question-mark-icon-24x24.png" />
-</a>
-<h5>
-    Time with The Gathering: @ViewBag.timeWithGathering days
-</h5>
-<a></a>
-<h5>
-    Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
-</h5>
-
-<div class="row">
-    <div class="col-sm-6">
-        @Html.ActionLink("Go to Calendar", "VolunteerCalendar", "VolunteerEvent", null, new { @class = "btn btn-primary" })
-    </div>
-</div>
