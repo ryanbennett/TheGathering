@@ -187,16 +187,27 @@ td {
         background-color: #B0D0B9;
         color: black;
     }
+
+#page-container {
+    position: relative !important;
+    min-height: 91vh !important;
+}
+
+#content-wrap {
+    padding-bottom: 5rem !important; /* Footer height */
+}
+
 #footer {
     width: 100%;
-    margin-top: auto;
-    background-color: darkgray;
+    background-color: darkgray !important;
     align-content: center;
-    bottom: 0;
-    padding: 32px 32px 25px;
-    flex: 0 0 50px;
+    position: absolute !important;
+    bottom: 0 !important;
+    padding-top: 8px;
+    height: 5rem !important;
 }
 .footerText {
+    background-color: darkgray !important;
     font-family: Sofia Pro, sans-serif !important;
     color: #434345;
     font-size: small;
@@ -208,6 +219,7 @@ td {
 
 
 #footerlink {
+    background-color: darkgray !important;
     color: #434345;
 }
 /*disscus with the other team and put it with the others*/
@@ -250,6 +262,7 @@ td {
     margin-right: auto;
     padding: 0px 20px;
     max-width: 300px;
+    min-width: 150px;
 }
 .nav-links {
     list-style: none;
