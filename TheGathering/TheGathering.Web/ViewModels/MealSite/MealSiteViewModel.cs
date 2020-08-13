@@ -324,7 +324,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         /// </summary>
         NoDaysSelected,
         /// <summary>
-        /// 
+        /// Minimum guests served is larger than the maximum guests served
         /// </summary>
         GuestsServedMinGreaterThanMax,
         /// <summary>
