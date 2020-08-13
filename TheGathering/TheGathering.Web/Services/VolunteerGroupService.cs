@@ -65,6 +65,11 @@ namespace TheGathering.Web.Services
             VolunteerGroupLeader volunteergroupleader = _repository.GetLeaderById(volunteerGroupId);
             _repository.AddVolunteerGroupVolunteerEvent(volunteergroupleader, vgve);
         }
+
+        public void RemoveVolunteerGroupVolunteerEvent(int volunteerGroupId, int eventId)
+        {
+            _repository.RemoveVolunteerGroupVolunteerEvent(volunteerGroupId, eventId);
+        }
         
         public void ReduceOpenSlots(VolunteerEvent volunteerEvent, int origOpenSlots, int numVolunteers)
         {
@@ -73,6 +78,10 @@ namespace TheGathering.Web.Services
         public List<VolunteerGroupVolunteerEvent> GetVolunteerGroupVolunteerEvents(int id)
         {
             return _repository.GetVolunteerGroupVolunteerEvents(id);
+        }
+        public List<VolunteerGroupVolunteerEvent> GetAllVolunteerGroupVolunteerEvents()
+        {
+            return _repository.GetAllVolunteerGroupVolunteerEvents();
         }
     }
 }

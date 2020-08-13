@@ -59,6 +59,13 @@ namespace TheGathering.Web.Repositories
             _context.Entry(volunteergroupleader).State = EntityState.Modified;
             _context.SaveChanges();
         }
+        public void RemoveVolunteerGroupVolunteerEvent(int volunteerGroupId, int eventId)
+        {
+            var ve = _context.VolunteerGroupVolunteerEvents.Where(vgve => vgve.VolunteerEventId == eventId && vgve.VolunteerGroupId == volunteerGroupId).FirstOrDefault();
+            if (ve != null)
+                ve.IsItCanceled = true;
+            _context.SaveChanges();
+        }
 
         public void ReduceOpenSlots(VolunteerEvent volunteerEvent, int origOpenSlots, int numVolunteers)
         {
@@ -70,6 +77,11 @@ namespace TheGathering.Web.Repositories
         public List<VolunteerGroupVolunteerEvent> GetVolunteerGroupVolunteerEvents(int id)
         {
             return _context.VolunteerGroupVolunteerEvents.Where(vgve => vgve.VolunteerGroupId == id && !vgve.IsItCanceled).ToList();
+        }
+
+        public List<VolunteerGroupVolunteerEvent> GetAllVolunteerGroupVolunteerEvents()
+        {
+            return _context.VolunteerGroupVolunteerEvents.ToList();
         }
     }
 }

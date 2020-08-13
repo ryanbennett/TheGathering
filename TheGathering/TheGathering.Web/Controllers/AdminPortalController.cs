@@ -114,6 +114,8 @@ namespace TheGathering.Web.Controllers
             var volunteerEventViewModel = new VolunteerEventViewModel(evt);
             List<int> IdList = evt.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
             volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
+            List<int> groupList = evt.VolunteerGroupVolunteerEvents.ToList().Where(vgve => !vgve.IsItCanceled).Select(vgve => vgve.VolunteerGroupId).ToList();
+            volunteerEventViewModel.SignedUpVolunteerGroups = volunteerGroupService.GetAllVolunteerGroups().Where(vg => groupList.Contains(vg.Id)).ToList();
             return View(volunteerEventViewModel);
         }
 
@@ -221,6 +223,44 @@ namespace TheGathering.Web.Controllers
             {
                 Event = volunteerEvent,
                 AvailableVolunteers = addableVolunteers
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult AddVolunteerGroups(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<int> idList = volunteerEvent.VolunteerGroupVolunteerEvents.Select(vve => vve.VolunteerGroupId).ToList();
+            List<VolunteerGroupLeader> signedUpVolunteerGroups = volunteerGroupService.GetAllVolunteerGroups().Where(vg => idList.Contains(vg.Id)).ToList();
+            List<VolunteerGroupLeader> addableVolunteerGroups = volunteerGroupService.GetAllVolunteerGroups();
+
+            foreach (VolunteerGroupLeader v in signedUpVolunteerGroups)
+            {
+                var vgve = volunteerGroupService.GetAllVolunteerGroupVolunteerEvents().Where(ctx => ctx.VolunteerGroupId == v.Id).ToList();
+
+                //If there's more than one item then they're most likely duplicates, there should only be one in this list
+                if (vgve.Count > 0 && vgve[0].IsItCanceled) { continue; }
+
+                addableVolunteerGroups.Remove(v);
+            }
+
+            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            AddVolunteerGroupViewModel viewModel = new AddVolunteerGroupViewModel
+            {
+                Event = volunteerEvent,
+                AvailableVolunteerGroups = addableVolunteerGroups
             };
 
             return View(viewModel);
@@ -392,6 +432,32 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("AddVolunteers", new { id = (int)eventID });
         }
 
+        public ActionResult AddVolunteerGroupToEvent(int? eventID, int? volunteerGroupID)
+        {
+            if (eventID == null || volunteerGroupID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var volEvent = calendarService.GetEventById((int)eventID);
+            var volunteerEvents = volEvent.VolunteerGroupVolunteerEvents.Where(ctx => ctx.VolunteerGroupId == (int)volunteerGroupID).ToList();
+
+            //If we find VolunteerVolunteerEvents in the current volunteer event then we already added this volunteer to the event
+            if (volunteerEvents == null || volunteerEvents.Count < 1)
+            {
+                volunteerGroupService.AddVolunteerGroupVolunteerEvent((int)volunteerGroupID, (int)eventID, volunteerGroupService.GetLeaderById((int)volunteerGroupID).TotalGroupMembers);
+            }
+
+            //Change it so that the volunteer is no longer canceled, avoids duplicates
+            else
+            {
+                volunteerEvents[0].IsItCanceled = false;
+                calendarService.SaveEdits(volEvent);
+            }
+
+            return RedirectToAction("AddVolunteerGroups", new { id = (int)eventID });
+        }
+
         public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
         {
             if (eventID == null || volunteerID == null)
@@ -402,6 +468,18 @@ namespace TheGathering.Web.Controllers
             volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
 
             calendarService.VolunteerCanceled((int)eventID);
+            return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
+        }
+
+        public ActionResult RemoveVolunteerGroupFromEvent(int? eventID, int? volunteerGroupID)
+        {
+            if (eventID == null || volunteerGroupID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            volunteerGroupService.RemoveVolunteerGroupVolunteerEvent((int)volunteerGroupID, (int)eventID);
+
             return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
         }
 
