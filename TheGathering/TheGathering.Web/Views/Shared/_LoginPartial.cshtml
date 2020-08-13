@@ -26,6 +26,7 @@
             String message = "Hello " + @ViewBag.UserFriendlyName + "!";
             <li>@Html.ActionLink("Calendar", "Calendar", "VolunteerEvent")</li>
             <li>@Html.ActionLink("My Events", "GroupEventsList", "VolunteerGroup")</li>
+            <li>@Html.ActionLink("Leadership", "LeadershipInfo", "Volunteer", null, null)</li>
             <li><a href="https://secure.qgiv.com/for/tgoswi/" class="donateButton">Donate</a></li>
             @Html.AntiForgeryToken()
             <li> @Html.ActionLink(message, "Edit", "VolunteerGroup")</li>
