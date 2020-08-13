@@ -80,7 +80,7 @@
                 <div class="col-md-8">
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
                     <div class="BodyTextMediumNormal"><p>Confirm Password</p></div>
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
