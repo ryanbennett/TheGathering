@@ -210,12 +210,15 @@ namespace TheGathering.Web.Controllers
             List<VolunteerGroupVolunteerEvent> PastEvents = new List<VolunteerGroupVolunteerEvent>();
             foreach (VolunteerGroupVolunteerEvent item in volunteerGroupLeader.VolunteerGroupVolunteerEvents)
             {
-                var mealsite = _mealSiteService.GetMealSiteById(item.VolunteerEvent.MealSite_Id);
-                item.VolunteerEvent.MealSite = mealsite;
-                if (item.VolunteerEvent.StartingShiftTime > DateTime.Now)
-                    CurrentEvents.Add(item);
-                else
-                    PastEvents.Add(item);
+                if (!item.IsItCanceled)
+                {
+                    var mealsite = _mealSiteService.GetMealSiteById(item.VolunteerEvent.MealSite_Id);
+                    item.VolunteerEvent.MealSite = mealsite;
+                    if (item.VolunteerEvent.StartingShiftTime > DateTime.Now)
+                        CurrentEvents.Add(item);
+                    else
+                        PastEvents.Add(item);
+                }
             }
             CurrentEvents.Sort(new SortByDateForVolunteerGroup());
             PastEvents.Sort(new SortByDateForVolunteerGroup());
