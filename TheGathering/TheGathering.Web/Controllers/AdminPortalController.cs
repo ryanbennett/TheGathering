@@ -480,7 +480,7 @@ namespace TheGathering.Web.Controllers
             {
                 VolunteerEvent volunteerEvent = calendarService.GetEventById(model.EventId);
 
-                List<string> emails = new List<string>(volunteerEvent.VolunteerVolunteerEvents.Count);
+                List<string> emails = new List<string>(volunteerEvent.VolunteerVolunteerEvents.Count + volunteerEvent.VolunteerGroupVolunteerEvents.Count);
 
                 foreach (VolunteerVolunteerEvent item in volunteerEvent.VolunteerVolunteerEvents)
                 {
@@ -489,6 +489,15 @@ namespace TheGathering.Web.Controllers
                     Volunteer vol = volunteerService.GetById(item.VolunteerId);
 
                     emails.Add(vol.Email);
+                }
+
+                foreach (VolunteerGroupVolunteerEvent group in volunteerEvent.VolunteerGroupVolunteerEvents)
+                {
+                    if (group.IsItCanceled) { continue; }
+
+                    VolunteerGroupLeader leader = volunteerGroupService.GetLeaderById(group.VolunteerGroupId);
+
+                    emails.Add(leader.LeaderEmail);
                 }
 
                 await SendGatheringEmail(emails, model.Subject, model.Message, model.Message);
