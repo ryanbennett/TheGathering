@@ -141,20 +141,11 @@ namespace TheGathering.Web.ViewModels.MealSite
 
         #region Time Validation Functions
         /// <summary>
-        /// Calls all the validate data functions, returns true if all of them are valid returns false if one of them is invalid.
-        /// </summary>
-        /// <returns>Whether or not all the data is valid</returns>
-        public bool ValidateAllData()
-        {
-            return ValidateBreakfastData() && ValidateLunchData() && ValidateDinnerData();
-        }
-
-        /// <summary>
         /// Checks the breakfast data to see if it's invalid. If breakfast is not used then any data related to breakfast is dropped.
         /// If the data is used and valid it returns true, if it's invalid it returns false
         /// </summary>
         /// <returns>Whether or not the data is valid</returns>
-        public bool ValidateBreakfastData()
+        public List<ValidationError> ValidateBreakfastData()
         {
             if (!Breakfast_Used)
             {
@@ -163,28 +154,48 @@ namespace TheGathering.Web.ViewModels.MealSite
                 Breakfast_DaysServed = null;
                 Breakfast_MaximumGuestsServed = null;
                 Breakfast_MinimumGuestsServed = null;
-                return true;
+                return new List<ValidationError>();
             }
 
-            if (Breakfast_StartTime == null && Breakfast_EndTime == null) { return true; }
+            List<ValidationError> errors = new List<ValidationError>();
+
+            if (Breakfast_StartTime == null && Breakfast_EndTime == null) { errors.Add(ValidationError.NullTimes); }
 
             int startInt = int.Parse(Breakfast_StartTime.Replace(":", ""));
             int endInt = int.Parse(Breakfast_EndTime.Replace(":", ""));
 
             if (startInt >= endInt)
             {
-                return false;
+                errors.Add(ValidationError.StartLaterThanEnd);
             }
 
-            else if (Breakfast_MinimumGuestsServed < Breakfast_MaximumGuestsServed && Breakfast_MinimumGuestsServed >= 0 && Breakfast_MaximumGuestsServed >= 0)
+            bool daysValid = false;
+
+            foreach (bool item in Breakfast_DaysServed)
             {
-                return true;
+                if (item)
+                {
+                    daysValid = true;
+                    break;
+                }
             }
 
-            else
+            if (!daysValid)
             {
-                return false;
+                errors.Add(ValidationError.NoDaysSelected);
             }
+
+            if (Breakfast_MinimumGuestsServed > Breakfast_MaximumGuestsServed)
+            {
+                errors.Add(ValidationError.GuestsServedMinGreaterThanMax);
+            }
+
+            if (Breakfast_MinimumGuestsServed < 0 || Breakfast_MaximumGuestsServed < 0)
+            {
+                errors.Add(ValidationError.GuestsServedIsNegative);
+            }
+
+            return errors;
         }
 
         /// <summary>
@@ -192,7 +203,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         /// If the data is used and valid it returns true, if it's invalid it returns false
         /// </summary>
         /// <returns>Whether or not the data is valid</returns>
-        public bool ValidateLunchData()
+        public List<ValidationError> ValidateLunchData()
         {
             if (!Lunch_Used)
             {
@@ -201,28 +212,48 @@ namespace TheGathering.Web.ViewModels.MealSite
                 Lunch_DaysServed = null;
                 Lunch_MaximumGuestsServed = null;
                 Lunch_MinimumGuestsServed = null;
-                return true;
+                return new List<ValidationError>();
             }
 
-            if (Lunch_StartTime == null && Lunch_EndTime == null) { return true; }
+            List<ValidationError> errors = new List<ValidationError>();
+
+            if (Lunch_StartTime == null && Lunch_EndTime == null) { errors.Add(ValidationError.NullTimes); }
 
             int startInt = int.Parse(Lunch_StartTime.Replace(":", ""));
             int endInt = int.Parse(Lunch_EndTime.Replace(":", ""));
 
             if (startInt >= endInt)
             {
-                return false;
+                errors.Add(ValidationError.StartLaterThanEnd);
             }
 
-            else if (Lunch_MinimumGuestsServed < Lunch_MaximumGuestsServed && Lunch_MinimumGuestsServed >= 0 && Lunch_MaximumGuestsServed >=0)
+            bool daysValid = false;
+
+            foreach (bool item in Lunch_DaysServed)
             {
-                return true;
+                if (item)
+                {
+                    daysValid = true;
+                    break;
+                }
             }
 
-            else
+            if (!daysValid)
             {
-                return false;
+                errors.Add(ValidationError.NoDaysSelected);
             }
+
+            if (Lunch_MinimumGuestsServed > Lunch_MaximumGuestsServed)
+            {
+                errors.Add(ValidationError.GuestsServedMinGreaterThanMax);
+            }
+
+            if (Lunch_MinimumGuestsServed < 0 || Lunch_MaximumGuestsServed < 0)
+            {
+                errors.Add(ValidationError.GuestsServedIsNegative);
+            }
+
+            return errors;
         }
 
         /// <summary>
@@ -230,7 +261,7 @@ namespace TheGathering.Web.ViewModels.MealSite
         /// If the data is used and valid it returns true, if it's invalid it returns false
         /// </summary>
         /// <returns>Whether or not the data is valid</returns>
-        public bool ValidateDinnerData()
+        public List<ValidationError> ValidateDinnerData()
         {
             if (!Dinner_Used)
             {
@@ -239,30 +270,74 @@ namespace TheGathering.Web.ViewModels.MealSite
                 Dinner_DaysServed = null;
                 Dinner_MaximumGuestsServed = null;
                 Dinner_MinimumGuestsServed = null;
-                return true;
+                return new List<ValidationError>();
             }
-            if (Dinner_StartTime == null && Dinner_EndTime == null) { return true; }
+
+            List<ValidationError> errors = new List<ValidationError>();
+
+            if (Dinner_StartTime == null && Dinner_EndTime == null) { errors.Add(ValidationError.NullTimes); }
 
             int startInt = int.Parse(Dinner_StartTime.Replace(":", ""));
             int endInt = int.Parse(Dinner_EndTime.Replace(":", ""));
 
             if (startInt >= endInt)
             {
-                return false;
+                errors.Add(ValidationError.StartLaterThanEnd);
             }
 
-            else if (Dinner_MinimumGuestsServed < Dinner_MaximumGuestsServed && Dinner_MinimumGuestsServed >= 0 && Dinner_MaximumGuestsServed >= 0)
+            bool daysValid = false;
+
+            foreach (bool item in Dinner_DaysServed)
             {
-                return true;
+                if (item)
+                {
+                    daysValid = true;
+                    break;
+                }
             }
 
-            else
+            if (!daysValid)
             {
-                return false;
+                errors.Add(ValidationError.NoDaysSelected);
             }
 
+            if (Dinner_MinimumGuestsServed > Dinner_MaximumGuestsServed)
+            {
+                errors.Add(ValidationError.GuestsServedMinGreaterThanMax);
+            }
+
+            if (Dinner_MinimumGuestsServed < 0 || Dinner_MaximumGuestsServed < 0)
+            {
+                errors.Add(ValidationError.GuestsServedIsNegative);
+            }
+
+            return errors;
         }
 
         #endregion
+    }
+
+    public enum ValidationError
+    {
+        /// <summary>
+        /// No days have been selected
+        /// </summary>
+        NoDaysSelected,
+        /// <summary>
+        /// 
+        /// </summary>
+        GuestsServedMinGreaterThanMax,
+        /// <summary>
+        /// Input guests served are negative
+        /// </summary>
+        GuestsServedIsNegative,
+        /// <summary>
+        /// When the times are null
+        /// </summary>
+        NullTimes,
+        /// <summary>
+        /// When the start time is later than the end time
+        /// </summary>
+        StartLaterThanEnd
     }
 }
