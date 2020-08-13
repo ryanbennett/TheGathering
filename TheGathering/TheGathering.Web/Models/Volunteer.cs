@@ -11,7 +11,7 @@ namespace TheGathering.Web.Models
         public int Id { get; set; }
         [Display(Name = "First Name")]
         public String FirstName { get; set; }
-        [Display(Name = "Last name")]
+        [Display(Name = "Last Name")]
         public String LastName { get; set; }
         [Display(Name = "Date of Birth")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
@@ -22,10 +22,12 @@ namespace TheGathering.Web.Models
         public String PhoneNumber { get; set; }
         [Display(Name = "Interest in Leadership")]
         public Boolean InterestInLeadership { get; set; }
-        [Display(Name = "Sign Up for News Letter")]
+        [Display(Name = "Sign Up for Newsletter")]
         public Boolean SignUpForNewsLetter { get; set; }
         public List<VolunteerVolunteerEvent> VolunteerVolunteerEvents { get; set; }
         public string ApplicationUserId { get; set; }
+
+        [Display(Name = "Account Active")]
         public bool IsAccountActive { get; set; }
 
         public Volunteer()

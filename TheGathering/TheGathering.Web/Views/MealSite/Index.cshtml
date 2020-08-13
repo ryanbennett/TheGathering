@@ -38,7 +38,7 @@
 				<div class="form-group">
 					<input type="text" placeholder="Enter City or ZIP" id="zip" class="form-control" />
 				</div>
-				<button type="button" onclick="sortMatrix()" class="btn btn-grey">Search</button>
+				<button type="button" onclick="sortMatrix()" class="btn btn-primary">Search</button>
 			</div>
 
 			<ul id="zipReturn" class="list-group">
@@ -79,7 +79,7 @@
 								@Html.DisplayFor(modelItem => item.City)
 							</td>
 							<td>
-								<a class="btn btn-grey" href="/MealSite/Details?id=@(item.Id)">Details</a>
+								<a class="btn btn-primary" href="/MealSite/Details?id=@(item.Id)">Details</a>
 							</td>
 						</tr>
 					}
