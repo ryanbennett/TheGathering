@@ -9,8 +9,7 @@
 @if (Model != null && !string.IsNullOrEmpty(Model.Error))
 {
     <div class="alert alert-danger" role="alert">
-        Error: <br />
-        @Html.Raw(Model.Error)
+        Error: @(Model.Error)
     </div>
 }
 

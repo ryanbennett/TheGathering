@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -88,9 +89,10 @@ namespace TheGathering.Web.ViewModels.MealSite
 
 
         public const string INVALID_NUMBER_OF_GUESTS_ERROR = "Minimum guests must be smaller than or equal to maximum guests";
+        public const string NULL_NUMBER_OF_GUESTS_ERROR = "Min and max number of guests must be set in used meals";
         public const string GUESTS_NEGATIVE_ERROR = "Number of guests cannot be negative";
         public const string INVALID_MEALSITE_TIME_ERROR = "The selected mealsite time is incorrect, make sure the start time is before the end time";
-        public const string NO_MEALSITE_TIME_ERROR = "Selected meals must have a given time";
+        public const string NO_MEALSITE_TIME_ERROR = "must have a given start and end time";
         public const string NO_DAYS_SELECTED_ERROR = "No days have been selected";
         public const string UNKNOWN_ERROR = "Unknown error";
 
@@ -174,8 +176,12 @@ namespace TheGathering.Web.ViewModels.MealSite
                         stringErrors.Add(GUESTS_NEGATIVE_ERROR + BREAKFAST_ADDON);
                         break;
 
+                    case ValidationError.NullMinMaxGuests:
+                        stringErrors.Add(NULL_NUMBER_OF_GUESTS_ERROR + BREAKFAST_ADDON);
+                        break;
+
                     case ValidationError.NullTimes:
-                        stringErrors.Add(NO_MEALSITE_TIME_ERROR + BREAKFAST_ADDON);
+                        stringErrors.Add("Breakfast " + NO_MEALSITE_TIME_ERROR);
                         break;
 
                     case ValidationError.StartLaterThanEnd:
@@ -184,6 +190,90 @@ namespace TheGathering.Web.ViewModels.MealSite
 
                     default:
                         stringErrors.Add(UNKNOWN_ERROR + BREAKFAST_ADDON);
+                        break;
+                }
+            }
+
+            return stringErrors;
+        }
+
+        public List<string> GetLunchValidationErrors()
+        {
+            List<ValidationError> errors = ValidateLunchData();
+            List<string> stringErrors = new List<string>();
+
+            foreach (var item in errors)
+            {
+                switch (item)
+                {
+                    case ValidationError.NoDaysSelected:
+                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedMinGreaterThanMax:
+                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedIsNegative:
+                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.NullMinMaxGuests:
+                        stringErrors.Add(NULL_NUMBER_OF_GUESTS_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.NullTimes:
+                        stringErrors.Add("Lunch " + NO_MEALSITE_TIME_ERROR);
+                        break;
+
+                    case ValidationError.StartLaterThanEnd:
+                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + LUNCH_ADDON);
+                        break;
+
+                    default:
+                        stringErrors.Add(UNKNOWN_ERROR + LUNCH_ADDON);
+                        break;
+                }
+            }
+
+            return stringErrors;
+        }
+
+        public List<string> GetDinnerValidationErrors()
+        {
+            List<ValidationError> errors = ValidateDinnerData();
+            List<string> stringErrors = new List<string>();
+
+            foreach (var item in errors)
+            {
+                switch (item)
+                {
+                    case ValidationError.NoDaysSelected:
+                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedMinGreaterThanMax:
+                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedIsNegative:
+                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.NullMinMaxGuests:
+                        stringErrors.Add(NULL_NUMBER_OF_GUESTS_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.NullTimes:
+                        stringErrors.Add("Dinner " + NO_MEALSITE_TIME_ERROR);
+                        break;
+
+                    case ValidationError.StartLaterThanEnd:
+                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + DINNER_ADDON);
+                        break;
+
+                    default:
+                        stringErrors.Add(UNKNOWN_ERROR + DINNER_ADDON);
                         break;
                 }
             }
@@ -252,44 +342,6 @@ namespace TheGathering.Web.ViewModels.MealSite
             return errors;
         }
 
-        public List<string> GetLunchValidationErrors()
-        {
-            List<ValidationError> errors = ValidateLunchData();
-            List<string> stringErrors = new List<string>();
-
-            foreach (var item in errors)
-            {
-                switch (item)
-                {
-                    case ValidationError.NoDaysSelected:
-                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + LUNCH_ADDON);
-                        break;
-
-                    case ValidationError.GuestsServedMinGreaterThanMax:
-                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + LUNCH_ADDON);
-                        break;
-
-                    case ValidationError.GuestsServedIsNegative:
-                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + LUNCH_ADDON);
-                        break;
-
-                    case ValidationError.NullTimes:
-                        stringErrors.Add(NO_MEALSITE_TIME_ERROR + LUNCH_ADDON);
-                        break;
-
-                    case ValidationError.StartLaterThanEnd:
-                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + LUNCH_ADDON);
-                        break;
-
-                    default:
-                        stringErrors.Add(UNKNOWN_ERROR + LUNCH_ADDON);
-                        break;
-                }
-            }
-
-            return stringErrors;
-        }
-
         /// <summary>
         /// Checks the lunch data to see if it's invalid. If lunch is not used then any data related to lunch is dropped.
         /// If the data is used and valid it returns true, if it's invalid it returns false
@@ -338,55 +390,25 @@ namespace TheGathering.Web.ViewModels.MealSite
                 errors.Add(ValidationError.NoDaysSelected);
             }
 
-            if (Lunch_MinimumGuestsServed > Lunch_MaximumGuestsServed)
+            if (Lunch_MaximumGuestsServed == null || Lunch_MinimumGuestsServed == null)
             {
-                errors.Add(ValidationError.GuestsServedMinGreaterThanMax);
+                errors.Add(ValidationError.NullTimes);
             }
 
-            if (Lunch_MinimumGuestsServed < 0 || Lunch_MaximumGuestsServed < 0)
+            else
             {
-                errors.Add(ValidationError.GuestsServedIsNegative);
-            }
-
-            return errors;
-        }
-
-        public List<string> GetDinnerValidationErrors()
-        {
-            List<ValidationError> errors = ValidateDinnerData();
-            List<string> stringErrors = new List<string>();
-
-            foreach (var item in errors)
-            {
-                switch (item)
+                if (Lunch_MinimumGuestsServed > Lunch_MaximumGuestsServed)
                 {
-                    case ValidationError.NoDaysSelected:
-                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + DINNER_ADDON);
-                        break;
+                    errors.Add(ValidationError.GuestsServedMinGreaterThanMax);
+                }
 
-                    case ValidationError.GuestsServedMinGreaterThanMax:
-                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + DINNER_ADDON);
-                        break;
-
-                    case ValidationError.GuestsServedIsNegative:
-                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + DINNER_ADDON);
-                        break;
-
-                    case ValidationError.NullTimes:
-                        stringErrors.Add(NO_MEALSITE_TIME_ERROR + DINNER_ADDON);
-                        break;
-
-                    case ValidationError.StartLaterThanEnd:
-                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + DINNER_ADDON);
-                        break;
-
-                    default:
-                        stringErrors.Add(UNKNOWN_ERROR + DINNER_ADDON);
-                        break;
+                if (Lunch_MinimumGuestsServed < 0 || Lunch_MaximumGuestsServed < 0)
+                {
+                    errors.Add(ValidationError.GuestsServedIsNegative);
                 }
             }
 
-            return stringErrors;
+            return errors;
         }
 
         /// <summary>
@@ -467,6 +489,10 @@ namespace TheGathering.Web.ViewModels.MealSite
         /// Input guests served are negative
         /// </summary>
         GuestsServedIsNegative,
+        /// <summary>
+        /// Min and or max guests are not set
+        /// </summary>
+        NullMinMaxGuests,
         /// <summary>
         /// When the times are null
         /// </summary>
