@@ -743,27 +743,27 @@ namespace TheGathering.Web.Controllers
             var age = server.Subtract(local);
             if (local.Year < 1900)
             {
-                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+                ModelState.AddModelError("LeaderBirthday", "Birthday date is out of range");
             }
             if (local >= server)
             {
-                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+                ModelState.AddModelError("LeaderBirthday", "Birthday date does not exist");
             }
             if (age.TotalDays / 365 < 18)
             {
-                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+                ModelState.AddModelError("LeaderBirthday", "Volunteer must be older than 18");
             }
             if (volunteergroupleader.LeaderFirstName.Any(char.IsDigit) == true)
             {
-                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+                ModelState.AddModelError("LeaderFirstName", "First name cannot contain numbers");
             }
             if (volunteergroupleader.LeaderLastName.Any(char.IsDigit) == true)
             {
-                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+                ModelState.AddModelError("LeaderLastName", "Last name cannot contain numbers");
             }
             if (volunteergroupleader.LeaderEmail.Contains('.') == false)
             {
-                ModelState.AddModelError("Email", "Email must contain a period");
+                ModelState.AddModelError("LeaderEmail", "Email must contain a period");
             }
             if (volunteergroupleader.TotalGroupMembers <= 0)
             {
