@@ -17,6 +17,7 @@ namespace TheGathering.Web.Controllers
         
         VolunteerGroupService _service = new VolunteerGroupService();
         CalendarService _eventService = new CalendarService();
+        MealSiteService _mealSiteService = new MealSiteService();
 
         [Authorize(Roles = "admin")]
         public ActionResult Index()
@@ -209,7 +210,8 @@ namespace TheGathering.Web.Controllers
             List<VolunteerGroupVolunteerEvent> PastEvents = new List<VolunteerGroupVolunteerEvent>();
             foreach (VolunteerGroupVolunteerEvent item in volunteerGroupLeader.VolunteerGroupVolunteerEvents)
             {
-
+                var mealsite = _mealSiteService.GetMealSiteById(item.VolunteerEvent.MealSite_Id);
+                item.VolunteerEvent.MealSite = mealsite;
                 if (item.VolunteerEvent.StartingShiftTime > DateTime.Now)
                     CurrentEvents.Add(item);
                 else
