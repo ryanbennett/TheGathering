@@ -85,12 +85,32 @@ namespace TheGathering.Web.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
+            var volunteerService = new VolunteerService();
+            var groupLeaderService = new VolunteerGroupService();
 
 
             switch (result)
             {
                 case SignInStatus.Success:
                     var user = UserManager.FindByEmail(model.Email);
+                    if (UserManager.IsInRole(user.Id, "volunteer"))
+                    {
+                        if (!volunteerService.GetByApplicationUserId(user.Id).IsAccountActive)
+                        {
+                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                            ModelState.AddModelError("", "Your account has been deactivated");
+                            return View(model);
+                        }
+                    }
+                    if (UserManager.IsInRole(user.Id, "groupleader"))
+                    {
+                        if (!groupLeaderService.GetLeaderByApplicationUserId(user.Id).IsAccountActive)
+                        {
+                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                            ModelState.AddModelError("", "Your account has been deactivated");
+                            return View(model);
+                        }
+                    }
                     if (UserManager.IsInRole(user.Id ,"volunteer"))
                     {
                         return RedirectToAction("VolunteerCalendar", "VolunteerEvent", null);
