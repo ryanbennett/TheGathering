@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security;
 using System.Web;
 using TheGathering.Web.Models;
 using TheGathering.Web.Services;
@@ -83,7 +84,19 @@ namespace TheGathering.Web.ViewModels.MealSite
         [Display(Name = "End Time")]
         public string Dinner_EndTime { get; set; }
 
-        public List<Models.VolunteerEvent> VolunteerEvents { get; set; }
+        public List<VolunteerEvent> VolunteerEvents { get; set; }
+
+
+        public const string INVALID_NUMBER_OF_GUESTS_ERROR = "Minimum guests must be smaller than or equal to maximum guests";
+        public const string GUESTS_NEGATIVE_ERROR = "Number of guests cannot be negative";
+        public const string INVALID_MEALSITE_TIME_ERROR = "The selected mealsite time is incorrect, make sure the start time is before the end time";
+        public const string NO_MEALSITE_TIME_ERROR = "Selected meals must have a given time";
+        public const string NO_DAYS_SELECTED_ERROR = "No days have been selected";
+        public const string UNKNOWN_ERROR = "Unknown error";
+
+        public const string BREAKFAST_ADDON = " in breakfast section.";
+        public const string LUNCH_ADDON = " in lunch section.";
+        public const string DINNER_ADDON = " in dinner section.";
 
         /// <summary>
         /// This will be empty if there is no error, allows us to create an error for validating input information
@@ -139,12 +152,50 @@ namespace TheGathering.Web.ViewModels.MealSite
             }
         }
 
-        #region Time Validation Functions
+        #region Validation Functions
+        public List<string> GetBreakfastValidationErrors()
+        {
+            List<ValidationError> errors = ValidateBreakfastData();
+            List<string> stringErrors = new List<string>();
+
+            foreach (var item in errors)
+            {
+                switch (item)
+                {
+                    case ValidationError.NoDaysSelected:
+                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + BREAKFAST_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedMinGreaterThanMax:
+                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + BREAKFAST_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedIsNegative:
+                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + BREAKFAST_ADDON);
+                        break;
+
+                    case ValidationError.NullTimes:
+                        stringErrors.Add(NO_MEALSITE_TIME_ERROR + BREAKFAST_ADDON);
+                        break;
+
+                    case ValidationError.StartLaterThanEnd:
+                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + BREAKFAST_ADDON);
+                        break;
+
+                    default:
+                        stringErrors.Add(UNKNOWN_ERROR + BREAKFAST_ADDON);
+                        break;
+                }
+            }
+
+            return stringErrors;
+        }
+
         /// <summary>
         /// Checks the breakfast data to see if it's invalid. If breakfast is not used then any data related to breakfast is dropped.
         /// If the data is used and valid it returns true, if it's invalid it returns false
         /// </summary>
-        /// <returns>Whether or not the data is valid</returns>
+        /// <returns>All errors from validation</returns>
         public List<ValidationError> ValidateBreakfastData()
         {
             if (!Breakfast_Used)
@@ -159,14 +210,17 @@ namespace TheGathering.Web.ViewModels.MealSite
 
             List<ValidationError> errors = new List<ValidationError>();
 
-            if (Breakfast_StartTime == null && Breakfast_EndTime == null) { errors.Add(ValidationError.NullTimes); }
+            if (Breakfast_StartTime == null || Breakfast_EndTime == null) { errors.Add(ValidationError.NullTimes); }
 
-            int startInt = int.Parse(Breakfast_StartTime.Replace(":", ""));
-            int endInt = int.Parse(Breakfast_EndTime.Replace(":", ""));
-
-            if (startInt >= endInt)
+            else
             {
-                errors.Add(ValidationError.StartLaterThanEnd);
+                int startInt = int.Parse(Breakfast_StartTime.Replace(":", ""));
+                int endInt = int.Parse(Breakfast_EndTime.Replace(":", ""));
+
+                if (startInt >= endInt)
+                {
+                    errors.Add(ValidationError.StartLaterThanEnd);
+                }
             }
 
             bool daysValid = false;
@@ -198,11 +252,49 @@ namespace TheGathering.Web.ViewModels.MealSite
             return errors;
         }
 
+        public List<string> GetLunchValidationErrors()
+        {
+            List<ValidationError> errors = ValidateLunchData();
+            List<string> stringErrors = new List<string>();
+
+            foreach (var item in errors)
+            {
+                switch (item)
+                {
+                    case ValidationError.NoDaysSelected:
+                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedMinGreaterThanMax:
+                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedIsNegative:
+                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.NullTimes:
+                        stringErrors.Add(NO_MEALSITE_TIME_ERROR + LUNCH_ADDON);
+                        break;
+
+                    case ValidationError.StartLaterThanEnd:
+                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + LUNCH_ADDON);
+                        break;
+
+                    default:
+                        stringErrors.Add(UNKNOWN_ERROR + LUNCH_ADDON);
+                        break;
+                }
+            }
+
+            return stringErrors;
+        }
+
         /// <summary>
         /// Checks the lunch data to see if it's invalid. If lunch is not used then any data related to lunch is dropped.
         /// If the data is used and valid it returns true, if it's invalid it returns false
         /// </summary>
-        /// <returns>Whether or not the data is valid</returns>
+        /// <returns>All errors from validation</returns>
         public List<ValidationError> ValidateLunchData()
         {
             if (!Lunch_Used)
@@ -217,14 +309,17 @@ namespace TheGathering.Web.ViewModels.MealSite
 
             List<ValidationError> errors = new List<ValidationError>();
 
-            if (Lunch_StartTime == null && Lunch_EndTime == null) { errors.Add(ValidationError.NullTimes); }
+            if (Lunch_StartTime == null || Lunch_EndTime == null) { errors.Add(ValidationError.NullTimes); }
 
-            int startInt = int.Parse(Lunch_StartTime.Replace(":", ""));
-            int endInt = int.Parse(Lunch_EndTime.Replace(":", ""));
-
-            if (startInt >= endInt)
+            else
             {
-                errors.Add(ValidationError.StartLaterThanEnd);
+                int startInt = int.Parse(Lunch_StartTime.Replace(":", ""));
+                int endInt = int.Parse(Lunch_EndTime.Replace(":", ""));
+
+                if (startInt >= endInt)
+                {
+                    errors.Add(ValidationError.StartLaterThanEnd);
+                }
             }
 
             bool daysValid = false;
@@ -256,11 +351,49 @@ namespace TheGathering.Web.ViewModels.MealSite
             return errors;
         }
 
+        public List<string> GetDinnerValidationErrors()
+        {
+            List<ValidationError> errors = ValidateDinnerData();
+            List<string> stringErrors = new List<string>();
+
+            foreach (var item in errors)
+            {
+                switch (item)
+                {
+                    case ValidationError.NoDaysSelected:
+                        stringErrors.Add(NO_DAYS_SELECTED_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedMinGreaterThanMax:
+                        stringErrors.Add(INVALID_NUMBER_OF_GUESTS_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.GuestsServedIsNegative:
+                        stringErrors.Add(GUESTS_NEGATIVE_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.NullTimes:
+                        stringErrors.Add(NO_MEALSITE_TIME_ERROR + DINNER_ADDON);
+                        break;
+
+                    case ValidationError.StartLaterThanEnd:
+                        stringErrors.Add(INVALID_MEALSITE_TIME_ERROR + DINNER_ADDON);
+                        break;
+
+                    default:
+                        stringErrors.Add(UNKNOWN_ERROR + DINNER_ADDON);
+                        break;
+                }
+            }
+
+            return stringErrors;
+        }
+
         /// <summary>
         /// Checks the dinner data to see if it's invalid. If dinner is not used then any data related to dinner is dropped.
         /// If the data is used and valid it returns true, if it's invalid it returns false
         /// </summary>
-        /// <returns>Whether or not the data is valid</returns>
+        /// <returns>All errors from validation</returns>
         public List<ValidationError> ValidateDinnerData()
         {
             if (!Dinner_Used)
@@ -275,14 +408,17 @@ namespace TheGathering.Web.ViewModels.MealSite
 
             List<ValidationError> errors = new List<ValidationError>();
 
-            if (Dinner_StartTime == null && Dinner_EndTime == null) { errors.Add(ValidationError.NullTimes); }
+            if (Dinner_StartTime == null || Dinner_EndTime == null) { errors.Add(ValidationError.NullTimes); }
 
-            int startInt = int.Parse(Dinner_StartTime.Replace(":", ""));
-            int endInt = int.Parse(Dinner_EndTime.Replace(":", ""));
-
-            if (startInt >= endInt)
+            else
             {
-                errors.Add(ValidationError.StartLaterThanEnd);
+                int startInt = int.Parse(Dinner_StartTime.Replace(":", ""));
+                int endInt = int.Parse(Dinner_EndTime.Replace(":", ""));
+
+                if (startInt >= endInt)
+                {
+                    errors.Add(ValidationError.StartLaterThanEnd);
+                }
             }
 
             bool daysValid = false;
