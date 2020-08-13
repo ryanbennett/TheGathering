@@ -114,6 +114,8 @@ namespace TheGathering.Web.Controllers
             var volunteerEventViewModel = new VolunteerEventViewModel(evt);
             List<int> IdList = evt.VolunteerVolunteerEvents.Where(vve => !vve.IsItCanceled).Select(vve => vve.VolunteerId).ToList();
             volunteerEventViewModel.SignedUpVolunteers = volunteerService.GetVolunteersById(IdList);
+            List<int> groupList = evt.VolunteerGroupVolunteerEvents.ToList().Where(vgve => !vgve.IsItCanceled).Select(vgve => vgve.VolunteerGroupId).ToList();
+            volunteerEventViewModel.SignedUpVolunteerGroups = volunteerGroupService.GetAllVolunteerGroups().Where(vg => groupList.Contains(vg.Id)).ToList();
             return View(volunteerEventViewModel);
         }
 
@@ -221,6 +223,44 @@ namespace TheGathering.Web.Controllers
             {
                 Event = volunteerEvent,
                 AvailableVolunteers = addableVolunteers
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult AddVolunteerGroups(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VolunteerEvent volunteerEvent = calendarService.GetEventById((int)id);
+
+            if (volunteerEvent == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<int> idList = volunteerEvent.VolunteerGroupVolunteerEvents.Select(vve => vve.VolunteerGroupId).ToList();
+            List<VolunteerGroupLeader> signedUpVolunteerGroups = volunteerGroupService.GetAllVolunteerGroups().Where(vg => idList.Contains(vg.Id)).ToList();
+            List<VolunteerGroupLeader> addableVolunteerGroups = volunteerGroupService.GetAllVolunteerGroups();
+
+            foreach (VolunteerGroupLeader v in signedUpVolunteerGroups)
+            {
+                var vgve = volunteerGroupService.GetAllVolunteerGroupVolunteerEvents().Where(ctx => ctx.VolunteerGroupId == v.Id).ToList();
+
+                //If there's more than one item then they're most likely duplicates, there should only be one in this list
+                if (vgve.Count > 0 && vgve[0].IsItCanceled) { continue; }
+
+                addableVolunteerGroups.Remove(v);
+            }
+
+            volunteerEvent.MealSite = mealService.GetMealSiteById(volunteerEvent.MealSite_Id);
+            AddVolunteerGroupViewModel viewModel = new AddVolunteerGroupViewModel
+            {
+                Event = volunteerEvent,
+                AvailableVolunteerGroups = addableVolunteerGroups
             };
 
             return View(viewModel);
@@ -392,6 +432,32 @@ namespace TheGathering.Web.Controllers
             return RedirectToAction("AddVolunteers", new { id = (int)eventID });
         }
 
+        public ActionResult AddVolunteerGroupToEvent(int? eventID, int? volunteerGroupID)
+        {
+            if (eventID == null || volunteerGroupID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var volEvent = calendarService.GetEventById((int)eventID);
+            var volunteerEvents = volEvent.VolunteerGroupVolunteerEvents.Where(ctx => ctx.VolunteerGroupId == (int)volunteerGroupID).ToList();
+
+            //If we find VolunteerVolunteerEvents in the current volunteer event then we already added this volunteer to the event
+            if (volunteerEvents == null || volunteerEvents.Count < 1)
+            {
+                volunteerGroupService.AddVolunteerGroupVolunteerEvent((int)volunteerGroupID, (int)eventID, volunteerGroupService.GetLeaderById((int)volunteerGroupID).TotalGroupMembers);
+            }
+
+            //Change it so that the volunteer is no longer canceled, avoids duplicates
+            else
+            {
+                volunteerEvents[0].IsItCanceled = false;
+                calendarService.SaveEdits(volEvent);
+            }
+
+            return RedirectToAction("AddVolunteerGroups", new { id = (int)eventID });
+        }
+
         public ActionResult RemoveVolunteerFromEvent(int? eventID, int? volunteerID)
         {
             if (eventID == null || volunteerID == null)
@@ -402,6 +468,18 @@ namespace TheGathering.Web.Controllers
             volunteerService.RemoveVolunteerVolunteerEvent((int)volunteerID, (int)eventID);
 
             calendarService.VolunteerCanceled((int)eventID);
+            return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
+        }
+
+        public ActionResult RemoveVolunteerGroupFromEvent(int? eventID, int? volunteerGroupID)
+        {
+            if (eventID == null || volunteerGroupID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            volunteerGroupService.RemoveVolunteerGroupVolunteerEvent((int)volunteerGroupID, (int)eventID);
+
             return RedirectToAction("ViewVolunteers", new { eventID = (int)eventID });
         }
 
@@ -480,7 +558,7 @@ namespace TheGathering.Web.Controllers
             {
                 VolunteerEvent volunteerEvent = calendarService.GetEventById(model.EventId);
 
-                List<string> emails = new List<string>(volunteerEvent.VolunteerVolunteerEvents.Count);
+                List<string> emails = new List<string>(volunteerEvent.VolunteerVolunteerEvents.Count + volunteerEvent.VolunteerGroupVolunteerEvents.Count);
 
                 foreach (VolunteerVolunteerEvent item in volunteerEvent.VolunteerVolunteerEvents)
                 {
@@ -489,6 +567,15 @@ namespace TheGathering.Web.Controllers
                     Volunteer vol = volunteerService.GetById(item.VolunteerId);
 
                     emails.Add(vol.Email);
+                }
+
+                foreach (VolunteerGroupVolunteerEvent group in volunteerEvent.VolunteerGroupVolunteerEvents)
+                {
+                    if (group.IsItCanceled) { continue; }
+
+                    VolunteerGroupLeader leader = volunteerGroupService.GetLeaderById(group.VolunteerGroupId);
+
+                    emails.Add(leader.LeaderEmail);
                 }
 
                 await SendGatheringEmail(emails, model.Subject, model.Message, model.Message);
@@ -519,6 +606,33 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult VolunteerEdit(Volunteer volunteer)
         {
+            DateTime local = volunteer.Birthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("Birthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("Birthday", "Volunteer must be older than 18");
+            }
+            if (volunteer.FirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("FirstName", "First name cannot contain numbers");
+            }
+            if (volunteer.LastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LastName", "Last name cannot contain numbers");
+            }
+            if (volunteer.Email.Contains('.') == false)
+            {
+                ModelState.AddModelError("Email", "Email must contain a period");
+            }
             if (ModelState.IsValid)
             {
                 volunteerService.Edit(volunteer);
@@ -598,7 +712,7 @@ namespace TheGathering.Web.Controllers
                 }
             }
 
-            ViewBag.totalHours = volunteerHours.Hours;
+            ViewBag.totalHours = volunteerHours.Hours + (volunteerHours.Days * 24);
             ViewBag.totalMinutes = volunteerHours.Minutes;
 
             if (months > 0)
@@ -711,6 +825,37 @@ namespace TheGathering.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GroupLeaderEdit(VolunteerGroupLeader volunteergroupleader)
         {
+            DateTime local = volunteergroupleader.LeaderBirthday.ToUniversalTime();
+            DateTime server = DateTime.Now.ToUniversalTime();
+            var age = server.Subtract(local);
+            if (local.Year < 1900)
+            {
+                ModelState.AddModelError("LeaderBirthday", "Birthday date is out of range");
+            }
+            if (local >= server)
+            {
+                ModelState.AddModelError("LeaderBirthday", "Birthday date does not exist");
+            }
+            if (age.TotalDays / 365 < 18)
+            {
+                ModelState.AddModelError("LeaderBirthday", "Volunteer must be older than 18");
+            }
+            if (volunteergroupleader.LeaderFirstName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LeaderFirstName", "First name cannot contain numbers");
+            }
+            if (volunteergroupleader.LeaderLastName.Any(char.IsDigit) == true)
+            {
+                ModelState.AddModelError("LeaderLastName", "Last name cannot contain numbers");
+            }
+            if (volunteergroupleader.LeaderEmail.Contains('.') == false)
+            {
+                ModelState.AddModelError("LeaderEmail", "Email must contain a period");
+            }
+            if (volunteergroupleader.TotalGroupMembers <= 0)
+            {
+                ModelState.AddModelError("TotalGroupMembers", "Total group members must be greater than 0");
+            }
             if (ModelState.IsValid)
             {
                 volunteerGroupService.EditLeader(volunteergroupleader);
