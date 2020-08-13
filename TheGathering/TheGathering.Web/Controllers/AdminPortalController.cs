@@ -184,7 +184,7 @@ namespace TheGathering.Web.Controllers
 
             volunteerGroupService.ChangeGroupLeaderActivation(lead, (bool)active);
 
-            return RedirectToAction("VolunteerDetails", new { id = (int)id });
+            return RedirectToAction("GroupLeaderDetails", new { id = (int)id });
         }
 
 
@@ -242,7 +242,7 @@ namespace TheGathering.Web.Controllers
             string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = userCode }, protocol: Request.Url.Scheme);
 
             //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-            string message = $"A request to reset your account's password has been made Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
+            string message = $"A request to reset your account's password has been made. Please reset your password by clicking <a href=\"{ callbackUrl }\">here.</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
 
             await SendGatheringEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
             return RedirectToAction("ForgotPasswordConfirmation", "Account");
@@ -329,7 +329,7 @@ namespace TheGathering.Web.Controllers
                     string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = userCode }, protocol: Request.Url.Scheme);
 
                     //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    string message = $"A request to reset your account's password has been made. Please reset your password by clicking <a href=\"{ callbackUrl }\">here</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
+                    string message = $"A request to reset your account's password has been made. Please reset your password by clicking <a href=\"{ callbackUrl }\">here.</a>";                                                                                                                                                                                                                                                                                           /* Why do I hear boss music? */
 
                     await SendGatheringEmail(volunteer.FirstName, user.Email, "The Gathering Account Password Reset", message, message);
 
@@ -714,7 +714,7 @@ namespace TheGathering.Web.Controllers
             if (ModelState.IsValid)
             {
                 volunteerGroupService.EditLeader(volunteergroupleader);
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageGroupLeaders");
             }
             return View(volunteergroupleader);
         }
@@ -824,7 +824,7 @@ namespace TheGathering.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GroupLeaderCreate(GroupRegistrationViewModel model)
+        public async Task<ActionResult> GroupLeaderCreate(AdminGroupRegistrationViewModel model)
         {
 
             DateTime local = model.LeaderBirthday.ToUniversalTime();

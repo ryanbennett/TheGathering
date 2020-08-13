@@ -12,153 +12,160 @@
 
 <h2>Volunteer Report</h2>
 
-<div>
+<div class="form-horizontal">
+    <h4>Volunteer</h4>
     <hr />
-    <div class="generalTextBlack">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Volunteer.FirstName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Volunteer.FirstName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Volunteer.LastName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Volunteer.LastName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Volunteer.Birthday)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Volunteer.Birthday)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Volunteer.Email)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Volunteer.Email)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Volunteer.InterestInLeadership)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Volunteer.InterestInLeadership)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Volunteer.IsAccountActive)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Volunteer.IsAccountActive)
-            </dd>
-
-
-            <h3>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h3>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
-                    </th>
-                </tr>
-
-                @foreach (TheGathering.Web.Models.VolunteerEvent item in Model.VolunteerEvents)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartingShiftTime)
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndingShiftTime)
-                        </td>
-
-                        <td>
-                            @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-
-                    </tr>
-                }
-
-            </table>
-
-            <h3>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h3>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CancelledEvents[0].StartingShiftTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CancelledEvents[0].EndingShiftTime)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.CancelledEvents[0].MealSite.AddressLine1)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CancelledEvents[0].Description)
-                    </th>
-                </tr>
-
-                @foreach (var item in Model.CancelledEvents)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartingShiftTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndingShiftTime)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-
-                    </tr>
-                }
-
-            </table>
-
-
-
-            <h5font>
-                Monthly Frequency: @ViewBag.monthlyFrequency events
-            </h5font>
-            <a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with The Gathering for at least a month.">
-                <img height="16" src="~/Content/question-mark-icon-24x24.png" />
-            </a>
-            <h5>
-                Time with The Gathering: @ViewBag.timeWithGathering days
-            </h5>
-            <a></a>
-            <h5>
-                Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
-            </h5>
-        </dl>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.LastName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.Birthday, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.Volunteer.Birthday.ToString("yyyy-MM-dd") } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.Email, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.InterestInLeadership, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.InterestInLeadership, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Volunteer.SignUpForNewsLetter, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 detailsOffset">
+            @Html.DisplayFor(model => model.Volunteer.SignUpForNewsLetter, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <br />
+
+    <h3>Signed Up Events (total: @ViewBag.AmountOfSignedUpEvents)</h3>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VolunteerEvents[0].StartingShiftTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VolunteerEvents[0].EndingShiftTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VolunteerEvents[0].MealSite.AddressLine1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VolunteerEvents[0].Description)
+            </th>
+        </tr>
+
+        @foreach (TheGathering.Web.Models.VolunteerEvent item in Model.VolunteerEvents)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartingShiftTime)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                </td>
+
+                <td>
+                    @(item.MealSite.AddressLine1 + ", " + item.MealSite.City + ", " + item.MealSite.State)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    <h3>Cancelled Events (total: @ViewBag.AmountOfCancelledEvents)</h3>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CancelledEvents[0].StartingShiftTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CancelledEvents[0].EndingShiftTime)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CancelledEvents[0].MealSite.AddressLine1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CancelledEvents[0].Description)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.CancelledEvents)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartingShiftTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndingShiftTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MealSite.AddressLine1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+
+
+    <h5font>
+        Monthly Frequency: @ViewBag.monthlyFrequency events
+    </h5font>
+    <a class="no-print" href="#" data-toggle="tooltip" title="Monthly Frequency of a volunteer shows the amount of times they volunteer per month. In order for the number to be greater than 0, they must have been with The Gathering for at least a month.">
+        <img height="16" src="~/Content/question-mark-icon-24x24.png" />
+    </a>
+    <h5>
+        Time with The Gathering: @ViewBag.timeWithGathering days
+    </h5>
+    <a></a>
+    <h5>
+        Total Volunteer Hours: @ViewBag.totalHours hours and @ViewBag.totalMinutes minutes
+    </h5>
 </div>
 
 <div>
-    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-    @Html.ActionLink("Back to User List", "Users", null, new { @class = "btn btn-default no-print" })
+    <button onclick="window.print()" class="btn btn-primary no-print">Print this page</button>
+    @Html.ActionLink("Back to Details", "VolunteerDetails", new { id = Model.Volunteer.Id }, new { @class = "btn btn-primary no-print" })
 </div>
-
-
-
-

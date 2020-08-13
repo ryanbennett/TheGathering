@@ -222,6 +222,7 @@
     <Compile Include="Sorting\VolunteerEventSorts\Sorts.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\AdminAccountRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\AdminGroupRegistrationViewModel.cs" />
     <Compile Include="ViewModels\MealSite\MealSiteViewModel.cs" />
     <Compile Include="ViewModels\Account\AccountRegistrationViewModel.cs" />
     <Compile Include="ViewModels\Account\GroupRegistrationViewModel.cs" />
@@ -504,6 +505,7 @@
     <Content Include="Views\Volunteer\EventFull.cshtml" />
     <Content Include="Views\Volunteer\LeadershipEmailConfirm.cshtml" />
     <Content Include="Views\Volunteer\SignUpForNewsletterComfirm.cshtml" />
+    <Content Include="Views\AdminPortal\ChangeLeaderActivationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

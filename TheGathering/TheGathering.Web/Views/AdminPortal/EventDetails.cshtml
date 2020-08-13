@@ -81,11 +81,10 @@
 </script>
 
 <div>
-    <button onclick="window.print()" class="btn btn-info no-print">Print this page</button>
-    @Html.ActionLink("Back to Portal Home", "Index", null, new { @class = "btn btn-default no-print" })
-    @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-default no-print" })
-    @Html.ActionLink("Event Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
-    @Html.ActionLink("Email Volunteers", "EmailEventVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-default no-print" })
+    <button onclick="window.print()" class="btn btn-primary no-print">Print this page</button>
+    @Html.ActionLink("Back to Events", "ManageEvents", null, new { @class = "btn btn-primary no-print" })
+    @Html.ActionLink("View Volunteers", "ViewVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary no-print" })
+    @Html.ActionLink("Email Volunteers", "EmailEventVolunteers", new { eventID = Model.VolunteerEvent.Id }, new { @class = "btn btn-primary no-print" })
 
 	@{
 		System.Text.StringBuilder builder = new System.Text.StringBuilder();
@@ -95,5 +94,5 @@
 			builder.Append(",");
 		}
 	}
-	<a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-default no-print">Email Volunteers With Personal Email</a>
+	<a href="mailto:@(builder.ToString())" target="_blank" class="btn btn-primary no-print">Email Volunteers With Personal Email</a>
 </div>
