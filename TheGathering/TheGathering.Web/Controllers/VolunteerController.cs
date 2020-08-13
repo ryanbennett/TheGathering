@@ -14,7 +14,6 @@ using TheGathering.Web.ViewModels.VolunteerModels;
 
 namespace TheGathering.Web.Controllers
 {
-    [Authorize(Roles ="admin,volunteer")]
     public class VolunteerController : BaseController
     {
         // GET: Volunteer
@@ -227,20 +226,32 @@ namespace TheGathering.Web.Controllers
             return View();
         }
 
-        [Authorize(Roles = "volunteer")]
+        [Authorize(Roles = "volunteer,groupleader")]
         public ActionResult LeadershipInfo()
         {
             return View();
         }
 
-        [Authorize(Roles = "volunteer")]
+        [Authorize(Roles = "volunteer,groupleader")]
         public async Task<ActionResult> LeadershipEmail()
         {
-            Volunteer volunteer = GetCurrentVolunteer();
-            String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
-            String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber + "<br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
-            await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
-            return RedirectToAction("LeadershipEmailConfirm", "Volunteer", null);
+            if (User.IsInRole("volunteer"))
+            {
+                Volunteer volunteer = GetCurrentVolunteer();
+                String plainText = "Hello Natalee, \n " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader \n Email: " + volunteer.Email + "\n Phone Number: " + volunteer.PhoneNumber;
+                String htmlText = "Hello Natalee, <br /> " + volunteer.FirstName + " " + volunteer.LastName + " is interested in becoming a leader <br /> Email: " + volunteer.Email + "<br /> Phone Number: " + volunteer.PhoneNumber + "<br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
+                return RedirectToAction("LeadershipEmailConfirm", "Volunteer", null);
+            }
+            else if (User.IsInRole("groupleader"))
+            {
+                VolunteerGroupLeader volunteerGroupLeader = GetCurrentVolunteerGroupLeader();
+                String plainText = "Hello Natalee, \n " + volunteerGroupLeader.LeaderFirstName + " " + volunteerGroupLeader.LeaderLastName + " is interested in becoming a leader \n Email: " + volunteerGroupLeader.LeaderEmail + "\n Phone Number: " + volunteerGroupLeader.LeaderPhoneNumber;
+                String htmlText = "Hello Natalee, <br /> " + volunteerGroupLeader.LeaderFirstName + " " + volunteerGroupLeader.LeaderLastName + " is interested in becoming a leader <br /> Email: " + volunteerGroupLeader.LeaderEmail + "<br /> Phone Number: " + volunteerGroupLeader.LeaderPhoneNumber + "<br/> <img src='https://trello-attachments.s3.amazonaws.com/5ec81f7ae324c641265eab5e/5f046a07b1869070763f0493/3127105983ac3dd06e02da13afa54a02/The_Gathering_F2_Full_Color_Black.png' width='600px' style='pointer-events: none; display: block; margin-left: auto; margin-right: auto; width: 50%;'>";
+                await ConfirmationEmail("Natalee", "21ahmeda@elmbrookstudents.org", "Someone is interested in leadership!", plainText, htmlText);
+                return RedirectToAction("LeadershipEmailConfirm", "Volunteer", null);
+            }
+            return View();
         }
 
         public ActionResult LeadershipEmailConfirm()
