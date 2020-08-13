@@ -94,7 +94,7 @@ namespace TheGathering.Web.Controllers
             {   //TODO Refactor for other users
                 if (User.IsInRole("volunteer"))
                 {
-                ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
+                    ViewBag.UserFriendlyName = GetCurrentVolunteer().FirstName;
                 }
                 else if (User.IsInRole("groupleader"))
                 {

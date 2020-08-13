@@ -415,3 +415,8 @@ td {
 .detailsOffset {
     padding-top:7px;
 }
+
+.btn-success {
+    height: 43px;
+    font-size: medium;
+}
