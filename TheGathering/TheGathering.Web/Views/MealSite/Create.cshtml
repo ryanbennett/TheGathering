@@ -1,7 +1,7 @@
 ﻿@model TheGathering.Web.ViewModels.MealSite.MealSiteViewModel
 
 @{
-    ViewBag.Title = "Create";
+	ViewBag.Title = "Create";
 }
 
 <script type="text/javascript" src="~/Scripts/Bing Maps/BMaps2.js"></script>
@@ -10,440 +10,441 @@
 
 @if (Model != null && !string.IsNullOrEmpty(Model.Error))
 {
-    <div class="alert alert-danger" role="alert">
-        Error: @(Model.Error)
-    </div>
+	<div class="alert alert-danger" role="alert">
+		Error: @(Model.Error)
+	</div>
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "mealSiteForm" }))
 {
-    @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-sm-12">
-            <h2>Create</h2>
-            <h4>Meal Site Location</h4>
-        </div>
-    </div>
-
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Latitude, new { @id = "lat" });
-    @Html.HiddenFor(model => model.Longitude, new { @id = "lon" });
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default container-fluid">
-                <div class="form-group">
-
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <span class="control-label col-md-3"><b>Address Input</b></span>
-                    </div>
-                    <div class="row">
-                        <div id="searchBoxContainer" class="control-label col-md-3">
-                            <input id="searchBox" class="form-control">
-                        </div>
-                    </div>
-                </div>
-               
-
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group" id="addressLineGroup">
-                    @Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", @id = "addressLineTbx", onchange = "updateLonLat()" } })
-                    @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
-                    <p style="color:#a94442" id="addressLineReturn"></p>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "cityTbx" } })
-                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @id = "stateTbx" } })
-                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @id = "postalCodeTbx" } })
-                    @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Part of The Gathering</label>
-                    @Html.CheckBoxFor(model => model.IsTheGatheringSite, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.IsTheGatheringSite, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default container-fluid">
-                <h3>
-                    @Html.CheckBoxFor(model => model.Breakfast_Used, new { onclick = "showHide(1)", id = "check1" })
-                    &nbsp;
-                    Breakfast
-                </h3>
-
-                <div id="text1">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Breakfast_DaysServed, htmlAttributes: new { @class = "control-label" })
-                    </div>
-                    <div class="form-group">
-                        <table class="table" style="max-width: 20%;">
-                            <tr>
-                                <td>
-                                    @Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[0], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[1], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[2], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[3], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[4], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Friday  ", htmlAttributes: new { @class = "control-label" })
-
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[5], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Breakfast_DaysServed[6], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Breakfast_MinimumGuestsServed, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Breakfast_MinimumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Breakfast_MinimumGuestsServed, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Breakfast_MaximumGuestsServed, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Breakfast_MaximumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Breakfast_MaximumGuestsServed, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Breakfast_StartTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Breakfast_StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(0)", id = "startTime0" } })
-                        @Html.ValidationMessageFor(model => model.Breakfast_StartTime, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Breakfast_EndTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Breakfast_EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(0)", id = "endTime0" } })
-                        @Html.ValidationMessageFor(model => model.Breakfast_EndTime, "", new { @class = "text-danger", id = "formReturn0" })
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default container-fluid">
-                <h3>
-                    @Html.CheckBoxFor(model => model.Lunch_Used, new { onclick = "showHide(2)", id = "check2" })
-                    &nbsp;
-                    Lunch
-                </h3>
-                <div id="text2">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
-                    </div>
-
-                    <div class="form-group">
-                        <table class="table" style="max-width: 20%;">
-                            <tr>
-                                <td>
-                                    @Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[0], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[1], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[2], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[3], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[4], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Friday  ", htmlAttributes: new { @class = "control-label" })
-
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[5], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Lunch_DaysServed[6], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Lunch_MinimumGuestsServed, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Lunch_MinimumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Lunch_MinimumGuestsServed, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Lunch_MaximumGuestsServed, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Lunch_MaximumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Lunch_MaximumGuestsServed, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Lunch_StartTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Lunch_StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(1)", id = "startTime1" } })
-                        @Html.ValidationMessageFor(model => model.Lunch_StartTime, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Lunch_EndTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Lunch_EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(1)", id = "endTime1" } })
-                        @Html.ValidationMessageFor(model => model.Lunch_EndTime, "", new { @class = "text-danger", id = "formReturn1" })
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default container-fluid">
-                <h3>
-                    @Html.CheckBoxFor(model => model.Dinner_Used, new { onclick = "showHide(3)", id = "check3" })
-                    &nbsp;
-                    Dinner
-                </h3>
-                <div id="text3">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
-                    </div>
-                    <div class="form-group">
-                        <table class="table" style="max-width: 20%;">
-                            <tr>
-                                <td>
-                                    @Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[0], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[1], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[2], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[3], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[4], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Friday  ", htmlAttributes: new { @class = "control-label" })
-
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[5], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    @Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
-                                </td>
-
-                                <td>
-                                    @Html.CheckBoxFor(model => model.Dinner_DaysServed[6], htmlAttributes: new { @class = "control-label" })
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Dinner_MinimumGuestsServed, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Dinner_MinimumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Dinner_MinimumGuestsServed, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Dinner_MaximumGuestsServed, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Dinner_MaximumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Dinner_MaximumGuestsServed, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Dinner_StartTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Dinner_StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(2)", id = "startTime2" } })
-                        @Html.ValidationMessageFor(model => model.Dinner_StartTime, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Dinner_EndTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Dinner_EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(2)", id = "endTime2" } })
-                        @Html.ValidationMessageFor(model => model.Dinner_EndTime, "", new { @class = "text-danger", id = "formReturn2" })
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input id="submit" type="submit" value="Create" class="btn btn-grey" />
-                <a class="btn btn-grey" href="/AdminPortal/MealSites">Cancel</a>
-            </div>
-        </div>
-    </div>
-    <script>
-        loadAll();
-    </script>
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=initAutosuggest&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
+	@Html.AntiForgeryToken()
+	<div class="row">
+		<div class="col-sm-12">
+			<h2>Create</h2>
+			<h4>Meal Site Location</h4>
+		</div>
+	</div>
+
+	<hr />
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	@Html.HiddenFor(model => model.Latitude, new { @id = "lat" });
+	@Html.HiddenFor(model => model.Longitude, new { @id = "lon" });
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default container-fluid">
+				<div class="form-group">
+
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<span class="control-label col-md-3"><b>Address Input</b></span>
+					</div>
+					<div class="row">
+						<div id="searchBoxContainer" class="control-label col-md-3">
+							<input id="searchBox" class="form-control">
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+					@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+				</div>
+
+				<div class="form-group" id="addressLineGroup">
+					@Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label" })
+					@Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", @id = "addressLineTbx", onchange = "updateLonLat()", required = "required" } })
+					@Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+					<p style="color:#a94442" id="addressLineReturn"></p>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
+					@Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "cityTbx", required = "required" } })
+					@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
+					@Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", @id = "stateTbx", required = "required" } })
+					@Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label" })
+					@Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @id = "postalCodeTbx", required = "required" } })
+					@Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-2">Part of The Gathering</label>
+					@Html.CheckBoxFor(model => model.IsTheGatheringSite, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.IsTheGatheringSite, "", new { @class = "text-danger" })
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default container-fluid">
+				<h3>
+					@Html.CheckBoxFor(model => model.Breakfast_Used, new { onclick = "showHide(1)", id = "check1" })
+					&nbsp;
+					Breakfast
+				</h3>
+
+				<div id="text1">
+					<div class="form-group">
+						@Html.LabelFor(model => model.Breakfast_DaysServed, htmlAttributes: new { @class = "control-label" })
+					</div>
+					<div class="form-group">
+						<table class="table" style="max-width: 20%;">
+							<tr>
+								<td>
+									@Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[0], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[1], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[2], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[3], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[4], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Friday  ", htmlAttributes: new { @class = "control-label" })
+
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[5], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Breakfast_DaysServed[6], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Breakfast_MinimumGuestsServed, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Breakfast_MinimumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Breakfast_MinimumGuestsServed, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Breakfast_MaximumGuestsServed, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Breakfast_MaximumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Breakfast_MaximumGuestsServed, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Breakfast_StartTime, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Breakfast_StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(0)", id = "startTime0" } })
+						@Html.ValidationMessageFor(model => model.Breakfast_StartTime, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Breakfast_EndTime, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Breakfast_EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(0)", id = "endTime0" } })
+						@Html.ValidationMessageFor(model => model.Breakfast_EndTime, "", new { @class = "text-danger", id = "formReturn0" })
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default container-fluid">
+				<h3>
+					@Html.CheckBoxFor(model => model.Lunch_Used, new { onclick = "showHide(2)", id = "check2" })
+					&nbsp;
+					Lunch
+				</h3>
+				<div id="text2">
+					<div class="form-group">
+						@Html.LabelFor(model => model.Lunch_DaysServed, htmlAttributes: new { @class = "control-label" })
+					</div>
+
+					<div class="form-group">
+						<table class="table" style="max-width: 20%;">
+							<tr>
+								<td>
+									@Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[0], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[1], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[2], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[3], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[4], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Friday  ", htmlAttributes: new { @class = "control-label" })
+
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[5], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Lunch_DaysServed[6], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Lunch_MinimumGuestsServed, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Lunch_MinimumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Lunch_MinimumGuestsServed, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Lunch_MaximumGuestsServed, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Lunch_MaximumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Lunch_MaximumGuestsServed, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Lunch_StartTime, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Lunch_StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(1)", id = "startTime1" } })
+						@Html.ValidationMessageFor(model => model.Lunch_StartTime, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Lunch_EndTime, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Lunch_EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(1)", id = "endTime1" } })
+						@Html.ValidationMessageFor(model => model.Lunch_EndTime, "", new { @class = "text-danger", id = "formReturn1" })
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default container-fluid">
+				<h3>
+					@Html.CheckBoxFor(model => model.Dinner_Used, new { onclick = "showHide(3)", id = "check3" })
+					&nbsp;
+					Dinner
+				</h3>
+				<div id="text3">
+					<div class="form-group">
+						@Html.LabelFor(model => model.Dinner_DaysServed, htmlAttributes: new { @class = "control-label" })
+					</div>
+					<div class="form-group">
+						<table class="table" style="max-width: 20%;">
+							<tr>
+								<td>
+									@Html.Label("Sunday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[0], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Monday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[1], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Tuesday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[2], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Wednesday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[3], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Thursday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[4], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Friday  ", htmlAttributes: new { @class = "control-label" })
+
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[5], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									@Html.Label("Saturday", htmlAttributes: new { @class = "control-label" })
+								</td>
+
+								<td>
+									@Html.CheckBoxFor(model => model.Dinner_DaysServed[6], htmlAttributes: new { @class = "control-label" })
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Dinner_MinimumGuestsServed, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Dinner_MinimumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Dinner_MinimumGuestsServed, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Dinner_MaximumGuestsServed, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Dinner_MaximumGuestsServed, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Dinner_MaximumGuestsServed, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Dinner_StartTime, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Dinner_StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(2)", id = "startTime2" } })
+						@Html.ValidationMessageFor(model => model.Dinner_StartTime, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Dinner_EndTime, htmlAttributes: new { @class = "control-label" })
+						@Html.EditorFor(model => model.Dinner_EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", onchange = "checkTime(2)", id = "endTime2" } })
+						@Html.ValidationMessageFor(model => model.Dinner_EndTime, "", new { @class = "text-danger", id = "formReturn2" })
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group">
+			<div class="col-sm-12">
+				<input id="submit" type="submit" value="Create" class="btn btn-primary" onsubmit="return checkLonLat(event)" />
+				<a class="btn btn-primary" href="/AdminPortal/MealSites">Cancel</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		loadAll();
+		checkLonLat();
+	</script>
+	<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=initAutosuggest&key=Au02QBwR7dBBUZiE9NK_er_E7iVbAFbx9EsiHxA3xLOTK6ry7J-Okb9DqZEW98qb' async defer></script>
 }
 

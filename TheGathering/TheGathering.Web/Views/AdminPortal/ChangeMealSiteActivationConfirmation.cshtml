@@ -347,11 +347,11 @@ else
 </script>
 @if (Model.IsMealSiteActive)
 {
-    @Html.ActionLink("Deactivate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-grey" })
+    @Html.ActionLink("Deactivate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-primary" })
 }
 
 else
 {
-    @Html.ActionLink("Activate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-grey" })
+    @Html.ActionLink("Activate", "MealSiteActivationChange", new { id = Model.Id, active = !Model.IsMealSiteActive }, new { @class = "btn btn-primary" })
 }
-@Html.ActionLink("Cancel", "MealSiteDetails", new { id = Model.Id }, new { @class = "btn btn-grey btn-margin" })
+@Html.ActionLink("Cancel", "MealSiteDetails", new { id = Model.Id }, new { @class = "btn btn-primary btn-margin" })
